@@ -59,8 +59,10 @@ more volatile than most stocks. Stablecoins and gold-backed tokens aren't rated.
 ### Explore
 
 The **Explore** page lists the top 20 in each of a few categories: top rated,
-best value, strongest growth, best dividends, lowest risk, strongest momentum,
-top crypto, and the top rated in each sector. Rating thousands of companies
+strong today and ahead (half rating, half analyst outlook), future outlook,
+growth at a fair price (at least 50 on both growth and value), best value,
+strongest growth, best dividends, lowest risk, strongest momentum, top
+crypto, and the top rated in each sector. Rating thousands of companies
 takes too long for a web request, so a GitHub Action
 (`backend/scripts/build_explore.py`) rates every US-listed company worth over
 $1B (including foreign companies' US listings) and every coin worth over $100M
@@ -69,6 +71,16 @@ stores the lists in `backend/app/data/explore.json`. Category lists only
 include stocks rated Hold or better, and every list needs at least 60% of the
 measures to be available. Preferred shares, closed-end funds and wrapped or
 staked copies of other coins are left out. Tapping an entry opens its live rating.
+
+### Future outlook
+
+US-listed stocks also get an **analyst outlook** score from 0 to 100, from
+Wall Street analysts' forecasts: next year's EPS and sales growth, the average
+price target vs today's price, and the buy/sell consensus (at least 3
+analysts; Explore lists need 5). Yahoo serves forecasts only to logged-in
+sessions, which Render can't get, so the daily Explore job collects them into
+`backend/app/data/outlook.json`. The outlook is shown next to the rating but
+kept out of it: analysts' forecasts are often too optimistic.
 
 ### Labels
 
