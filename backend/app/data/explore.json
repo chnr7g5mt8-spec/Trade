@@ -1,8 +1,8 @@
 {
- "generated_at": "2026-10-10T17:54+00:00",
+ "generated_at": "2026-10-10T18:19+00:00",
  "universe": "US-listed companies worth over $1B (including foreign companies' US listings) and coins worth over $100M",
- "stocks_rated": 2529,
- "coins_rated": 214,
+ "stocks_rated": 2476,
+ "coins_rated": 205,
  "lists": [
   {
    "key": "top",
@@ -13,17 +13,6 @@
    "category": null,
    "category_label": null,
    "items": [
-    {
-     "ticker": "BSTZ",
-     "symbol": "BSTZ",
-     "name": "BlackRock Science and Technology Term Trust",
-     "score": 83.0,
-     "label": "Strong Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
-     "exchange": "NYSE"
-    },
     {
      "ticker": "LPG",
      "symbol": "LPG",
@@ -58,17 +47,6 @@
      "exchange": "NasdaqGM"
     },
     {
-     "ticker": "BDJ",
-     "symbol": "BDJ",
-     "name": "BlackRock Enhanced Equity Dividend Trust",
-     "score": 79.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
-     "exchange": "NYSE"
-    },
-    {
      "ticker": "DHT",
      "symbol": "DHT",
      "name": "DHT Holdings, Inc.",
@@ -80,6 +58,17 @@
      "exchange": "NYSE"
     },
     {
+     "ticker": "GSL",
+     "symbol": "GSL",
+     "name": "Global Ship Lease, Inc.",
+     "score": 79.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Marine Shipping",
+     "exchange": "NYSE"
+    },
+    {
      "ticker": "STNG",
      "symbol": "STNG",
      "name": "Scorpio Tankers Inc.",
@@ -88,28 +77,6 @@
      "category_score": null,
      "sector": "Energy",
      "industry": "Oil & Gas Midstream",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "CII",
-     "symbol": "CII",
-     "name": "BlackRock Enhanced Large Cap Core Fund, Inc.",
-     "score": 78.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "ETW",
-     "symbol": "ETW",
-     "name": "Eaton Vance Tax-Managed Global Buy-Write Opportunities Fund",
-     "score": 78.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
      "exchange": "NYSE"
     },
     {
@@ -146,9 +113,9 @@
      "exchange": "NYSE"
     },
     {
-     "ticker": "ECO",
-     "symbol": "ECO",
-     "name": "Okeanis Eco Tankers Corp.",
+     "ticker": "DAC",
+     "symbol": "DAC",
+     "name": "Danaos Corporation",
      "score": 77.0,
      "label": "Buy",
      "category_score": null,
@@ -157,14 +124,14 @@
      "exchange": "NYSE"
     },
     {
-     "ticker": "GAM",
-     "symbol": "GAM",
-     "name": "General American Investors Company, Inc.",
+     "ticker": "ECO",
+     "symbol": "ECO",
+     "name": "Okeanis Eco Tankers Corp.",
      "score": 77.0,
      "label": "Buy",
      "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
+     "sector": "Industrials",
+     "industry": "Marine Shipping",
      "exchange": "NYSE"
     },
     {
@@ -190,28 +157,6 @@
      "exchange": "NasdaqGS"
     },
     {
-     "ticker": "NBXG",
-     "symbol": "NBXG",
-     "name": "Neuberger Berman Income Funds - Neuberger Next Generation Connectivity Fund Inc.",
-     "score": 77.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "AOD",
-     "symbol": "AOD",
-     "name": "Abrdn Total Dynamic Dividend Fund",
-     "score": 76.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
-     "exchange": "NYSE"
-    },
-    {
      "ticker": "HG",
      "symbol": "HG",
      "name": "Hamilton Insurance Group, Ltd.",
@@ -232,6 +177,61 @@
      "sector": "Healthcare",
      "industry": "Biotechnology",
      "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "RELY",
+     "symbol": "RELY",
+     "name": "Remitly Global, Inc.",
+     "score": 76.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Technology",
+     "industry": "Software\u2014Infrastructure",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "SLDE",
+     "symbol": "SLDE",
+     "name": "Slide Insurance Holdings, Inc.",
+     "score": 76.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Insurance\u2014Property & Casualty",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "UTHR",
+     "symbol": "UTHR",
+     "name": "United Therapeutics Corporation",
+     "score": 76.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Healthcare",
+     "industry": "Drug Manufacturers\u2014Specialty & Generic",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "VTMX",
+     "symbol": "VTMX",
+     "name": "Corporaci\u00f3n Inmobiliaria Vesta, S.A.B. de C.V.",
+     "score": 76.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Real Estate",
+     "industry": "Real Estate\u2014Diversified",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "ASA",
+     "symbol": "ASA",
+     "name": "ASA Gold and Precious Metals Limited",
+     "score": 75.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Asset Management",
+     "exchange": "NYSE"
     }
    ]
   },
@@ -303,7 +303,7 @@
      "ticker": "EEFT",
      "symbol": "EEFT",
      "name": "Euronet Worldwide, Inc.",
-     "score": 49.0,
+     "score": 50.0,
      "label": "Hold",
      "category_score": 96.7,
      "sector": "Technology",
@@ -641,6 +641,17 @@
      "exchange": "NasdaqCM"
     },
     {
+     "ticker": "KEN",
+     "symbol": "KEN",
+     "name": "Kenon Holdings Ltd.",
+     "score": 55.0,
+     "label": "Hold",
+     "category_score": 97.0,
+     "sector": "Utilities",
+     "industry": "Utilities\u2014Independent Power Producers",
+     "exchange": "NYSE"
+    },
+    {
      "ticker": "ETON",
      "symbol": "ETON",
      "name": "Eton Pharmaceuticals, Inc.",
@@ -683,17 +694,6 @@
      "sector": "Technology",
      "industry": "Software\u2014Application",
      "exchange": "NasdaqGS"
-    },
-    {
-     "ticker": "ASTH",
-     "symbol": "ASTH",
-     "name": "Astrana Health, Inc.",
-     "score": 55.0,
-     "label": "Hold",
-     "category_score": 96.2,
-     "sector": "Healthcare",
-     "industry": "Medical Care Facilities",
-     "exchange": "NasdaqCM"
     }
    ]
   },
@@ -971,70 +971,15 @@
      "exchange": "NYSE"
     },
     {
-     "ticker": "TRTN-PA",
-     "symbol": "TRTN-PA",
-     "name": "Triton International Limited",
-     "score": 59.0,
-     "label": "Hold",
-     "category_score": 100.0,
-     "sector": "Industrials",
-     "industry": "Rental & Leasing Services",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "BTT",
-     "symbol": "BTT",
-     "name": "Blackrock Municipal 2030 Target Term Trust",
-     "score": 57.0,
-     "label": "Hold",
-     "category_score": 100.0,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "RLJ-PA",
-     "symbol": "RLJ-PA",
-     "name": "RLJ Lodging Trust",
-     "score": 56.0,
-     "label": "Hold",
-     "category_score": 100.0,
-     "sector": "Real Estate",
-     "industry": "REIT\u2014Hotel & Motel",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "AMH-PH",
-     "symbol": "AMH-PH",
-     "name": "American Homes 4 Rent",
-     "score": 55.0,
-     "label": "Hold",
-     "category_score": 100.0,
-     "sector": "Real Estate",
-     "industry": "REIT\u2014Residential",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "GLOP-PB",
-     "symbol": "GLOP-PB",
-     "name": "GasLog Partners LP",
-     "score": 55.0,
+     "ticker": "ET",
+     "symbol": "ET",
+     "name": "Energy Transfer LP",
+     "score": 52.0,
      "label": "Hold",
      "category_score": 100.0,
      "sector": "Energy",
      "industry": "Oil & Gas Midstream",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "FRT-PC",
-     "symbol": "FRT-PC",
-     "name": "Federal Realty Investment Trust",
-     "score": 51.0,
-     "label": "Hold",
-     "category_score": 100.0,
-     "sector": "Real Estate",
-     "industry": "REIT\u2014Retail",
-     "exchange": "NYSE"
+     "exchange": "NYSE American"
     },
     {
      "ticker": "TXNM",
@@ -1056,39 +1001,6 @@
      "category_score": 100.0,
      "sector": "Utilities",
      "industry": "Utilities\u2014Regulated Electric",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "KIM-PM",
-     "symbol": "KIM-PM",
-     "name": "Kimco Realty Corporation",
-     "score": 53.0,
-     "label": "Hold",
-     "category_score": 99.9,
-     "sector": "Real Estate",
-     "industry": "REIT\u2014Retail",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "HYT",
-     "symbol": "HYT",
-     "name": "BlackRock Corporate High Yield Fund, Inc.",
-     "score": 53.0,
-     "label": "Hold",
-     "category_score": 99.4,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "NUV",
-     "symbol": "NUV",
-     "name": "Nuveen Municipal Value Fund, Inc.",
-     "score": 58.0,
-     "label": "Hold",
-     "category_score": 99.1,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
      "exchange": "NYSE"
     },
     {
@@ -1114,28 +1026,6 @@
      "exchange": "NYSE"
     },
     {
-     "ticker": "ET",
-     "symbol": "ET",
-     "name": "Energy Transfer LP",
-     "score": 56.0,
-     "label": "Hold",
-     "category_score": 98.5,
-     "sector": "Energy",
-     "industry": "Oil & Gas Midstream",
-     "exchange": "NYSE American"
-    },
-    {
-     "ticker": "CTA-PA",
-     "symbol": "CTA-PA",
-     "name": "EIDP, Inc.",
-     "score": 57.0,
-     "label": "Hold",
-     "category_score": 98.3,
-     "sector": "Basic Materials",
-     "industry": "Agricultural Inputs",
-     "exchange": "NYSE"
-    },
-    {
      "ticker": "EVRG",
      "symbol": "EVRG",
      "name": "Evergy, Inc.",
@@ -1156,6 +1046,116 @@
      "sector": "Financial Services",
      "industry": "Banks\u2014Regional",
      "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "EPD",
+     "symbol": "EPD",
+     "name": "Enterprise Products Partners L.P.",
+     "score": 52.0,
+     "label": "Hold",
+     "category_score": 97.8,
+     "sector": "Energy",
+     "industry": "Oil & Gas Midstream",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "OGE",
+     "symbol": "OGE",
+     "name": "OGE Energy Corp.",
+     "score": 53.0,
+     "label": "Hold",
+     "category_score": 97.5,
+     "sector": "Utilities",
+     "industry": "Utilities\u2014Regulated Electric",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "PAGP",
+     "symbol": "PAGP",
+     "name": "Plains GP Holdings, L.P.",
+     "score": 56.0,
+     "label": "Hold",
+     "category_score": 97.3,
+     "sector": "Energy",
+     "industry": "Oil & Gas Midstream",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "KO",
+     "symbol": "KO",
+     "name": "The Coca-Cola Company",
+     "score": 64.0,
+     "label": "Hold",
+     "category_score": 97.2,
+     "sector": "Consumer Defensive",
+     "industry": "Beverages\u2014Non-Alcoholic",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "AFG",
+     "symbol": "AFG",
+     "name": "American Financial Group, Inc.",
+     "score": 57.0,
+     "label": "Hold",
+     "category_score": 96.9,
+     "sector": "Financial Services",
+     "industry": "Insurance\u2014Property & Casualty",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "NTB",
+     "symbol": "NTB",
+     "name": "The Bank of N.T. Butterfield & Son Limited",
+     "score": 64.0,
+     "label": "Hold",
+     "category_score": 96.7,
+     "sector": "Financial Services",
+     "industry": "Banks\u2014Diversified",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "CB",
+     "symbol": "CB",
+     "name": "Chubb Limited",
+     "score": 59.0,
+     "label": "Hold",
+     "category_score": 96.3,
+     "sector": "Financial Services",
+     "industry": "Insurance\u2014Property & Casualty",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "DUK",
+     "symbol": "DUK",
+     "name": "Duke Energy Corporation",
+     "score": 56.0,
+     "label": "Hold",
+     "category_score": 96.2,
+     "sector": "Utilities",
+     "industry": "Utilities\u2014Regulated Electric",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "SRCE",
+     "symbol": "SRCE",
+     "name": "1st Source Corporation",
+     "score": 71.0,
+     "label": "Buy",
+     "category_score": 96.1,
+     "sector": "Financial Services",
+     "industry": "Banks\u2014Regional",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "JNJ",
+     "symbol": "JNJ",
+     "name": "Johnson & Johnson",
+     "score": 63.0,
+     "label": "Hold",
+     "category_score": 96.0,
+     "sector": "Healthcare",
+     "industry": "Drug Manufacturers\u2014General",
+     "exchange": "NYSE"
     }
    ]
   },
@@ -1232,6 +1232,17 @@
      "category_score": 100.0,
      "sector": "Energy",
      "industry": "Oil & Gas Midstream",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "DAC",
+     "symbol": "DAC",
+     "name": "Danaos Corporation",
+     "score": 77.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": "Industrials",
+     "industry": "Marine Shipping",
      "exchange": "NYSE"
     },
     {
@@ -1312,6 +1323,17 @@
      "exchange": "NasdaqGS"
     },
     {
+     "ticker": "REPX",
+     "symbol": "REPX",
+     "name": "Riley Exploration Permian, Inc.",
+     "score": 72.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": "Energy",
+     "industry": "Oil & Gas E&P",
+     "exchange": "NYSE American"
+    },
+    {
      "ticker": "APH",
      "symbol": "APH",
      "name": "Amphenol Corporation",
@@ -1365,35 +1387,13 @@
      "sector": "Financial Services",
      "industry": "Banks\u2014Regional",
      "exchange": "NYSE"
-    },
-    {
-     "ticker": "NVGS",
-     "symbol": "NVGS",
-     "name": "Navigator Holdings Ltd.",
-     "score": 70.0,
-     "label": "Buy",
-     "category_score": 100.0,
-     "sector": "Energy",
-     "industry": "Oil & Gas Midstream",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "PBR-A",
-     "symbol": "PBR-A",
-     "name": "Petr\u00f3leo Brasileiro S.A. - Petrobras",
-     "score": 70.0,
-     "label": "Buy",
-     "category_score": 100.0,
-     "sector": "Energy",
-     "industry": "Oil & Gas Integrated",
-     "exchange": "NYSE"
     }
    ]
   },
   {
    "key": "crypto",
    "title": "Top crypto",
-   "description": "Highest-rated coins. Stablecoins aren't rated.",
+   "description": "Highest-rated coins. Stablecoins, gold tokens and wrapped copies of other coins are left out.",
    "group": "featured",
    "asset_type": "crypto",
    "category": null,
@@ -1422,17 +1422,6 @@
      "exchange": null
     },
     {
-     "ticker": "PAXG-USD",
-     "symbol": "PAXG",
-     "name": "PAX Gold",
-     "score": 72.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": null,
-     "industry": null,
-     "exchange": null
-    },
-    {
      "ticker": "TRX-USD",
      "symbol": "TRX",
      "name": "TRON",
@@ -1444,30 +1433,8 @@
      "exchange": null
     },
     {
-     "ticker": "WTRX-USD",
-     "symbol": "WTRX",
-     "name": "Wrapped TRON",
-     "score": 72.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": null,
-     "industry": null,
-     "exchange": null
-    },
-    {
-     "ticker": "EURC-USD",
-     "symbol": "EURC",
-     "name": "EURC",
-     "score": 70.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": null,
-     "industry": null,
-     "exchange": null
-    },
-    {
      "ticker": "HYPE32196-USD",
-     "symbol": "HYPE32196",
+     "symbol": "HYPE",
      "name": "Hyperliquid",
      "score": 69.0,
      "label": "Buy",
@@ -1488,19 +1455,8 @@
      "exchange": null
     },
     {
-     "ticker": "XAUT-USD",
-     "symbol": "XAUT",
-     "name": "Tether Gold",
-     "score": 69.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": null,
-     "industry": null,
-     "exchange": null
-    },
-    {
      "ticker": "DRV35014-USD",
-     "symbol": "DRV35014",
+     "symbol": "DRV",
      "name": "Derive",
      "score": 68.0,
      "label": "Buy",
@@ -1554,28 +1510,6 @@
      "exchange": null
     },
     {
-     "ticker": "EURCV-USD",
-     "symbol": "EURCV",
-     "name": "EUR CoinVertible",
-     "score": 65.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": null,
-     "industry": null,
-     "exchange": null
-    },
-    {
-     "ticker": "WETH-USD",
-     "symbol": "WETH",
-     "name": "WETH",
-     "score": 65.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": null,
-     "industry": null,
-     "exchange": null
-    },
-    {
      "ticker": "BNB-USD",
      "symbol": "BNB",
      "name": "BNB",
@@ -1587,10 +1521,10 @@
      "exchange": null
     },
     {
-     "ticker": "CRVUSD-USD",
-     "symbol": "CRVUSD",
-     "name": "crvUSD",
-     "score": 64.0,
+     "ticker": "BP39686-USD",
+     "symbol": "BP",
+     "name": "Backpack",
+     "score": 63.0,
      "label": "Hold",
      "category_score": null,
      "sector": null,
@@ -1598,10 +1532,10 @@
      "exchange": null
     },
     {
-     "ticker": "WBNB-USD",
-     "symbol": "WBNB",
-     "name": "Wrapped BNB",
-     "score": 64.0,
+     "ticker": "SKY33038-USD",
+     "symbol": "SKY",
+     "name": "Sky",
+     "score": 63.0,
      "label": "Hold",
      "category_score": null,
      "sector": null,
@@ -1609,246 +1543,81 @@
      "exchange": null
     },
     {
-     "ticker": "WBTC-USD",
-     "symbol": "WBTC",
-     "name": "Wrapped Bitcoin",
-     "score": 64.0,
+     "ticker": "AAVE-USD",
+     "symbol": "AAVE",
+     "name": "Aave",
+     "score": 62.0,
      "label": "Hold",
      "category_score": null,
      "sector": null,
      "industry": null,
      "exchange": null
-    }
-   ]
-  },
-  {
-   "key": "sector:financial-services",
-   "title": "Financial Services",
-   "description": "Highest overall score among financial services companies.",
-   "group": "sector",
-   "asset_type": "stock",
-   "category": null,
-   "category_label": null,
-   "items": [
-    {
-     "ticker": "BSTZ",
-     "symbol": "BSTZ",
-     "name": "BlackRock Science and Technology Term Trust",
-     "score": 83.0,
-     "label": "Strong Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
-     "exchange": "NYSE"
     },
     {
-     "ticker": "BDJ",
-     "symbol": "BDJ",
-     "name": "BlackRock Enhanced Equity Dividend Trust",
-     "score": 79.0,
-     "label": "Buy",
+     "ticker": "ETH-USD",
+     "symbol": "ETH",
+     "name": "Ethereum",
+     "score": 62.0,
+     "label": "Hold",
      "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
-     "exchange": "NYSE"
+     "sector": null,
+     "industry": null,
+     "exchange": null
     },
     {
-     "ticker": "CII",
-     "symbol": "CII",
-     "name": "BlackRock Enhanced Large Cap Core Fund, Inc.",
-     "score": 78.0,
-     "label": "Buy",
+     "ticker": "SOL-USD",
+     "symbol": "SOL",
+     "name": "Solana",
+     "score": 62.0,
+     "label": "Hold",
      "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
-     "exchange": "NYSE"
+     "sector": null,
+     "industry": null,
+     "exchange": null
     },
     {
-     "ticker": "ETW",
-     "symbol": "ETW",
-     "name": "Eaton Vance Tax-Managed Global Buy-Write Opportunities Fund",
-     "score": 78.0,
-     "label": "Buy",
+     "ticker": "SUN-USD",
+     "symbol": "SUN",
+     "name": "Sun [New]",
+     "score": 62.0,
+     "label": "Hold",
      "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
-     "exchange": "NYSE"
+     "sector": null,
+     "industry": null,
+     "exchange": null
     },
     {
-     "ticker": "GAM",
-     "symbol": "GAM",
-     "name": "General American Investors Company, Inc.",
-     "score": 77.0,
-     "label": "Buy",
+     "ticker": "ALGO-USD",
+     "symbol": "ALGO",
+     "name": "Algorand",
+     "score": 61.0,
+     "label": "Hold",
      "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
-     "exchange": "NYSE"
+     "sector": null,
+     "industry": null,
+     "exchange": null
     },
     {
-     "ticker": "NBXG",
-     "symbol": "NBXG",
-     "name": "Neuberger Berman Income Funds - Neuberger Next Generation Connectivity Fund Inc.",
-     "score": 77.0,
-     "label": "Buy",
+     "ticker": "BTCB-USD",
+     "symbol": "BTCB",
+     "name": "Bitcoin BEP2",
+     "score": 61.0,
+     "label": "Hold",
      "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
-     "exchange": "NYSE"
+     "sector": null,
+     "industry": null,
+     "exchange": null
     },
     {
-     "ticker": "AOD",
-     "symbol": "AOD",
-     "name": "Abrdn Total Dynamic Dividend Fund",
-     "score": 76.0,
-     "label": "Buy",
+     "ticker": "LEO-USD",
+     "symbol": "LEO",
+     "name": "UNUS SED LEO",
+     "score": 61.0,
+     "label": "Hold",
      "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "HG",
-     "symbol": "HG",
-     "name": "Hamilton Insurance Group, Ltd.",
-     "score": 76.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Insurance\u2014Reinsurance",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "SLDE",
-     "symbol": "SLDE",
-     "name": "Slide Insurance Holdings, Inc.",
-     "score": 76.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Insurance\u2014Property & Casualty",
-     "exchange": "NasdaqGS"
-    },
-    {
-     "ticker": "ASA",
-     "symbol": "ASA",
-     "name": "ASA Gold and Precious Metals Limited",
-     "score": 75.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "ALL",
-     "symbol": "ALL",
-     "name": "The Allstate Corporation",
-     "score": 74.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Insurance\u2014Property & Casualty",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "CSQ",
-     "symbol": "CSQ",
-     "name": "Calamos Strategic Total Return Fund",
-     "score": 74.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
-     "exchange": "NasdaqGM"
-    },
-    {
-     "ticker": "GDV",
-     "symbol": "GDV",
-     "name": "The Gabelli Dividend & Income Trust",
-     "score": 74.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "RGA",
-     "symbol": "RGA",
-     "name": "Reinsurance Group of America, Incorporated",
-     "score": 74.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Insurance\u2014Reinsurance",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "SEIC",
-     "symbol": "SEIC",
-     "name": "SEI Investments Company",
-     "score": 74.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
-     "exchange": "NasdaqGS"
-    },
-    {
-     "ticker": "SPNT",
-     "symbol": "SPNT",
-     "name": "SiriusPoint Ltd.",
-     "score": 74.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Insurance\u2014Reinsurance",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "HRTG",
-     "symbol": "HRTG",
-     "name": "Heritage Insurance Holdings, Inc.",
-     "score": 73.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Insurance\u2014Property & Casualty",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "UVE",
-     "symbol": "UVE",
-     "name": "Universal Insurance Holdings, Inc.",
-     "score": 73.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Insurance\u2014Property & Casualty",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "KYN",
-     "symbol": "KYN",
-     "name": "Kayne Anderson Energy Infrastructure Fund, Inc.",
-     "score": 72.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "QQQX",
-     "symbol": "QQQX",
-     "name": "Nuveen Nasdaq 100 Dynamic Overwrite Fund",
-     "score": 72.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
-     "exchange": "NasdaqGM"
+     "sector": null,
+     "industry": null,
+     "exchange": null
     }
    ]
   },
@@ -2084,6 +1853,468 @@
    ]
   },
   {
+   "key": "sector:financial-services",
+   "title": "Financial Services",
+   "description": "Highest overall score among financial services companies.",
+   "group": "sector",
+   "asset_type": "stock",
+   "category": null,
+   "category_label": null,
+   "items": [
+    {
+     "ticker": "HG",
+     "symbol": "HG",
+     "name": "Hamilton Insurance Group, Ltd.",
+     "score": 76.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Insurance\u2014Reinsurance",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "SLDE",
+     "symbol": "SLDE",
+     "name": "Slide Insurance Holdings, Inc.",
+     "score": 76.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Insurance\u2014Property & Casualty",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "ASA",
+     "symbol": "ASA",
+     "name": "ASA Gold and Precious Metals Limited",
+     "score": 75.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Asset Management",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "ALL",
+     "symbol": "ALL",
+     "name": "The Allstate Corporation",
+     "score": 74.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Insurance\u2014Property & Casualty",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "RGA",
+     "symbol": "RGA",
+     "name": "Reinsurance Group of America, Incorporated",
+     "score": 74.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Insurance\u2014Reinsurance",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "SEIC",
+     "symbol": "SEIC",
+     "name": "SEI Investments Company",
+     "score": 74.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Asset Management",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "SPNT",
+     "symbol": "SPNT",
+     "name": "SiriusPoint Ltd.",
+     "score": 74.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Insurance\u2014Reinsurance",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "HRTG",
+     "symbol": "HRTG",
+     "name": "Heritage Insurance Holdings, Inc.",
+     "score": 73.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Insurance\u2014Property & Casualty",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "UVE",
+     "symbol": "UVE",
+     "name": "Universal Insurance Holdings, Inc.",
+     "score": 73.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Insurance\u2014Property & Casualty",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "MCY",
+     "symbol": "MCY",
+     "name": "Mercury General Corporation",
+     "score": 72.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Insurance\u2014Property & Casualty",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "VCTR",
+     "symbol": "VCTR",
+     "name": "Victory Capital Holdings, Inc.",
+     "score": 72.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Asset Management",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "PLGO",
+     "symbol": "PLGO",
+     "name": "Pelagos Insurance Capital Limit",
+     "score": 71.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Insurance\u2014Diversified",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "SRCE",
+     "symbol": "SRCE",
+     "name": "1st Source Corporation",
+     "score": 71.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Banks\u2014Regional",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "BLX",
+     "symbol": "BLX",
+     "name": "Bladex Inc.",
+     "score": 70.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Banks\u2014Regional",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "CINF",
+     "symbol": "CINF",
+     "name": "Cincinnati Financial Corporation",
+     "score": 70.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Insurance\u2014Property & Casualty",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "HCI",
+     "symbol": "HCI",
+     "name": "HCI Group, Inc.",
+     "score": 70.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Insurance\u2014Property & Casualty",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "ITUB",
+     "symbol": "ITUB",
+     "name": "Ita\u00fa Unibanco Holding S.A.",
+     "score": 70.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Banks\u2014Regional",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "JPM",
+     "symbol": "JPM",
+     "name": "JPMorgan Chase & Co.",
+     "score": 70.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Banks\u2014Diversified",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "NBTB",
+     "symbol": "NBTB",
+     "name": "NBT Bancorp Inc.",
+     "score": 70.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Banks\u2014Regional",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "BBVA",
+     "symbol": "BBVA",
+     "name": "Banco Bilbao Vizcaya Argentaria, S.A.",
+     "score": 69.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Banks\u2014Diversified",
+     "exchange": "NYSE"
+    }
+   ]
+  },
+  {
+   "key": "sector:industrials",
+   "title": "Industrials",
+   "description": "Highest overall score among industrials companies.",
+   "group": "sector",
+   "asset_type": "stock",
+   "category": null,
+   "category_label": null,
+   "items": [
+    {
+     "ticker": "GSL",
+     "symbol": "GSL",
+     "name": "Global Ship Lease, Inc.",
+     "score": 79.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Marine Shipping",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "DAC",
+     "symbol": "DAC",
+     "name": "Danaos Corporation",
+     "score": 77.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Marine Shipping",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "ECO",
+     "symbol": "ECO",
+     "name": "Okeanis Eco Tankers Corp.",
+     "score": 77.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Marine Shipping",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "GHC",
+     "symbol": "GHC",
+     "name": "Graham Holdings Company",
+     "score": 73.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Conglomerates",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "CAAP",
+     "symbol": "CAAP",
+     "name": "Corporaci\u00f3n Am\u00e9rica Airports S.A.",
+     "score": 71.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Airports & Air Services",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "GIC",
+     "symbol": "GIC",
+     "name": "Global Industrial Company",
+     "score": 71.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Industrial Distribution",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "KFY",
+     "symbol": "KFY",
+     "name": "Korn Ferry",
+     "score": 71.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Staffing & Employment Services",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "MLI",
+     "symbol": "MLI",
+     "name": "Mueller Industries, Inc.",
+     "score": 71.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Metal Fabrication",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "WTS",
+     "symbol": "WTS",
+     "name": "Watts Water Technologies, Inc.",
+     "score": 70.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Specialty Industrial Machinery",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "ZTO",
+     "symbol": "ZTO",
+     "name": "ZTO Express (Cayman) Inc.",
+     "score": 70.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Integrated Freight & Logistics",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "GWW",
+     "symbol": "GWW",
+     "name": "W.W. Grainger, Inc.",
+     "score": 69.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Industrial Distribution",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "CPA",
+     "symbol": "CPA",
+     "name": "Copa Holdings, S.A.",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Airlines",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "FIX",
+     "symbol": "FIX",
+     "name": "Comfort Systems USA, Inc.",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Engineering & Construction",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "HAFN",
+     "symbol": "HAFN",
+     "name": "Hafnia Limited",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Marine Shipping",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "KMT",
+     "symbol": "KMT",
+     "name": "Kennametal Inc.",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Tools & Accessories",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "NPK",
+     "symbol": "NPK",
+     "name": "National Presto Industries, Inc.",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Aerospace & Defense",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "SNA",
+     "symbol": "SNA",
+     "name": "Snap-on Incorporated",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Tools & Accessories",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "AIT",
+     "symbol": "AIT",
+     "name": "Applied Industrial Technologies, Inc.",
+     "score": 67.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Industrial Distribution",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "EXPO",
+     "symbol": "EXPO",
+     "name": "Exponent, Inc.",
+     "score": 67.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Engineering & Construction",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "IEX",
+     "symbol": "IEX",
+     "name": "IDEX Corporation",
+     "score": 67.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Specialty Industrial Machinery",
+     "exchange": "NYSE"
+    }
+   ]
+  },
+  {
    "key": "sector:healthcare",
    "title": "Healthcare",
    "description": "Highest overall score among healthcare companies.",
@@ -2310,237 +2541,6 @@
      "category_score": null,
      "sector": "Healthcare",
      "industry": "Medical Devices",
-     "exchange": "NYSE"
-    }
-   ]
-  },
-  {
-   "key": "sector:industrials",
-   "title": "Industrials",
-   "description": "Highest overall score among industrials companies.",
-   "group": "sector",
-   "asset_type": "stock",
-   "category": null,
-   "category_label": null,
-   "items": [
-    {
-     "ticker": "ECO",
-     "symbol": "ECO",
-     "name": "Okeanis Eco Tankers Corp.",
-     "score": 77.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Marine Shipping",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "GHC",
-     "symbol": "GHC",
-     "name": "Graham Holdings Company",
-     "score": 73.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Conglomerates",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "CAAP",
-     "symbol": "CAAP",
-     "name": "Corporaci\u00f3n Am\u00e9rica Airports S.A.",
-     "score": 71.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Airports & Air Services",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "GIC",
-     "symbol": "GIC",
-     "name": "Global Industrial Company",
-     "score": 71.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Industrial Distribution",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "KFY",
-     "symbol": "KFY",
-     "name": "Korn Ferry",
-     "score": 71.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Staffing & Employment Services",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "MLI",
-     "symbol": "MLI",
-     "name": "Mueller Industries, Inc.",
-     "score": 71.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Metal Fabrication",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "WTS",
-     "symbol": "WTS",
-     "name": "Watts Water Technologies, Inc.",
-     "score": 70.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Specialty Industrial Machinery",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "ZTO",
-     "symbol": "ZTO",
-     "name": "ZTO Express (Cayman) Inc.",
-     "score": 70.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Integrated Freight & Logistics",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "GWW",
-     "symbol": "GWW",
-     "name": "W.W. Grainger, Inc.",
-     "score": 69.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Industrial Distribution",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "CPA",
-     "symbol": "CPA",
-     "name": "Copa Holdings, S.A.",
-     "score": 68.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Airlines",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "FIX",
-     "symbol": "FIX",
-     "name": "Comfort Systems USA, Inc.",
-     "score": 68.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Engineering & Construction",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "HAFN",
-     "symbol": "HAFN",
-     "name": "Hafnia Limited",
-     "score": 68.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Marine Shipping",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "KMT",
-     "symbol": "KMT",
-     "name": "Kennametal Inc.",
-     "score": 68.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Tools & Accessories",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "NPK",
-     "symbol": "NPK",
-     "name": "National Presto Industries, Inc.",
-     "score": 68.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Aerospace & Defense",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "SNA",
-     "symbol": "SNA",
-     "name": "Snap-on Incorporated",
-     "score": 68.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Tools & Accessories",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "AIT",
-     "symbol": "AIT",
-     "name": "Applied Industrial Technologies, Inc.",
-     "score": 67.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Industrial Distribution",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "EXPO",
-     "symbol": "EXPO",
-     "name": "Exponent, Inc.",
-     "score": 67.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Engineering & Construction",
-     "exchange": "NasdaqGS"
-    },
-    {
-     "ticker": "IEX",
-     "symbol": "IEX",
-     "name": "IDEX Corporation",
-     "score": 67.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Specialty Industrial Machinery",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "MWA",
-     "symbol": "MWA",
-     "name": "Mueller Water Products, Inc.",
-     "score": 67.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Specialty Industrial Machinery",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "NVT",
-     "symbol": "NVT",
-     "name": "nVent Electric plc",
-     "score": 67.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Electrical Equipment & Parts",
      "exchange": "NYSE"
     }
    ]
@@ -2852,17 +2852,6 @@
      "exchange": "NYSE"
     },
     {
-     "ticker": "EOG",
-     "symbol": "EOG",
-     "name": "EOG Resources, Inc.",
-     "score": 75.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Energy",
-     "industry": "Oil & Gas E&P",
-     "exchange": "NYSE"
-    },
-    {
      "ticker": "FRO",
      "symbol": "FRO",
      "name": "Frontline plc",
@@ -2872,6 +2861,28 @@
      "sector": "Energy",
      "industry": "Oil & Gas Midstream",
      "exchange": "NYSE"
+    },
+    {
+     "ticker": "EOG",
+     "symbol": "EOG",
+     "name": "EOG Resources, Inc.",
+     "score": 72.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Energy",
+     "industry": "Oil & Gas E&P",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "REPX",
+     "symbol": "REPX",
+     "name": "Riley Exploration Permian, Inc.",
+     "score": 72.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Energy",
+     "industry": "Oil & Gas E&P",
+     "exchange": "NYSE American"
     },
     {
      "ticker": "NVGS",
@@ -2993,17 +3004,6 @@
      "sector": "Energy",
      "industry": "Oil & Gas Midstream",
      "exchange": "NYSE"
-    },
-    {
-     "ticker": "INVX",
-     "symbol": "INVX",
-     "name": "Innovex International, Inc.",
-     "score": 68.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Energy",
-     "industry": "Oil & Gas Equipment & Services",
-     "exchange": "NYSE"
     }
    ]
   },
@@ -3080,6 +3080,17 @@
      "category_score": null,
      "sector": "Basic Materials",
      "industry": "Specialty Chemicals",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "UAN",
+     "symbol": "UAN",
+     "name": "CVR Partners, LP",
+     "score": 70.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Basic Materials",
+     "industry": "Agricultural Inputs",
      "exchange": "NYSE"
     },
     {
@@ -3223,17 +3234,6 @@
      "category_score": null,
      "sector": "Basic Materials",
      "industry": "Steel",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "CTVA",
-     "symbol": "CTVA",
-     "name": "Corteva, Inc.",
-     "score": 64.0,
-     "label": "Hold",
-     "category_score": null,
-     "sector": "Basic Materials",
-     "industry": "Agricultural Inputs",
      "exchange": "NYSE"
     }
    ]
@@ -4084,6 +4084,17 @@
      "exchange": "NYSE"
     },
     {
+     "ticker": "DUK",
+     "symbol": "DUK",
+     "name": "Duke Energy Corporation",
+     "score": 56.0,
+     "label": "Hold",
+     "category_score": null,
+     "sector": "Utilities",
+     "industry": "Utilities\u2014Regulated Electric",
+     "exchange": "NYSE"
+    },
+    {
      "ticker": "EVRG",
      "symbol": "EVRG",
      "name": "Evergy, Inc.",
@@ -4139,25 +4150,14 @@
      "exchange": "NYSE"
     },
     {
-     "ticker": "NWE",
-     "symbol": "NWE",
-     "name": "NorthWestern Energy Group, Inc.",
+     "ticker": "KEN",
+     "symbol": "KEN",
+     "name": "Kenon Holdings Ltd.",
      "score": 55.0,
      "label": "Hold",
      "category_score": null,
      "sector": "Utilities",
-     "industry": "Utilities\u2014Regulated Electric",
-     "exchange": "NasdaqGS"
-    },
-    {
-     "ticker": "AEE",
-     "symbol": "AEE",
-     "name": "Ameren Corporation",
-     "score": 54.0,
-     "label": "Hold",
-     "category_score": null,
-     "sector": "Utilities",
-     "industry": "Utilities\u2014Regulated Electric",
+     "industry": "Utilities\u2014Independent Power Producers",
      "exchange": "NYSE"
     }
    ]
