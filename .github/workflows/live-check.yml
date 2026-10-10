@@ -1,0 +1,32 @@
+name: Live check
+
+# Checks the app against real Yahoo Finance data and the deployed site.
+on:
+  schedule:
+    - cron: "23 14 * * 1-5"  # weekdays, during US market hours
+  workflow_dispatch:
+    inputs:
+      site_url:
+        description: Deployed site to check
+        default: https://stock-rater-n7st.onrender.com
+
+permissions:
+  contents: read
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - run: pip install -r requirements-dev.txt
+      - run: python -m pytest tests/live -v -rs
+        env:
+          LIVE: "1"
+          SITE_URL: ${{ inputs.site_url || 'https://stock-rater-n7st.onrender.com' }}
