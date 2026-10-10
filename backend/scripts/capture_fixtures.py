@@ -75,7 +75,7 @@ for sym in STOCKS + FUNDS + INDEXES:
     time.sleep(1)
 
 for sym in CRYPTO:
-    save(f"chart_{sym}.json.gz", chart(sym, "max"))
+    save(f"chart_{sym}.json.gz", chart(sym))
     save(f"search_{sym}.json.gz", search(sym))
 for fx in FX:
     save(f"chart_{fx}.json.gz", chart(fx, "5d"))
