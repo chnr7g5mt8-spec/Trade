@@ -157,6 +157,7 @@ function Categories({ categories }: { categories: MethodologyCategory[] }) {
             <Text style={styles.rowLabel}>{c.label}</Text>
             <Text style={styles.rowValue}>{c.optional ? 'dividend payers only' : `${Math.round(c.weight * 100)}%`}</Text>
           </View>
+          {!!c.description && <Text style={styles.body}>{c.description}</Text>}
           <Text style={styles.muted}>
             {c.metrics.map((m) => (m.relative ? `${m.label} (vs peers)` : m.label)).join(' · ')}
           </Text>

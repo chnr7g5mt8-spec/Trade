@@ -167,7 +167,7 @@ def load_etf(provider: StockProvider, row: dict) -> tuple[StockData, dict] | Non
         profile = {"longname": row.get("longName"), "shortname": row.get("shortName")}
         data = build_stock(symbol, chart, {}, profile=profile,
                            index_chart=provider.index_chart(chart.meta.get("exchangeName")))
-        summary = quote_summary(symbol, "fundProfile,summaryDetail,defaultKeyStatistics")
+        summary = quote_summary(symbol, "fundProfile,summaryDetail,defaultKeyStatistics,assetProfile,topHoldings")
         info = funds.parse(summary) if summary else None
         return (data, info) if data.asset_type == "fund" and info else None
 

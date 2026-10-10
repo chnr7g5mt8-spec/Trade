@@ -125,6 +125,7 @@ class MetricScore(BaseModel):
 class CategoryScore(BaseModel):
     key: str
     label: str
+    description: str = ""  # what the category measures, in plain words
     weight: float
     score: float | None
     metrics: list[MetricScore]
@@ -135,6 +136,27 @@ class PeerInfo(BaseModel):
     name: str
     level: str  # "industry" or "sector"
     companies: int
+
+
+class Holding(BaseModel):
+    symbol: str | None
+    name: str
+    weight: float  # share of the fund, 0..1
+
+
+class Weight(BaseModel):
+    name: str
+    weight: float  # share of the fund, 0..1
+
+
+class FundProfile(BaseModel):
+    """What an ETF invests in."""
+
+    summary: str | None = None
+    holdings: list[Holding] = []  # largest first, up to 10
+    sectors: list[Weight] = []  # stock sectors, largest first
+    asset_mix: list[Weight] = []  # stocks, bonds, cash, ...
+    as_of: str | None = None
 
 
 class Outlook(BaseModel):
@@ -163,6 +185,7 @@ class Rating(Quote):
     notes: list[str] = []
     source: str
     outlook: Outlook | None = None
+    fund_profile: FundProfile | None = None
 
 
 class SearchResult(BaseModel):

@@ -14,7 +14,7 @@ metrics the asset is left unrated rather than labelled on thin evidence.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from typing import Callable
 
 from ..benchmarks import Benchmarks, PeerGroup
@@ -56,6 +56,12 @@ class CategorySpec:
     weight: float
     metrics: tuple[MetricSpec, ...]
     optional: bool = False  # only counted when at least one metric has data
+    description: str = ""  # what the category measures, in plain words
+
+
+def describe(categories: tuple[CategorySpec, ...], descriptions: dict[str, str]) -> tuple[CategorySpec, ...]:
+    """Attach plain-words definitions to category specs."""
+    return tuple(replace(c, description=descriptions[c.key]) for c in categories)
 
 
 @dataclass
@@ -126,7 +132,8 @@ def score_categories(values: dict[str, float | None], categories: tuple[Category
                                        score=score, benchmark=benchmark_text))
         scored = [m.score for m in metrics if m.score is not None]
         cat_score = round(sum(scored) / len(scored), 1) if scored else None
-        out.append(CategoryScore(key=cat.key, label=cat.label, weight=cat.weight, score=cat_score,
+        out.append(CategoryScore(key=cat.key, label=cat.label, description=cat.description, weight=cat.weight,
+                                 score=cat_score,
                                  metrics=metrics, optional=cat.optional))
 
     coverage = round(core_available / core_total, 2) if core_total else 0.0

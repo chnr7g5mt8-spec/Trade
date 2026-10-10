@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Pressable, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { CategoryCard } from '../../components/CategoryCard';
+import { FundHoldings } from '../../components/FundHoldings';
 import { PriceStatus } from '../../components/PriceStatus';
 import { ScoreRing } from '../../components/ScoreRing';
 import { Sparkline } from '../../components/Sparkline';
@@ -158,6 +159,8 @@ export default function StockDetail() {
           ))}
         </View>
       )}
+
+      {!!rating.fund_profile && <FundHoldings profile={rating.fund_profile} />}
 
       <Text style={styles.sectionTitle}>Score breakdown</Text>
       {peer && (

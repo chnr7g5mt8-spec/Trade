@@ -10,7 +10,8 @@ from __future__ import annotations
 
 from ..benchmarks import Benchmarks
 from ..models import StockData
-from .common import (CategorySpec, MetricSpec, Scored, negative_is_zero, pct, ratio, score_categories, times)
+from .common import (CategorySpec, MetricSpec, Scored, describe, negative_is_zero, pct, ratio, score_categories,
+                     times)
 
 
 def _pe_fmt(v: float) -> str:
@@ -94,6 +95,16 @@ CATEGORIES: tuple[CategorySpec, ...] = (
         MetricSpec("dividend_streak", "Years of increases", bad=0, good=8, fmt=_streak_fmt),
     ), optional=True),
 )
+CATEGORIES = describe(CATEGORIES, {
+    "valuation": "How cheap the shares are for the profits, sales and assets behind them.",
+    "profitability": "How much profit the company makes from its sales and from the money invested in it.",
+    "growth": "How fast sales and earnings are growing compared with a year earlier.",
+    "health": "Whether the company can pay its bills and its debts.",
+    "consistency": "How reliably it has made a profit and grown, year after year.",
+    "momentum": "Whether the share price has been rising: its 1-year return and its trend.",
+    "risk": "How much the share price swings and how far it has fallen.",
+    "income": "How much it pays in dividends, and how safe and fast-growing those payments are.",
+})
 
 
 def rate_stock(data: StockData, benchmarks: Benchmarks | None = None) -> Scored:

@@ -11,7 +11,7 @@ from __future__ import annotations
 import math
 
 from ..models import CryptoData
-from .common import CategorySpec, MetricSpec, Scored, money_compact, pct, score_categories
+from .common import CategorySpec, MetricSpec, Scored, describe, money_compact, pct, score_categories
 
 
 def _log_market_cap(v: float) -> float | None:
@@ -46,6 +46,12 @@ CATEGORIES: tuple[CategorySpec, ...] = (
         MetricSpec("supply_ratio", "Supply already issued", bad=0.2, good=1.0, fmt=pct),
     )),
 )
+CATEGORIES = describe(CATEGORIES, {
+    "market": "How big the coin is and how actively it trades.",
+    "momentum": "Whether the price has been rising, over the last month and year.",
+    "risk": "How much the price swings, how far it has fallen, and how far it is below its record high.",
+    "maturity": "How long the coin has traded, and how much of its maximum supply already exists.",
+})
 
 
 COMPARISON_NOTE = ("Crypto scores compare coins with other coins. Even the highest-rated coins are far more "

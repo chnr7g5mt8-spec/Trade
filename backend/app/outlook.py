@@ -42,7 +42,7 @@ SPEC = CategorySpec("outlook", "Analyst outlook", 1.0, (
     MetricSpec("target_upside", "Average price target vs price", bad=-0.05, good=0.30, fmt=pct, relative=True),
     MetricSpec("recommendation", "Analyst consensus (1 = Strong Buy, 5 = Sell)", bad=3.5, good=1.5,
                fmt=_consensus, relative=True),
-))
+), description="What Wall Street analysts expect next year: earnings and sales growth, price targets and buy ratings.")
 
 
 def _raw(v) -> float | None:

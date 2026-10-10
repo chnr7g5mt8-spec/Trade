@@ -14,8 +14,9 @@ Live app: https://stock-rater-n7st.onrender.com
   Tokyo, Frankfurt, Hong Kong, Mumbai, Toronto, Sydney, ...). Search by
   company name or symbol.
 - **Crypto**: the 8,000+ coins Yahoo lists (e.g. `BTC-USD`).
-- **Funds and ETFs** are shown with price trend, risk and dividends, but not
-  rated (a fund holds many companies, so there is no single set of financials).
+- **ETFs**: every US-listed ETF worth over $500M (about 1,400) is rated on
+  what matters for a fund, and its page shows what it holds. Other funds are
+  shown with price trend, risk and dividends but not rated.
 
 ## How the rating works
 
@@ -71,6 +72,23 @@ stores the lists in `backend/app/data/explore.json`. Category lists only
 include stocks rated Hold or better, and every list needs at least 60% of the
 measures to be available. Preferred shares, closed-end funds and wrapped or
 staked copies of other coins are left out. Tapping an entry opens its live rating.
+
+### ETFs
+
+| Category | Weight | Measures |
+| --- | --- | --- |
+| Cost | 25% | Yearly fee (expense ratio) |
+| Performance | 35% | 1-, 3- and 5-year total returns, ranked against ETFs in the same Yahoo category |
+| Risk | 20% | 1-year volatility, largest drop, 5-year beta |
+| Size | 10% | Net assets |
+| Dividends | payers only | Yield |
+
+Leveraged and inverse ETFs aren't rated: they reset daily and are built for
+short-term trading. Each ETF's page also shows **what it holds**: Yahoo's
+description, its mix of stocks, bonds and cash, its sectors and its 10
+largest holdings. Yahoo serves fees, categories and holdings only to
+logged-in sessions, so the daily Explore job collects them into
+`backend/app/data/funds.json`.
 
 ### Future outlook
 

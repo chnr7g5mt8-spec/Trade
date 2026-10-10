@@ -18,6 +18,7 @@ def _categories(specs: tuple[CategorySpec, ...]) -> list[dict]:
     return [{
         "key": c.key,
         "label": c.label,
+        "description": c.description,
         "weight": round(c.weight / total, 3),
         "optional": c.optional,
         "metrics": [{"key": m.key, "label": m.label, "relative": m.relative,

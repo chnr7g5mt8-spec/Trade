@@ -18,6 +18,15 @@ SUMMARY = {
                     "feesExpensesInvestment": {"annualReportExpenseRatio": {"raw": 0.000945}}},
     "summaryDetail": {"totalAssets": {"raw": 6.5e11}},
     "defaultKeyStatistics": {},
+    "assetProfile": {"longBusinessSummary": "  The trust seeks to provide investment results that correspond to the "
+                                            "price and yield of the S&P 500 Index. "},
+    "topHoldings": {
+        "stockPosition": {"raw": 0.9971}, "cashPosition": {"raw": 0.0029}, "bondPosition": {"raw": 0.0},
+        "holdings": [{"symbol": "AAPL", "holdingName": "Apple Inc", "holdingPercent": {"raw": 0.0662}},
+                     {"symbol": "NVDA", "holdingName": "NVIDIA Corp", "holdingPercent": {"raw": 0.0751}}],
+        "sectorWeightings": [{"realestate": {"raw": 0.0201}}, {"technology": {"raw": 0.3402}},
+                             {"utilities": {"raw": 0.0021}}],
+    },
 }
 
 
@@ -35,8 +44,15 @@ def store_with(ticker="SPY", info=None, peers=()):
 
 
 def test_parse():
-    assert funds.parse(SUMMARY) == {"expense_ratio": 0.000945, "net_assets": 6.5e11, "category": "Large Blend",
-                                    "family": "SPDR State Street Global Advisors"}
+    assert funds.parse(SUMMARY) == {
+        "expense_ratio": 0.000945, "net_assets": 6.5e11, "category": "Large Blend",
+        "family": "SPDR State Street Global Advisors",
+        "summary": "The trust seeks to provide investment results that correspond to the price and yield of the "
+                   "S&P 500 Index.",
+        "holdings": [["NVDA", "NVIDIA Corp", 0.0751], ["AAPL", "Apple Inc", 0.0662]],
+        "sectors": [["Technology", 0.3402], ["Real estate", 0.0201]],  # under 0.5% left out
+        "mix": [["Stocks", 0.9971]],
+    }
     assert funds.parse({"defaultKeyStatistics": {"annualReportExpenseRatio": 0.002, "totalAssets": 1e9}}) == {
         "expense_ratio": 0.002, "net_assets": 1e9}
     assert funds.parse({}) is None
@@ -70,6 +86,26 @@ def test_etf_is_rated_on_cost_performance_risk_size_and_dividends():
     assert facts["Yearly fee"] == "0.09% a year" and facts["Fund size"] == "$650.0B"
     assert facts["Category"] == "Large Blend"
     assert not any("isn't" in n for n in r.notes)
+    assert cats["cost"].description.startswith("The yearly fee")
+    p = r.fund_profile
+    assert p.summary.startswith("The trust seeks") and p.as_of == "2026-10-10T22:30+00:00"
+    assert [(h.symbol, h.weight) for h in p.holdings] == [("NVDA", 0.0751), ("AAPL", 0.0662)]
+    assert [w.name for w in p.sectors] == ["Technology", "Real estate"] and p.asset_mix[0].name == "Stocks"
+
+
+def test_long_fund_descriptions_are_cut_at_a_sentence():
+    text = "First sentence of the description goes here. " * 20
+    cut = funds._summary(text)
+    assert len(cut) <= funds.MAX_SUMMARY and cut.endswith("goes here.")
+    assert funds._summary("x" * 700).endswith("…") and funds._summary("  ") is None
+
+
+def test_risk_tells_cash_from_bonds_from_stocks():
+    def risk(vol, drop, beta):
+        d = StockData(ticker="X", asset_type="fund", volatility_1y=vol, max_drawdown_1y=drop, beta=beta)
+        return {c.key: c.score for c in funds.rate_fund(d, store_with("X"))[0].categories}["risk"]
+
+    assert risk(0.003, -0.001, 0.0) > risk(0.06, -0.04, 0.1) > risk(0.15, -0.12, 1.0) > risk(0.35, -0.3, 1.4)
 
 
 def test_fund_without_daily_data_is_shown_but_not_rated():

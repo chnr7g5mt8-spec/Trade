@@ -17,6 +17,8 @@ export type MetricScore = {
 export type CategoryScore = {
   key: string;
   label: string;
+  /** What the category measures, in plain words. */
+  description?: string;
   weight: number;
   score: number | null;
   metrics: MetricScore[];
@@ -59,6 +61,16 @@ export type Rating = {
   source: string;
   /** Analysts' forecasts, scored; not part of the rating. US-listed stocks only. */
   outlook: Outlook | null;
+  /** What an ETF invests in; rated ETFs only. */
+  fund_profile?: FundProfile | null;
+};
+
+export type FundProfile = {
+  summary: string | null;
+  holdings: { symbol: string | null; name: string; weight: number }[];
+  sectors: { name: string; weight: number }[];
+  asset_mix: { name: string; weight: number }[];
+  as_of: string | null;
 };
 
 export type Outlook = {
@@ -80,6 +92,7 @@ export type SearchResult = {
 export type MethodologyCategory = {
   key: string;
   label: string;
+  description?: string;
   weight: number;
   optional: boolean;
   metrics: { key: string; label: string; relative: boolean; higher_is_better: boolean }[];

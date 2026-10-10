@@ -34,6 +34,7 @@ export function CategoryCard({ category, note }: { category: CategoryScore; note
         <Text style={styles.chevron}>{open ? '▾' : '▸'}</Text>
       </View>
       <Bar score={category.score} />
+      {!!category.description && <Text style={styles.description}>{category.description}</Text>}
       {open && (
         <View style={styles.metrics}>
           {category.metrics.map((m) => (
@@ -65,6 +66,7 @@ const styles = StyleSheet.create({
   weight: { flex: 1, fontSize: 12, color: colors.muted },
   score: { fontSize: 18, fontWeight: '700', minWidth: 32, textAlign: 'right' },
   chevron: { color: colors.muted, width: 12 },
+  description: { fontSize: 13, color: colors.muted, lineHeight: 18 },
   track: { height: 8, borderRadius: 4, backgroundColor: colors.track, overflow: 'hidden' },
   fill: { height: 8, borderRadius: 4 },
   metrics: { gap: 8, paddingTop: 4, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.border },

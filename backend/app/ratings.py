@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from .benchmarks import Benchmarks
-from .funds import FundStore, rate_fund
+from .funds import FundStore, profile, rate_fund
 from .models import CryptoData, Rating, StockData
 from .scoring.common import MIN_COVERAGE
 from .scoring.crypto import rate_crypto
@@ -14,6 +14,7 @@ def to_rating(data: StockData | CryptoData, source: str, benchmarks: Benchmarks 
               funds: FundStore | None = None) -> Rating:
     notes = list(data.notes)
     facts = list(data.facts)
+    fund_profile = None
     if isinstance(data, CryptoData):
         scored = rate_crypto(data)
         ident = dict(ticker=data.ticker, symbol=data.symbol, asset_type="crypto", name=data.name)
@@ -26,6 +27,7 @@ def to_rating(data: StockData | CryptoData, source: str, benchmarks: Benchmarks 
                      exchange=data.exchange, industry=category)
         facts = fund_facts + facts
         notes.extend(fund_notes)
+        fund_profile = profile(funds.get(data.ticker), funds.as_of) if funds else None
         rated_kind = False  # a fund's own notes explain when it isn't rated
     else:
         scored = rate_stock(data, benchmarks)
@@ -59,4 +61,5 @@ def to_rating(data: StockData | CryptoData, source: str, benchmarks: Benchmarks 
         facts=facts,
         notes=notes,
         source=source,
+        fund_profile=fund_profile,
     )
