@@ -1,146 +1,137 @@
 # Stock Rater
 
-A mobile app that rates stocks from 0–100 and gives each one a label
-(**Strong Buy / Buy / Hold / Sell / Strong Sell**) based on its fundamentals
-and price momentum.
+Rates any stock, fund or cryptocurrency from 0 to 100 and labels it
+**Strong Buy / Buy / Hold / Sell / Strong Sell**. Stocks are compared with
+companies in the same industry; coins with other coins.
 
-| Watchlist | Rating detail |
-| --- | --- |
-| <img src="docs/screenshots/home.png" width="280"> | <img src="docs/screenshots/detail.png" width="280"> |
+Live app: https://stock-rater-n7st.onrender.com
 
-> Educational project. Scores are a simple rules-based model, not investment advice.
+> Educational project. Scores come from a rules-based model, not investment advice.
 
-## How it's built
+## What it covers
+
+- **Stocks worldwide**: anything Yahoo Finance lists (New York, London,
+  Tokyo, Frankfurt, Hong Kong, Mumbai, Toronto, Sydney, ...). Search by
+  company name or symbol.
+- **Crypto**: the 8,000+ coins Yahoo lists (e.g. `BTC-USD`).
+- **Funds and ETFs** are shown with price trend, risk and dividends, but not
+  rated (a fund holds many companies, so there is no single set of financials).
+
+## How the rating works
+
+### Stocks
+
+| Category | Weight | Measures |
+| --- | --- | --- |
+| Valuation | 20% | P/E (trailing, forward), PEG, price/book, price/sales, EV/EBITDA, free cash flow yield |
+| Profitability | 20% | Return on equity and on assets; gross, operating and net margin |
+| Growth | 15% | Revenue and EPS growth vs a year earlier; 3-year revenue growth |
+| Financial health | 15% | Debt/equity, current and quick ratio, interest coverage |
+| Earnings consistency | 10% | Share of recent years that were profitable, and with rising revenue and EPS |
+| Momentum | 10% | 1-year return; price vs 50- and 200-day averages |
+| Risk | 10% | 1-year volatility, largest drop, 5-year beta vs the home market index |
+| Dividends | dividend payers only | Yield, payout ratio, 5-year dividend growth, years of increases |
+
+**Compared with peers.** Valuation, profitability, growth and leverage norms
+differ a lot by industry (a P/E of 30 is ordinary for software and expensive
+for a bank). Those measures score 70% on where the company ranks among up to
+50 of the largest US-listed companies in its Yahoo industry (or its sector,
+when the industry has fewer than 8 with data) and 30% on a fixed scale, so a
+whole industry that is expensive doesn't look cheap. The peer data
+(`backend/app/data/benchmarks.json`) is rebuilt monthly by a GitHub Action
+from real Yahoo data, using exactly the code that rates individual stocks.
+
+Banks, insurers and lenders skip cash-flow, liquidity and debt measures,
+which don't apply to how they work.
+
+### Crypto
+
+| Category | Weight | Measures |
+| --- | --- | --- |
+| Market strength | 25% | Market cap (log scale), 24h volume relative to market cap |
+| Momentum | 30% | 30-day and 1-year return; price vs 50- and 200-day averages |
+| Risk | 35% | 1-year volatility, largest drop, distance below all-time high |
+| Maturity & supply | 10% | Years of trading; share of maximum supply already issued |
+
+Crypto scores compare coins with each other; even the best-rated coins are far
+more volatile than most stocks. Stablecoins aren't rated.
+
+### Labels
+
+Scores are whole numbers and the label comes from the score: 80+ Strong Buy,
+65+ Buy, 45+ Hold, 30+ Sell, below 30 Strong Sell. Anything with less than 40%
+of the measures available is shown but not rated.
+
+### Track record
+
+`backend/scripts/backtest.py` (run quarterly by a GitHub Action) re-rates the
+~500 largest US companies at past quarter ends using only annual reports that
+had been published by then and prices up to then, and compares the ratings
+with the following 12 months' total returns. The results and their limits are
+shown in the app under **How ratings work**. The main limit: Yahoo's free
+financial history reaches back only 4-5 years, so the test covers about two
+years of start dates.
+
+## Data
+
+Everything comes from Yahoo Finance through endpoints that don't need a login
+"crumb" (Yahoo refuses those to some cloud hosts, including Render's):
+price charts, financial statements and Yahoo's valuation ratios, search, and
+the crypto screener. Prices update every minute while a market is trading
+(including pre-market and after hours; crypto always) and every 15 minutes
+otherwise. `/api/diagnostics` reports which data services work from the
+server.
+
+## Project layout
 
 ```
-mobile/   Expo (React Native + TypeScript) app, using Expo Router
-backend/  Python FastAPI service: fetches data with yfinance and computes the score
+backend/   Python FastAPI API: data, scoring, peer benchmarks, backtest
+mobile/    Expo (React Native + TypeScript) app; its web build is served by the backend
+Dockerfile one container with both, deployed to Render (render.yaml)
+.github/   CI, monthly benchmarks, quarterly backtest, daily live check
 ```
 
-The phone calls the backend. The backend pulls data from Yahoo Finance via
-[yfinance](https://github.com/ranaroussi/yfinance), which needs no API key.
-yfinance is a Python library, so it runs on a server rather than on the phone.
+## Running it locally
 
-## How the score works
-
-Each metric maps linearly from a "bad" value (0 points) to a "good" value
-(100 points), clamped at both ends. A category's score is the average of its
-metrics, and the overall score is the weighted average of the categories.
-
-| Category (weight) | Metrics (bad → good) |
-| --- | --- |
-| Valuation (25%) | P/E trailing 40→10, P/E forward 35→10, PEG 3→1, Price/Book 8→1. A negative P/E (the company is losing money) scores 0. |
-| Profitability (25%) | ROE 0→25%, net margin 0→25%, operating margin 0→30% |
-| Growth (20%) | Revenue growth −5%→20%, earnings growth −10%→25% |
-| Financial health (15%) | Debt/Equity 2.0x→0.3x, current ratio 0.8→2.0, FCF yield 0→6% |
-| Momentum (15%) | 1-year return −20%→30%, price vs 200-day average −10%→+10%, vs 50-day −5%→+5% |
-
-The overall score is a whole number, and the label comes from it: ≥80 Strong
-Buy, ≥65 Buy, ≥45 Hold, ≥30 Sell, below that Strong Sell.
-
-If a metric is missing, the model skips it instead of counting it as 0. The
-API returns a `coverage` value so the app can show how much data a score is
-based on. If fewer than 40% of the metrics are available, the stock is
-**Not rated** instead of getting a label based on a handful of numbers. This
-happens with ETFs and funds, which have price data but no company financials.
-
-Analyst consensus and price targets are shown for comparison but are
-**not** part of the score. All thresholds and weights are in
-[`backend/app/scoring.py`](backend/app/scoring.py).
-
-## Running it
-
-### 1. Backend
+Backend (Python 3.11+):
 
 ```bash
 cd backend
-python3 -m venv .venv && source .venv/bin/activate   # Python 3.11+
+python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements-dev.txt
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-For offline demo data (AAPL, MSFT, KO, F, XYZQ and the fund QQQ), start it
-with `DATA_SOURCE=sample`. The demo numbers are illustrative, not real market data.
+`DATA_SOURCE=sample` replays recorded real Yahoo responses (in
+`backend/app/data/recorded/`) instead of calling Yahoo: AAPL, MSFT, NVDA, TSM,
+JPM, KO, XOM, O, VOD.L, 7203.T, SAP.DE, SPY, BTC, ETH, SOL and USDT.
 
-Run the tests with `pytest`.
+Tests: `pytest` (and `LIVE=1 pytest tests/live` for checks against real Yahoo).
 
-API:
-- `GET /api/rating/{ticker}`: full rating with category and metric breakdown
-- `GET /api/ratings?tickers=AAPL,MSFT`: batch endpoint used by the watchlist
-  (up to 25 tickers, fetched in parallel; unknown or failing tickers are skipped)
-- `GET /health`
-
-Prices come from Yahoo's live quote. While a stock's market is trading
-(including pre-market and after hours) results are cached for 1 minute, and
-the app refreshes open screens every minute; when the market is closed they
-are cached for 15 minutes. The app shows the time of each price, whether the
-market is open, and any pre-market or after-hours price. Yahoo's quotes can
-themselves be delayed for some exchanges.
-
-If Yahoo rate-limits the server, the API returns a 502 error with a message
-saying so, and the app shows it.
-
-### 2. Mobile app
+App:
 
 ```bash
 cd mobile
 npm install
-npx expo start
+npx expo start      # scan the QR code with Expo Go, or press w for the browser
 ```
 
-Open it with Expo Go on your phone, or in an iOS or Android simulator. Press
-`w` to open it in a browser. By default the app looks for the backend on port
-8000 of the computer running Expo, so your phone and computer need to be on
-the same Wi-Fi network. To point the app at a different server:
+The app looks for the backend on port 8000 of the computer running Expo; set
+`EXPO_PUBLIC_API_URL` to use another server, e.g. the deployed one.
+Checks: `npm run typecheck` and `npm run lint`.
 
-```bash
-EXPO_PUBLIC_API_URL=https://your-server.example.com npx expo start
-```
-
-Checks: `npm run typecheck` and `npm run lint`
-
-Before publishing to the app stores, host the backend on HTTPS. iOS and
-Android release builds block plain `http://` requests (Expo Go allows them
-during development).
-
-## Putting it online
-
-The repo includes a `Dockerfile` that builds one container with both the API
-and the web version of the app, so the whole thing is reachable at a single
-link. `render.yaml` deploys that container to [Render](https://render.com)'s
-free tier:
-
-1. Sign in to Render with your GitHub account.
-2. Click **New > Blueprint**, pick this repository, and choose the branch that
-   contains `render.yaml`.
-3. Click **Apply**. The first build takes a few minutes. Your link is shown at
-   the top of the service page, e.g. `https://stock-rater.onrender.com`.
-
-Things to know about the free tier:
-- The service goes to sleep after about 15 minutes without visitors. The next
-  visit wakes it, which takes up to a minute.
-- Yahoo Finance sometimes blocks or rate-limits requests from cloud servers.
-  If live data stops working, the app shows a "Couldn't get data" message. To
-  fall back to demo data, set `DATA_SOURCE` to `sample` under **Environment**
-  in the Render dashboard.
-
-To run the same container yourself:
+Whole app in one container:
 
 ```bash
 docker build -t stock-rater .
 docker run -p 8000:8000 stock-rater                        # live data
-docker run -p 8000:8000 -e DATA_SOURCE=sample stock-rater  # demo data
+docker run -p 8000:8000 -e DATA_SOURCE=sample stock-rater  # recorded data
 ```
 
-Then open http://localhost:8000.
+## Deploying
 
-The phone app (Expo Go) can also use the hosted server:
-`EXPO_PUBLIC_API_URL=https://your-link.onrender.com npx expo start`
-
-## Ideas for next steps
-
-- Sector-relative scoring (a P/E of 30 means different things for software and for utilities)
-- Ticker search and autocomplete
-- Dark mode
-- Score history and price alerts
-- Build installable iOS/Android apps with EAS
+`render.yaml` deploys the container to Render's free tier: in Render, choose
+**New > Blueprint** and pick this repository. The free tier sleeps after about
+15 minutes without visitors, so the first visit after that takes up to a
+minute. Before publishing to app stores, host the backend on HTTPS (release
+builds block plain `http://`).
