@@ -366,7 +366,17 @@ def universe(size: int) -> list[str]:
                             EquityQuery("gt", ["intradaymarketcap", 1_000_000_000])])
     symbols: list[str] = []
     for offset in range(0, size, 250):
-        r = yf.screen(q, offset=offset, size=min(250, size - offset), sortField="intradaymarketcap", sortAsc=False)
+        for attempt in range(5):
+            try:
+                r = yf.screen(q, offset=offset, size=min(250, size - offset), sortField="intradaymarketcap",
+                              sortAsc=False)
+                break
+            except Exception as exc:  # timeouts and throttling: wait and retry
+                if attempt == 4:
+                    raise
+                wait = 20 * 2 ** attempt
+                log.warning("screen at offset %d failed (%s); retrying in %ss", offset, exc, wait)
+                time.sleep(wait)
         symbols.extend(x["symbol"] for x in r.get("quotes", []) if x.get("quoteType") == "EQUITY")
     return list(dict.fromkeys(symbols))
 
