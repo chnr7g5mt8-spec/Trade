@@ -71,7 +71,8 @@ def test_fund_has_no_company_financials():
     assert d.asset_type == "fund"
     assert d.pe_ratio is None and d.return_on_equity is None
     assert d.return_1y is not None and d.volatility_1y is not None
-    assert any("Funds" in n for n in d.notes)
+    # Long-run returns for comparing funds, annualised.
+    assert 0.0 < d.return_5y < d.return_3y < 0.4
 
 
 # --- rules on synthetic data --------------------------------------------------

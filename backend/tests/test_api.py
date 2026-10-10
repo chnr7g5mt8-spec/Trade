@@ -3,6 +3,7 @@ from fastapi.testclient import TestClient
 
 from app import main
 from app.benchmarks import EMPTY
+from app.funds import FundStore
 from app.providers import ProviderError
 from app.providers.market import MarketData
 from app.sources.recorded import RecordedClient
@@ -11,6 +12,7 @@ from app.sources.recorded import RecordedClient
 def recorded_service(**kw):
     market = MarketData(RecordedClient())
     market.name = "sample"
+    kw.setdefault("funds", FundStore())
     return main.RatingService(market, benchmarks=EMPTY, **kw)
 
 

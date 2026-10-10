@@ -64,6 +64,8 @@ class StockData(BaseModel):
     eps_up_years: float | None = None
     # Momentum
     return_1y: float | None = None
+    return_3y: float | None = None  # annualised; funds only
+    return_5y: float | None = None  # annualised; funds only
     price_vs_sma50: float | None = None
     price_vs_sma200: float | None = None
     # Risk

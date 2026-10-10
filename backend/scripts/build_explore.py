@@ -24,8 +24,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from app import benchmarks as benchmarks_module  # noqa: E402
 from app import explore  # noqa: E402
-from app import outlook  # noqa: E402
-from app.models import Rating  # noqa: E402
+from app import funds, outlook  # noqa: E402
+from app.models import Rating, StockData  # noqa: E402
 from app.providers.crypto import CryptoDirectory, build_crypto  # noqa: E402
 from app.providers.stocks import TIMESERIES_TYPES, StockProvider, build_stock  # noqa: E402
 from app.ratings import to_rating  # noqa: E402
@@ -105,27 +105,93 @@ def rate_coin(client: yahoo.Client, listing: dict, rank: int) -> Rating | None:
 
 
 QUOTE_SUMMARY_URL = "https://query2.finance.yahoo.com/v10/finance/quoteSummary/"
+MAX_ETFS = 1500
 
 
-def fetch_outlook(symbol: str) -> dict | None:
-    """Analysts' forecasts for a stock. Yahoo only serves these with a login crumb, which yfinance handles."""
+def quote_summary(symbol: str, modules: str) -> dict | None:
+    """A Yahoo quoteSummary result. Yahoo only serves these with a login crumb, which yfinance handles."""
     from yfinance.data import YfData
 
-    params = {"modules": "financialData,earningsTrend", "formatted": "false", "symbol": symbol,
-              "corsDomain": "finance.yahoo.com"}
+    params = {"modules": modules, "formatted": "false", "symbol": symbol, "corsDomain": "finance.yahoo.com"}
     for attempt in range(4):
         try:
             body = YfData().get_raw_json(QUOTE_SUMMARY_URL + symbol, params=params)
             result = ((body or {}).get("quoteSummary") or {}).get("result") or []
-            return outlook.parse(result[0]) if result else None
-        except Exception as exc:  # yfinance raises several types; 404 = no forecasts for this symbol
+            return result[0] if result else None
+        except Exception as exc:  # yfinance raises several types; 404 = nothing for this symbol
             text = str(exc)
             if "404" in text or "Not Found" in text:
                 return None
             wait = 15 * 2 ** attempt
-            log.warning("forecasts for %s failed (%s); retrying in %ss", symbol, text[:120], wait)
+            log.warning("quoteSummary %s failed (%s); retrying in %ss", symbol, text[:120], wait)
             time.sleep(wait)
     return None
+
+
+def fetch_outlook(symbol: str) -> dict | None:
+    summary = quote_summary(symbol, "financialData,earningsTrend")
+    return outlook.parse(summary) if summary else None
+
+
+def etf_universe(limit: int) -> list[dict]:
+    """Screener rows for US-listed ETFs worth over $500M, largest first."""
+    import yfinance as yf
+    from yfinance import ETFQuery
+
+    query = ETFQuery("and", [ETFQuery("eq", ["region", "us"]),
+                             ETFQuery("gt", ["fundnetassets", funds.MIN_FUND_ASSETS])])
+    rows: list[dict] = []
+    for offset in range(0, limit, 250):
+        for attempt in range(5):
+            try:
+                result = yf.screen(query, offset=offset, size=250, sortField="fundnetassets", sortAsc=False)
+                break
+            except Exception as exc:  # timeouts and throttling: wait and retry
+                if attempt == 4:
+                    raise
+                wait = 20 * 2 ** attempt
+                log.warning("ETF screen at offset %d failed (%s); retrying in %ss", offset, exc, wait)
+                time.sleep(wait)
+        page = [q for q in result.get("quotes", []) if q.get("quoteType") == "ETF" and q.get("symbol")]
+        rows.extend(page)
+        if len(page) < 250:
+            break
+    return list({r["symbol"]: r for r in rows}.values())
+
+
+def load_etf(provider: StockProvider, row: dict) -> tuple[StockData, dict] | None:
+    symbol = row["symbol"]
+
+    def fetch():
+        chart = provider.client.chart(symbol, "10y")
+        profile = {"longname": row.get("longName"), "shortname": row.get("shortName")}
+        data = build_stock(symbol, chart, {}, profile=profile,
+                           index_chart=provider.index_chart(chart.meta.get("exchangeName")))
+        summary = quote_summary(symbol, "fundProfile,summaryDetail,defaultKeyStatistics")
+        info = funds.parse(summary) if summary else None
+        return (data, info) if data.asset_type == "fund" and info else None
+
+    return with_retries(symbol, fetch)
+
+
+def rate_etfs(provider: StockProvider, generated_at: str, workers: int, limit: int) -> list[Rating]:
+    rows = etf_universe(limit)
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        loaded = [x for x in pool.map(lambda row: load_etf(provider, row), rows) if x]
+    stored = {
+        "generated_at": generated_at,
+        "funds": {d.ticker: info for d, info in loaded},
+        "categories": funds.category_stats([(info.get("category"), d) for d, info in loaded]),
+    }
+    store = funds.FundStore(stored)
+    ratings = [to_rating(d, "yahoo", funds=store) for d, _ in loaded]
+    log.info("%d ETFs listed, %d with fund data, %d rated, %d categories", len(rows), len(loaded),
+             sum(r.score is not None for r in ratings), len(stored["categories"]))
+    if len(loaded) >= 200:
+        funds.DEFAULT_PATH.write_text(json.dumps(stored, indent=0, sort_keys=True))
+    else:
+        log.warning("too few ETFs; keeping the previous funds.json")
+    return ratings
 
 
 def main() -> None:
@@ -134,6 +200,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--limit-industries", type=int, default=0, help="for quick test runs")
     parser.add_argument("--coins", type=int, default=250)
+    parser.add_argument("--etfs", type=int, default=MAX_ETFS, help="at most this many ETFs, largest first")
     parser.add_argument("--workers", type=int, default=6)
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
@@ -180,10 +247,14 @@ def main() -> None:
     else:
         log.warning("too few forecasts; keeping the previous outlook.json")
 
+    ratings.extend(rate_etfs(provider, generated_at, args.workers, args.etfs))
+
     stocks_rated = sum(r.asset_type == "stock" and explore.eligible(r) for r in ratings)
+    etfs_rated = sum(r.asset_type == "fund" and explore.eligible(r) for r in ratings)
     coins_rated = sum(r.asset_type == "crypto" and explore.eligible(r) for r in ratings)
-    if not args.limit_industries and (stocks_rated < 1000 or coins_rated < 50):
-        sys.exit(f"only {stocks_rated} stocks and {coins_rated} coins rated; refusing to publish thin rankings")
+    if not args.limit_industries and (stocks_rated < 1000 or coins_rated < 50 or etfs_rated < 200):
+        sys.exit(f"only {stocks_rated} stocks, {etfs_rated} ETFs and {coins_rated} coins rated; "
+                 "refusing to publish thin rankings")
 
     lists = explore.build(ratings)
     for lst in lists:
@@ -192,8 +263,10 @@ def main() -> None:
     OUT.write_text(json.dumps({
         "generated_at": generated_at,
         "universe": f"US-listed companies worth over ${MIN_STOCK_MARKET_CAP // 1_000_000_000}B (including foreign "
-                    f"companies' US listings) and coins worth over ${MIN_COIN_MARKET_CAP // 1_000_000}M",
+                    f"companies' US listings), US-listed ETFs worth over ${funds.MIN_FUND_ASSETS // 1_000_000}M "
+                    f"and coins worth over ${MIN_COIN_MARKET_CAP // 1_000_000}M",
         "stocks_rated": stocks_rated,
+        "etfs_rated": etfs_rated,
         "coins_rated": coins_rated,
         "lists": lists,
     }, indent=1))

@@ -15,6 +15,7 @@ import pytest
 
 from app.benchmarks import load as load_benchmarks
 from app.providers.market import MarketData
+from app.funds import load as load_funds
 from app.ratings import to_rating
 
 pytestmark = pytest.mark.skipif(os.getenv("LIVE") != "1", reason="live network checks; set LIVE=1")
@@ -56,9 +57,15 @@ def test_stablecoin_not_rated(market):
     assert r.score is None and r.label == "Not rated"
 
 
-def test_fund_not_rated(market):
-    r = to_rating(market.fetch("SPY"), "yahoo")
-    assert r.asset_type == "fund" and r.score is None
+def test_etfs_are_rated_from_the_daily_fund_data(market):
+    store = load_funds()
+    r = to_rating(market.fetch("SPY"), "yahoo", funds=store)
+    assert r.asset_type == "fund" and r.score is not None and r.industry == "Large Blend"
+    facts = {f.label: f.value for f in r.facts}
+    assert facts["Yearly fee"].startswith("0.0") and "Fund size" in facts
+    assert r.peer_group and r.peer_group.level == "category"
+    leveraged = to_rating(market.fetch("TQQQ"), "yahoo", funds=store)
+    assert leveraged.score is None and any("Leveraged" in n for n in leveraged.notes)
 
 
 def test_peer_comparison_used_when_benchmarks_exist(market):

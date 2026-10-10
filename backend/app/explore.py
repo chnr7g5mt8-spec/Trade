@@ -96,6 +96,23 @@ FEATURED = [
 ]
 
 
+HOLD_OR_BETTER_ETF = "among ETFs rated Hold or better"
+ETF_LISTS = [
+    ListSpec("etf_top", "Top ETFs", "Highest overall ETF score. Leveraged and inverse ETFs aren't rated.", "fund"),
+    ListSpec("etf_cost", "Lowest cost ETFs",
+             f"Lowest yearly fees, {HOLD_OR_BETTER_ETF}; equal fees go to the higher overall score.",
+             "fund", category("cost"), "Cost score"),
+    ListSpec("etf_performance", "Best performing ETFs",
+             f"Best 1-, 3- and 5-year returns compared with ETFs of the same kind, {HOLD_OR_BETTER_ETF}.",
+             "fund", category("performance"), "Performance score"),
+    ListSpec("etf_dividends", "Best dividend ETFs", f"Highest dividend yields, {HOLD_OR_BETTER_ETF}.",
+             "fund", category("income"), "Dividend score"),
+    ListSpec("etf_low_risk", "Lowest risk ETFs",
+             f"Steadiest prices, {HOLD_OR_BETTER_ETF}. Mostly bond and cash-like funds.",
+             "fund", category("risk"), "Low-risk score"),
+]
+
+
 def _item(r: Rating, value: float | None) -> dict:
     return {
         "ticker": r.ticker,
@@ -160,9 +177,9 @@ def is_fund_like(r: Rating) -> bool:
 
 
 def eligible(r: Rating) -> bool:
-    if r.asset_type not in ("stock", "crypto") or r.score is None or r.coverage < MIN_COVERAGE:
+    if r.score is None or r.coverage < MIN_COVERAGE:
         return False
-    return r.asset_type == "crypto" or not (PREFERRED_RE.search(r.ticker) or is_fund_like(r))
+    return r.asset_type != "stock" or not (PREFERRED_RE.search(r.ticker) or is_fund_like(r))
 
 
 def _rank(r: Rating) -> int:
@@ -195,7 +212,7 @@ def derived_coins(coins: list[Rating]) -> set[str]:
 
 
 def build(ratings: list[Rating]) -> list[dict]:
-    """The Explore lists: featured categories, then one per sector (largest first)."""
+    """The Explore lists: featured categories, one per sector (largest first), then ETF lists."""
     rated = [r for r in ratings if eligible(r)]
     stocks = [r for r in rated if r.asset_type == "stock"]
     coins = [r for r in rated if r.asset_type == "crypto"]
@@ -211,6 +228,8 @@ def build(ratings: list[Rating]) -> list[dict]:
         spec = ListSpec("sector:" + sector.lower().replace(" ", "-"), sector,
                         f"Highest overall score among {sector.lower()} companies.", "stock")
         lists.append(_make_list(spec, by_sector[sector], "sector"))
+    etfs = [r for r in rated if r.asset_type == "fund"]
+    lists.extend(_make_list(spec, etfs, "etf") for spec in ETF_LISTS)
     return [lst for lst in lists if lst["items"]]
 
 

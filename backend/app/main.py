@@ -22,6 +22,7 @@ from fastapi.responses import FileResponse
 
 from . import benchmarks as benchmarks_module
 from . import explore, methodology
+from . import funds as funds_module
 from . import outlook as outlook_module
 from .models import Rating, SearchResult
 from .providers import NotSupported, ProviderError, TickerNotFound
@@ -58,6 +59,14 @@ def _default_outlook(market) -> outlook_module.OutlookStore:
     return outlook_module.load()
 
 
+def _default_funds(market) -> funds_module.FundStore:
+    if getattr(market, "name", None) == "sample":
+        from .sources import recorded
+
+        return funds_module.FundStore(recorded.load("funds"))
+    return funds_module.load()
+
+
 class RatingService:
     """Rates tickers through a market data provider, caching results.
 
@@ -66,13 +75,14 @@ class RatingService:
     """
 
     def __init__(self, market, ttl: float = CACHE_TTL_SECONDS, live_ttl: float = LIVE_CACHE_TTL_SECONDS,
-                 max_entries: int = CACHE_MAX_ENTRIES, benchmarks=None, outlook=None):
+                 max_entries: int = CACHE_MAX_ENTRIES, benchmarks=None, outlook=None, funds=None):
         self.market = market
         self.ttl = ttl
         self.live_ttl = live_ttl
         self.max_entries = max_entries
         self.benchmarks = benchmarks if benchmarks is not None else benchmarks_module.load()
         self.outlook = outlook if outlook is not None else _default_outlook(market)
+        self.funds = funds if funds is not None else _default_funds(market)
         self._cache: OrderedDict[str, tuple[float, Rating]] = OrderedDict()  # ticker -> (expires_at, rating)
         self._lock = threading.Lock()
 
@@ -86,7 +96,7 @@ class RatingService:
             if hit and time.monotonic() < hit[0]:
                 self._cache.move_to_end(ticker)
                 return hit[1]
-        rating = to_rating(self.market.fetch(ticker), self.source, self.benchmarks)
+        rating = to_rating(self.market.fetch(ticker), self.source, self.benchmarks, self.funds)
         if rating.asset_type == "stock":
             rating.outlook = self.outlook.get(rating.ticker, rating.price)
         ttl = self.live_ttl if rating.market_state in LIVE_MARKET_STATES else self.ttl
@@ -206,6 +216,7 @@ def sample_explore() -> dict:
             "universe": "Recorded sample data only",
             "stocks_rated": sum(r.asset_type == "stock" and r.score is not None for r in ratings),
             "coins_rated": sum(r.asset_type == "crypto" and r.score is not None for r in ratings),
+            "etfs_rated": sum(r.asset_type == "fund" and r.score is not None for r in ratings),
             "lists": explore.build(ratings),
         }
     return _sample_explore

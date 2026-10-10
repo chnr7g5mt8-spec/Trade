@@ -149,6 +149,19 @@ def _last_year(chart: Chart) -> tuple[list[int], list[float]]:
     return [t for t, _ in pairs], [c for _, c in pairs]
 
 
+def annualized_return(chart: Chart, years: int) -> float | None:
+    """Total return per year over the last `years`, from dividend-adjusted closes."""
+    if not chart.timestamps or not chart.closes:
+        return None
+    start = chart.timestamps[-1] - years * 365.25 * 86400
+    if chart.timestamps[0] > start + 7 * 86400:
+        return None  # not enough history
+    then = next((c for t, c in zip(chart.timestamps, chart.closes) if t >= start), None)
+    if not then or then <= 0:
+        return None
+    return (chart.closes[-1] / then) ** (1 / years) - 1
+
+
 def _month_end_closes(chart: Chart) -> dict[str, float]:
     out: dict[str, float] = {}
     for t, c in zip(chart.timestamps, chart.closes):
@@ -263,8 +276,8 @@ def build_stock(ticker: str, chart: Chart, ts: dict[str, list[Point]], profile: 
     data.update(_dividend_metrics(chart, price, now))
 
     if asset_type == "fund":
-        notes.append("Funds hold many companies, so there are no single company financials to rate. "
-                     "Price trend, risk and dividends are shown for reference.")
+        data["return_3y"] = annualized_return(chart, 3)
+        data["return_5y"] = annualized_return(chart, 5)
         return StockData(**data, notes=notes, facts=_facts(data, None, None))
 
     # --- valuation: Yahoo's ratios, rolled forward by the price move since they were published

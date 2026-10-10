@@ -138,7 +138,7 @@ def score_categories(values: dict[str, float | None], categories: tuple[Category
         overall = float(round(sum(s * w for s, w in weighted) / weight_sum))
 
     # Report the most specific peer group actually used.
-    group = used_groups.get("industry") or used_groups.get("sector")
+    group = used_groups.get("industry") or used_groups.get("sector") or next(iter(used_groups.values()), None)
     peer = PeerInfo(name=group.name, level=group.level, companies=group.companies) if group else None
     return Scored(score=overall, label=label_for(overall), coverage=coverage, categories=out, peer=peer)
 
