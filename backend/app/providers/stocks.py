@@ -251,10 +251,12 @@ PAYMENTS_PER_YEAR = (1, 2, 4, 12)
 
 def _payments_per_year(times: list[int]) -> int | None:
     """Annual, semi-annual, quarterly or monthly, from the usual gap between recent payments."""
-    gaps = sorted(b - a for a, b in zip(times[-9:], times[-8:]))
+    # Payments on the same day (a regular and a special dividend) count as one date.
+    dates = sorted(set(t // 86400 for t in times))[-9:]
+    gaps = sorted(b - a for a, b in zip(dates, dates[1:]))
     if not gaps:
         return None
-    per_year = 365.25 * 86400 / gaps[len(gaps) // 2]
+    per_year = 365.25 / gaps[len(gaps) // 2]
     best = min(PAYMENTS_PER_YEAR, key=lambda n: abs(math.log(per_year / n)))
     return best if abs(math.log(per_year / best)) < 0.35 else None
 

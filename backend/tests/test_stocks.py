@@ -292,3 +292,13 @@ def test_midstream_payout_uses_operating_cash_flow():
     assert any("operating cash flow" in n for n in pipeline.notes)
     other = build_stock("XOM", c, ts, {"industry": "Oil & Gas Integrated"}, now=now)
     assert other.payout_ratio == pytest.approx(8 / 5.2)
+
+
+def test_special_dividend_on_a_payment_day():
+    c = _quarterly()
+    t, a = c.dividends[-1]
+    c.dividends.append((t, 2.5))  # a special dividend paid the same day as the regular one
+    out = stocks._dividend_metrics(c, 50.0, c.timestamps[-1])
+    assert stocks._payments_per_year([t for t, _ in c.dividends]) == 4
+    assert out["dividend_yield"] == pytest.approx(4 * 0.80 * 1.03 ** 9 / 50, rel=0.01)  # the special isn't annualised
+    assert stocks._payments_per_year([T0, T0]) is None and stocks._payments_per_year([T0]) is None

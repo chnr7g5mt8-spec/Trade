@@ -78,6 +78,9 @@ def with_retries(label: str, fn):
                 log.warning("%s failed: %s", label, exc)
                 return None
             time.sleep(5)
+        except Exception:  # unusual data for one symbol must not stop the whole run
+            log.exception("%s: unexpected error; skipped", label)
+            return None
     return None
 
 

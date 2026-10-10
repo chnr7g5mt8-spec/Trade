@@ -8,6 +8,7 @@ to serve the app itself from the same server, as the Docker image does.
 
 from __future__ import annotations
 
+import logging
 import os
 import re
 import threading
@@ -29,6 +30,7 @@ from .providers import NotSupported, ProviderError, TickerNotFound
 from .providers.market import MarketData
 from .ratings import to_rating
 
+log = logging.getLogger(__name__)
 TICKER_RE = re.compile(r"^[A-Z0-9^][A-Z0-9.\-^=]{0,19}$")
 CACHE_TTL_SECONDS = 15 * 60
 # While a market is trading (incl. pre-market, after hours, and crypto all the
@@ -96,7 +98,13 @@ class RatingService:
             if hit and time.monotonic() < hit[0]:
                 self._cache.move_to_end(ticker)
                 return hit[1]
-        rating = to_rating(self.market.fetch(ticker), self.source, self.benchmarks, self.funds)
+        try:
+            rating = to_rating(self.market.fetch(ticker), self.source, self.benchmarks, self.funds)
+        except (TickerNotFound, NotSupported, ProviderError):
+            raise
+        except Exception as exc:  # unusual data must not break a page or a whole watchlist
+            log.exception("rating %s failed", ticker)
+            raise ProviderError(f"Couldn't rate {ticker}: Yahoo Finance sent data the app doesn't understand.") from exc
         if rating.asset_type == "stock":
             rating.outlook = self.outlook.get(rating.ticker, rating.price)
         ttl = self.live_ttl if rating.market_state in LIVE_MARKET_STATES else self.ttl

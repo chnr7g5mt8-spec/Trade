@@ -163,3 +163,20 @@ def test_errors_are_not_cached():
         with pytest.raises(ProviderError):
             svc.get("KO")
     assert calls == ["KO", "KO"]
+
+
+def test_unexpected_data_error_is_reported_not_crashed(monkeypatch):
+    class Broken(MarketData):
+        def fetch(self, ticker):
+            if ticker == "BAD":
+                raise ZeroDivisionError("odd data")
+            return super().fetch(ticker)
+
+    market = Broken(RecordedClient())
+    market.name = "sample"
+    monkeypatch.setattr(main, "service", main.RatingService(market, benchmarks=EMPTY, funds=FundStore()))
+    client = TestClient(main.app)
+    res = client.get("/api/rating/BAD")
+    assert res.status_code == 502 and "doesn't understand" in res.json()["detail"]
+    # One broken ticker doesn't blank out the watchlist.
+    assert [r["ticker"] for r in client.get("/api/ratings?tickers=BAD,AAPL").json()] == ["AAPL"]
