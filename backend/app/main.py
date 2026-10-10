@@ -1,7 +1,7 @@
 """HTTP API consumed by the mobile app.
 
 Run:  uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-Set DATA_SOURCE=sample to use bundled demo data instead of Yahoo Finance.
+Set DATA_SOURCE=sample to replay recorded market data instead of calling Yahoo.
 Set WEB_DIR to a web export of the mobile app (`npx expo export --platform web`)
 to serve the app itself from the same server, as the Docker image does.
 """
@@ -20,14 +20,17 @@ from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 
-from .models import Rating
-from .providers import Provider, ProviderError, SampleProvider, TickerNotFound, YahooProvider
-from .scoring import rate
+from . import benchmarks as benchmarks_module
+from . import methodology
+from .models import Rating, SearchResult
+from .providers import NotSupported, ProviderError, TickerNotFound
+from .providers.market import MarketData
+from .ratings import to_rating
 
-TICKER_RE = re.compile(r"^[A-Z0-9^][A-Z0-9.\-^=]{0,14}$")
+TICKER_RE = re.compile(r"^[A-Z0-9^][A-Z0-9.\-^=]{0,19}$")
 CACHE_TTL_SECONDS = 15 * 60
-# While a market is trading (incl. pre-market and after hours) prices move,
-# so ratings are refreshed much sooner.
+# While a market is trading (incl. pre-market, after hours, and crypto all the
+# time) prices move, so ratings are refreshed much sooner.
 LIVE_CACHE_TTL_SECONDS = 60
 LIVE_MARKET_STATES = {"open", "pre", "post"}
 CACHE_MAX_ENTRIES = 500
@@ -35,25 +38,36 @@ MAX_BATCH = 25
 BATCH_WORKERS = 6
 
 
-def _make_provider() -> Provider:
-    return SampleProvider() if os.getenv("DATA_SOURCE", "yahoo").lower() == "sample" else YahooProvider()
+def _make_market():
+    if os.getenv("DATA_SOURCE", "yahoo").lower() == "sample":
+        from .sources.recorded import RecordedClient
+
+        market = MarketData(RecordedClient())
+        market.name = "sample"
+        return market
+    return MarketData()
 
 
 class RatingService:
-    """Rates tickers through a provider, caching results.
+    """Rates tickers through a market data provider, caching results.
 
-    Results are kept for `live_ttl` seconds while the stock's market is
+    Results are kept for `live_ttl` seconds while the asset's market is
     trading and for `ttl` seconds otherwise.
     """
 
-    def __init__(self, provider: Provider, ttl: float = CACHE_TTL_SECONDS,
-                 live_ttl: float = LIVE_CACHE_TTL_SECONDS, max_entries: int = CACHE_MAX_ENTRIES):
-        self.provider = provider
+    def __init__(self, market, ttl: float = CACHE_TTL_SECONDS, live_ttl: float = LIVE_CACHE_TTL_SECONDS,
+                 max_entries: int = CACHE_MAX_ENTRIES, benchmarks=None):
+        self.market = market
         self.ttl = ttl
         self.live_ttl = live_ttl
         self.max_entries = max_entries
+        self.benchmarks = benchmarks if benchmarks is not None else benchmarks_module.load()
         self._cache: OrderedDict[str, tuple[float, Rating]] = OrderedDict()  # ticker -> (expires_at, rating)
         self._lock = threading.Lock()
+
+    @property
+    def source(self) -> str:
+        return self.market.name
 
     def get(self, ticker: str) -> Rating:
         with self._lock:
@@ -61,7 +75,7 @@ class RatingService:
             if hit and time.monotonic() < hit[0]:
                 self._cache.move_to_end(ticker)
                 return hit[1]
-        rating = rate(self.provider.fetch(ticker), source=self.provider.name)
+        rating = to_rating(self.market.fetch(ticker), self.source, self.benchmarks)
         ttl = self.live_ttl if rating.market_state in LIVE_MARKET_STATES else self.ttl
         with self._lock:
             self._cache[ticker] = (time.monotonic() + ttl, rating)
@@ -76,9 +90,9 @@ def parse_ticker(raw: str) -> str | None:
     return ticker if TICKER_RE.match(ticker) else None
 
 
-app = FastAPI(title="Stock Rating API", version="0.1.0")
+app = FastAPI(title="Stock Rating API", version="2.0.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET"], allow_headers=["*"])
-service = RatingService(_make_provider())
+service = RatingService(_make_market())
 
 
 @app.middleware("http")
@@ -92,7 +106,7 @@ async def no_store_api_responses(request: Request, call_next):
 
 @app.get("/health")
 def health() -> dict:
-    return {"status": "ok", "source": service.provider.name}
+    return {"status": "ok", "source": service.source}
 
 
 @app.get("/api/diagnostics")
@@ -101,6 +115,15 @@ def diagnostics() -> dict:
     from . import diagnostics as diag
 
     return diag.run()
+
+
+@app.get("/api/search", response_model=list[SearchResult])
+def search(q: str = Query(..., min_length=1, max_length=60)) -> list[SearchResult]:
+    """Stocks, funds and cryptocurrencies matching a name or symbol, worldwide."""
+    try:
+        return service.market.search(q)
+    except ProviderError as exc:
+        raise HTTPException(status_code=502, detail=str(exc))
 
 
 @app.get("/api/rating/{ticker}", response_model=Rating)
@@ -112,12 +135,14 @@ def get_rating(ticker: str) -> Rating:
         return service.get(symbol)
     except TickerNotFound:
         raise HTTPException(status_code=404, detail=f"No data found for {symbol}")
+    except NotSupported as exc:
+        raise HTTPException(status_code=422, detail=str(exc))
     except ProviderError as exc:
         raise HTTPException(status_code=502, detail=str(exc))
 
 
 @app.get("/api/ratings", response_model=list[Rating])
-def get_ratings(tickers: str = Query(..., description="Comma-separated tickers, e.g. AAPL,MSFT")) -> list[Rating]:
+def get_ratings(tickers: str = Query(..., description="Comma-separated tickers, e.g. AAPL,BTC-USD")) -> list[Rating]:
     """Batch endpoint for the watchlist, in request order.
 
     Invalid, unknown and failing tickers are skipped so one bad entry
@@ -132,7 +157,7 @@ def get_ratings(tickers: str = Query(..., description="Comma-separated tickers, 
     def fetch(symbol: str) -> Rating | ProviderError | None:
         try:
             return service.get(symbol)
-        except TickerNotFound:
+        except (TickerNotFound, NotSupported):
             return None
         except ProviderError as exc:
             return exc
@@ -144,6 +169,12 @@ def get_ratings(tickers: str = Query(..., description="Comma-separated tickers, 
     if failures and not ratings:
         raise HTTPException(status_code=502, detail=str(failures[0]))
     return ratings
+
+
+@app.get("/api/methodology")
+def get_methodology() -> dict:
+    """How ratings are computed, and how well they have done historically."""
+    return methodology.describe(service.benchmarks)
 
 
 def mount_web_app(web_dir: str) -> None:

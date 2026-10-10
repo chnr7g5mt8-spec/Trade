@@ -2,7 +2,9 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app import main
-from app.providers import SampleProvider
+from app.benchmarks import EMPTY
+from app.providers.market import MarketData
+from app.sources.recorded import RecordedClient
 
 
 @pytest.fixture
@@ -13,7 +15,7 @@ def client(tmp_path, monkeypatch):
     (web / "_expo" / "static" / "js" / "entry.js").write_text("console.log('bundle')")
     (tmp_path / "secret.txt").write_text("outside web dir")
 
-    monkeypatch.setattr(main, "service", main.RatingService(SampleProvider()))
+    monkeypatch.setattr(main, "service", main.RatingService(MarketData(RecordedClient()), benchmarks=EMPTY))
     routes = list(main.app.router.routes)
     main.mount_web_app(str(web))
     yield TestClient(main.app)

@@ -22,6 +22,7 @@ jobs:
           cache: pip
           cache-dependency-path: backend/requirements*.txt
       - run: pip install -r requirements-dev.txt
+      - run: python -m pyflakes app scripts tests
       - run: python -m pytest -q
 
   mobile:
@@ -50,4 +51,6 @@ jobs:
           docker run -d --name app -p 8000:8000 -e DATA_SOURCE=sample stock-rater
           for i in $(seq 1 30); do curl -sf localhost:8000/health && break; sleep 1; done
           curl -sf localhost:8000/api/rating/AAPL | python3 -c "import sys,json; d=json.load(sys.stdin); assert d['ticker']=='AAPL' and d['score'] is not None, d"
+          curl -sf localhost:8000/api/rating/BTC-USD | python3 -c "import sys,json; d=json.load(sys.stdin); assert d['asset_type']=='crypto', d"
+          curl -sf "localhost:8000/api/search?q=apple" | python3 -c "import sys,json; d=json.load(sys.stdin); assert d[0]['ticker']=='AAPL', d"
           curl -sf localhost:8000/ | grep -q '<div id="root">'

@@ -1,107 +1,131 @@
-from app.models import StockData
-from app.providers import SampleProvider, momentum_from_closes
-from app.scoring import CATEGORIES, label_for, rate, score_metric
+import pytest
+
+from app.benchmarks import Distribution, PeerGroup, Benchmarks, norm
+from app.models import CryptoData, StockData
+from app.scoring import common, crypto, stock
+from app.scoring.common import CategorySpec, MetricSpec, label_for, score_categories, score_metric
 
 
-def _spec(key):
-    return next(m for c in CATEGORIES for m in c.metrics if m.key == key)
+def spec(key, cats=stock.CATEGORIES):
+    return next(m for c in cats for m in c.metrics if m.key == key)
 
 
-def test_score_metric_interpolates_and_clamps():
-    roe = _spec("return_on_equity")  # bad 0, good 0.25
+DIST = Distribution(count=40, points=((0.05, 10.0), (0.1, 12.0), (0.25, 15.0), (0.5, 20.0), (0.75, 26.0),
+                                      (0.9, 35.0), (0.95, 45.0)))
+
+
+def test_absolute_scale_interpolates_and_clamps():
+    roe = spec("return_on_equity")  # 0 -> 0 points, 25% -> 100
     assert score_metric(0.125, roe) == 50.0
     assert score_metric(-1.0, roe) == 0.0
     assert score_metric(2.0, roe) == 100.0
     assert score_metric(None, roe) is None
 
 
-def test_lower_is_better_metrics():
-    pe = _spec("trailing_pe")  # bad 40, good 10
-    assert score_metric(10, pe) == 100.0
+def test_lower_is_better():
+    pe = spec("pe_ratio")  # 40 -> 0, 10 -> 100
     assert score_metric(25, pe) == 50.0
-    assert score_metric(60, pe) == 0.0
+    assert score_metric(-1.0, pe) == 0.0  # loss-making
 
 
-def test_negative_pe_means_losses_and_scores_zero():
-    assert score_metric(-15, _spec("trailing_pe")) == 0.0
+def test_relative_blend_is_70_percent_peer_rank():
+    pe = spec("pe_ratio")
+    # At the industry median (20x): peer rank 50 -> 0.7*50 + 0.3*absolute(20x = 66.7)
+    assert score_metric(20.0, pe, DIST) == pytest.approx(0.7 * 50 + 0.3 * (40 - 20) / 30 * 100, abs=0.1)
+    # Cheaper than 95% of peers
+    assert score_metric(9.0, pe, DIST) > 95
+    # Loss-making still scores 0 whatever the peers look like
+    assert score_metric(-1.0, pe, DIST) == 0.0
+
+
+def test_relative_flag_is_ignored_without_peers():
+    pe = spec("pe_ratio")
+    assert score_metric(20.0, pe) == pytest.approx((40 - 20) / 30 * 100, abs=0.1)
 
 
 def test_labels():
-    assert label_for(85) == "Strong Buy"
-    assert label_for(65) == "Buy"
-    assert label_for(50) == "Hold"
-    assert label_for(30) == "Sell"
-    assert label_for(5) == "Strong Sell"
-    assert label_for(None) == "Not rated"
+    assert [label_for(s) for s in (85, 80, 65, 64, 45, 30, 29, 0, None)] == [
+        "Strong Buy", "Strong Buy", "Buy", "Hold", "Hold", "Sell", "Strong Sell", "Strong Sell", "Not rated"]
 
 
-def test_weights_sum_to_one():
-    assert abs(sum(c.weight for c in CATEGORIES) - 1.0) < 1e-9
+CATS = (
+    CategorySpec("a", "A", 0.5, (MetricSpec("x", "X", bad=0, good=1, fmt=common.ratio),
+                                 MetricSpec("y", "Y", bad=0, good=1, fmt=common.ratio))),
+    CategorySpec("b", "B", 0.5, (MetricSpec("z", "Z", bad=0, good=1, fmt=common.ratio),)),
+    CategorySpec("o", "Optional", 0.5, (MetricSpec("w", "W", bad=0, good=1, fmt=common.ratio),), optional=True),
+)
 
 
-def test_missing_data_is_ignored_not_penalised():
-    data = StockData(ticker="X", return_on_equity=0.25, profit_margin=0.25, operating_margin=0.30,
-                     revenue_growth=0.20, earnings_growth=0.25, current_ratio=2.0)
-    r = rate(data, source="test")
-    assert r.coverage == 0.4
-    assert r.score == 100.0
-    assert r.label == "Strong Buy"
+def test_weighted_score_and_whole_number():
+    s = score_categories({"x": 1.0, "y": 0.0, "z": 0.333}, CATS)
+    assert s.categories[0].score == 50.0
+    assert s.score == round(0.5 * 50 + 0.5 * 33.3)
+    assert s.coverage == 1.0  # optional metrics don't count towards coverage
+
+
+def test_optional_category_counts_only_when_present():
+    without = score_categories({"x": 1.0, "y": 1.0, "z": 1.0}, CATS)
+    with_low = score_categories({"x": 1.0, "y": 1.0, "z": 1.0, "w": 0.0}, CATS)
+    assert without.score == 100.0
+    assert with_low.score == round((100 * 0.5 + 100 * 0.5 + 0 * 0.5) / 1.5)
 
 
 def test_too_little_data_is_not_rated():
-    # e.g. an ETF: price momentum only, no fundamentals.
-    etf = StockData(ticker="SPY", return_1y=0.5, price_vs_sma50=0.1, price_vs_sma200=0.2)
-    r = rate(etf, source="test")
-    assert r.coverage == 0.2
-    assert r.score is None
-    assert r.label == "Not rated"
-    momentum = next(c for c in r.categories if c.key == "momentum")
-    assert momentum.score == 100.0  # breakdown is still shown
+    s = score_categories({"z": 1.0}, CATS)  # 1 of 3 core metrics
+    assert s.coverage == pytest.approx(0.33)
+    assert s.score is None and s.label == "Not rated"
 
 
-def test_negative_debt_to_equity_scores_zero():
-    # Negative D/E means negative shareholder equity.
-    assert score_metric(-120, _spec("debt_to_equity")) == 0.0
-    assert score_metric(0, _spec("debt_to_equity")) == 100.0
+def test_peer_group_reported_and_benchmark_text():
+    b = Benchmarks(groups={
+        "industry:" + norm("Semiconductors"): PeerGroup("Semiconductors", "industry", 45, {"pe_ratio": DIST}),
+    })
+    s = score_categories({"pe_ratio": 20.0}, stock.CATEGORIES, b, "Semiconductors", "Technology")
+    assert s.peer.name == "Semiconductors" and s.peer.level == "industry" and s.peer.companies == 45
+    pe = next(m for c in s.categories for m in c.metrics if m.key == "pe_ratio")
+    assert pe.benchmark == "Industry median 20.0x"
+    roe = next(m for c in s.categories for m in c.metrics if m.key == "return_on_equity")
+    assert roe.benchmark is None
 
 
-def test_score_is_whole_number_and_matches_label():
-    # Category scores here average to 64.9: shown as 65, so it must be labelled Buy.
-    data = StockData(ticker="X", return_on_equity=0.25 * 0.649, profit_margin=0.25 * 0.649,
-                     operating_margin=0.30 * 0.649, revenue_growth=-0.05 + 0.25 * 0.649,
-                     earnings_growth=-0.10 + 0.35 * 0.649, current_ratio=0.8 + 1.2 * 0.649)
-    r = rate(data, source="test")
-    assert r.score == 65.0
-    assert r.label == "Buy"
+def test_stock_weights_and_relative_choices():
+    core = [c for c in stock.CATEGORIES if not c.optional]
+    assert sum(c.weight for c in core) == pytest.approx(1.0)
+    assert spec("pe_ratio").relative and not spec("return_1y").relative and not spec("beta").relative
 
 
-def test_no_data_is_not_rated():
-    r = rate(StockData(ticker="X"), source="test")
-    assert r.score is None
-    assert r.label == "Not rated"
-    assert r.coverage == 0.0
+def test_fund_is_not_rated_but_shows_price_categories():
+    s = stock.rate_stock(StockData(ticker="SPY", asset_type="fund", return_1y=0.2, volatility_1y=0.15))
+    assert s.score is None and s.label == "Not rated"
+    assert [c.key for c in s.categories] == ["momentum", "risk", "income"]
 
 
-def test_fcf_yield_derived_from_market_cap():
-    r = rate(StockData(ticker="X", free_cash_flow=3e9, market_cap=1e11), source="test")
-    health = next(c for c in r.categories if c.key == "health")
-    fcf = next(m for m in health.metrics if m.key == "fcf_yield")
-    assert fcf.value == 0.03
-    assert fcf.score == 50.0
+def test_dividend_yield_trap():
+    y = spec("dividend_yield")
+    assert score_metric(0.15, y) == 30.0
+    assert score_metric(0.05, y) == 100.0
 
 
-def test_momentum_from_closes():
-    closes = [100.0] * 199 + [110.0]
-    m = momentum_from_closes(closes)
-    assert abs(m["return_1y"] - 0.10) < 1e-9
-    assert m["price_vs_sma200"] > 0
-    assert momentum_from_closes([5.0]) == {"return_1y": None, "price_vs_sma50": None, "price_vs_sma200": None}
+def test_crypto_weights_and_stablecoin():
+    assert sum(c.weight for c in crypto.CATEGORIES) == pytest.approx(1.0)
+    data = CryptoData(ticker="USDT-USD", symbol="USDT", market_cap=1e11, turnover=0.2, return_30d=0.0,
+                      return_1y=0.0, volatility_1y=0.01, max_drawdown_1y=-0.01, age_years=10, is_stablecoin=True)
+    s = crypto.rate_crypto(data)
+    assert s.score is None and s.label == "Not rated"
+    assert crypto.COMPARISON_NOTE not in s.notes
 
 
-def test_sample_data_ranks_sensibly():
-    p = SampleProvider()
-    scores = {t: rate(p.fetch(t), "sample").score for t in p.tickers()}
-    assert scores.pop("QQQ") is None  # fund: momentum only, not enough data
-    assert scores["MSFT"] > scores["F"]
-    assert scores["MSFT"] > scores["XYZQ"]
-    assert all(0 <= s <= 100 for s in scores.values())
+def test_crypto_market_cap_log_scale():
+    mc = spec("market_cap", crypto.CATEGORIES)
+    assert score_metric(1e7, mc) == 0.0
+    assert score_metric(1e9, mc) == 50.0
+    assert score_metric(1e11, mc) == 100.0
+    assert score_metric(1e13, mc) == 100.0
+
+
+def test_crypto_rating_carries_comparison_note():
+    s = crypto.rate_crypto(CryptoData(ticker="X-USD", symbol="X", market_cap=1e9, turnover=0.01, return_30d=0.1,
+                                      return_1y=0.2, price_vs_sma50=0.0, price_vs_sma200=0.0, volatility_1y=0.8,
+                                      max_drawdown_1y=-0.5, from_all_time_high=-0.5, age_years=4))
+    assert s.score is not None
+    assert crypto.COMPARISON_NOTE in s.notes
