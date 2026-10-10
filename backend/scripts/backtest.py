@@ -1,17 +1,22 @@
 """Track-record check: did higher-rated stocks go on to do better?
 
-For each test date T (quarter ends), every company in the universe is rated
-using only information available at T:
+For each test date T (quarter ends), the largest companies *at T* (by market
+cap then, from a broad pool of today's US-listed companies) are rated using
+only information available at T:
   - annual statements published by then (fiscal year end + 75 days),
   - prices and dividends up to T,
   - peer norms computed from the universe at T, by sector.
 The rating is then compared with the stock's total return over the next 12
 months. Results go to app/data/backtest.json and are shown in the app.
 
+Choosing companies by their size at T matters: picking today's largest
+companies would load the test with stocks already known to have soared since
+T (look-ahead bias), which were often small, unprofitable and volatile at T.
+
 Limits (also written into the report): Yahoo's free statements reach back
-only 4-5 years, so the test window is about two years; the universe is
-today's large companies (survivorship bias); estimates-based measures
-(forward P/E, PEG) can't be recreated historically and are left out.
+only 4-5 years, so the test window is about two years; companies that have
+since been delisted aren't in the pool (survivorship bias); estimates-based
+measures (forward P/E, PEG) can't be recreated historically and are left out.
 
 Runs on GitHub Actions (see .github/workflows/backtest.yml).
 """
@@ -157,6 +162,21 @@ def stock_at(c: Company, as_of: date, index: Chart | None) -> StockData | None:
     return StockData(**d)
 
 
+def market_cap_at(c: Company, as_of: date) -> float | None:
+    """Price at as_of times the shares in the latest published annual report."""
+    ch = truncate(c.chart, _ts(as_of))
+    shares = _last(published(c.annual, as_of), "OrdinarySharesNumber")
+    if not ch.raw_closes or not shares or shares <= 0:
+        return None
+    return ch.raw_closes[-1] * shares
+
+
+def largest_at(companies: list[Company], as_of: date, n: int) -> list[Company]:
+    sized = [(cap, c) for c in companies if (cap := market_cap_at(c, as_of))]
+    sized.sort(key=lambda x: x[0], reverse=True)
+    return [c for _, c in sized[:n]]
+
+
 def forward_return(chart: Chart, as_of: date, days: int = HORIZON_DAYS) -> float | None:
     """Total return (dividend-adjusted) from as_of to as_of + days."""
     t0, t1 = _ts(as_of), _ts(as_of + timedelta(days=days))
@@ -220,13 +240,13 @@ def spearman(xs: list[float], ys: list[float]) -> float | None:
     return num / den if den else None
 
 
-def quintile_returns(scored: list[tuple[float, float]]) -> list[float] | None:
-    """Mean forward return of each fifth of companies, lowest scores first."""
+def quintile_returns(scored: list[tuple[float, float]], stat=statistics.fmean) -> list[float] | None:
+    """Mean (or median) forward return of each fifth of companies, lowest scores first."""
     if len(scored) < 25:
         return None
     ordered = sorted(scored)
     n = len(ordered)
-    return [statistics.fmean(r for _, r in ordered[i * n // 5:(i + 1) * n // 5]) for i in range(5)]
+    return [stat([r for _, r in ordered[i * n // 5:(i + 1) * n // 5]]) for i in range(5)]
 
 
 def evaluate(rows: list[dict], category_keys: list[str]) -> dict:
@@ -240,13 +260,16 @@ def evaluate(rows: list[dict], category_keys: list[str]) -> dict:
         q = quintile_returns([(r["score"], r["forward_return"]) for r in rs])
         if q is None:
             continue
+        qm = quintile_returns([(r["score"], r["forward_return"]) for r in rs], statistics.median)
         cat_ic = {}
         for k in category_keys:
             pairs = [(r["categories"][k], r["forward_return"]) for r in rs if r["categories"].get(k) is not None]
             cat_ic[k] = spearman([p[0] for p in pairs], [p[1] for p in pairs])
         periods.append({
             "date": d, "companies": len(rs), "quintile_returns": [round(x, 4) for x in q],
+            "quintile_median_returns": [round(x, 4) for x in qm],
             "top_minus_bottom": round(q[4] - q[0], 4),
+            "top_minus_bottom_median": round(qm[4] - qm[0], 4),
             "average_return": round(statistics.fmean(r["forward_return"] for r in rs), 4),
             "rank_correlation": spearman([r["score"] for r in rs], [r["forward_return"] for r in rs]),
             "category_rank_correlation": cat_ic,
@@ -257,12 +280,6 @@ def evaluate(rows: list[dict], category_keys: list[str]) -> dict:
     def mean(xs):
         xs = [x for x in xs if x is not None]
         return round(statistics.fmean(xs), 4) if xs else None
-
-    def t_stat(xs):
-        xs = [x for x in xs if x is not None]
-        if len(xs) < 3 or statistics.pstdev(xs) == 0:
-            return None
-        return round(statistics.fmean(xs) / (statistics.stdev(xs) / math.sqrt(len(xs))), 2)
 
     labels: dict[str, list[float]] = {}
     for r in rows:
@@ -276,26 +293,33 @@ def evaluate(rows: list[dict], category_keys: list[str]) -> dict:
             "test_dates": len(periods),
             "observations": sum(p["companies"] for p in periods),
             "quintile_returns": [mean([p["quintile_returns"][i] for p in periods]) for i in range(5)],
+            "quintile_median_returns": [mean([p["quintile_median_returns"][i] for p in periods]) for i in range(5)],
             "top_minus_bottom": mean(spreads),
+            "top_minus_bottom_median": mean([p["top_minus_bottom_median"] for p in periods]),
             "top_beat_bottom_share": round(sum(s > 0 for s in spreads) / len(spreads), 2),
             "rank_correlation": mean(ics),
-            "rank_correlation_t": t_stat(ics),
+            "positive_rank_correlation_share": round(sum((x or 0) > 0 for x in ics) / len(ics), 2),
+            # The 12-month windows of consecutive quarterly start dates overlap, so the dates
+            # aren't independent observations; no significance statistics are reported.
+            "independent_years": round(len(periods) / 4 + 0.75, 1),
             "average_return": mean([p["average_return"] for p in periods]),
-            "by_label": {k: {"count": len(v), "average_return": round(statistics.fmean(v), 4)}
+            "by_label": {k: {"count": len(v), "average_return": round(statistics.fmean(v), 4),
+                             "median_return": round(statistics.median(v), 4)}
                          for k, v in labels.items()},
             "category_rank_correlation": {k: mean([p["category_rank_correlation"][k] for p in periods])
                                           for k in category_keys},
-            "category_rank_correlation_t": {k: t_stat([p["category_rank_correlation"][k] for p in periods])
-                                            for k in category_keys},
+            "category_positive_share": {
+                k: round(sum((p["category_rank_correlation"][k] or 0) > 0 for p in periods) / len(periods), 2)
+                for k in category_keys},
         },
     }
 
 
-def rate_universe(companies: list[Company], dates: list[date], index: Chart | None) -> list[dict]:
+def rate_universe(companies: list[Company], dates: list[date], index: Chart | None, per_date: int) -> list[dict]:
     rows = []
     for d in dates:
         stocks = []
-        for c in companies:
+        for c in largest_at(companies, d, per_date):
             s = stock_at(c, d, index)
             if s is not None:
                 stocks.append((c, s))
@@ -334,11 +358,12 @@ def test_dates(companies: list[Company], today: date) -> list[date]:
 # --- data collection ---------------------------------------------------------
 
 def universe(size: int) -> list[str]:
+    """A broad pool of today's US-listed companies; each test date then takes the largest *at that date*."""
     import yfinance as yf
     from yfinance import EquityQuery
 
     q = EquityQuery("and", [EquityQuery("is-in", ["exchange", "NMS", "NYQ"]),
-                            EquityQuery("gt", ["intradaymarketcap", 2_000_000_000])])
+                            EquityQuery("gt", ["intradaymarketcap", 1_000_000_000])])
     symbols: list[str] = []
     for offset in range(0, size, 250):
         r = yf.screen(q, offset=offset, size=min(250, size - offset), sortField="intradaymarketcap", sortAsc=False)
@@ -370,13 +395,14 @@ def load_company(client: yahoo.Client, symbol: str) -> Company | None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--size", type=int, default=500)
+    parser.add_argument("--pool", type=int, default=2000, help="today's largest companies to draw from")
+    parser.add_argument("--size", type=int, default=400, help="companies rated at each test date")
     parser.add_argument("--workers", type=int, default=4)
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
 
     client = yahoo.Client()
-    symbols = universe(args.size)
+    symbols = universe(args.pool)
     log.info("universe: %d symbols", len(symbols))
     with ThreadPoolExecutor(max_workers=args.workers) as pool:
         companies = [c for c in pool.map(lambda s: load_company(client, s), symbols) if c]
@@ -384,11 +410,12 @@ def main() -> None:
     index = client.chart("^GSPC", "10y")
     dates = test_dates(companies, datetime.now(tz=timezone.utc).date())
     log.info("test dates: %s", [d.isoformat() for d in dates])
-    rows = rate_universe(companies, dates, index)
+    rows = rate_universe(companies, dates, index, args.size)
     report = evaluate(rows, [c.key for c in CATEGORIES])
     report.update({
         "generated_at": datetime.now(tz=timezone.utc).date().isoformat(),
-        "universe": f"The {len(companies)} largest US-listed companies with usable data (from the top {args.size})",
+        "universe": (f"At each start date, the {args.size} largest companies at that time (by market cap then), "
+                     f"from a pool of {len(companies)} US-listed companies with usable data"),
         "horizon_days": HORIZON_DAYS,
         "method": ("At each test date, every company is rated using only annual reports published by then "
                    f"(at least {PUBLICATION_LAG_DAYS} days after the fiscal year ended) and prices up to that "
@@ -397,8 +424,10 @@ def main() -> None:
         "limitations": [
             "Yahoo's free financial history reaches back only 4-5 years, so the test covers about two years "
             "of start dates. Results over such a short period can be luck in either direction.",
-            "The companies tested are today's large companies, so ones that shrank or disappeared are missing "
-            "(survivorship bias).",
+            "Companies are picked by their size at each start date, but the pool only contains companies still "
+            "listed today, so ones that were delisted since are missing (survivorship bias).",
+            "Start dates are a quarter apart and returns are measured over a year, so the periods overlap: the "
+            "test holds roughly two years of independent evidence.",
             "Forward P/E, PEG and EV/EBITDA need historical analyst estimates or ratios that aren't freely "
             "available, so the tested ratings leave them out.",
             "Past results don't guarantee future returns.",

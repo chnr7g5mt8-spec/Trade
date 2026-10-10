@@ -92,8 +92,8 @@ export default function About() {
       </Section>
 
       <Section title="Track record">
-        {data.track_record?.summary ? (
-          <Track record={data.track_record} />
+        {data.track_record?.summary?.quintile_median_returns ? (
+          <Track record={data.track_record} categories={data.stock_categories} />
         ) : (
           <Text style={styles.body}>
             The historical test hasn’t finished yet. It re-rates the largest US companies at past dates, using only
@@ -138,12 +138,13 @@ function Categories({ categories }: { categories: MethodologyCategory[] }) {
   );
 }
 
-function Track({ record }: { record: TrackRecord }) {
+function Track({ record, categories }: { record: TrackRecord; categories: MethodologyCategory[] }) {
   const s = record.summary!;
-  const quintiles = s.quintile_returns;
-  const max = Math.max(0.01, ...quintiles.map((q) => Math.abs(q ?? 0)));
+  const medians = s.quintile_median_returns;
+  const max = Math.max(0.01, ...medians.map((q) => Math.abs(q ?? 0)));
   const names = ['Lowest 20%', 'Next 20%', 'Middle 20%', 'Next 20%', 'Highest 20%'];
   const order = ['Strong Buy', 'Buy', 'Hold', 'Sell', 'Strong Sell'];
+  const worked = (s.top_minus_bottom_median ?? 0) > 0;
   return (
     <View style={{ gap: 10 }}>
       <Text style={styles.body}>{record.method}</Text>
@@ -151,11 +152,19 @@ function Track({ record }: { record: TrackRecord }) {
         {record.universe}. {s.test_dates} start dates, {s.observations.toLocaleString('en-US')} ratings in total.
       </Text>
 
-      <Text style={styles.subTitle}>Average return over the next 12 months, by score</Text>
-      {quintiles
-        .map((q, i) => ({ q, name: names[i] }))
+      <Text style={[styles.verdict, { backgroundColor: worked ? '#DCFCE7' : '#FEE2E2' }]}>
+        {worked
+          ? 'Over this period, higher-scored stocks went on to do better than lower-scored ones.'
+          : 'Over this period, higher-scored stocks did NOT do better than lower-scored ones.'}{' '}
+        The test covers only about {s.independent_years} years of independent evidence, so treat it as a check, not
+        proof either way.
+      </Text>
+
+      <Text style={styles.subTitle}>Typical (median) return over the next 12 months, by score</Text>
+      {medians
+        .map((q, i) => ({ q, name: names[i], mean: s.quintile_returns[i] }))
         .reverse()
-        .map(({ q, name }, i) => (
+        .map(({ q, name, mean }, i) => (
           <View key={i} style={styles.barRow}>
             <Text style={styles.barLabel}>{name}</Text>
             <View style={styles.barTrack}>
@@ -167,26 +176,42 @@ function Track({ record }: { record: TrackRecord }) {
               />
             </View>
             <Text style={styles.barValue}>{pct(q)}</Text>
+            <Text style={styles.barMean}>avg {pct(mean, 0)}</Text>
           </View>
         ))}
       <Text style={styles.body}>
-        Highest-scored fifth minus lowest-scored fifth: <Text style={styles.strong}>{pct(s.top_minus_bottom)}</Text> a
-        year on average; the highest fifth did better at {Math.round(s.top_beat_bottom_share * 100)}% of start dates.
-        Rank correlation between score and return: {s.rank_correlation == null ? '—' : s.rank_correlation.toFixed(2)}
-        {s.rank_correlation_t != null ? ` (t = ${s.rank_correlation_t.toFixed(1)})` : ''}.
+        Highest-scored fifth minus lowest-scored fifth: <Text style={styles.strong}>{pct(s.top_minus_bottom_median)}</Text>{' '}
+        (median) a year; the highest fifth did better at {Math.round(s.top_beat_bottom_share * 100)}% of start dates.
+        Score and later return moved together at {Math.round(s.positive_rank_correlation_share * 100)}% of start dates.
       </Text>
 
-      <Text style={styles.subTitle}>By label</Text>
+      <Text style={styles.subTitle}>By label (median return)</Text>
       {order
         .filter((l) => s.by_label[l])
         .map((l) => (
           <View key={l} style={styles.row}>
             <Text style={styles.rowLabel}>{l}</Text>
             <Text style={styles.rowValue}>
-              {pct(s.by_label[l].average_return)} · {s.by_label[l].count} ratings
+              {pct(s.by_label[l].median_return)} · {s.by_label[l].count} ratings
             </Text>
           </View>
         ))}
+
+      <Text style={styles.subTitle}>Which categories pointed the right way</Text>
+      {categories
+        .filter((c) => s.category_rank_correlation[c.key] != null)
+        .map((c) => {
+          const ic = s.category_rank_correlation[c.key]!;
+          return (
+            <View key={c.key} style={styles.row}>
+              <Text style={styles.rowLabel}>{c.label}</Text>
+              <Text style={[styles.rowValue, { color: ic > 0 ? '#15803D' : colors.danger }]}>
+                {ic > 0 ? 'helped' : 'hurt'} ({ic.toFixed(2)}) · {Math.round((s.category_positive_share[c.key] ?? 0) * 100)}% of
+                dates
+              </Text>
+            </View>
+          );
+        })}
 
       <Text style={styles.subTitle}>Limits of this test</Text>
       {record.limitations.map((l) => (
@@ -216,7 +241,9 @@ const styles = StyleSheet.create({
   barLabel: { width: 92, color: colors.text, fontSize: 13 },
   barTrack: { flex: 1, height: 10, borderRadius: 5, backgroundColor: colors.track, overflow: 'hidden' },
   barFill: { height: 10, borderRadius: 5 },
-  barValue: { width: 64, textAlign: 'right', color: colors.text, fontSize: 13, fontVariant: ['tabular-nums'] },
+  barValue: { width: 60, textAlign: 'right', color: colors.text, fontSize: 13, fontVariant: ['tabular-nums'] },
+  barMean: { width: 58, textAlign: 'right', color: colors.muted, fontSize: 11, fontVariant: ['tabular-nums'] },
+  verdict: { color: colors.text, borderRadius: 10, padding: 10, fontSize: 14, lineHeight: 20 },
   error: { color: colors.danger, textAlign: 'center' },
   retry: { backgroundColor: colors.accent, borderRadius: 10, paddingHorizontal: 18, paddingVertical: 10 },
   retryText: { color: '#fff', fontWeight: '600' },

@@ -85,13 +85,17 @@ export type TrackRecord = {
     test_dates: number;
     observations: number;
     quintile_returns: (number | null)[];
+    quintile_median_returns: (number | null)[];
     top_minus_bottom: number | null;
+    top_minus_bottom_median: number | null;
     top_beat_bottom_share: number;
     rank_correlation: number | null;
-    rank_correlation_t: number | null;
+    positive_rank_correlation_share: number;
+    independent_years: number;
     average_return: number | null;
-    by_label: Record<string, { count: number; average_return: number }>;
+    by_label: Record<string, { count: number; average_return: number; median_return: number }>;
     category_rank_correlation: Record<string, number | null>;
+    category_positive_share: Record<string, number>;
   };
 };
 

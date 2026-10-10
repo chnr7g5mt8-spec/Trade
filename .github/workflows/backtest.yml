@@ -1,16 +1,16 @@
 name: Track record (backtest)
 
-# Re-rates the ~500 largest US companies at past quarter ends using only
-# information available then, and compares ratings with the next 12 months'
-# returns. Writes backend/app/data/backtest.json, shown in the app.
+# At past quarter ends, re-rates the 400 largest US companies *at that time*
+# using only information available then, and compares ratings with the next
+# 12 months' returns. Writes backend/app/data/backtest.json, shown in the app.
 on:
   schedule:
     - cron: "41 7 5 1,4,7,10 *"  # quarterly, after the benchmark refresh
   workflow_dispatch:
     inputs:
       size:
-        description: "Universe size (largest US companies)"
-        default: "500"
+        description: "Companies rated at each start date (largest at that date)"
+        default: "400"
 
 permissions:
   contents: write
@@ -29,7 +29,7 @@ jobs:
         with:
           python-version: "3.13"
       - run: pip install -r backend/requirements-scripts.txt
-      - run: python backend/scripts/backtest.py --size "${{ inputs.size || 500 }}"
+      - run: python backend/scripts/backtest.py --size "${{ inputs.size || 400 }}"
       - name: Commit results
         run: |
           git config user.name "github-actions[bot]"

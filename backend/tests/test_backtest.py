@@ -65,8 +65,12 @@ def test_evaluate_detects_a_score_that_predicts_returns():
     assert s["test_dates"] == 4 and s["observations"] == 400
     assert s["top_minus_bottom"] > 0.1
     assert s["top_beat_bottom_share"] == 1.0
-    assert s["rank_correlation"] > 0.5 and s["rank_correlation_t"] > 3
+    assert s["rank_correlation"] > 0.5 and s["positive_rank_correlation_share"] == 1.0
     assert s["category_rank_correlation"]["good"] > 0.5
+    assert s["category_positive_share"]["good"] == 1.0
+    assert s["quintile_median_returns"] == sorted(s["quintile_median_returns"])
+    assert s["independent_years"] == 1.8  # four quarterly starts, 12-month windows
+    assert "median_return" in next(iter(s["by_label"].values()))
     assert abs(s["category_rank_correlation"]["noise"]) < 0.2
     assert s["quintile_returns"] == sorted(s["quintile_returns"])
     assert set(s["by_label"]) <= {"Strong Buy", "Buy", "Hold", "Sell", "Strong Sell"}
@@ -90,3 +94,17 @@ def test_stock_at_uses_only_published_figures_and_prices_until_then():
     assert early.pe_ratio == pytest.approx(price_early / 2)
     assert later.revenue_growth == pytest.approx(0.2)
     assert later.earnings_growth == pytest.approx(1.0)
+
+
+def test_companies_are_picked_by_size_at_the_test_date_not_today():
+    # "Rocket" is huge today but was tiny at the test date; "Steady" was the big one then.
+    days = 900
+    rocket = make_chart(date(2023, 1, 1), [1.0] * 500 + [1.0 * 1.02 ** i for i in range(days - 500)])
+    steady = make_chart(date(2023, 1, 1), [100.0] * days)
+    shares = {"annualOrdinarySharesNumber": [Point("2022-12-31", 1e6, "USD", "12M")]}
+    companies = [bt.Company("ROCKET", "Tech", "X", rocket, shares), bt.Company("STEADY", "Tech", "X", steady, shares)]
+    at = date(2024, 3, 1)
+    assert bt.market_cap_at(companies[0], at) < bt.market_cap_at(companies[1], at)
+    assert [c.symbol for c in bt.largest_at(companies, at, 1)] == ["STEADY"]
+    late = date(2025, 6, 1)
+    assert [c.symbol for c in bt.largest_at(companies, late, 1)] == ["ROCKET"]
