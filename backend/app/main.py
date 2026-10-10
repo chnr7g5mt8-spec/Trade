@@ -95,6 +95,14 @@ def health() -> dict:
     return {"status": "ok", "source": service.provider.name}
 
 
+@app.get("/api/diagnostics")
+def diagnostics() -> dict:
+    """Which upstream data services work from this server (cached for 5 minutes)."""
+    from . import diagnostics as diag
+
+    return diag.run()
+
+
 @app.get("/api/rating/{ticker}", response_model=Rating)
 def get_rating(ticker: str) -> Rating:
     symbol = parse_ticker(ticker)
