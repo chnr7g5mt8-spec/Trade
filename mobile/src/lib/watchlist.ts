@@ -6,20 +6,29 @@ const DEFAULT_WATCHLIST = ['AAPL', 'MSFT', 'KO'];
 
 // Shared in-memory copy so the home and detail screens stay in sync.
 let current: string[] | null = null;
+let loading: Promise<string[]> | null = null;
 const listeners = new Set<(list: string[]) => void>();
 
-async function load(): Promise<string[]> {
-  if (current) return current;
+function parse(raw: string | null): string[] {
+  if (raw == null) return DEFAULT_WATCHLIST;
   try {
-    const raw = await AsyncStorage.getItem(KEY);
-    current = raw ? (JSON.parse(raw) as string[]) : DEFAULT_WATCHLIST;
-  } catch {
-    current = DEFAULT_WATCHLIST;
-  }
-  return current;
+    const value: unknown = JSON.parse(raw);
+    if (Array.isArray(value) && value.every((t) => typeof t === 'string')) return value;
+  } catch {}
+  return DEFAULT_WATCHLIST;
 }
 
-function save(list: string[]) {
+function load(): Promise<string[]> {
+  if (current) return Promise.resolve(current);
+  loading ??= AsyncStorage.getItem(KEY)
+    .then(parse, () => DEFAULT_WATCHLIST)
+    .then((list) => (current ??= list));
+  return loading;
+}
+
+async function update(change: (list: string[]) => string[]) {
+  // Wait for the stored list first so an early add/remove can't overwrite it.
+  const list = change(await load());
   current = list;
   listeners.forEach((fn) => fn(list));
   AsyncStorage.setItem(KEY, JSON.stringify(list)).catch(() => {});
@@ -30,23 +39,25 @@ export function useWatchlist() {
   const [ready, setReady] = useState(current !== null);
 
   useEffect(() => {
+    let mounted = true;
     listeners.add(setList);
     load().then((l) => {
+      if (!mounted) return;
       setList(l);
       setReady(true);
     });
     return () => {
+      mounted = false;
       listeners.delete(setList);
     };
   }, []);
 
   const add = useCallback((ticker: string) => {
-    const list = current ?? [];
-    if (!list.includes(ticker)) save([...list, ticker]);
+    update((l) => (l.includes(ticker) ? l : [...l, ticker]));
   }, []);
 
   const remove = useCallback((ticker: string) => {
-    save((current ?? []).filter((t) => t !== ticker));
+    update((l) => l.filter((t) => t !== ticker));
   }, []);
 
   return { list, ready, add, remove, has: (t: string) => list.includes(t) };

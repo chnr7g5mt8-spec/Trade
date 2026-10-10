@@ -35,11 +35,16 @@ metrics, and the overall score is the weighted average of the categories.
 | Financial health (15%) | Debt/Equity 2.0x→0.3x, current ratio 0.8→2.0, FCF yield 0→6% |
 | Momentum (15%) | 1-year return −20%→30%, price vs 200-day average −10%→+10%, vs 50-day −5%→+5% |
 
-Labels: ≥80 Strong Buy, ≥65 Buy, ≥45 Hold, ≥30 Sell, below that Strong Sell.
+The overall score is a whole number, and the label comes from it: ≥80 Strong
+Buy, ≥65 Buy, ≥45 Hold, ≥30 Sell, below that Strong Sell.
 
 If a metric is missing, the model skips it instead of counting it as 0. The
 API returns a `coverage` value so the app can show how much data a score is
-based on. Analyst consensus and price targets are shown for comparison but are
+based on. If fewer than 40% of the metrics are available, the stock is
+**Not rated** instead of getting a label based on a handful of numbers. This
+happens with ETFs and funds, which have price data but no company financials.
+
+Analyst consensus and price targets are shown for comparison but are
 **not** part of the score. All thresholds and weights are in
 [`backend/app/scoring.py`](backend/app/scoring.py).
 
@@ -49,22 +54,26 @@ based on. Analyst consensus and price targets are shown for comparison but are
 
 ```bash
 cd backend
-python3 -m venv .venv && source .venv/bin/activate
+python3 -m venv .venv && source .venv/bin/activate   # Python 3.11+
 pip install -r requirements-dev.txt
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-For offline demo data (AAPL, MSFT, KO, F, XYZQ), start it with
-`DATA_SOURCE=sample`. The demo numbers are illustrative, not real market data.
+For offline demo data (AAPL, MSFT, KO, F, XYZQ and the fund QQQ), start it
+with `DATA_SOURCE=sample`. The demo numbers are illustrative, not real market data.
 
 Run the tests with `pytest`.
 
 API:
 - `GET /api/rating/{ticker}`: full rating with category and metric breakdown
 - `GET /api/ratings?tickers=AAPL,MSFT`: batch endpoint used by the watchlist
+  (up to 25 tickers, fetched in parallel; unknown or failing tickers are skipped)
 - `GET /health`
 
 Results are cached in memory for 15 minutes per ticker.
+
+If Yahoo rate-limits the server, the API returns a 502 error with a message
+saying so, and the app shows it.
 
 ### 2. Mobile app
 
@@ -83,7 +92,11 @@ the same Wi-Fi network. To point the app at a different server:
 EXPO_PUBLIC_API_URL=https://your-server.example.com npx expo start
 ```
 
-Typecheck: `npm run typecheck`
+Checks: `npm run typecheck` and `npm run lint`
+
+Before publishing to the app stores, host the backend on HTTPS. iOS and
+Android release builds block plain `http://` requests (Expo Go allows them
+during development).
 
 ## Ideas for next steps
 

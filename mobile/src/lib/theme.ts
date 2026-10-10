@@ -20,8 +20,11 @@ export function scoreColor(score: number | null | undefined): string {
 }
 
 export function formatMoney(value: number | null | undefined, currency?: string | null): string {
-  if (value == null) return '—';
+  if (value == null || !Number.isFinite(value)) return '—';
   const symbol = !currency || currency === 'USD' ? '$' : '';
   const suffix = symbol ? '' : ` ${currency}`;
-  return `${symbol}${value.toFixed(2)}${suffix}`;
+  // Penny stocks need more than two decimals to be meaningful.
+  const decimals = Math.abs(value) < 1 ? 4 : 2;
+  const amount = value.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+  return `${symbol}${amount}${suffix}`;
 }

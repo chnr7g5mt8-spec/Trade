@@ -49,10 +49,11 @@ def momentum_from_closes(closes: list[float]) -> dict[str, float | None]:
 
 
 def _downsample(closes: list[float], points: int = 60) -> list[float]:
+    # 4 decimals keeps penny-stock charts meaningful.
     if len(closes) <= points:
-        return [round(c, 2) for c in closes]
+        return [round(c, 4) for c in closes]
     step = (len(closes) - 1) / (points - 1)
-    return [round(closes[round(i * step)], 2) for i in range(points)]
+    return [round(closes[round(i * step)], 4) for i in range(points)]
 
 
 class YahooProvider:
@@ -60,16 +61,26 @@ class YahooProvider:
 
     def fetch(self, ticker: str) -> StockData:
         import yfinance as yf
+        from yfinance.exceptions import YFRateLimitError
 
+        # With yfinance's default settings an unknown ticker does not raise: info
+        # comes back (nearly) empty and history comes back as an empty frame.
+        # Network failures and rate limiting do raise, and are reported as such.
         try:
             t = yf.Ticker(ticker)
-            info = t.info or {}
+            info = t.info
             history = t.history(period="1y", auto_adjust=True)
+        except YFRateLimitError as exc:
+            raise ProviderError("Yahoo Finance is rate-limiting requests. Try again in a minute.") from exc
         except Exception as exc:  # yfinance raises a wide variety of errors
             raise ProviderError(f"Could not fetch data for {ticker}: {exc}") from exc
 
-        closes = [float(c) for c in history["Close"].dropna().tolist()] if not history.empty else []
-        if not closes and not info.get("regularMarketPrice") and not info.get("currentPrice"):
+        if not isinstance(info, dict):
+            info = {}
+        closes: list[float] = []
+        if history is not None and not history.empty and "Close" in history:
+            closes = [c for c in (_num(v) for v in history["Close"].tolist()) if c is not None and c > 0]
+        if not closes and _num(info.get("regularMarketPrice")) is None and _num(info.get("currentPrice")) is None:
             raise TickerNotFound(ticker)
 
         price = _num(info.get("currentPrice")) or _num(info.get("regularMarketPrice")) or (closes[-1] if closes else None)
@@ -137,6 +148,8 @@ _SAMPLES: dict[str, dict] = {
                  forward_pe=-45.0, peg_ratio=None, price_to_book=9.0, return_on_equity=-0.30, profit_margin=-0.25,
                  operating_margin=-0.20, revenue_growth=0.35, earnings_growth=None, debt_to_equity=80.0, current_ratio=3.0,
                  free_cash_flow=-4.0e8, analyst_target_price=30.0, analyst_recommendation="Hold", path=(40, 22, 0.08)),
+    # Funds have no company fundamentals, so this one is left unrated.
+    "QQQ": dict(name="Invesco QQQ Trust (demo)", path=(430, 510, 0.03)),
 }
 
 

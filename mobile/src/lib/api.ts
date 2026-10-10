@@ -49,12 +49,22 @@ function resolveBaseUrl(): string {
 
 export const API_URL = resolveBaseUrl();
 
+const TIMEOUT_MS = 30_000;
+
 async function getJson<T>(path: string): Promise<T> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
   let res: Response;
   try {
-    res = await fetch(`${API_URL}${path}`);
+    res = await fetch(`${API_URL}${path}`, { signal: controller.signal });
   } catch {
-    throw new Error(`Can't reach the rating server at ${API_URL}. Is the backend running?`);
+    throw new Error(
+      controller.signal.aborted
+        ? `The rating server at ${API_URL} took too long to respond. Try again.`
+        : `Can't reach the rating server at ${API_URL}. Is the backend running?`,
+    );
+  } finally {
+    clearTimeout(timer);
   }
   if (!res.ok) {
     let detail = `Request failed (${res.status})`;

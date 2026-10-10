@@ -40,11 +40,39 @@ def test_weights_sum_to_one():
 
 
 def test_missing_data_is_ignored_not_penalised():
-    only_profit = StockData(ticker="X", return_on_equity=0.25, profit_margin=0.25, operating_margin=0.30)
-    r = rate(only_profit, source="test")
+    data = StockData(ticker="X", return_on_equity=0.25, profit_margin=0.25, operating_margin=0.30,
+                     revenue_growth=0.20, earnings_growth=0.25, current_ratio=2.0)
+    r = rate(data, source="test")
+    assert r.coverage == 0.4
     assert r.score == 100.0
     assert r.label == "Strong Buy"
-    assert 0 < r.coverage < 0.3
+
+
+def test_too_little_data_is_not_rated():
+    # e.g. an ETF: price momentum only, no fundamentals.
+    etf = StockData(ticker="SPY", return_1y=0.5, price_vs_sma50=0.1, price_vs_sma200=0.2)
+    r = rate(etf, source="test")
+    assert r.coverage == 0.2
+    assert r.score is None
+    assert r.label == "Not rated"
+    momentum = next(c for c in r.categories if c.key == "momentum")
+    assert momentum.score == 100.0  # breakdown is still shown
+
+
+def test_negative_debt_to_equity_scores_zero():
+    # Negative D/E means negative shareholder equity.
+    assert score_metric(-120, _spec("debt_to_equity")) == 0.0
+    assert score_metric(0, _spec("debt_to_equity")) == 100.0
+
+
+def test_score_is_whole_number_and_matches_label():
+    # Category scores here average to 64.9: shown as 65, so it must be labelled Buy.
+    data = StockData(ticker="X", return_on_equity=0.25 * 0.649, profit_margin=0.25 * 0.649,
+                     operating_margin=0.30 * 0.649, revenue_growth=-0.05 + 0.25 * 0.649,
+                     earnings_growth=-0.10 + 0.35 * 0.649, current_ratio=0.8 + 1.2 * 0.649)
+    r = rate(data, source="test")
+    assert r.score == 65.0
+    assert r.label == "Buy"
 
 
 def test_no_data_is_not_rated():
@@ -73,6 +101,7 @@ def test_momentum_from_closes():
 def test_sample_data_ranks_sensibly():
     p = SampleProvider()
     scores = {t: rate(p.fetch(t), "sample").score for t in p.tickers()}
+    assert scores.pop("QQQ") is None  # fund: momentum only, not enough data
     assert scores["MSFT"] > scores["F"]
     assert scores["MSFT"] > scores["XYZQ"]
     assert all(0 <= s <= 100 for s in scores.values())

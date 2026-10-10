@@ -1,5 +1,5 @@
 import { router, useFocusEffect } from 'expo-router';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { FlatList, Pressable, RefreshControl, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { ScoreRing } from '../components/ScoreRing';
@@ -12,20 +12,27 @@ export default function Home() {
   const { list, ready } = useWatchlist();
   const [query, setQuery] = useState('');
   const [ratings, setRatings] = useState<Record<string, Rating>>({});
+  // Tickers the last successful load asked for; those missing from the
+  // response failed on the server and are shown as unavailable.
+  const [requested, setRequested] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const latestRequest = useRef(0);
 
   const load = useCallback(async () => {
     if (!ready) return;
+    const id = ++latestRequest.current;
     setLoading(true);
     setError(null);
     try {
       const results = await fetchRatings(list);
+      if (id !== latestRequest.current) return; // a newer load superseded this one
       setRatings(Object.fromEntries(results.map((r) => [r.ticker, r])));
+      setRequested(new Set(list));
     } catch (e) {
-      setError((e as Error).message);
+      if (id === latestRequest.current) setError((e as Error).message);
     } finally {
-      setLoading(false);
+      if (id === latestRequest.current) setLoading(false);
     }
   }, [list, ready]);
 
@@ -70,7 +77,9 @@ export default function Home() {
         ready ? <Text style={styles.empty}>Your watchlist is empty. Search a ticker to rate it.</Text> : null
       }
       ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
-      renderItem={({ item }) => <WatchRow ticker={item} rating={ratings[item]} />}
+      renderItem={({ item }) => (
+        <WatchRow ticker={item} rating={ratings[item]} unavailable={(requested.has(item) || error !== null) && !ratings[item]} />
+      )}
       ListFooterComponent={
         <Text style={styles.disclaimer}>
           Scores are computed from public financial data for educational purposes only and are not investment advice.
@@ -80,16 +89,20 @@ export default function Home() {
   );
 }
 
-function WatchRow({ ticker, rating }: { ticker: string; rating?: Rating }) {
+function WatchRow({ ticker, rating, unavailable }: { ticker: string; rating?: Rating; unavailable: boolean }) {
   const history = rating?.price_history ?? [];
   const up = history.length > 1 && history[history.length - 1] >= history[0];
+  const status = rating ? rating.label : unavailable ? 'Unavailable' : '…';
+  const a11y = [ticker, rating?.name, rating && status, rating?.score != null && `score ${rating.score}`]
+    .filter(Boolean)
+    .join(', ');
 
   return (
     <Pressable
       style={({ pressed }) => [styles.row, pressed && { opacity: 0.7 }]}
       onPress={() => router.push({ pathname: '/stock/[ticker]', params: { ticker } })}
       accessibilityRole="button"
-      accessibilityLabel={`${ticker}${rating ? `, ${rating.label}, score ${Math.round(rating.score ?? 0)}` : ''}`}>
+      accessibilityLabel={a11y}>
       <ScoreRing score={rating?.score ?? null} size={52} stroke={5} showLabel={false} />
       <View style={styles.rowText}>
         <Text style={styles.ticker}>{ticker}</Text>
@@ -100,7 +113,7 @@ function WatchRow({ ticker, rating }: { ticker: string; rating?: Rating }) {
       <Sparkline data={history} width={60} height={28} color={up ? '#16A34A' : colors.danger} strokeWidth={1.5} />
       <View style={styles.rowRight}>
         <Text style={styles.price}>{formatMoney(rating?.price, rating?.currency)}</Text>
-        <Text style={[styles.label, { color: scoreColor(rating?.score) }]}>{rating?.label ?? '…'}</Text>
+        <Text style={[styles.label, { color: scoreColor(rating?.score) }]}>{status}</Text>
       </View>
     </Pressable>
   );

@@ -1,5 +1,5 @@
 import { Stack, useLocalSearchParams } from 'expo-router';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Pressable, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { CategoryCard } from '../../components/CategoryCard';
@@ -17,22 +17,35 @@ export default function StockDetail() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [chartWidth, setChartWidth] = useState(0);
+  const latestRequest = useRef(0);
 
-  const load = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      setRating(await fetchRating(ticker));
-    } catch (e) {
-      setError((e as Error).message);
-    } finally {
-      setLoading(false);
-    }
+  // Only sets state once the request settles, so it is safe to call from an effect.
+  const fetchLatest = useCallback(() => {
+    const id = ++latestRequest.current;
+    fetchRating(ticker).then(
+      (result) => {
+        if (id !== latestRequest.current) return; // superseded by a newer request
+        setRating(result);
+        setError(null);
+        setLoading(false);
+      },
+      (e: Error) => {
+        if (id !== latestRequest.current) return;
+        setError(e.message);
+        setLoading(false);
+      },
+    );
   }, [ticker]);
 
   useEffect(() => {
-    load();
-  }, [load]);
+    fetchLatest();
+  }, [fetchLatest]);
+
+  const refresh = useCallback(() => {
+    setLoading(true);
+    setError(null);
+    fetchLatest();
+  }, [fetchLatest]);
 
   const watching = watchlist.has(ticker);
   const header = (
@@ -68,7 +81,7 @@ export default function StockDetail() {
       <View style={styles.center}>
         {header}
         <Text style={styles.error}>{error}</Text>
-        <Pressable onPress={load} style={styles.retry} accessibilityRole="button">
+        <Pressable onPress={refresh} style={styles.retry} accessibilityRole="button">
           <Text style={styles.retryText}>Try again</Text>
         </Pressable>
       </View>
@@ -85,7 +98,7 @@ export default function StockDetail() {
   return (
     <ScrollView
       contentContainerStyle={styles.content}
-      refreshControl={<RefreshControl refreshing={loading} onRefresh={load} />}>
+      refreshControl={<RefreshControl refreshing={loading} onRefresh={refresh} />}>
       {header}
 
       <View style={styles.hero}>
@@ -99,6 +112,14 @@ export default function StockDetail() {
         </View>
         <ScoreRing score={rating.score} />
       </View>
+
+      {rating.score == null && (
+        <Text style={styles.notice}>
+          Not enough data to give a rating: only {Math.round(rating.coverage * 100)}% of the metrics are available
+          (40% needed). This is common for ETFs, funds and very new listings.
+        </Text>
+      )}
+      {error && <Text style={styles.error}>{error}</Text>}
 
       {history.length > 1 && (
         <View style={styles.card} onLayout={(e) => setChartWidth(e.nativeEvent.layout.width - 28)}>
@@ -160,6 +181,7 @@ const styles = StyleSheet.create({
   muted: { color: colors.muted, fontSize: 13 },
   body: { color: colors.text, fontSize: 14 },
   error: { color: colors.danger, textAlign: 'center' },
+  notice: { color: colors.text, backgroundColor: '#FEF3C7', borderRadius: 12, padding: 12, lineHeight: 20 },
   retry: { backgroundColor: colors.accent, borderRadius: 10, paddingHorizontal: 18, paddingVertical: 10 },
   retryText: { color: '#fff', fontWeight: '600' },
   watchButton: { color: colors.accent, fontSize: 16, fontWeight: '600', paddingHorizontal: 8 },

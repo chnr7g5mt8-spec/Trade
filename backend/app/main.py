@@ -10,6 +10,8 @@ import os
 import re
 import threading
 import time
+from collections import OrderedDict
+from concurrent.futures import ThreadPoolExecutor
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
@@ -18,9 +20,11 @@ from .models import Rating
 from .providers import Provider, ProviderError, SampleProvider, TickerNotFound, YahooProvider
 from .scoring import rate
 
-TICKER_RE = re.compile(r"^[A-Z0-9][A-Z0-9.\-^=]{0,14}$")
+TICKER_RE = re.compile(r"^[A-Z0-9^][A-Z0-9.\-^=]{0,14}$")
 CACHE_TTL_SECONDS = 15 * 60
+CACHE_MAX_ENTRIES = 500
 MAX_BATCH = 25
+BATCH_WORKERS = 6
 
 
 def _make_provider() -> Provider:
@@ -28,29 +32,33 @@ def _make_provider() -> Provider:
 
 
 class RatingService:
-    def __init__(self, provider: Provider, ttl: float = CACHE_TTL_SECONDS):
+    """Rates tickers through a provider, caching results for `ttl` seconds."""
+
+    def __init__(self, provider: Provider, ttl: float = CACHE_TTL_SECONDS, max_entries: int = CACHE_MAX_ENTRIES):
         self.provider = provider
         self.ttl = ttl
-        self._cache: dict[str, tuple[float, Rating]] = {}
+        self.max_entries = max_entries
+        self._cache: OrderedDict[str, tuple[float, Rating]] = OrderedDict()
         self._lock = threading.Lock()
 
     def get(self, ticker: str) -> Rating:
-        now = time.monotonic()
         with self._lock:
             hit = self._cache.get(ticker)
-            if hit and now - hit[0] < self.ttl:
+            if hit and time.monotonic() - hit[0] < self.ttl:
+                self._cache.move_to_end(ticker)
                 return hit[1]
         rating = rate(self.provider.fetch(ticker), source=self.provider.name)
         with self._lock:
-            self._cache[ticker] = (now, rating)
+            self._cache[ticker] = (time.monotonic(), rating)
+            self._cache.move_to_end(ticker)
+            while len(self._cache) > self.max_entries:
+                self._cache.popitem(last=False)
         return rating
 
 
-def normalize_ticker(raw: str) -> str:
+def parse_ticker(raw: str) -> str | None:
     ticker = raw.strip().upper()
-    if not TICKER_RE.match(ticker):
-        raise HTTPException(status_code=400, detail=f"Invalid ticker: {raw!r}")
-    return ticker
+    return ticker if TICKER_RE.match(ticker) else None
 
 
 app = FastAPI(title="Stock Rating API", version="0.1.0")
@@ -65,7 +73,9 @@ def health() -> dict:
 
 @app.get("/api/rating/{ticker}", response_model=Rating)
 def get_rating(ticker: str) -> Rating:
-    symbol = normalize_ticker(ticker)
+    symbol = parse_ticker(ticker)
+    if symbol is None:
+        raise HTTPException(status_code=400, detail=f"{ticker.strip()!r} is not a valid ticker symbol")
     try:
         return service.get(symbol)
     except TickerNotFound:
@@ -76,19 +86,22 @@ def get_rating(ticker: str) -> Rating:
 
 @app.get("/api/ratings", response_model=list[Rating])
 def get_ratings(tickers: str = Query(..., description="Comma-separated tickers, e.g. AAPL,MSFT")) -> list[Rating]:
-    """Batch endpoint for the watchlist. Tickers that fail are skipped."""
-    symbols = list(dict.fromkeys(normalize_ticker(t) for t in tickers.split(",") if t.strip()))
+    """Batch endpoint for the watchlist, in request order.
+
+    Invalid, unknown and failing tickers are skipped so one bad entry
+    doesn't blank out the whole watchlist.
+    """
+    parsed = (parse_ticker(t) for t in tickers.split(","))
+    symbols = list(dict.fromkeys(s for s in parsed if s))
     if len(symbols) > MAX_BATCH:
         raise HTTPException(status_code=400, detail=f"At most {MAX_BATCH} tickers per request")
-    results = []
-    for symbol in symbols:
+
+    def fetch(symbol: str) -> Rating | None:
         try:
-            results.append(service.get(symbol))
+            return service.get(symbol)
         except (TickerNotFound, ProviderError):
-            continue
-    return results
+            return None
 
-
-@app.get("/api/sample-tickers")
-def sample_tickers() -> list[str]:
-    return SampleProvider.tickers()
+    with ThreadPoolExecutor(max_workers=BATCH_WORKERS) as pool:
+        results = list(pool.map(fetch, symbols))
+    return [r for r in results if r is not None]

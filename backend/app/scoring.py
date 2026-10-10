@@ -4,7 +4,9 @@ Each metric is mapped linearly between a "bad" threshold (score 0) and a
 "good" threshold (score 100), clamped at both ends. A category's score is the
 average of its available metrics; the overall score is the weighted average of
 available categories, so missing data shrinks the denominator rather than
-dragging the score down. `coverage` reports how much data the score rests on.
+dragging the score down. `coverage` reports how much data the score rests on,
+and below MIN_COVERAGE the stock is left unrated rather than given a label
+backed by a handful of numbers (e.g. an ETF with only price momentum).
 """
 
 from __future__ import annotations
@@ -50,6 +52,11 @@ def _negative_is_zero(v: float) -> float | None:
     return 0.0 if v <= 0 else None
 
 
+def _negative_equity_is_zero(v: float) -> float | None:
+    # Debt/equity is only negative when shareholder equity is negative.
+    return 0.0 if v < 0 else None
+
+
 CATEGORIES: tuple[CategorySpec, ...] = (
     CategorySpec(
         "valuation",
@@ -86,7 +93,8 @@ CATEGORIES: tuple[CategorySpec, ...] = (
         "Financial health",
         0.15,
         (
-            MetricSpec("debt_to_equity", "Debt / Equity", bad=200, good=30, fmt=lambda v: f"{v / 100:.2f}x"),
+            MetricSpec("debt_to_equity", "Debt / Equity", bad=200, good=30, fmt=lambda v: f"{v / 100:.2f}x",
+                       special=_negative_equity_is_zero),
             MetricSpec("current_ratio", "Current ratio", bad=0.8, good=2.0, fmt=_ratio),
             MetricSpec("fcf_yield", "Free cash flow yield", bad=0, good=0.06, fmt=_pct),
         ),
@@ -102,6 +110,8 @@ CATEGORIES: tuple[CategorySpec, ...] = (
         ),
     ),
 )
+
+MIN_COVERAGE = 0.4
 
 # Lower bound (inclusive) of each label, highest first.
 LABELS: tuple[tuple[float, str], ...] = (
@@ -169,9 +179,13 @@ def rate(data: StockData, source: str) -> Rating:
         cat_score = round(sum(scored) / len(scored), 1) if scored else None
         categories.append(CategoryScore(key=cat.key, label=cat.label, weight=cat.weight, score=cat_score, metrics=metrics))
 
+    coverage = round(available_metrics / total_metrics, 2) if total_metrics else 0.0
     weighted = [(c.score, c.weight) for c in categories if c.score is not None]
     weight_sum = sum(w for _, w in weighted)
-    overall = round(sum(s * w for s, w in weighted) / weight_sum, 1) if weight_sum else None
+    overall: float | None = None
+    if weight_sum and coverage >= MIN_COVERAGE:
+        # Whole number, so the score shown and the label derived from it always agree.
+        overall = float(round(sum(s * w for s, w in weighted) / weight_sum))
 
     return Rating(
         ticker=data.ticker,
@@ -181,7 +195,7 @@ def rate(data: StockData, source: str) -> Rating:
         price=data.price,
         score=overall,
         label=label_for(overall),
-        coverage=round(available_metrics / total_metrics, 2) if total_metrics else 0.0,
+        coverage=coverage,
         categories=categories,
         analyst_target_price=data.analyst_target_price,
         analyst_recommendation=data.analyst_recommendation,

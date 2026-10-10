@@ -15,18 +15,21 @@ export function ScoreRing({ score, size = 120, stroke = 10, showLabel = true }: 
     <View style={{ width: size, height: size }}>
       <Svg width={size} height={size}>
         <Circle cx={size / 2} cy={size / 2} r={r} stroke={colors.track} strokeWidth={stroke} fill="none" />
-        <Circle
-          cx={size / 2}
-          cy={size / 2}
-          r={r}
-          stroke={color}
-          strokeWidth={stroke}
-          fill="none"
-          strokeLinecap="round"
-          strokeDasharray={`${circumference} ${circumference}`}
-          strokeDashoffset={circumference * (1 - progress)}
-          transform={`rotate(-90 ${size / 2} ${size / 2})`}
-        />
+        {/* Skipped at 0: a round line cap would still draw a dot. */}
+        {progress > 0 && (
+          <Circle
+            cx={size / 2}
+            cy={size / 2}
+            r={r}
+            stroke={color}
+            strokeWidth={stroke}
+            fill="none"
+            strokeLinecap="round"
+            strokeDasharray={`${circumference} ${circumference}`}
+            strokeDashoffset={circumference * (1 - progress)}
+            transform={`rotate(-90 ${size / 2} ${size / 2})`}
+          />
+        )}
       </Svg>
       <View style={[StyleSheet.absoluteFill, styles.center]}>
         <Text style={[styles.value, { fontSize: size * 0.3, color }]}>{score == null ? '—' : Math.round(score)}</Text>
