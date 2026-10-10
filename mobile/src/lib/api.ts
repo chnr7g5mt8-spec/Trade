@@ -1,6 +1,8 @@
 import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 
+export type MarketState = 'open' | 'pre' | 'post' | 'closed';
+
 export type MetricScore = {
   key: string;
   label: string;
@@ -23,6 +25,12 @@ export type Rating = {
   sector: string | null;
   currency: string | null;
   price: number | null;
+  /** Unix seconds of the last regular-session trade. */
+  price_time: number | null;
+  market_state: MarketState | null;
+  /** Pre-market or after-hours price, when there is one. */
+  extended_price: number | null;
+  extended_session: 'pre' | 'post' | null;
   score: number | null;
   label: string;
   coverage: number;

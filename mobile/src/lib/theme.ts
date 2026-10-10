@@ -28,3 +28,30 @@ export function formatMoney(value: number | null | undefined, currency?: string 
   const amount = value.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
   return `${symbol}${amount}${suffix}`;
 }
+
+const MARKET_LABELS = {
+  open: 'Market open',
+  pre: 'Pre-market',
+  post: 'After hours',
+  closed: 'Market closed',
+} as const;
+
+export function marketLabel(state: keyof typeof MARKET_LABELS | null | undefined): string | null {
+  return state ? MARKET_LABELS[state] : null;
+}
+
+/** e.g. "Oct 9, 4:00 PM" in the viewer's own time zone. */
+export function formatTime(unixSeconds: number | null | undefined): string | null {
+  if (unixSeconds == null) return null;
+  return new Date(unixSeconds * 1000).toLocaleString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+  });
+}
+
+export function formatChange(from: number, to: number): string {
+  const pct = (to / from - 1) * 100;
+  return `${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%`;
+}

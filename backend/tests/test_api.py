@@ -145,3 +145,35 @@ def test_errors_are_not_cached():
         with pytest.raises(ProviderError):
             svc.get("KO")
     assert calls == ["KO", "KO"]
+
+
+def _counting(state):
+    calls = []
+
+    class Provider(SampleProvider):
+        def fetch(self, ticker):
+            calls.append(ticker)
+            return super().fetch(ticker).model_copy(update={"market_state": state})
+
+    return Provider(), calls
+
+
+@pytest.mark.parametrize("state, expected_ttl", [("open", 60), ("pre", 60), ("post", 60), ("closed", 900), (None, 900)])
+def test_cache_is_short_while_market_trades(monkeypatch, state, expected_ttl):
+    provider, calls = _counting(state)
+    now = [1000.0]
+    monkeypatch.setattr(main.time, "monotonic", lambda: now[0])
+    svc = main.RatingService(provider)
+    svc.get("KO")
+    now[0] += expected_ttl - 1
+    svc.get("KO")
+    assert len(calls) == 1
+    now[0] += 2
+    svc.get("KO")
+    assert len(calls) == 2
+
+
+def test_api_responses_are_never_cached(client):
+    assert client.get("/api/rating/KO").headers["cache-control"] == "no-store"
+    assert client.get("/api/ratings", params={"tickers": "KO"}).headers["cache-control"] == "no-store"
+    assert client.get("/api/rating/NOPE").headers["cache-control"] == "no-store"

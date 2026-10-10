@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Pressable, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { CategoryCard } from '../../components/CategoryCard';
+import { PriceStatus } from '../../components/PriceStatus';
 import { ScoreRing } from '../../components/ScoreRing';
 import { Sparkline } from '../../components/Sparkline';
 import { fetchRating, type Rating } from '../../lib/api';
@@ -40,6 +41,15 @@ export default function StockDetail() {
   useEffect(() => {
     fetchLatest();
   }, [fetchLatest]);
+
+  // Keep the price current while the market is trading and this screen is open.
+  const marketState = rating?.source === 'sample' ? null : rating?.market_state;
+  const live = marketState === 'open' || marketState === 'pre' || marketState === 'post';
+  useEffect(() => {
+    if (!live) return;
+    const timer = setInterval(fetchLatest, 60_000);
+    return () => clearInterval(timer);
+  }, [live, fetchLatest]);
 
   const refresh = useCallback(() => {
     setLoading(true);
@@ -106,6 +116,7 @@ export default function StockDetail() {
           <Text style={styles.name}>{rating.name ?? rating.ticker}</Text>
           {rating.sector && <Text style={styles.muted}>{rating.sector}</Text>}
           <Text style={styles.price}>{formatMoney(rating.price, rating.currency)}</Text>
+          <PriceStatus rating={rating} />
           <View style={[styles.pill, { backgroundColor: scoreColor(rating.score) }]}>
             <Text style={styles.pillText}>{rating.label}</Text>
           </View>

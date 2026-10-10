@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import logging
 import math
+import threading
+import time
 from typing import Protocol
 
 from .models import StockData
@@ -60,8 +62,68 @@ def _downsample(closes: list[float], points: int = 60) -> list[float]:
     return [round(closes[round(i * step)], 4) for i in range(points)]
 
 
+def _epoch(value: object) -> int | None:
+    """Unix seconds from Yahoo's timestamp fields (ints; ignore anything else)."""
+    v = _num(value)
+    return int(v) if v is not None and v > 0 else None
+
+
+# Yahoo's marketState values, mapped to the app's vocabulary.
+_MARKET_STATES = {
+    "REGULAR": "open",
+    "PRE": "pre",
+    "PREPRE": "pre",
+    "POST": "post",
+    "POSTPOST": "post",
+    "CLOSED": "closed",
+}
+
+
+def quote_fields(info: dict) -> dict:
+    """Live price, its timestamp, market state and any pre/after-hours price.
+
+    regularMarketPrice comes from Yahoo's live quote; currentPrice comes from
+    a financial-data snapshot that can lag, so it is only a fallback.
+    """
+    price = _num(info.get("regularMarketPrice")) or _num(info.get("currentPrice"))
+    price_time = _epoch(info.get("regularMarketTime"))
+    state = _MARKET_STATES.get(str(info.get("marketState", "")).upper())
+
+    extended_price = extended_session = None
+    pre, pre_time = _num(info.get("preMarketPrice")), _epoch(info.get("preMarketTime"))
+    post, post_time = _num(info.get("postMarketPrice")), _epoch(info.get("postMarketTime"))
+    if state == "pre" and pre and pre_time and (price_time is None or pre_time > price_time):
+        extended_price, extended_session = pre, "pre"
+    elif state in ("post", "closed") and post and post_time and (price_time is None or post_time > price_time):
+        extended_price, extended_session = post, "post"
+
+    return dict(price=price, price_time=price_time, market_state=state,
+                extended_price=extended_price, extended_session=extended_session)
+
+
 class YahooProvider:
     name = "yahoo"
+    # Daily closes only change once a day, so the year of history is reused
+    # across the frequent quote refreshes instead of being re-downloaded.
+    HISTORY_TTL_SECONDS = 15 * 60
+
+    def __init__(self) -> None:
+        self._history: dict[str, tuple[float, list[float]]] = {}
+        self._lock = threading.Lock()
+
+    def _closes(self, ticker_obj, ticker: str) -> list[float]:
+        with self._lock:
+            hit = self._history.get(ticker)
+        if hit and time.monotonic() - hit[0] < self.HISTORY_TTL_SECONDS:
+            return hit[1]
+        history = ticker_obj.history(period="1y", auto_adjust=True)
+        closes: list[float] = []
+        if history is not None and not history.empty and "Close" in history:
+            closes = [c for c in (_num(v) for v in history["Close"].tolist()) if c is not None and c > 0]
+        if closes:  # don't remember a failed or empty download
+            with self._lock:
+                self._history[ticker] = (time.monotonic(), closes)
+        return closes
 
     def fetch(self, ticker: str) -> StockData:
         import yfinance as yf
@@ -73,7 +135,7 @@ class YahooProvider:
         try:
             t = yf.Ticker(ticker)
             info = t.info
-            history = t.history(period="1y", auto_adjust=True)
+            closes = self._closes(t, ticker)
         except YFRateLimitError as exc:
             raise ProviderError("Yahoo Finance is rate-limiting requests. Try again in a minute.") from exc
         except Exception as exc:  # yfinance raises a wide variety of errors
@@ -83,13 +145,11 @@ class YahooProvider:
 
         if not isinstance(info, dict):
             info = {}
-        closes: list[float] = []
-        if history is not None and not history.empty and "Close" in history:
-            closes = [c for c in (_num(v) for v in history["Close"].tolist()) if c is not None and c > 0]
-        if not closes and _num(info.get("regularMarketPrice")) is None and _num(info.get("currentPrice")) is None:
+        quote = quote_fields(info)
+        if not closes and quote["price"] is None:
             raise TickerNotFound(ticker)
-
-        price = _num(info.get("currentPrice")) or _num(info.get("regularMarketPrice")) or (closes[-1] if closes else None)
+        if quote["price"] is None:
+            quote["price"] = closes[-1]
         rec = info.get("recommendationKey")
 
         return StockData(
@@ -97,7 +157,6 @@ class YahooProvider:
             name=info.get("shortName") or info.get("longName"),
             sector=info.get("sector"),
             currency=info.get("currency"),
-            price=price,
             market_cap=_num(info.get("marketCap")),
             trailing_pe=_num(info.get("trailingPE")),
             forward_pe=_num(info.get("forwardPE")),
@@ -116,6 +175,7 @@ class YahooProvider:
             fifty_two_week_high=_num(info.get("fiftyTwoWeekHigh")),
             fifty_two_week_low=_num(info.get("fiftyTwoWeekLow")),
             price_history=_downsample(closes),
+            **quote,
             **momentum_from_closes(closes),
         )
 

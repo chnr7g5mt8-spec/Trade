@@ -70,7 +70,12 @@ API:
   (up to 25 tickers, fetched in parallel; unknown or failing tickers are skipped)
 - `GET /health`
 
-Results are cached in memory for 15 minutes per ticker.
+Prices come from Yahoo's live quote. While a stock's market is trading
+(including pre-market and after hours) results are cached for 1 minute, and
+the app refreshes open screens every minute; when the market is closed they
+are cached for 15 minutes. The app shows the time of each price, whether the
+market is open, and any pre-market or after-hours price. Yahoo's quotes can
+themselves be delayed for some exchanges.
 
 If Yahoo rate-limits the server, the API returns a 502 error with a message
 saying so, and the app shows it.

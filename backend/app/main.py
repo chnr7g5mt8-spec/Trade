@@ -16,7 +16,7 @@ from collections import OrderedDict
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 
@@ -26,6 +26,10 @@ from .scoring import rate
 
 TICKER_RE = re.compile(r"^[A-Z0-9^][A-Z0-9.\-^=]{0,14}$")
 CACHE_TTL_SECONDS = 15 * 60
+# While a market is trading (incl. pre-market and after hours) prices move,
+# so ratings are refreshed much sooner.
+LIVE_CACHE_TTL_SECONDS = 60
+LIVE_MARKET_STATES = {"open", "pre", "post"}
 CACHE_MAX_ENTRIES = 500
 MAX_BATCH = 25
 BATCH_WORKERS = 6
@@ -36,24 +40,31 @@ def _make_provider() -> Provider:
 
 
 class RatingService:
-    """Rates tickers through a provider, caching results for `ttl` seconds."""
+    """Rates tickers through a provider, caching results.
 
-    def __init__(self, provider: Provider, ttl: float = CACHE_TTL_SECONDS, max_entries: int = CACHE_MAX_ENTRIES):
+    Results are kept for `live_ttl` seconds while the stock's market is
+    trading and for `ttl` seconds otherwise.
+    """
+
+    def __init__(self, provider: Provider, ttl: float = CACHE_TTL_SECONDS,
+                 live_ttl: float = LIVE_CACHE_TTL_SECONDS, max_entries: int = CACHE_MAX_ENTRIES):
         self.provider = provider
         self.ttl = ttl
+        self.live_ttl = live_ttl
         self.max_entries = max_entries
-        self._cache: OrderedDict[str, tuple[float, Rating]] = OrderedDict()
+        self._cache: OrderedDict[str, tuple[float, Rating]] = OrderedDict()  # ticker -> (expires_at, rating)
         self._lock = threading.Lock()
 
     def get(self, ticker: str) -> Rating:
         with self._lock:
             hit = self._cache.get(ticker)
-            if hit and time.monotonic() - hit[0] < self.ttl:
+            if hit and time.monotonic() < hit[0]:
                 self._cache.move_to_end(ticker)
                 return hit[1]
         rating = rate(self.provider.fetch(ticker), source=self.provider.name)
+        ttl = self.live_ttl if rating.market_state in LIVE_MARKET_STATES else self.ttl
         with self._lock:
-            self._cache[ticker] = (time.monotonic(), rating)
+            self._cache[ticker] = (time.monotonic() + ttl, rating)
             self._cache.move_to_end(ticker)
             while len(self._cache) > self.max_entries:
                 self._cache.popitem(last=False)
@@ -68,6 +79,15 @@ def parse_ticker(raw: str) -> str | None:
 app = FastAPI(title="Stock Rating API", version="0.1.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET"], allow_headers=["*"])
 service = RatingService(_make_provider())
+
+
+@app.middleware("http")
+async def no_store_api_responses(request: Request, call_next):
+    # Prices must never be served from a browser or CDN cache.
+    response = await call_next(request)
+    if request.url.path.startswith("/api/"):
+        response.headers["Cache-Control"] = "no-store"
+    return response
 
 
 @app.get("/health")

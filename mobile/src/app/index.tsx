@@ -5,8 +5,10 @@ import { FlatList, Pressable, RefreshControl, StyleSheet, Text, TextInput, View 
 import { ScoreRing } from '../components/ScoreRing';
 import { Sparkline } from '../components/Sparkline';
 import { fetchRatings, type Rating } from '../lib/api';
-import { colors, formatMoney, scoreColor } from '../lib/theme';
+import { colors, formatMoney, formatTime, marketLabel, scoreColor } from '../lib/theme';
 import { useWatchlist } from '../lib/watchlist';
+
+const REFRESH_MS = 60_000;
 
 export default function Home() {
   const { list, ready } = useWatchlist();
@@ -17,6 +19,7 @@ export default function Home() {
   const [requested, setRequested] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [checkedAt, setCheckedAt] = useState<number | null>(null);
   const latestRequest = useRef(0);
 
   const load = useCallback(async () => {
@@ -29,6 +32,7 @@ export default function Home() {
       if (id !== latestRequest.current) return; // a newer load superseded this one
       setRatings(Object.fromEntries(results.map((r) => [r.ticker, r])));
       setRequested(new Set(list));
+      setCheckedAt(Date.now() / 1000);
     } catch (e) {
       if (id === latestRequest.current) setError((e as Error).message);
     } finally {
@@ -36,10 +40,23 @@ export default function Home() {
     }
   }, [list, ready]);
 
+  const loaded = Object.values(ratings);
+  const demo = loaded.some((r) => r.source === 'sample');
+  const marketState = loaded.find((r) => r.market_state)?.market_state ?? null;
+  const live = !demo && (marketState === 'open' || marketState === 'pre' || marketState === 'post');
+  let marketStatus: string | null = null;
+  if (demo) marketStatus = "Demo data · prices aren't live";
+  else if (live) marketStatus = `${marketLabel(marketState)} · updates every minute · checked ${formatTime(checkedAt)}`;
+  else if (marketState === 'closed') marketStatus = 'Market closed · showing the last closing prices';
+
   useFocusEffect(
     useCallback(() => {
       load();
-    }, [load]),
+      // Keep prices current while the market is trading and this screen is visible.
+      if (!live) return;
+      const timer = setInterval(load, REFRESH_MS);
+      return () => clearInterval(timer);
+    }, [load, live]),
   );
 
   const submit = () => {
@@ -69,7 +86,10 @@ export default function Home() {
             style={styles.search}
             accessibilityLabel="Ticker symbol"
           />
-          <Text style={styles.sectionTitle}>Watchlist</Text>
+          <View style={{ gap: 4 }}>
+            <Text style={styles.sectionTitle}>Watchlist</Text>
+            {marketStatus && <Text style={styles.marketStatus}>{marketStatus}</Text>}
+          </View>
           {error && <Text style={styles.error}>{error}</Text>}
         </View>
       }
@@ -133,6 +153,7 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
   },
   sectionTitle: { fontSize: 13, fontWeight: '600', color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.5 },
+  marketStatus: { fontSize: 13, color: colors.muted },
   error: { color: colors.danger },
   empty: { color: colors.muted, textAlign: 'center', marginTop: 24 },
   row: { flexDirection: 'row', alignItems: 'center', gap: 12, backgroundColor: colors.card, borderRadius: 12, padding: 12 },

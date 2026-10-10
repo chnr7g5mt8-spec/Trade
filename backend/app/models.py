@@ -13,6 +13,10 @@ class StockData(BaseModel):
     sector: str | None = None
     currency: str | None = None
     price: float | None = None
+    price_time: int | None = None  # Unix seconds of the last regular-session trade
+    market_state: str | None = None  # "open", "pre", "post" or "closed"
+    extended_price: float | None = None  # pre-market or after-hours price, if trading
+    extended_session: str | None = None  # "pre" or "post"
     market_cap: float | None = None
 
     # Valuation
@@ -70,6 +74,10 @@ class Rating(BaseModel):
     sector: str | None
     currency: str | None
     price: float | None
+    price_time: int | None = None
+    market_state: str | None = None
+    extended_price: float | None = None
+    extended_session: str | None = None
     score: float | None
     label: str
     coverage: float  # fraction of metrics that had data
