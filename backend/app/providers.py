@@ -2,10 +2,14 @@
 
 from __future__ import annotations
 
+import logging
 import math
 from typing import Protocol
 
 from .models import StockData
+
+
+log = logging.getLogger(__name__)
 
 
 class TickerNotFound(Exception):
@@ -73,7 +77,9 @@ class YahooProvider:
         except YFRateLimitError as exc:
             raise ProviderError("Yahoo Finance is rate-limiting requests. Try again in a minute.") from exc
         except Exception as exc:  # yfinance raises a wide variety of errors
-            raise ProviderError(f"Could not fetch data for {ticker}: {exc}") from exc
+            # Technical details go to the server log, not to the user.
+            log.warning("Yahoo Finance request for %s failed: %s", ticker, exc)
+            raise ProviderError(f"Couldn't get data for {ticker} from Yahoo Finance. Try again in a minute.") from exc
 
         if not isinstance(info, dict):
             info = {}

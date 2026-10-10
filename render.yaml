@@ -1,0 +1,16 @@
+# Render Blueprint: deploys the app (web version + API) as one web service.
+# In Render: New > Blueprint, then pick this repository.
+services:
+  - type: web
+    name: stock-rater
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      # The Docker image listens on $PORT; set explicitly rather than relying on a host default.
+      - key: PORT
+        value: 10000
+      # "yahoo" for live data, or "sample" for the bundled demo data.
+      - key: DATA_SOURCE
+        value: yahoo

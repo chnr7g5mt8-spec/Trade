@@ -98,10 +98,44 @@ Before publishing to the app stores, host the backend on HTTPS. iOS and
 Android release builds block plain `http://` requests (Expo Go allows them
 during development).
 
+## Putting it online
+
+The repo includes a `Dockerfile` that builds one container with both the API
+and the web version of the app, so the whole thing is reachable at a single
+link. `render.yaml` deploys that container to [Render](https://render.com)'s
+free tier:
+
+1. Sign in to Render with your GitHub account.
+2. Click **New > Blueprint**, pick this repository, and choose the branch that
+   contains `render.yaml`.
+3. Click **Apply**. The first build takes a few minutes. Your link is shown at
+   the top of the service page, e.g. `https://stock-rater.onrender.com`.
+
+Things to know about the free tier:
+- The service goes to sleep after about 15 minutes without visitors. The next
+  visit wakes it, which takes up to a minute.
+- Yahoo Finance sometimes blocks or rate-limits requests from cloud servers.
+  If live data stops working, the app shows a "Couldn't get data" message. To
+  fall back to demo data, set `DATA_SOURCE` to `sample` under **Environment**
+  in the Render dashboard.
+
+To run the same container yourself:
+
+```bash
+docker build -t stock-rater .
+docker run -p 8000:8000 stock-rater                        # live data
+docker run -p 8000:8000 -e DATA_SOURCE=sample stock-rater  # demo data
+```
+
+Then open http://localhost:8000.
+
+The phone app (Expo Go) can also use the hosted server:
+`EXPO_PUBLIC_API_URL=https://your-link.onrender.com npx expo start`
+
 ## Ideas for next steps
 
 - Sector-relative scoring (a P/E of 30 means different things for software and for utilities)
 - Ticker search and autocomplete
 - Dark mode
 - Score history and price alerts
-- Deploy the backend (Fly.io, Render, Railway) and build the app with EAS
+- Build installable iOS/Android apps with EAS

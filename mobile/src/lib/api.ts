@@ -1,4 +1,5 @@
 import Constants from 'expo-constants';
+import { Platform } from 'react-native';
 
 export type MetricScore = {
   key: string;
@@ -35,19 +36,27 @@ export type Rating = {
 };
 
 /**
- * Backend URL. Set EXPO_PUBLIC_API_URL to override; otherwise during
- * development we assume the API runs on port 8000 of the same machine that
- * serves the Expo bundle, which works for simulators and for phones on the
- * same Wi-Fi network.
+ * Backend URL. Set EXPO_PUBLIC_API_URL to override. A production web build
+ * is served by the backend itself, so it uses the page's own origin.
+ * Otherwise, during development, we assume the API runs on port 8000 of the
+ * same machine that serves the Expo bundle, which works for simulators and
+ * for phones on the same Wi-Fi network.
  */
 function resolveBaseUrl(): string {
   const fromEnv = process.env.EXPO_PUBLIC_API_URL;
   if (fromEnv) return fromEnv.replace(/\/$/, '');
+  if (Platform.OS === 'web' && !__DEV__) return '';
   const host = Constants.expoConfig?.hostUri?.split(':')[0];
   return `http://${host ?? 'localhost'}:8000`;
 }
 
 export const API_URL = resolveBaseUrl();
+
+// Same-origin builds have no URL worth showing in error messages.
+const SERVER = API_URL ? `the rating server at ${API_URL}` : 'the rating server';
+const UNREACHABLE = API_URL
+  ? `Can't reach ${SERVER}. Is the backend running?`
+  : `Can't reach ${SERVER}. Check your connection and try again.`;
 
 const TIMEOUT_MS = 30_000;
 
@@ -59,7 +68,7 @@ async function getJson<T>(path: string): Promise<T> {
     return await request<T>(path, controller.signal);
   } catch (e) {
     if (controller.signal.aborted) {
-      throw new Error(`The rating server at ${API_URL} took too long to respond. Try again.`);
+      throw new Error(`${SERVER[0].toUpperCase()}${SERVER.slice(1)} took too long to respond. Try again.`);
     }
     throw e;
   } finally {
@@ -73,7 +82,7 @@ async function request<T>(path: string, signal: AbortSignal): Promise<T> {
     res = await fetch(`${API_URL}${path}`, { signal });
   } catch (e) {
     if (signal.aborted) throw e;
-    throw new Error(`Can't reach the rating server at ${API_URL}. Is the backend running?`);
+    throw new Error(UNREACHABLE);
   }
   if (!res.ok) {
     let detail = `Request failed (${res.status})`;

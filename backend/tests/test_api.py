@@ -62,6 +62,23 @@ def test_batch_skips_provider_errors(client, monkeypatch):
     assert [r["ticker"] for r in body] == ["KO"]
 
 
+def test_batch_reports_error_when_data_source_is_down(client, monkeypatch):
+    class Down(SampleProvider):
+        def fetch(self, ticker):
+            raise ProviderError("Yahoo Finance is rate-limiting requests. Try again in a minute.")
+
+    monkeypatch.setattr(main, "service", main.RatingService(Down()))
+    res = client.get("/api/ratings", params={"tickers": "AAPL,KO"})
+    assert res.status_code == 502
+    assert "rate-limiting" in res.json()["detail"]
+
+
+def test_batch_of_only_unknown_tickers_is_empty_not_error(client):
+    res = client.get("/api/ratings", params={"tickers": "NOPE,ZZZZ"})
+    assert res.status_code == 200
+    assert res.json() == []
+
+
 def test_provider_error_502(client, monkeypatch):
     class Broken:
         name = "broken"

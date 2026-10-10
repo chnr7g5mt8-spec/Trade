@@ -123,10 +123,14 @@ def test_info_only_without_history_still_rates(monkeypatch):
     assert data.price_history == []
 
 
-def test_network_error_is_provider_error_not_404(monkeypatch):
-    use(monkeypatch, info_exc=ConnectionError("CONNECT tunnel failed"))
-    with pytest.raises(ProviderError, match="Could not fetch data for AAPL"):
+def test_network_error_is_provider_error_not_404(monkeypatch, caplog):
+    use(monkeypatch, info_exc=ConnectionError("curl: (6) Could not resolve host"))
+    with pytest.raises(ProviderError) as err:
         YahooProvider().fetch("AAPL")
+    # Plain message for the user; technical detail only in the server log.
+    assert str(err.value) == "Couldn't get data for AAPL from Yahoo Finance. Try again in a minute."
+    assert "curl" not in str(err.value)
+    assert "Could not resolve host" in caplog.text
 
 
 def test_rate_limit_has_friendly_message(monkeypatch):
