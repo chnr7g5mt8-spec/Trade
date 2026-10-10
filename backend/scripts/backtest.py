@@ -430,6 +430,8 @@ def main() -> None:
             "test holds roughly two years of independent evidence.",
             "Forward P/E, PEG and EV/EBITDA need historical analyst estimates or ratios that aren't freely "
             "available, so the tested ratings leave them out.",
+            "The weights were adjusted once after an earlier run of this test (momentum up from 10% to 15%, "
+            "earnings consistency down from 10% to 5%), so this period isn't an independent check of that change.",
             "Past results don't guarantee future returns.",
         ],
     })

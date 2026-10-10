@@ -67,12 +67,15 @@ CATEGORIES: tuple[CategorySpec, ...] = (
         MetricSpec("quick_ratio", "Quick ratio", bad=0.5, good=1.5, fmt=ratio, relative=True),
         MetricSpec("interest_coverage", "Interest coverage", bad=1.5, good=12, fmt=times),
     )),
-    CategorySpec("consistency", "Earnings consistency", 0.10, (
+    # Weight moved from consistency (which overlaps with profitability) to momentum after the
+    # 2024-25 track record, where momentum was the category that most consistently helped;
+    # long-run research supports momentum too. See scripts/backtest.py and the app's track record.
+    CategorySpec("consistency", "Earnings consistency", 0.05, (
         MetricSpec("profitable_years", "Profitable years", bad=0.5, good=1.0, fmt=_share_fmt),
         MetricSpec("revenue_up_years", "Years revenue grew", bad=0.0, good=1.0, fmt=_share_fmt),
         MetricSpec("eps_up_years", "Years EPS grew", bad=0.0, good=1.0, fmt=_share_fmt),
     )),
-    CategorySpec("momentum", "Momentum", 0.10, (
+    CategorySpec("momentum", "Momentum", 0.15, (
         MetricSpec("return_1y", "1-year return", bad=-0.20, good=0.30, fmt=pct),
         MetricSpec("price_vs_sma200", "Price vs 200-day avg", bad=-0.10, good=0.10, fmt=pct),
         MetricSpec("price_vs_sma50", "Price vs 50-day avg", bad=-0.05, good=0.05, fmt=pct),

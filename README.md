@@ -27,8 +27,8 @@ Live app: https://stock-rater-n7st.onrender.com
 | Profitability | 20% | Return on equity and on assets; gross, operating and net margin |
 | Growth | 15% | Revenue and EPS growth vs a year earlier; 3-year revenue growth |
 | Financial health | 15% | Debt/equity, current and quick ratio, interest coverage |
-| Earnings consistency | 10% | Share of recent years that were profitable, and with rising revenue and EPS |
-| Momentum | 10% | 1-year return; price vs 50- and 200-day averages |
+| Earnings consistency | 5% | Share of recent years that were profitable, and with rising revenue and EPS |
+| Momentum | 15% | 1-year return; price vs 50- and 200-day averages |
 | Risk | 10% | 1-year volatility, largest drop, 5-year beta vs the home market index |
 | Dividends | dividend payers only | Yield, payout ratio, 5-year dividend growth, years of increases |
 
