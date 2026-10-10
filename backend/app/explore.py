@@ -130,11 +130,33 @@ def eligible(r: Rating) -> bool:
     return r.asset_type == "crypto" or not (PREFERRED_RE.search(r.ticker) or is_fund_like(r))
 
 
+def _rank(r: Rating) -> int:
+    fact = next((f.value for f in r.facts if f.label == "Rank by market cap"), "")
+    return int(fact.lstrip("#")) if fact.lstrip("#").isdigit() else 10**9
+
+
+def _metric(r: Rating, key: str) -> float | None:
+    return next((m.value for c in r.categories for m in c.metrics if m.key == key), None)
+
+
+def _tracks(a: Rating, b: Rating) -> bool:
+    """Whether coin a trades as a copy of coin b (same price and same year)."""
+    if not a.price or not b.price or b.price < 10:
+        return False
+    ra, rb = _metric(a, "return_1y"), _metric(b, "return_1y")
+    return abs(a.price / b.price - 1) < 0.01 and ra is not None and rb is not None and abs(ra - rb) < 0.03
+
+
 def derived_coins(coins: list[Rating]) -> set[str]:
-    """Tickers of wrapped or staked versions of other coins in the list."""
+    """Tickers of wrapped, staked or bridged versions of other coins in the list."""
     symbols = {c.symbol for c in coins}
-    return {c.ticker for c in coins
-            if DERIVED_COIN_RE.search(c.name or "") or (c.symbol.startswith("W") and c.symbol[1:] in symbols)}
+    by_size = sorted(coins, key=_rank)
+    derived = set()
+    for i, c in enumerate(by_size):
+        if (DERIVED_COIN_RE.search(c.name or "") or (c.symbol.startswith("W") and c.symbol[1:] in symbols)
+                or any(_tracks(c, bigger) for bigger in by_size[:i])):
+            derived.add(c.ticker)
+    return derived
 
 
 def build(ratings: list[Rating]) -> list[dict]:

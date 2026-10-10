@@ -7,7 +7,7 @@ from fastapi.testclient import TestClient
 
 from app import explore, main
 from app.benchmarks import EMPTY
-from app.models import CategoryScore, Rating
+from app.models import CategoryScore, Fact, MetricScore, Rating
 from app.providers.market import MarketData
 from app.providers.stocks import StockProvider
 from app.sources.recorded import RecordedClient
@@ -181,3 +181,18 @@ def test_wrapped_and_staked_coins_are_left_out():
                coin("STETH-USD", "Lido Staked ETH", 57.0), coin("WIF-USD", "dogwifhat", 50.0),
                coin("W-USD", "Wormhole", 45.0)]
     assert [i["ticker"] for i in lists_by_key(ratings)["crypto"]["items"]] == ["BTC-USD", "ETH-USD", "WIF-USD", "W-USD"]
+
+
+def test_coins_trading_as_copies_of_a_larger_coin_are_left_out():
+    def coin(ticker, rank, price, ret, score):
+        r = rating(ticker, score, asset_type="crypto", sector=None, name=ticker)
+        cats = [CategoryScore(key="momentum", label="m", weight=0.3, score=50.0,
+                              metrics=[MetricScore(key="return_1y", label="r", value=ret, display="", score=50.0)])]
+        return r.model_copy(update={"price": price, "categories": cats,
+                                    "facts": [Fact(label="Rank by market cap", value=f"#{rank}")]})
+
+    ratings = [coin("BTCB-USD", 40, 121_300.0, 0.452, 70.0), coin("BTC-USD", 1, 121_000.0, 0.45, 60.0),
+               coin("OTHER-USD", 30, 121_500.0, -0.20, 50.0),  # same price by chance, different year
+               coin("SMALL-USD", 50, 0.301, 0.10, 55.0), coin("TINY-USD", 60, 0.30, 0.10, 54.0)]  # cheap: no test
+    assert [i["ticker"] for i in lists_by_key(ratings)["crypto"]["items"]] == [
+        "BTC-USD", "SMALL-USD", "TINY-USD", "OTHER-USD"]
