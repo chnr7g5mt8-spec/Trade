@@ -1,0 +1,245 @@
+"""Data providers: live Yahoo Finance data via yfinance, or bundled demo data."""
+
+from __future__ import annotations
+
+import logging
+import math
+import threading
+import time
+from typing import Protocol
+
+from .models import StockData
+
+
+log = logging.getLogger(__name__)
+
+
+class TickerNotFound(Exception):
+    pass
+
+
+class ProviderError(Exception):
+    pass
+
+
+class Provider(Protocol):
+    name: str
+
+    def fetch(self, ticker: str) -> StockData: ...
+
+
+def _num(value: object) -> float | None:
+    """Coerce Yahoo's loosely-typed values to a finite float, else None."""
+    if value is None or isinstance(value, bool):
+        return None
+    try:
+        f = float(value)  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        return None
+    return f if math.isfinite(f) else None
+
+
+def momentum_from_closes(closes: list[float]) -> dict[str, float | None]:
+    """1-year return and price vs 50/200-day simple moving averages."""
+    out: dict[str, float | None] = {"return_1y": None, "price_vs_sma50": None, "price_vs_sma200": None}
+    if len(closes) < 2:
+        return out
+    last = closes[-1]
+    if closes[0]:
+        out["return_1y"] = last / closes[0] - 1
+    if len(closes) >= 50:
+        out["price_vs_sma50"] = last / (sum(closes[-50:]) / 50) - 1
+    if len(closes) >= 200:
+        out["price_vs_sma200"] = last / (sum(closes[-200:]) / 200) - 1
+    return out
+
+
+def _downsample(closes: list[float], points: int = 60) -> list[float]:
+    # 4 decimals keeps penny-stock charts meaningful.
+    if len(closes) <= points:
+        return [round(c, 4) for c in closes]
+    step = (len(closes) - 1) / (points - 1)
+    return [round(closes[round(i * step)], 4) for i in range(points)]
+
+
+def _epoch(value: object) -> int | None:
+    """Unix seconds from Yahoo's timestamp fields (ints; ignore anything else)."""
+    v = _num(value)
+    return int(v) if v is not None and v > 0 else None
+
+
+# Yahoo's marketState values, mapped to the app's vocabulary.
+_MARKET_STATES = {
+    "REGULAR": "open",
+    "PRE": "pre",
+    "PREPRE": "pre",
+    "POST": "post",
+    "POSTPOST": "post",
+    "CLOSED": "closed",
+}
+
+
+def quote_fields(info: dict) -> dict:
+    """Live price, its timestamp, market state and any pre/after-hours price.
+
+    regularMarketPrice comes from Yahoo's live quote; currentPrice comes from
+    a financial-data snapshot that can lag, so it is only a fallback.
+    """
+    price = _num(info.get("regularMarketPrice")) or _num(info.get("currentPrice"))
+    price_time = _epoch(info.get("regularMarketTime"))
+    state = _MARKET_STATES.get(str(info.get("marketState", "")).upper())
+
+    extended_price = extended_session = None
+    pre, pre_time = _num(info.get("preMarketPrice")), _epoch(info.get("preMarketTime"))
+    post, post_time = _num(info.get("postMarketPrice")), _epoch(info.get("postMarketTime"))
+    if state == "pre" and pre and pre_time and (price_time is None or pre_time > price_time):
+        extended_price, extended_session = pre, "pre"
+    elif state in ("post", "closed") and post and post_time and (price_time is None or post_time > price_time):
+        extended_price, extended_session = post, "post"
+
+    return dict(price=price, price_time=price_time, market_state=state,
+                extended_price=extended_price, extended_session=extended_session)
+
+
+class YahooProvider:
+    name = "yahoo"
+    # Daily closes only change once a day, so the year of history is reused
+    # across the frequent quote refreshes instead of being re-downloaded.
+    HISTORY_TTL_SECONDS = 15 * 60
+
+    def __init__(self) -> None:
+        self._history: dict[str, tuple[float, list[float]]] = {}
+        self._lock = threading.Lock()
+
+    def _closes(self, ticker_obj, ticker: str) -> list[float]:
+        with self._lock:
+            hit = self._history.get(ticker)
+        if hit and time.monotonic() - hit[0] < self.HISTORY_TTL_SECONDS:
+            return hit[1]
+        history = ticker_obj.history(period="1y", auto_adjust=True)
+        closes: list[float] = []
+        if history is not None and not history.empty and "Close" in history:
+            closes = [c for c in (_num(v) for v in history["Close"].tolist()) if c is not None and c > 0]
+        if closes:  # don't remember a failed or empty download
+            with self._lock:
+                self._history[ticker] = (time.monotonic(), closes)
+        return closes
+
+    def fetch(self, ticker: str) -> StockData:
+        import yfinance as yf
+        from yfinance.exceptions import YFRateLimitError
+
+        # With yfinance's default settings an unknown ticker does not raise: info
+        # comes back (nearly) empty and history comes back as an empty frame.
+        # Network failures and rate limiting do raise, and are reported as such.
+        try:
+            t = yf.Ticker(ticker)
+            info = t.info
+            closes = self._closes(t, ticker)
+        except YFRateLimitError as exc:
+            raise ProviderError("Yahoo Finance is rate-limiting requests. Try again in a minute.") from exc
+        except Exception as exc:  # yfinance raises a wide variety of errors
+            # Technical details go to the server log, not to the user.
+            log.warning("Yahoo Finance request for %s failed: %s", ticker, exc)
+            raise ProviderError(f"Couldn't get data for {ticker} from Yahoo Finance. Try again in a minute.") from exc
+
+        if not isinstance(info, dict):
+            info = {}
+        quote = quote_fields(info)
+        if not closes and quote["price"] is None:
+            raise TickerNotFound(ticker)
+        if quote["price"] is None:
+            quote["price"] = closes[-1]
+        rec = info.get("recommendationKey")
+
+        return StockData(
+            ticker=ticker,
+            name=info.get("shortName") or info.get("longName"),
+            sector=info.get("sector"),
+            currency=info.get("currency"),
+            market_cap=_num(info.get("marketCap")),
+            trailing_pe=_num(info.get("trailingPE")),
+            forward_pe=_num(info.get("forwardPE")),
+            peg_ratio=_num(info.get("trailingPegRatio")) or _num(info.get("pegRatio")),
+            price_to_book=_num(info.get("priceToBook")),
+            return_on_equity=_num(info.get("returnOnEquity")),
+            profit_margin=_num(info.get("profitMargins")),
+            operating_margin=_num(info.get("operatingMargins")),
+            revenue_growth=_num(info.get("revenueGrowth")),
+            earnings_growth=_num(info.get("earningsGrowth")),
+            debt_to_equity=_num(info.get("debtToEquity")),
+            current_ratio=_num(info.get("currentRatio")),
+            free_cash_flow=_num(info.get("freeCashflow")),
+            analyst_target_price=_num(info.get("targetMeanPrice")),
+            analyst_recommendation=rec.replace("_", " ").title() if isinstance(rec, str) and rec != "none" else None,
+            fifty_two_week_high=_num(info.get("fiftyTwoWeekHigh")),
+            fifty_two_week_low=_num(info.get("fiftyTwoWeekLow")),
+            price_history=_downsample(closes),
+            **quote,
+            **momentum_from_closes(closes),
+        )
+
+
+def _synthetic_closes(start: float, end: float, wobble: float, seed: int) -> list[float]:
+    """Deterministic, smooth-ish 252-day price path for demo data."""
+    n = 252
+    closes = []
+    for i in range(n):
+        trend = start + (end - start) * i / (n - 1)
+        noise = math.sin(i / 9 + seed) * wobble + math.sin(i / 3.7 + seed * 2) * wobble * 0.4
+        closes.append(trend * (1 + noise))
+    closes[-1] = end
+    return closes
+
+
+# Illustrative demo values only -- not real or current market data.
+_SAMPLES: dict[str, dict] = {
+    "AAPL": dict(name="Apple Inc. (demo)", sector="Technology", market_cap=3.4e12, trailing_pe=33.0, forward_pe=29.0,
+                 peg_ratio=2.4, price_to_book=48.0, return_on_equity=1.4, profit_margin=0.24, operating_margin=0.31,
+                 revenue_growth=0.05, earnings_growth=0.08, debt_to_equity=150.0, current_ratio=0.9, free_cash_flow=1.0e11,
+                 analyst_target_price=245.0, analyst_recommendation="Buy", path=(190, 228, 0.04)),
+    "MSFT": dict(name="Microsoft Corp. (demo)", sector="Technology", market_cap=3.2e12, trailing_pe=35.0, forward_pe=30.0,
+                 peg_ratio=2.1, price_to_book=11.0, return_on_equity=0.35, profit_margin=0.36, operating_margin=0.45,
+                 revenue_growth=0.15, earnings_growth=0.11, debt_to_equity=33.0, current_ratio=1.3, free_cash_flow=7.0e10,
+                 analyst_target_price=500.0, analyst_recommendation="Strong Buy", path=(380, 430, 0.03)),
+    "KO": dict(name="Coca-Cola Co. (demo)", sector="Consumer Defensive", market_cap=2.7e11, trailing_pe=25.0, forward_pe=22.0,
+               peg_ratio=3.5, price_to_book=10.0, return_on_equity=0.40, profit_margin=0.23, operating_margin=0.29,
+               revenue_growth=0.02, earnings_growth=-0.02, debt_to_equity=160.0, current_ratio=1.1, free_cash_flow=9.0e9,
+               analyst_target_price=72.0, analyst_recommendation="Buy", path=(60, 63, 0.02)),
+    "F": dict(name="Ford Motor Co. (demo)", sector="Consumer Cyclical", market_cap=4.3e10, trailing_pe=11.5, forward_pe=6.5,
+              peg_ratio=0.9, price_to_book=1.0, return_on_equity=0.09, profit_margin=0.02, operating_margin=0.03,
+              revenue_growth=0.01, earnings_growth=-0.25, debt_to_equity=350.0, current_ratio=1.15, free_cash_flow=6.0e9,
+              analyst_target_price=11.5, analyst_recommendation="Hold", path=(13.5, 10.8, 0.05)),
+    "XYZQ": dict(name="Unprofitable Growth Co. (demo)", sector="Technology", market_cap=5.0e9, trailing_pe=-20.0,
+                 forward_pe=-45.0, peg_ratio=None, price_to_book=9.0, return_on_equity=-0.30, profit_margin=-0.25,
+                 operating_margin=-0.20, revenue_growth=0.35, earnings_growth=None, debt_to_equity=80.0, current_ratio=3.0,
+                 free_cash_flow=-4.0e8, analyst_target_price=30.0, analyst_recommendation="Hold", path=(40, 22, 0.08)),
+    # Funds have no company fundamentals, so this one is left unrated.
+    "QQQ": dict(name="Invesco QQQ Trust (demo)", path=(430, 510, 0.03)),
+}
+
+
+class SampleProvider:
+    name = "sample"
+
+    def fetch(self, ticker: str) -> StockData:
+        sample = _SAMPLES.get(ticker)
+        if sample is None:
+            raise TickerNotFound(ticker)
+        fields = dict(sample)
+        start, end, wobble = fields.pop("path")
+        closes = _synthetic_closes(start, end, wobble, seed=sum(map(ord, ticker)) % 17)
+        return StockData(
+            ticker=ticker,
+            currency="USD",
+            price=round(closes[-1], 2),
+            fifty_two_week_high=round(max(closes), 2),
+            fifty_two_week_low=round(min(closes), 2),
+            price_history=_downsample(closes),
+            **momentum_from_closes(closes),
+            **fields,
+        )
+
+    @staticmethod
+    def tickers() -> list[str]:
+        return list(_SAMPLES)
