@@ -1,0 +1,29 @@
+name: Capture test fixtures
+
+# Records real Yahoo Finance / CoinGecko responses into backend/tests/fixtures
+# so the parsers are tested against genuine payloads.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - run: pip install -r backend/requirements.txt
+      - run: python backend/scripts/capture_fixtures.py
+      - name: Commit fixtures
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backend/tests/fixtures
+          git diff --cached --quiet && exit 0
+          git commit -m "Record real Yahoo/CoinGecko responses as test fixtures"
+          git push

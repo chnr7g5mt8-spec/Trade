@@ -12,7 +12,6 @@ These three endpoints work without one:
 from __future__ import annotations
 
 import logging
-import threading
 import time
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -22,6 +21,7 @@ from ..stats import epoch, num
 log = logging.getLogger(__name__)
 
 BASE = "https://query2.finance.yahoo.com"
+SCREENER_URL = "https://query1.finance.yahoo.com/v1/finance/screener/predefined/saved"
 TIMEOUT = 20
 
 
@@ -42,7 +42,8 @@ class Chart:
     symbol: str
     meta: dict
     timestamps: list[int]
-    closes: list[float]  # adjusted closes, aligned with timestamps; gaps removed
+    closes: list[float]  # dividend-adjusted closes, aligned with timestamps; gaps removed
+    raw_closes: list[float] = field(default_factory=list)  # actual traded closes, same alignment
     dividends: list[tuple[int, float]] = field(default_factory=list)  # (unix seconds, amount per share)
 
     @property
@@ -66,11 +67,12 @@ class Client:
             # Browser-like TLS fingerprint, as yfinance uses; plain clients get blocked more often.
             session = curl_requests.Session(impersonate="chrome")
         self._session = session
-        self._lock = threading.Lock()
 
     def _get(self, path: str, params: dict) -> dict:
+        """GET a path under BASE (or a full URL) and return the decoded JSON."""
+        url = path if path.startswith("https://") else BASE + path
         try:
-            r = self._session.get(BASE + path, params=params, timeout=TIMEOUT)
+            r = self._session.get(url, params=params, timeout=TIMEOUT)
         except Exception as exc:
             raise YahooError(f"network error: {exc}") from exc
         if r.status_code == 429:
@@ -116,6 +118,13 @@ class Client:
             out.update(parse_timeseries(data))
         return out
 
+    # --- predefined screeners (e.g. "all_cryptocurrencies_us") -----------------
+    def screener(self, scr_id: str, count: int = 250, start: int = 0) -> tuple[list[dict], int]:
+        """One page of a Yahoo predefined screener; returns (quotes, total available)."""
+        data = self._get(SCREENER_URL, {"scrIds": scr_id, "count": count, "start": start, "formatted": "false"})
+        result = ((data.get("finance") or {}).get("result") or [{}])[0] or {}
+        return [q for q in result.get("quotes") or [] if isinstance(q, dict)], int(result.get("total") or 0)
+
     # --- search -----------------------------------------------------------------
     def search(self, query: str, count: int = 10) -> list[dict]:
         data = self._get("/v1/finance/search", {
@@ -142,17 +151,19 @@ def parse_chart(symbol: str, result: dict) -> Chart:
     adj = ((indicators.get("adjclose") or [{}])[0] or {}).get("adjclose")
     raw = ((indicators.get("quote") or [{}])[0] or {}).get("close")
     series = adj if adj and any(v is not None for v in adj) else raw or []
-    timestamps, closes = [], []
-    for t, c in zip(stamps, series):
-        c = num(c)
+    raw = raw or series
+    timestamps, closes, raw_closes = [], [], []
+    for t, c, r in zip(stamps, series, raw):
+        c, r = num(c), num(r)
         if c is not None and c > 0 and t:
             timestamps.append(int(t))
             closes.append(c)
+            raw_closes.append(r if r is not None and r > 0 else c)
     divs = ((result.get("events") or {}).get("dividends") or {}).values()
     dividends = sorted((int(d["date"]), float(d["amount"])) for d in divs
                        if isinstance(d, dict) and num(d.get("amount")) and epoch(d.get("date")))
     return Chart(symbol=meta.get("symbol") or symbol, meta=meta, timestamps=timestamps, closes=closes,
-                 dividends=dividends)
+                 raw_closes=raw_closes, dividends=dividends)
 
 
 def parse_timeseries(data: dict) -> dict[str, list[Point]]:
