@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-10T18:28+00:00",
+ "generated_at": "2026-10-10T19:10+00:00",
  "universe": "US-listed companies worth over $1B (including foreign companies' US listings) and coins worth over $100M",
  "stocks_rated": 2476,
  "coins_rated": 205,
@@ -10,7 +10,6 @@
    "description": "Highest overall score.",
    "group": "featured",
    "asset_type": "stock",
-   "category": null,
    "category_label": null,
    "items": [
     {
@@ -236,12 +235,701 @@
    ]
   },
   {
+   "key": "today_and_ahead",
+   "title": "Strong today and ahead",
+   "description": "Half the overall score, half the analyst outlook: strong results now and strong forecasts, among stocks rated Hold or better.",
+   "group": "featured",
+   "asset_type": "stock",
+   "category_label": "Combined score",
+   "items": [
+    {
+     "ticker": "NVDA",
+     "symbol": "NVDA",
+     "name": "NVIDIA Corporation",
+     "score": 74.0,
+     "label": "Buy",
+     "category_score": 87.0,
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "SKHY",
+     "symbol": "SKHY",
+     "name": "SK hynix Inc.",
+     "score": 73.0,
+     "label": "Buy",
+     "category_score": 86.5,
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "TSM",
+     "symbol": "TSM",
+     "name": "Taiwan Semiconductor Manufacturing Company Limited",
+     "score": 73.0,
+     "label": "Buy",
+     "category_score": 83.8,
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "ATAT",
+     "symbol": "ATAT",
+     "name": "Atour Lifestyle Holdings Limited",
+     "score": 72.0,
+     "label": "Buy",
+     "category_score": 83.7,
+     "sector": "Consumer Cyclical",
+     "industry": "Lodging",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "SNDK",
+     "symbol": "SNDK",
+     "name": "Sandisk Corporation",
+     "score": 70.0,
+     "label": "Buy",
+     "category_score": 83.6,
+     "sector": "Technology",
+     "industry": "Computer Hardware",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "MPWR",
+     "symbol": "MPWR",
+     "name": "Monolithic Power Systems, Inc.",
+     "score": 67.0,
+     "label": "Buy",
+     "category_score": 83.5,
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "AVGO",
+     "symbol": "AVGO",
+     "name": "Broadcom Inc.",
+     "score": 66.0,
+     "label": "Buy",
+     "category_score": 83.0,
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "ARGX",
+     "symbol": "ARGX",
+     "name": "argenx SE",
+     "score": 66.0,
+     "label": "Buy",
+     "category_score": 82.8,
+     "sector": "Healthcare",
+     "industry": "Biotechnology",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "AMAT",
+     "symbol": "AMAT",
+     "name": "Applied Materials, Inc.",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": 82.6,
+     "sector": "Technology",
+     "industry": "Semiconductor Equipment & Materials",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "CRDO",
+     "symbol": "CRDO",
+     "name": "Credo Technology Group Holding Ltd",
+     "score": 65.0,
+     "label": "Buy",
+     "category_score": 82.1,
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "GLBE",
+     "symbol": "GLBE",
+     "name": "Global-E Online Ltd.",
+     "score": 67.0,
+     "label": "Buy",
+     "category_score": 82.0,
+     "sector": "Consumer Cyclical",
+     "industry": "Internet Retail",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "FIX",
+     "symbol": "FIX",
+     "name": "Comfort Systems USA, Inc.",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": 81.8,
+     "sector": "Industrials",
+     "industry": "Engineering & Construction",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "ONTO",
+     "symbol": "ONTO",
+     "name": "Onto Innovation Inc.",
+     "score": 63.0,
+     "label": "Hold",
+     "category_score": 81.5,
+     "sector": "Technology",
+     "industry": "Semiconductor Equipment & Materials",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "SEZL",
+     "symbol": "SEZL",
+     "name": "Sezzle Inc.",
+     "score": 69.0,
+     "label": "Buy",
+     "category_score": 81.3,
+     "sector": "Financial Services",
+     "industry": "Credit Services",
+     "exchange": "NasdaqCM"
+    },
+    {
+     "ticker": "DLO",
+     "symbol": "DLO",
+     "name": "DLocal Limited",
+     "score": 67.0,
+     "label": "Buy",
+     "category_score": 81.2,
+     "sector": "Technology",
+     "industry": "Software\u2014Infrastructure",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "GOOG",
+     "symbol": "GOOG",
+     "name": "Alphabet Inc.",
+     "score": 69.0,
+     "label": "Buy",
+     "category_score": 81.1,
+     "sector": "Communication Services",
+     "industry": "Internet Content & Information",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "PICS",
+     "symbol": "PICS",
+     "name": "PicS N.V.",
+     "score": 62.0,
+     "label": "Hold",
+     "category_score": 81.0,
+     "sector": "Technology",
+     "industry": "Software\u2014Infrastructure",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "RMBS",
+     "symbol": "RMBS",
+     "name": "Rambus Inc.",
+     "score": 62.0,
+     "label": "Hold",
+     "category_score": 80.7,
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "DAVE",
+     "symbol": "DAVE",
+     "name": "Dave Inc.",
+     "score": 69.0,
+     "label": "Buy",
+     "category_score": 80.5,
+     "sector": "Technology",
+     "industry": "Software\u2014Application",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "SIMO",
+     "symbol": "SIMO",
+     "name": "Silicon Motion Technology Corporation",
+     "score": 61.0,
+     "label": "Hold",
+     "category_score": 80.5,
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "exchange": "NasdaqGS"
+    }
+   ]
+  },
+  {
+   "key": "outlook",
+   "title": "Future outlook",
+   "description": "Best analyst outlook: forecast earnings and sales growth, price targets and buy ratings, among stocks rated Hold or better. Analysts' forecasts are often too optimistic.",
+   "group": "featured",
+   "asset_type": "stock",
+   "category_label": "Outlook score",
+   "items": [
+    {
+     "ticker": "NVDA",
+     "symbol": "NVDA",
+     "name": "NVIDIA Corporation",
+     "score": 74.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "SKHY",
+     "symbol": "SKHY",
+     "name": "SK hynix Inc.",
+     "score": 73.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "MPWR",
+     "symbol": "MPWR",
+     "name": "Monolithic Power Systems, Inc.",
+     "score": 67.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "AVGO",
+     "symbol": "AVGO",
+     "name": "Broadcom Inc.",
+     "score": 66.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "ONTO",
+     "symbol": "ONTO",
+     "name": "Onto Innovation Inc.",
+     "score": 63.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": "Technology",
+     "industry": "Semiconductor Equipment & Materials",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "PICS",
+     "symbol": "PICS",
+     "name": "PicS N.V.",
+     "score": 62.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": "Technology",
+     "industry": "Software\u2014Infrastructure",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "SIMO",
+     "symbol": "SIMO",
+     "name": "Silicon Motion Technology Corporation",
+     "score": 61.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "ACMR",
+     "symbol": "ACMR",
+     "name": "ACM Research, Inc.",
+     "score": 60.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": "Technology",
+     "industry": "Semiconductor Equipment & Materials",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "CHYM",
+     "symbol": "CHYM",
+     "name": "Chime Financial, Inc.",
+     "score": 60.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": "Technology",
+     "industry": "Software\u2014Application",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "CLS",
+     "symbol": "CLS",
+     "name": "Celestica Inc.",
+     "score": 60.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": "Technology",
+     "industry": "Electronic Components",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "AGBK",
+     "symbol": "AGBK",
+     "name": "AGI Inc",
+     "score": 57.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": "Financial Services",
+     "industry": "Banks\u2014Regional",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "ARQT",
+     "symbol": "ARQT",
+     "name": "Arcutis Biotherapeutics, Inc.",
+     "score": 57.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": "Healthcare",
+     "industry": "Biotechnology",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "STX",
+     "symbol": "STX",
+     "name": "Seagate Technology Holdings plc",
+     "score": 57.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": "Technology",
+     "industry": "Computer Hardware",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "FPS",
+     "symbol": "FPS",
+     "name": "Forgent Power Solutions, Inc.",
+     "score": 55.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": "Industrials",
+     "industry": "Electrical Equipment & Parts",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "TSEM",
+     "symbol": "TSEM",
+     "name": "Tower Semiconductor Ltd.",
+     "score": 55.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "VRT",
+     "symbol": "VRT",
+     "name": "Vertiv Holdings Co",
+     "score": 55.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": "Industrials",
+     "industry": "Electrical Equipment & Parts",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "ALM",
+     "symbol": "ALM",
+     "name": "Almonty Industries Inc.",
+     "score": 54.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": "Basic Materials",
+     "industry": "Other Industrial Metals & Mining",
+     "exchange": "NasdaqCM"
+    },
+    {
+     "ticker": "IDYA",
+     "symbol": "IDYA",
+     "name": "IDEAYA Biosciences, Inc.",
+     "score": 54.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": "Healthcare",
+     "industry": "Biotechnology",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "LSCC",
+     "symbol": "LSCC",
+     "name": "Lattice Semiconductor Corporation",
+     "score": 52.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "TARS",
+     "symbol": "TARS",
+     "name": "Tarsus Pharmaceuticals, Inc.",
+     "score": 52.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": "Healthcare",
+     "industry": "Biotechnology",
+     "exchange": "NasdaqGS"
+    }
+   ]
+  },
+  {
+   "key": "garp",
+   "title": "Growth at a fair price",
+   "description": "Scores at least 50 on both growth and value: growing fast without being expensive, among stocks rated Hold or better.",
+   "group": "featured",
+   "asset_type": "stock",
+   "category_label": "Growth + value score",
+   "items": [
+    {
+     "ticker": "ASA",
+     "symbol": "ASA",
+     "name": "ASA Gold and Precious Metals Limited",
+     "score": 75.0,
+     "label": "Buy",
+     "category_score": 97.7,
+     "sector": "Financial Services",
+     "industry": "Asset Management",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "SUNC",
+     "symbol": "SUNC",
+     "name": "SunocoCorp LLC",
+     "score": 60.0,
+     "label": "Hold",
+     "category_score": 93.6,
+     "sector": "Energy",
+     "industry": "Oil & Gas Midstream",
+     "exchange": "NYSE American"
+    },
+    {
+     "ticker": "CEPU",
+     "symbol": "CEPU",
+     "name": "Central Puerto S.A.",
+     "score": 72.0,
+     "label": "Buy",
+     "category_score": 91.1,
+     "sector": "Utilities",
+     "industry": "Utilities\u2014Regulated Electric",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "GOLD",
+     "symbol": "GOLD",
+     "name": "Gold.com, Inc.",
+     "score": 59.0,
+     "label": "Hold",
+     "category_score": 89.8,
+     "sector": "Financial Services",
+     "industry": "Capital Markets",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "BBT",
+     "symbol": "BBT",
+     "name": "Beacon Financial Corporation",
+     "score": 59.0,
+     "label": "Hold",
+     "category_score": 89.3,
+     "sector": "Financial Services",
+     "industry": "Banks\u2014Regional",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "SKHY",
+     "symbol": "SKHY",
+     "name": "SK hynix Inc.",
+     "score": 73.0,
+     "label": "Buy",
+     "category_score": 88.8,
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "PICS",
+     "symbol": "PICS",
+     "name": "PicS N.V.",
+     "score": 62.0,
+     "label": "Hold",
+     "category_score": 85.8,
+     "sector": "Technology",
+     "industry": "Software\u2014Infrastructure",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "CYD",
+     "symbol": "CYD",
+     "name": "China Yuchai International Limited",
+     "score": 60.0,
+     "label": "Hold",
+     "category_score": 85.0,
+     "sector": "Consumer Cyclical",
+     "industry": "Auto Manufacturers",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "JEF",
+     "symbol": "JEF",
+     "name": "Jefferies Financial Group Inc.",
+     "score": 55.0,
+     "label": "Hold",
+     "category_score": 85.0,
+     "sector": "Financial Services",
+     "industry": "Capital Markets",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "PARR",
+     "symbol": "PARR",
+     "name": "Par Pacific Holdings, Inc.",
+     "score": 78.0,
+     "label": "Buy",
+     "category_score": 84.0,
+     "sector": "Energy",
+     "industry": "Oil & Gas Refining & Marketing",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "BVN",
+     "symbol": "BVN",
+     "name": "Compa\u00f1\u00eda de Minas Buenaventura S.A.A.",
+     "score": 69.0,
+     "label": "Buy",
+     "category_score": 84.0,
+     "sector": "Basic Materials",
+     "industry": "Other Precious Metals & Mining",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "BLBD",
+     "symbol": "BLBD",
+     "name": "Blue Bird Corporation",
+     "score": 64.0,
+     "label": "Hold",
+     "category_score": 83.8,
+     "sector": "Industrials",
+     "industry": "Farm & Heavy Construction Machinery",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "MRP",
+     "symbol": "MRP",
+     "name": "Millrose Properties, Inc.",
+     "score": 59.0,
+     "label": "Hold",
+     "category_score": 83.8,
+     "sector": "Real Estate",
+     "industry": "REIT\u2014Residential",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "PGY",
+     "symbol": "PGY",
+     "name": "Pagaya Technologies Ltd.",
+     "score": 59.0,
+     "label": "Hold",
+     "category_score": 83.2,
+     "sector": "Technology",
+     "industry": "Software\u2014Infrastructure",
+     "exchange": "NasdaqCM"
+    },
+    {
+     "ticker": "HRMY",
+     "symbol": "HRMY",
+     "name": "Harmony Biosciences Holdings, Inc.",
+     "score": 77.0,
+     "label": "Buy",
+     "category_score": 83.2,
+     "sector": "Healthcare",
+     "industry": "Biotechnology",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "BHF",
+     "symbol": "BHF",
+     "name": "Brighthouse Financial, Inc.",
+     "score": 58.0,
+     "label": "Hold",
+     "category_score": 82.9,
+     "sector": "Financial Services",
+     "industry": "Insurance\u2014Life",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "GCT",
+     "symbol": "GCT",
+     "name": "GigaCloud Technology Inc.",
+     "score": 73.0,
+     "label": "Buy",
+     "category_score": 82.8,
+     "sector": "Technology",
+     "industry": "Software\u2014Infrastructure",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "RGA",
+     "symbol": "RGA",
+     "name": "Reinsurance Group of America, Incorporated",
+     "score": 74.0,
+     "label": "Buy",
+     "category_score": 82.7,
+     "sector": "Financial Services",
+     "industry": "Insurance\u2014Reinsurance",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "NMR",
+     "symbol": "NMR",
+     "name": "Nomura Holdings, Inc.",
+     "score": 67.0,
+     "label": "Buy",
+     "category_score": 82.7,
+     "sector": "Financial Services",
+     "industry": "Capital Markets",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "ARCO",
+     "symbol": "ARCO",
+     "name": "Arcos Dorados Holdings Inc.",
+     "score": 62.0,
+     "label": "Hold",
+     "category_score": 82.7,
+     "sector": "Consumer Cyclical",
+     "industry": "Restaurants",
+     "exchange": "NYSE"
+    }
+   ]
+  },
+  {
    "key": "value",
    "title": "Best value",
    "description": "Cheapest compared with similar companies, among stocks rated Hold or better.",
    "group": "featured",
    "asset_type": "stock",
-   "category": "valuation",
    "category_label": "Value score",
    "items": [
     {
@@ -472,7 +1160,6 @@
    "description": "Fastest-growing sales and earnings, among stocks rated Hold or better.",
    "group": "featured",
    "asset_type": "stock",
-   "category": "growth",
    "category_label": "Growth score",
    "items": [
     {
@@ -703,7 +1390,6 @@
    "description": "Best dividend yield, growth and safety, among stocks rated Hold or better.",
    "group": "featured",
    "asset_type": "stock",
-   "category": "income",
    "category_label": "Dividend score",
    "items": [
     {
@@ -934,14 +1620,13 @@
    "description": "Steadiest share prices, among stocks rated Hold or better.",
    "group": "featured",
    "asset_type": "stock",
-   "category": "risk",
    "category_label": "Low-risk score",
    "items": [
     {
      "ticker": "QRVO",
      "symbol": "QRVO",
      "name": "Qorvo, Inc.",
-     "score": 66.0,
+     "score": 68.0,
      "label": "Buy",
      "category_score": 100.0,
      "sector": "Technology",
@@ -1165,7 +1850,6 @@
    "description": "Strongest price trend, among stocks rated Hold or better.",
    "group": "featured",
    "asset_type": "stock",
-   "category": "momentum",
    "category_label": "Momentum score",
    "items": [
     {
@@ -1396,7 +2080,6 @@
    "description": "Highest-rated coins. Stablecoins, gold tokens and wrapped copies of other coins are left out.",
    "group": "featured",
    "asset_type": "crypto",
-   "category": null,
    "category_label": null,
    "items": [
     {
@@ -1425,7 +2108,7 @@
      "ticker": "TRX-USD",
      "symbol": "TRX",
      "name": "TRON",
-     "score": 72.0,
+     "score": 71.0,
      "label": "Buy",
      "category_score": null,
      "sector": null,
@@ -1532,6 +2215,17 @@
      "exchange": null
     },
     {
+     "ticker": "ETH-USD",
+     "symbol": "ETH",
+     "name": "Ethereum",
+     "score": 63.0,
+     "label": "Hold",
+     "category_score": null,
+     "sector": null,
+     "industry": null,
+     "exchange": null
+    },
+    {
      "ticker": "SKY33038-USD",
      "symbol": "SKY",
      "name": "Sky",
@@ -1554,31 +2248,9 @@
      "exchange": null
     },
     {
-     "ticker": "ETH-USD",
-     "symbol": "ETH",
-     "name": "Ethereum",
-     "score": 62.0,
-     "label": "Hold",
-     "category_score": null,
-     "sector": null,
-     "industry": null,
-     "exchange": null
-    },
-    {
      "ticker": "SOL-USD",
      "symbol": "SOL",
      "name": "Solana",
-     "score": 62.0,
-     "label": "Hold",
-     "category_score": null,
-     "sector": null,
-     "industry": null,
-     "exchange": null
-    },
-    {
-     "ticker": "SUN-USD",
-     "symbol": "SUN",
-     "name": "Sun [New]",
      "score": 62.0,
      "label": "Hold",
      "category_score": null,
@@ -1618,6 +2290,17 @@
      "sector": null,
      "industry": null,
      "exchange": null
+    },
+    {
+     "ticker": "SUN-USD",
+     "symbol": "SUN",
+     "name": "Sun [New]",
+     "score": 61.0,
+     "label": "Hold",
+     "category_score": null,
+     "sector": null,
+     "industry": null,
+     "exchange": null
     }
    ]
   },
@@ -1627,7 +2310,6 @@
    "description": "Highest overall score among technology companies.",
    "group": "sector",
    "asset_type": "stock",
-   "category": null,
    "category_label": null,
    "items": [
     {
@@ -1858,7 +2540,6 @@
    "description": "Highest overall score among financial services companies.",
    "group": "sector",
    "asset_type": "stock",
-   "category": null,
    "category_label": null,
    "items": [
     {
@@ -2089,7 +2770,6 @@
    "description": "Highest overall score among industrials companies.",
    "group": "sector",
    "asset_type": "stock",
-   "category": null,
    "category_label": null,
    "items": [
     {
@@ -2320,7 +3000,6 @@
    "description": "Highest overall score among healthcare companies.",
    "group": "sector",
    "asset_type": "stock",
-   "category": null,
    "category_label": null,
    "items": [
     {
@@ -2551,7 +3230,6 @@
    "description": "Highest overall score among consumer cyclical companies.",
    "group": "sector",
    "asset_type": "stock",
-   "category": null,
    "category_label": null,
    "items": [
     {
@@ -2782,7 +3460,6 @@
    "description": "Highest overall score among energy companies.",
    "group": "sector",
    "asset_type": "stock",
-   "category": null,
    "category_label": null,
    "items": [
     {
@@ -3013,7 +3690,6 @@
    "description": "Highest overall score among basic materials companies.",
    "group": "sector",
    "asset_type": "stock",
-   "category": null,
    "category_label": null,
    "items": [
     {
@@ -3244,7 +3920,6 @@
    "description": "Highest overall score among real estate companies.",
    "group": "sector",
    "asset_type": "stock",
-   "category": null,
    "category_label": null,
    "items": [
     {
@@ -3475,7 +4150,6 @@
    "description": "Highest overall score among consumer defensive companies.",
    "group": "sector",
    "asset_type": "stock",
-   "category": null,
    "category_label": null,
    "items": [
     {
@@ -3706,7 +4380,6 @@
    "description": "Highest overall score among communication services companies.",
    "group": "sector",
    "asset_type": "stock",
-   "category": null,
    "category_label": null,
    "items": [
     {
@@ -3937,7 +4610,6 @@
    "description": "Highest overall score among utilities companies.",
    "group": "sector",
    "asset_type": "stock",
-   "category": null,
    "category_label": null,
    "items": [
     {
