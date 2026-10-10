@@ -1,0 +1,311 @@
+{
+ "periods": [
+  {
+   "date": "2024-03-31",
+   "companies": 397,
+   "quintile_returns": [
+    0.0895,
+    0.0357,
+    0.0278,
+    0.0171,
+    0.103
+   ],
+   "quintile_median_returns": [
+    0.0411,
+    0.0885,
+    0.0019,
+    0.0436,
+    0.0746
+   ],
+   "top_minus_bottom": 0.0134,
+   "top_minus_bottom_median": 0.0334,
+   "average_return": 0.0547,
+   "rank_correlation": 0.04166074724521299,
+   "category_rank_correlation": {
+    "valuation": -0.03494016259387572,
+    "profitability": 0.04440521982215723,
+    "growth": 0.1885756595483869,
+    "health": -0.25556083708492283,
+    "consistency": -0.10776737706071819,
+    "momentum": -0.006423709323331423,
+    "risk": 0.2985706450896575,
+    "income": 0.025899927280969293
+   }
+  },
+  {
+   "date": "2024-06-30",
+   "companies": 398,
+   "quintile_returns": [
+    0.2744,
+    0.1215,
+    0.1003,
+    0.1116,
+    0.1473
+   ],
+   "quintile_median_returns": [
+    0.1785,
+    0.0897,
+    0.0901,
+    0.0827,
+    0.1433
+   ],
+   "top_minus_bottom": -0.1271,
+   "top_minus_bottom_median": -0.0351,
+   "average_return": 0.1508,
+   "rank_correlation": -0.06450102135328596,
+   "category_rank_correlation": {
+    "valuation": -0.19254513795567332,
+    "profitability": -0.04190271362046317,
+    "growth": 0.23209697093449697,
+    "health": -0.15642239068122082,
+    "consistency": -0.18105289095379115,
+    "momentum": 0.1745423636631945,
+    "risk": 0.020182617893441127,
+    "income": 0.013815229364911932
+   }
+  },
+  {
+   "date": "2024-09-30",
+   "companies": 399,
+   "quintile_returns": [
+    0.3759,
+    0.0498,
+    0.0672,
+    0.0598,
+    0.149
+   ],
+   "quintile_median_returns": [
+    0.1749,
+    0.0379,
+    0.0415,
+    0.0712,
+    0.0664
+   ],
+   "top_minus_bottom": -0.227,
+   "top_minus_bottom_median": -0.1084,
+   "average_return": 0.1397,
+   "rank_correlation": -0.10965561571051344,
+   "category_rank_correlation": {
+    "valuation": -0.17651506113821097,
+    "profitability": -0.14527284394461545,
+    "growth": 0.18707278365671212,
+    "health": 0.018394596497072115,
+    "consistency": -0.27590282627054336,
+    "momentum": 0.18259652566906798,
+    "risk": -0.16827554419825047,
+    "income": -0.04428575816706171
+   }
+  },
+  {
+   "date": "2024-12-31",
+   "companies": 398,
+   "quintile_returns": [
+    0.2826,
+    0.121,
+    0.1112,
+    0.1557,
+    0.1284
+   ],
+   "quintile_median_returns": [
+    0.218,
+    0.0992,
+    0.0394,
+    0.1214,
+    0.0813
+   ],
+   "top_minus_bottom": -0.1542,
+   "top_minus_bottom_median": -0.1367,
+   "average_return": 0.1596,
+   "rank_correlation": -0.09818503422297252,
+   "category_rank_correlation": {
+    "valuation": -0.00025182395107886814,
+    "profitability": -0.13578301519649658,
+    "growth": 0.01222975074748846,
+    "health": 0.034190635881876714,
+    "consistency": -0.12169778012488881,
+    "momentum": 0.05228403854803462,
+    "risk": -0.14380837365499918,
+    "income": -0.03897218807395479
+   }
+  },
+  {
+   "date": "2025-03-31",
+   "companies": 400,
+   "quintile_returns": [
+    0.1959,
+    0.1382,
+    0.0775,
+    0.0428,
+    0.1987
+   ],
+   "quintile_median_returns": [
+    0.1498,
+    0.0812,
+    0.1003,
+    -0.0009,
+    0.1398
+   ],
+   "top_minus_bottom": 0.0029,
+   "top_minus_bottom_median": -0.01,
+   "average_return": 0.1306,
+   "rank_correlation": -0.039204274052417776,
+   "category_rank_correlation": {
+    "valuation": 0.15308268151929547,
+    "profitability": -0.08416632975314844,
+    "growth": -0.05190140102584524,
+    "health": 0.0794384394733807,
+    "consistency": 0.027672402956984463,
+    "momentum": -0.06641756129413569,
+    "risk": -0.1820894739094306,
+    "income": -0.12970398212825182
+   }
+  },
+  {
+   "date": "2025-06-30",
+   "companies": 395,
+   "quintile_returns": [
+    0.4452,
+    0.1583,
+    0.1779,
+    0.0514,
+    0.2253
+   ],
+   "quintile_median_returns": [
+    0.1443,
+    0.0747,
+    0.1002,
+    0.086,
+    0.1189
+   ],
+   "top_minus_bottom": -0.2199,
+   "top_minus_bottom_median": -0.0253,
+   "average_return": 0.2116,
+   "rank_correlation": -0.014725872560333876,
+   "category_rank_correlation": {
+    "valuation": 0.179149632126013,
+    "profitability": -0.08099055711865268,
+    "growth": -0.1374535518609667,
+    "health": 0.04916620040614095,
+    "consistency": 0.07087949001068054,
+    "momentum": 0.05029230578328276,
+    "risk": -0.1500551458059105,
+    "income": -0.07488516391895027
+   }
+  },
+  {
+   "date": "2025-09-30",
+   "companies": 396,
+   "quintile_returns": [
+    0.2156,
+    0.1659,
+    0.0614,
+    0.1055,
+    0.1882
+   ],
+   "quintile_median_returns": [
+    0.0743,
+    0.0453,
+    -0.0117,
+    0.0357,
+    0.1305
+   ],
+   "top_minus_bottom": -0.0274,
+   "top_minus_bottom_median": 0.0562,
+   "average_return": 0.1474,
+   "rank_correlation": 0.032437834209341855,
+   "category_rank_correlation": {
+    "valuation": 0.12317540049729914,
+    "profitability": -0.0819848743945924,
+    "growth": -0.0780979706824143,
+    "health": 0.10433813747731821,
+    "consistency": 0.07126084675137956,
+    "momentum": 0.15330458375577077,
+    "risk": -0.12878025847741092,
+    "income": -0.10314864917271396
+   }
+  }
+ ],
+ "summary": {
+  "test_dates": 7,
+  "observations": 2783,
+  "quintile_returns": [
+   0.2684,
+   0.1129,
+   0.089,
+   0.0777,
+   0.1628
+  ],
+  "quintile_median_returns": [
+   0.1401,
+   0.0738,
+   0.0517,
+   0.0628,
+   0.1078
+  ],
+  "top_minus_bottom": -0.1056,
+  "top_minus_bottom_median": -0.0323,
+  "top_beat_bottom_share": 0.29,
+  "rank_correlation": -0.036,
+  "positive_rank_correlation_share": 0.29,
+  "independent_years": 2.5,
+  "average_return": 0.1421,
+  "by_label": {
+   "Buy": {
+    "count": 756,
+    "average_return": 0.1248,
+    "median_return": 0.0785
+   },
+   "Hold": {
+    "count": 1693,
+    "average_return": 0.1297,
+    "median_return": 0.075
+   },
+   "Sell": {
+    "count": 271,
+    "average_return": 0.2142,
+    "median_return": 0.1331
+   },
+   "Strong Sell": {
+    "count": 35,
+    "average_return": 0.616,
+    "median_return": 0.1644
+   },
+   "Strong Buy": {
+    "count": 28,
+    "average_return": 0.061,
+    "median_return": 0.0515
+   }
+  },
+  "category_rank_correlation": {
+   "valuation": 0.0073,
+   "profitability": -0.0751,
+   "growth": 0.0504,
+   "health": -0.0181,
+   "consistency": -0.0738,
+   "momentum": 0.0772,
+   "risk": -0.0649,
+   "income": -0.0502
+  },
+  "category_positive_share": {
+   "valuation": 0.43,
+   "profitability": 0.14,
+   "growth": 0.57,
+   "health": 0.71,
+   "consistency": 0.43,
+   "momentum": 0.71,
+   "risk": 0.29,
+   "income": 0.29
+  }
+ },
+ "generated_at": "2026-10-10",
+ "universe": "At each start date, the 400 largest companies at that time (by market cap then), from a pool of 1809 US-listed companies with usable data",
+ "horizon_days": 365,
+ "method": "At each test date, every company is rated using only annual reports published by then (at least 75 days after the fiscal year ended) and prices up to that day, with peers compared by sector. The rating is compared with the stock's total return over the following 12 months.",
+ "limitations": [
+  "Yahoo's free financial history reaches back only 4-5 years, so the test covers about two years of start dates. Results over such a short period can be luck in either direction.",
+  "Companies are picked by their size at each start date, but the pool only contains companies still listed today, so ones that were delisted since are missing (survivorship bias).",
+  "Start dates are a quarter apart and returns are measured over a year, so the periods overlap: the test holds roughly two years of independent evidence.",
+  "Forward P/E, PEG and EV/EBITDA need historical analyst estimates or ratios that aren't freely available, so the tested ratings leave them out.",
+  "Past results don't guarantee future returns."
+ ]
+}
