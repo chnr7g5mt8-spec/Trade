@@ -17,7 +17,7 @@ from app.sources import yahoo  # noqa: E402
 # repeated here so this script runs against the deployed code as well.
 _ITEMS = ["TotalRevenue", "NetIncomeCommonStockholders", "DilutedEPS", "OperatingIncome", "GrossProfit", "EBIT",
           "InterestExpense", "StockholdersEquity", "TotalDebt", "TotalAssets", "CurrentAssets", "CurrentLiabilities",
-          "Inventory", "OrdinarySharesNumber", "FreeCashFlow", "CashDividendsPaid"]
+          "Inventory", "OrdinarySharesNumber", "FreeCashFlow", "CashDividendsPaid", "OperatingCashFlow"]
 _VALUATION = ["MarketCap", "EnterpriseValue", "PeRatio", "ForwardPeRatio", "PegRatio", "PsRatio", "PbRatio",
               "EnterprisesValueEBITDARatio"]
 TIMESERIES_TYPES = ([f"annual{k}" for k in _ITEMS] + [f"quarterly{k}" for k in _ITEMS]

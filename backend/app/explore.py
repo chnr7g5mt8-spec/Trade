@@ -96,9 +96,21 @@ FEATURED = [
 ]
 
 
+def holds(asset: str) -> Callable[[Rating], float | None]:
+    """Overall score of ETFs with at least 60% in `asset` (e.g. "Stocks")."""
+    def measure(r: Rating) -> float | None:
+        mix = {w.name: w.weight for w in r.fund_profile.asset_mix} if r.fund_profile else {}
+        return r.score if mix.get(asset, 0) >= 0.6 else None
+    return measure
+
+
 HOLD_OR_BETTER_ETF = "among ETFs rated Hold or better"
 ETF_LISTS = [
-    ListSpec("etf_top", "Top ETFs", "Highest overall ETF score. Leveraged and inverse ETFs aren't rated.", "fund"),
+    ListSpec("etf_stock", "Top stock ETFs",
+             "Highest overall score among ETFs that hold mostly stocks. Leveraged and inverse ETFs aren't rated.",
+             "fund", holds("Stocks")),
+    ListSpec("etf_bond", "Top bond ETFs", "Highest overall score among ETFs that hold mostly bonds.", "fund",
+             holds("Bonds")),
     ListSpec("etf_cost", "Lowest cost ETFs",
              f"Lowest yearly fees, {HOLD_OR_BETTER_ETF}; equal fees go to the higher overall score.",
              "fund", category("cost"), "Cost score"),

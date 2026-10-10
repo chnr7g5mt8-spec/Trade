@@ -116,7 +116,9 @@ def test_endpoint_in_sample_mode_rates_the_recorded_assets(sample_client):
     # Each entry matches the full rating the app shows for it.
     first = sample_client.get(f"/api/rating/{top[0]['ticker']}").json()
     assert (first["score"], first["label"], first["name"]) == (top[0]["score"], top[0]["label"], top[0]["name"])
-    assert "SPY" not in {i["ticker"] for lst in body["lists"] for i in lst["items"]}
+    # The ETF only appears in ETF lists.
+    assert {lst["group"] for lst in body["lists"] if "SPY" in {i["ticker"] for i in lst["items"]}} == {"etf"}
+    assert body["etfs_rated"] == 1
     assert "USDT-USD" not in {i["ticker"] for i in lists["crypto"]["items"]}
 
 

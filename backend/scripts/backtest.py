@@ -40,7 +40,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from app import stats  # noqa: E402
 from app.benchmarks import Benchmarks, Distribution, PeerGroup, QUANTILES, norm  # noqa: E402
 from app.models import StockData  # noqa: E402
-from app.providers.stocks import _dividend_metrics, beta, is_financial, NOT_FOR_FINANCIALS  # noqa: E402
+from app.providers.stocks import (NOT_FOR_FINANCIALS, _dividend_metrics, beta, cash_flow_payout,  # noqa: E402
+                                 is_financial)
 from app.scoring.common import label_for, score_categories  # noqa: E402
 from app.scoring.stock import CATEGORIES  # noqa: E402
 from app.sources import yahoo  # noqa: E402
@@ -51,7 +52,8 @@ PUBLICATION_LAG_DAYS = 75
 HORIZON_DAYS = 365
 ANNUAL_ITEMS = ["TotalRevenue", "NetIncomeCommonStockholders", "DilutedEPS", "OperatingIncome", "GrossProfit",
                 "EBIT", "InterestExpense", "StockholdersEquity", "TotalDebt", "TotalAssets", "CurrentAssets",
-                "CurrentLiabilities", "Inventory", "OrdinarySharesNumber", "FreeCashFlow", "CashDividendsPaid"]
+                "CurrentLiabilities", "Inventory", "OrdinarySharesNumber", "FreeCashFlow", "CashDividendsPaid",
+                "OperatingCashFlow"]
 ANNUAL_TYPES = [f"annual{k}" for k in ANNUAL_ITEMS]
 # Measures that need analyst estimates or Yahoo's own ratio history aren't recreated.
 NOT_BACKTESTED = {"forward_pe", "peg_ratio", "ev_to_ebitda"}
@@ -153,8 +155,10 @@ def stock_at(c: Company, as_of: date, index: Chart | None) -> StockData | None:
     nis = ts.get("annualNetIncomeCommonStockholders") or []
     if len(nis) >= 2:
         d["profitable_years"] = sum(p.value > 0 for p in nis) / len(nis)
-    paid = _last(ts, "CashDividendsPaid")
-    if d.get("dividend_yield") and paid and ni and ni > 0:
+    paid, ocf = _last(ts, "CashDividendsPaid"), _last(ts, "OperatingCashFlow")
+    if d.get("dividend_yield") and paid and cash_flow_payout(c.industry) and ocf and ocf > 0:
+        d["payout_ratio"] = abs(paid) / ocf
+    elif d.get("dividend_yield") and paid and ni and ni > 0:
         d["payout_ratio"] = abs(paid) / ni
     if is_financial(c.industry):
         for key in NOT_FOR_FINANCIALS:

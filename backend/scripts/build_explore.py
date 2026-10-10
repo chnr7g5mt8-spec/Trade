@@ -92,7 +92,8 @@ def rate_stock(provider: StockProvider, benchmarks, row: dict, sector: str, indu
         profile = {"sector": sector, "industry": industry,
                    "longname": row.get("longName"), "shortname": row.get("shortName")}
         data = build_stock(symbol, chart, ts, profile=profile,
-                           index_chart=provider.index_chart(chart.meta.get("exchangeName")), fx=provider.fx)
+                           index_chart=provider.index_chart(chart.meta.get("exchangeName")), fx=provider.fx,
+                           dividend_fx=provider.dividend_fx(chart, ts))
         return to_rating(data, "yahoo", benchmarks)
 
     return with_retries(symbol, fetch)

@@ -7,7 +7,9 @@ those payloads, with caching sized to how often each kind of data changes.
 
 from __future__ import annotations
 
+import bisect
 import logging
+import math
 import time
 from datetime import date, datetime, timezone
 from typing import Callable
@@ -23,7 +25,7 @@ log = logging.getLogger(__name__)
 _STATEMENT_ITEMS = [
     "TotalRevenue", "NetIncomeCommonStockholders", "DilutedEPS", "OperatingIncome", "GrossProfit", "EBIT",
     "InterestExpense", "StockholdersEquity", "TotalDebt", "TotalAssets", "CurrentAssets", "CurrentLiabilities",
-    "Inventory", "OrdinarySharesNumber", "FreeCashFlow", "CashDividendsPaid",
+    "Inventory", "OrdinarySharesNumber", "FreeCashFlow", "CashDividendsPaid", "OperatingCashFlow",
 ]
 _VALUATION_ITEMS = ["MarketCap", "EnterpriseValue", "PeRatio", "ForwardPeRatio", "PegRatio", "PsRatio", "PbRatio",
                     "EnterprisesValueEBITDARatio"]
@@ -48,6 +50,17 @@ DEFAULT_INDEX = "^GSPC"
 
 # Cash flow, liquidity and leverage measures don't describe how banks, insurers
 # and lenders work (deposits and float are their raw material), so they're skipped.
+# Pipelines, utilities and REITs own huge, long-lived assets whose depreciation
+# makes accounting profit look small next to the cash they produce, so their
+# dividends are measured against operating cash flow, as those industries do.
+CASH_FLOW_PAYOUT_INDUSTRIES = ("oil & gas midstream", "utilities", "reit")
+
+
+def cash_flow_payout(industry: str | None) -> bool:
+    name = (industry or "").lower()
+    return any(name.startswith(prefix) for prefix in CASH_FLOW_PAYOUT_INDUSTRIES)
+
+
 FINANCIAL_INDUSTRY_WORDS = ("bank", "insurance", "capital markets", "credit services", "mortgage")
 NOT_FOR_FINANCIALS = ("ev_to_ebitda", "fcf_yield", "gross_margin", "operating_margin", "debt_to_equity",
                       "current_ratio", "quick_ratio", "interest_coverage")
@@ -65,6 +78,24 @@ def major_currency(code: str | None) -> tuple[str | None, float]:
     if code in MINOR_UNITS:
         return MINOR_UNITS[code]
     return code, 1.0
+
+
+def home_currency(ts: dict[str, list[Point]]) -> str | None:
+    """The currency the company reports in, from its latest annual figures."""
+    seen = [pts[-1].currency for k, pts in ts.items() if k.startswith("annual") and pts and pts[-1].currency]
+    return max(set(seen), key=seen.count) if seen else None
+
+
+def _converter(fx_history: Chart | None) -> Callable[[int, float], float] | None:
+    """Converts a payment at time t with the exchange rate of that day (or the last one before it)."""
+    if not fx_history or not fx_history.timestamps:
+        return None
+    times, rates = fx_history.timestamps, fx_history.raw_closes or fx_history.closes
+
+    def convert(t: int, amount: float) -> float:
+        i = max(0, bisect.bisect_right(times, t) - 1)
+        return amount * rates[i]
+    return convert
 
 
 # --- helpers over timeseries -------------------------------------------------
@@ -215,22 +246,64 @@ def build_quote(chart: Chart, prepost: Chart | None = None, now: float | None = 
     )
 
 
-def _dividend_metrics(chart: Chart, price: float | None, now: float) -> dict[str, float | None]:
+PAYMENTS_PER_YEAR = (1, 2, 4, 12)
+
+
+def _payments_per_year(times: list[int]) -> int | None:
+    """Annual, semi-annual, quarterly or monthly, from the usual gap between recent payments."""
+    gaps = sorted(b - a for a, b in zip(times[-9:], times[-8:]))
+    if not gaps:
+        return None
+    per_year = 365.25 * 86400 / gaps[len(gaps) // 2]
+    best = min(PAYMENTS_PER_YEAR, key=lambda n: abs(math.log(per_year / n)))
+    return best if abs(math.log(per_year / best)) < 0.35 else None
+
+
+def _annual_rate(amounts: list[float], per_year: int) -> float:
+    """The regular payment times payments a year. The median ignores one-off specials and a missing payment."""
+    xs = sorted(amounts)
+    return xs[len(xs) // 2] * per_year if len(xs) % 2 else (xs[len(xs) // 2 - 1] + xs[len(xs) // 2]) / 2 * per_year
+
+
+def _dividend_metrics(chart: Chart, price: float | None, now: float,
+                      to_home: Callable[[int, float], float] | None = None) -> dict[str, float | None]:
+    """Yield, 5-year growth and streak of increases.
+
+    `to_home` converts a payment (time, amount) into the company's own
+    currency: a foreign company's dividends in another listing's currency go
+    up and down with the exchange rate, which says nothing about its dividend.
+    """
     out: dict[str, float | None] = {"dividend_yield": None, "dividend_growth_5y": None, "dividend_streak": None}
     if not chart.dividends or not price:
         return out
-    ttm = sum(a for t, a in chart.dividends if t >= now - 365 * 86400)
-    out["dividend_yield"] = ttm / price if ttm > 0 else None
+    times = [t for t, _ in chart.dividends]
+    per_year = _payments_per_year(times)
+    last_year = [a for t, a in chart.dividends if t >= now - 365 * 86400]
+    if per_year and now - times[-1] < 1.6 * 365.25 * 86400 / per_year:
+        # On schedule: the regular rate, so a payment missing from the data doesn't cut the yield.
+        recent = [a for _, a in chart.dividends[-per_year:]]
+        out["dividend_yield"] = _annual_rate(recent, per_year) / price
+    elif sum(last_year) > 0:
+        out["dividend_yield"] = sum(last_year) / price
+
     this_year = datetime.fromtimestamp(now, tz=timezone.utc).year
-    by_year: dict[int, float] = {}
+    by_year: dict[int, list[float]] = {}
     for t, a in chart.dividends:
         y = datetime.fromtimestamp(t, tz=timezone.utc).year
         if y < this_year:
-            by_year[y] = by_year.get(y, 0.0) + a
+            by_year.setdefault(y, []).append(to_home(t, a) if to_home else a)
     first_year = datetime.fromtimestamp(chart.timestamps[0], tz=timezone.utc).year if chart.timestamps else this_year
     # Only whole calendar years covered by the price history count.
-    years = [y for y in range(first_year + 1, this_year)]
-    totals = [by_year.get(y, 0.0) for y in years]
+    years = list(range(first_year + 1, this_year))
+
+    def rate(y: int) -> float:
+        paid = by_year.get(y, [])
+        if not paid:
+            return 0.0
+        # The regular rate when the schedule is known (robust to a missing or special payment), else the total.
+        return _annual_rate(paid, per_year) if per_year and len(paid) >= per_year / 2 else sum(paid)
+
+    totals = [rate(y) for y in years]
     if len(totals) >= 6 and totals[-1] > 0 and totals[-6] > 0:
         out["dividend_growth_5y"] = (totals[-1] / totals[-6]) ** (1 / 5) - 1
     if totals and totals[-1] > 0:
@@ -246,7 +319,9 @@ def _dividend_metrics(chart: Chart, price: float | None, now: float) -> dict[str
 
 def build_stock(ticker: str, chart: Chart, ts: dict[str, list[Point]], profile: dict | None = None,
                 index_chart: Chart | None = None, prepost: Chart | None = None, fx: FxRate | None = None,
-                now: float | None = None) -> StockData:
+                now: float | None = None, dividend_fx: Chart | None = None) -> StockData:
+    """`dividend_fx`: daily rate from the quote currency to the company's own one, for companies whose
+    dividends are paid in another currency than this listing trades in (e.g. Enbridge in New York)."""
     now = time.time() if now is None else now
     today = datetime.fromtimestamp(now, tz=timezone.utc).date().isoformat()
     meta = chart.meta
@@ -273,7 +348,7 @@ def build_stock(ticker: str, chart: Chart, ts: dict[str, list[Point]], profile: 
     data["volatility_1y"] = stats.annualized_volatility(year, 252)
     data["max_drawdown_1y"] = stats.max_drawdown(year)
     data["beta"] = beta(chart, index_chart, now=now)
-    data.update(_dividend_metrics(chart, price, now))
+    data.update(_dividend_metrics(chart, price, now, _converter(dividend_fx)))
 
     if asset_type == "fund":
         data["return_3y"] = annualized_return(chart, 3)
@@ -365,7 +440,12 @@ def build_stock(ticker: str, chart: Chart, ts: dict[str, list[Point]], profile: 
 
     # --- dividends: payout from cash actually paid vs earnings
     paid = _ttm(ts, "CashDividendsPaid")
-    if data.get("dividend_yield") and paid and ni and ni.value > 0:
+    ocf = _ttm(ts, "OperatingCashFlow")
+    if data.get("dividend_yield") and paid and cash_flow_payout(data.get("industry")) and ocf and ocf.value > 0:
+        data["payout_ratio"] = abs(paid.value) / ocf.value
+        notes.append("Its payout ratio is measured against operating cash flow, as is usual for pipelines, "
+                     "utilities and REITs: depreciation on their large assets makes accounting profit look small.")
+    elif data.get("dividend_yield") and paid and ni and ni.value > 0:
         data["payout_ratio"] = abs(paid.value) / ni.value
 
     if is_financial(data.get("industry")):
@@ -451,6 +531,22 @@ class StockProvider:
                 return None
         return self._index.get(symbol, load)
 
+    def dividend_fx(self, chart: Chart, ts: dict[str, list[Point]]) -> Chart | None:
+        """Daily exchange rates into the company's own currency, when its dividends are paid in another one."""
+        quote_ccy, _ = major_currency(chart.currency)
+        home = home_currency(ts)
+        if not chart.dividends or not quote_ccy or not home or home == quote_ccy:
+            return None
+        symbol = f"{quote_ccy}{home}=X"
+
+        def load() -> Chart | None:
+            try:
+                return self.client.chart(symbol, "10y")
+            except yahoo.YahooError as exc:
+                log.warning("fx history %s failed: %s", symbol, exc)
+                return None
+        return self._index.get(symbol, load)
+
     def chart(self, ticker: str) -> Chart:
         return self._charts.get(ticker, lambda: self.client.chart(ticker, "10y"))
 
@@ -468,4 +564,5 @@ class StockProvider:
             except yahoo.YahooError:
                 prepost = None
         return build_stock(ticker, chart, ts, profile=self.profile(ticker),
-                           index_chart=self.index_chart(meta.get("exchangeName")), prepost=prepost, fx=self.fx)
+                           index_chart=self.index_chart(meta.get("exchangeName")), prepost=prepost, fx=self.fx,
+                           dividend_fx=self.dividend_fx(chart, ts))

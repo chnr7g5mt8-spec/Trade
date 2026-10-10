@@ -197,3 +197,98 @@ def test_major_currency():
 def test_unknown_industry_is_not_financial():
     assert stocks.is_financial("Banks—Regional") and stocks.is_financial("Insurance—Life")
     assert not stocks.is_financial("Software—Application") and not stocks.is_financial(None)
+
+
+def _quarterly(years=10, start_amount=0.80, growth=0.03, fx=None, skip=()):
+    """Ten years of daily prices at 50 and a quarterly dividend raised 3% each January.
+
+    fx(t) is the home-to-listing exchange rate: amounts are paid in the listing's currency, as on a
+    cross-listing. `skip` drops payments by index, as when a payment is missing from Yahoo's data.
+    """
+    n = int(years * 365.25)
+    closes = [50.0] * n
+    divs, i = [], 0
+    for y in range(years):
+        amount = start_amount * (1 + growth) ** y
+        for q in range(4):
+            t = T0 + int((y * 365.25 + 15 + q * 91.3) * DAY)
+            if i not in skip:
+                divs.append((t, amount * (fx(t) if fx else 1)))
+            i += 1
+    return make_chart(closes, dividends=divs)
+
+
+def test_missing_payment_does_not_cut_the_yield():
+    full = _quarterly()
+    missing = _quarterly(skip={37})  # the 4th payment before the last one
+    now = full.timestamps[-1]
+    expected = 4 * 0.80 * 1.03 ** 9 / 50
+    assert stocks._dividend_metrics(full, 50.0, now)["dividend_yield"] == pytest.approx(expected, rel=0.01)
+    gap = stocks._dividend_metrics(missing, 50.0, now)
+    assert gap["dividend_yield"] == pytest.approx(expected, rel=0.01)
+    assert gap["dividend_streak"] == 8 and gap["dividend_growth_5y"] == pytest.approx(0.03, abs=0.005)
+
+
+def test_stopped_dividend_has_no_scheduled_yield():
+    c = _quarterly()
+    later = c.timestamps[-1] + 300 * DAY  # no payment for 10 months
+    assert stocks._dividend_metrics(c, 50.0, later)["dividend_yield"] is None
+
+
+def test_cross_listed_dividends_are_compared_in_the_home_currency():
+    import math
+
+    # Home currency swings ±12% against the listing's: in listing currency the dividend seems to fall in some years.
+    def rate(t):
+        return 0.75 * (1 + 0.12 * math.sin((t - T0) / (365.25 * DAY) * 2.1))
+
+    c = _quarterly(fx=rate)
+    now = c.timestamps[-1]
+    raw = stocks._dividend_metrics(c, 50.0, now)
+    assert raw["dividend_streak"] < 8  # the exchange rate breaks the streak
+    fx_chart = make_chart([1 / rate(T0 + i * DAY) for i in range(len(c.timestamps))])
+    home = stocks._dividend_metrics(c, 50.0, now, stocks._converter(fx_chart))
+    assert home["dividend_streak"] == 8
+    assert home["dividend_growth_5y"] == pytest.approx(0.03, abs=0.003)
+    assert home["dividend_yield"] == raw["dividend_yield"]  # yield stays in the listing's own currency
+
+
+def test_home_currency_and_fx_history_only_when_currencies_differ():
+    ts = {"annualTotalRevenue": [P("2025-12-31", 1, "12M", "CAD")],
+          "annualTotalDebt": [P("2025-12-31", 1, "12M", "CAD")]}
+    assert stocks.home_currency(ts) == "CAD"
+    assert stocks.home_currency({}) is None
+
+    class FakeClient:
+        def __init__(self):
+            self.calls = []
+
+        def chart(self, symbol, range_="10y", interval="1d", prepost=False):
+            self.calls.append(symbol)
+            return make_chart([1.37, 1.38])
+
+    client = FakeClient()
+    provider = stocks.StockProvider(client)
+    usd_listing = make_chart([46.6], dividends=[(T0, 0.7)])
+    assert provider.dividend_fx(usd_listing, ts) is not None and client.calls == ["USDCAD=X"]
+    assert provider.dividend_fx(make_chart([66.5], meta={"currency": "CAD"}, dividends=[(T0, 0.97)]), ts) is None
+    assert provider.dividend_fx(make_chart([46.6]), ts) is None  # no dividends: nothing to convert
+
+
+def test_pipelines_utilities_and_reits_pay_out_of_cash_flow():
+    assert stocks.cash_flow_payout("Oil & Gas Midstream") and stocks.cash_flow_payout("Utilities—Regulated Electric")
+    assert stocks.cash_flow_payout("REIT—Retail") and not stocks.cash_flow_payout("Oil & Gas Integrated")
+    assert not stocks.cash_flow_payout(None)
+
+
+def test_midstream_payout_uses_operating_cash_flow():
+    c = _quarterly()
+    ts = {"trailingCashDividendsPaid": [P("2025-12-31", -8e9, "TTM", "CAD")],
+          "trailingNetIncomeCommonStockholders": [P("2025-12-31", 5.2e9, "TTM", "CAD")],
+          "trailingOperatingCashFlow": [P("2025-12-31", 13e9, "TTM", "CAD")]}
+    now = c.timestamps[-1]
+    pipeline = build_stock("ENB", c, ts, {"industry": "Oil & Gas Midstream"}, now=now)
+    assert pipeline.payout_ratio == pytest.approx(8 / 13)
+    assert any("operating cash flow" in n for n in pipeline.notes)
+    other = build_stock("XOM", c, ts, {"industry": "Oil & Gas Integrated"}, now=now)
+    assert other.payout_ratio == pytest.approx(8 / 5.2)

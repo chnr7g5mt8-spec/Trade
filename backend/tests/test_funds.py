@@ -5,7 +5,7 @@ import pytest
 
 from app import explore, funds, main
 from app.benchmarks import EMPTY
-from app.models import CategoryScore, Rating, StockData
+from app.models import CategoryScore, FundProfile, Rating, StockData, Weight
 from app.providers.market import MarketData
 from app.providers.stocks import build_stock
 from app.ratings import to_rating
@@ -137,21 +137,33 @@ def test_store_round_trip_and_service(tmp_path):
     assert funds.load(tmp_path / "missing.json").get("SPY") is None
 
 
-def etf(ticker, score, **cats):
+def etf(ticker, score, mix="Stocks", **cats):
     categories = [CategoryScore(key=k, label=k, weight=0.1, score=v, metrics=[]) for k, v in cats.items()]
+    profile = FundProfile(asset_mix=[Weight(name=mix, weight=0.98)])
     return Rating(ticker=ticker, symbol=ticker, asset_type="fund", name=ticker, industry="Large Blend",
-                  score=score, label="x", coverage=1.0, categories=categories, source="t")
+                  score=score, label="x", coverage=1.0, categories=categories, source="t", fund_profile=profile)
 
 
 def test_explore_etf_lists():
     ratings = [etf("VOO", 70.0, cost=100.0, performance=60.0, risk=50.0, income=40.0),
                etf("IVV", 72.0, cost=100.0, performance=61.0, risk=50.0, income=40.0),
-               etf("ARKK", 40.0, cost=10.0, performance=99.0),  # Sell: only in Top ETFs
-               etf("SGOV", 60.0, cost=80.0, performance=40.0, risk=100.0, income=90.0)]
+               etf("ARKK", 40.0, cost=10.0, performance=99.0),  # rated Sell: in no list
+               etf("SGOV", 60.0, mix="Bonds", cost=80.0, performance=40.0, risk=100.0, income=90.0),
+               etf("BND", 75.0, mix="Bonds", cost=100.0, performance=50.0, risk=80.0, income=70.0)]
     lists = {lst["key"]: lst for lst in explore.build(ratings)}
-    assert [i["ticker"] for i in lists["etf_top"]["items"]] == ["IVV", "VOO", "SGOV", "ARKK"]
-    assert [i["ticker"] for i in lists["etf_cost"]["items"]] == ["IVV", "VOO", "SGOV"]  # ties: higher score first
+    assert [i["ticker"] for i in lists["etf_stock"]["items"]] == ["IVV", "VOO"]
+    assert [i["ticker"] for i in lists["etf_bond"]["items"]] == ["BND", "SGOV"]
+    assert [i["ticker"] for i in lists["etf_cost"]["items"]] == ["BND", "IVV", "VOO", "SGOV"]  # ties: higher score
     assert [i["ticker"] for i in lists["etf_low_risk"]["items"]][0] == "SGOV"
     assert all(lst["group"] == "etf" for k, lst in lists.items() if k.startswith("etf_"))
     assert "top" not in lists  # no stocks in this test
     assert math.isclose(lists["etf_cost"]["items"][0]["category_score"], 100.0)
+
+
+def test_sample_mode_rates_spy_from_recorded_fund_data():
+    # Real fund data recorded with the demo data (scripts/build_explore.py output for SPY).
+    market = MarketData(RecordedClient())
+    market.name = "sample"
+    r = main.RatingService(market, benchmarks=EMPTY).get("SPY")
+    assert r.score is not None and r.industry == "Large Blend" and r.peer_group.level == "category"
+    assert r.fund_profile.holdings[0].symbol == "NVDA" and r.fund_profile.summary

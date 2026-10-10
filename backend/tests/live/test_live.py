@@ -57,6 +57,18 @@ def test_stablecoin_not_rated(market):
     assert r.score is None and r.label == "Not rated"
 
 
+@pytest.mark.parametrize("ticker", ["ENB", "ENB.TO"])
+def test_cross_listed_dividend_payer_keeps_its_record(market, ticker):
+    # Enbridge pays in Canadian dollars and has raised its dividend every year for decades; in New York its
+    # payments move with the exchange rate (and Yahoo misses some), which once read as cuts.
+    r = to_rating(market.fetch(ticker), "yahoo", load_benchmarks())
+    income = {m.key: m for c in r.categories if c.key == "income" for m in c.metrics}
+    assert 0.04 < income["dividend_yield"].value < 0.09
+    assert income["dividend_streak"].value >= 6 and income["dividend_growth_5y"].value > 0
+    assert income["payout_ratio"].value < 1.0  # of operating cash flow, as for pipelines
+    assert any("operating cash flow" in n for n in r.notes)
+
+
 def test_etfs_are_rated_from_the_daily_fund_data(market):
     store = load_funds()
     r = to_rating(market.fetch("SPY"), "yahoo", funds=store)
@@ -136,7 +148,7 @@ def test_site_explore_lists_are_full_and_recent():
     assert body["stocks_rated"] >= 1000 and body["coins_rated"] >= 50
     lists = {lst["key"]: lst for lst in body["lists"]}
     for key in ["top", "today_and_ahead", "outlook", "garp", "value", "growth", "dividends", "low_risk", "momentum",
-                "crypto"]:
+                "crypto", "etf_stock", "etf_bond", "etf_cost", "etf_performance", "etf_dividends", "etf_low_risk"]:
         assert len(lists[key]["items"]) == 20, key
     assert sum(lst["group"] == "sector" for lst in body["lists"]) >= 10
     first = lists["top"]["items"][0]
