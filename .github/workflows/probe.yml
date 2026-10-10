@@ -3,7 +3,8 @@ name: Probe live data sources
 on:
   push:
     paths:
-      - backend/scripts/probe_live_sources.py
+      - backend/scripts/probe_*.py
+      - backend/app/sources/**
       - .github/workflows/probe.yml
   workflow_dispatch:
 
@@ -15,9 +16,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.13"
       - run: pip install -r backend/requirements.txt
-      - run: python backend/scripts/probe_live_sources.py
+      - run: python backend/scripts/probe_yahoo_client.py
