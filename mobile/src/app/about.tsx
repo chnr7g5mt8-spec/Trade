@@ -4,6 +4,8 @@ import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from
 import { fetchMethodology, type Methodology, type MethodologyCategory, type TrackRecord } from '../lib/api';
 import { colors, scoreColor } from '../lib/theme';
 
+const NOISE = 0.03;
+
 const pct = (v: number | null | undefined, digits = 1) =>
   v == null ? '—' : `${v >= 0 ? '+' : ''}${(v * 100).toFixed(digits)}%`;
 
@@ -202,11 +204,14 @@ function Track({ record, categories }: { record: TrackRecord; categories: Method
         .filter((c) => s.category_rank_correlation[c.key] != null)
         .map((c) => {
           const ic = s.category_rank_correlation[c.key]!;
+          // Rank correlations this small are indistinguishable from noise.
+          const verdict = Math.abs(ic) < NOISE ? 'no clear effect' : ic > 0 ? 'helped' : 'hurt';
+          const color = Math.abs(ic) < NOISE ? colors.muted : ic > 0 ? '#15803D' : colors.danger;
           return (
             <View key={c.key} style={styles.row}>
               <Text style={styles.rowLabel}>{c.label}</Text>
-              <Text style={[styles.rowValue, { color: ic > 0 ? '#15803D' : colors.danger }]}>
-                {ic > 0 ? 'helped' : 'hurt'} ({ic.toFixed(2)}) · {Math.round((s.category_positive_share[c.key] ?? 0) * 100)}% of
+              <Text style={[styles.rowValue, { color }]}>
+                {verdict} ({ic.toFixed(2)}) · positive at {Math.round((s.category_positive_share[c.key] ?? 0) * 100)}% of
                 dates
               </Text>
             </View>
