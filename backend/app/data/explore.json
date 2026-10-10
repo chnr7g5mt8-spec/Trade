@@ -1,7 +1,8 @@
 {
- "generated_at": "2026-10-10T19:29+00:00",
- "universe": "US-listed companies worth over $1B (including foreign companies' US listings) and coins worth over $100M",
- "stocks_rated": 2450,
+ "generated_at": "2026-10-10T20:10+00:00",
+ "universe": "US-listed companies worth over $1B (including foreign companies' US listings), US-listed ETFs worth over $500M and coins worth over $100M",
+ "stocks_rated": 2449,
+ "etfs_rated": 1416,
  "coins_rated": 205,
  "lists": [
   {
@@ -303,7 +304,7 @@
      "name": "Taiwan Semiconductor Manufacturing Company Limited",
      "score": 73.0,
      "label": "Buy",
-     "category_score": 77.7,
+     "category_score": 77.6,
      "sector": "Technology",
      "industry": "Semiconductors",
      "exchange": "NYSE"
@@ -424,7 +425,7 @@
      "name": "Kiniksa Pharmaceuticals International, plc",
      "score": 66.0,
      "label": "Buy",
-     "category_score": 75.4,
+     "category_score": 75.3,
      "sector": "Healthcare",
      "industry": "Drug Manufacturers\u2014Specialty & Generic",
      "exchange": "NasdaqGS"
@@ -632,7 +633,7 @@
      "name": "Celestica Inc.",
      "score": 60.0,
      "label": "Hold",
-     "category_score": 91.1,
+     "category_score": 91.0,
      "sector": "Technology",
      "industry": "Electronic Components",
      "exchange": "NYSE"
@@ -1623,17 +1624,6 @@
    "category_label": "Low-risk score",
    "items": [
     {
-     "ticker": "QRVO",
-     "symbol": "QRVO",
-     "name": "Qorvo, Inc.",
-     "score": 66.0,
-     "label": "Buy",
-     "category_score": 100.0,
-     "sector": "Technology",
-     "industry": "Semiconductors",
-     "exchange": "NasdaqGS"
-    },
-    {
      "ticker": "BRK-A",
      "symbol": "BRK-A",
      "name": "Berkshire Hathaway Inc.",
@@ -1840,6 +1830,17 @@
      "category_score": 96.0,
      "sector": "Healthcare",
      "industry": "Drug Manufacturers\u2014General",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "SWX",
+     "symbol": "SWX",
+     "name": "Southwest Gas Holdings, Inc.",
+     "score": 56.0,
+     "label": "Hold",
+     "category_score": 96.0,
+     "sector": "Utilities",
+     "industry": "Utilities\u2014Regulated Gas",
      "exchange": "NYSE"
     }
    ]
@@ -2204,17 +2205,6 @@
      "exchange": null
     },
     {
-     "ticker": "BP39686-USD",
-     "symbol": "BP",
-     "name": "Backpack",
-     "score": 63.0,
-     "label": "Hold",
-     "category_score": null,
-     "sector": null,
-     "industry": null,
-     "exchange": null
-    },
-    {
      "ticker": "ETH-USD",
      "symbol": "ETH",
      "name": "Ethereum",
@@ -2240,6 +2230,17 @@
      "ticker": "AAVE-USD",
      "symbol": "AAVE",
      "name": "Aave",
+     "score": 62.0,
+     "label": "Hold",
+     "category_score": null,
+     "sector": null,
+     "industry": null,
+     "exchange": null
+    },
+    {
+     "ticker": "BP39686-USD",
+     "symbol": "BP",
+     "name": "Backpack",
      "score": 62.0,
      "label": "Hold",
      "category_score": null,
@@ -4831,6 +4832,1156 @@
      "sector": "Utilities",
      "industry": "Utilities\u2014Regulated Electric",
      "exchange": "NYSE"
+    }
+   ]
+  },
+  {
+   "key": "etf_top",
+   "title": "Top ETFs",
+   "description": "Highest overall ETF score. Leveraged and inverse ETFs aren't rated.",
+   "group": "etf",
+   "asset_type": "fund",
+   "category_label": null,
+   "items": [
+    {
+     "ticker": "SPIB",
+     "symbol": "SPIB",
+     "name": "State Street SPDR Portfolio Intermediate Term Corporate Bond ETF",
+     "score": 84.0,
+     "label": "Strong Buy",
+     "category_score": null,
+     "sector": null,
+     "industry": "Corporate Bond",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "FLOT",
+     "symbol": "FLOT",
+     "name": "iShares Floating Rate Bond ETF",
+     "score": 83.0,
+     "label": "Strong Buy",
+     "category_score": null,
+     "sector": null,
+     "industry": "Ultrashort Bond",
+     "exchange": "Cboe US"
+    },
+    {
+     "ticker": "FLTR",
+     "symbol": "FLTR",
+     "name": "VanEck IG Floating Rate ETF",
+     "score": 83.0,
+     "label": "Strong Buy",
+     "category_score": null,
+     "sector": null,
+     "industry": "Ultrashort Bond",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "IGIB",
+     "symbol": "IGIB",
+     "name": "iShares 5-10 Year Investment Grade Corporate Bond ETF",
+     "score": 83.0,
+     "label": "Strong Buy",
+     "category_score": null,
+     "sector": null,
+     "industry": "Corporate Bond",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "GPIQ",
+     "symbol": "GPIQ",
+     "name": "Goldman Sachs Nasdaq-100 Premiu",
+     "score": 82.0,
+     "label": "Strong Buy",
+     "category_score": null,
+     "sector": null,
+     "industry": "Derivative Income",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "IGSB",
+     "symbol": "IGSB",
+     "name": "iShares 1-5 Year Investment Grade Corporate Bond ETF",
+     "score": 82.0,
+     "label": "Strong Buy",
+     "category_score": null,
+     "sector": null,
+     "industry": "Short-Term Bond",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "SCHF",
+     "symbol": "SCHF",
+     "name": "Schwab International Equity ETF",
+     "score": 82.0,
+     "label": "Strong Buy",
+     "category_score": null,
+     "sector": null,
+     "industry": "Foreign Large Blend",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "SPSB",
+     "symbol": "SPSB",
+     "name": "State Street SPDR Portfolio Short Term Corporate Bond ETF",
+     "score": 82.0,
+     "label": "Strong Buy",
+     "category_score": null,
+     "sector": null,
+     "industry": "Short-Term Bond",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "VCRB",
+     "symbol": "VCRB",
+     "name": "Vanguard Core Bond ETF",
+     "score": 82.0,
+     "label": "Strong Buy",
+     "category_score": null,
+     "sector": null,
+     "industry": "Intermediate Core Bond",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "XONE",
+     "symbol": "XONE",
+     "name": "Bondbloxx Bloomberg One Year Target Duration US Treasury ETF",
+     "score": 82.0,
+     "label": "Strong Buy",
+     "category_score": null,
+     "sector": null,
+     "industry": "Short Government",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "FLJP",
+     "symbol": "FLJP",
+     "name": "Franklin FTSE Japan ETF",
+     "score": 81.0,
+     "label": "Strong Buy",
+     "category_score": null,
+     "sector": null,
+     "industry": "Japan Stock",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "PULS",
+     "symbol": "PULS",
+     "name": "PGIM Ultra Short Bond ETF",
+     "score": 81.0,
+     "label": "Strong Buy",
+     "category_score": null,
+     "sector": null,
+     "industry": "Ultrashort Bond",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "SPDW",
+     "symbol": "SPDW",
+     "name": "State Street SPDR Portfolio Developed World ex-US ETF",
+     "score": 81.0,
+     "label": "Strong Buy",
+     "category_score": null,
+     "sector": null,
+     "industry": "Foreign Large Blend",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "SPHY",
+     "symbol": "SPHY",
+     "name": "State Street SPDR Portfolio High Yield Bond ETF",
+     "score": 81.0,
+     "label": "Strong Buy",
+     "category_score": null,
+     "sector": null,
+     "industry": "High Yield Bond",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "USHY",
+     "symbol": "USHY",
+     "name": "iShares Broad USD High Yield Corporate Bond ETF",
+     "score": 81.0,
+     "label": "Strong Buy",
+     "category_score": null,
+     "sector": null,
+     "industry": "High Yield Bond",
+     "exchange": "Cboe US"
+    },
+    {
+     "ticker": "VCIT",
+     "symbol": "VCIT",
+     "name": "Vanguard Intermediate-Term Corporate Bond Index Fund ETF Shares",
+     "score": 81.0,
+     "label": "Strong Buy",
+     "category_score": null,
+     "sector": null,
+     "industry": "Corporate Bond",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "BBJP",
+     "symbol": "BBJP",
+     "name": "JPMorgan BetaBuilders Japan ETF",
+     "score": 80.0,
+     "label": "Strong Buy",
+     "category_score": null,
+     "sector": null,
+     "industry": "Japan Stock",
+     "exchange": "Cboe US"
+    },
+    {
+     "ticker": "DIVB",
+     "symbol": "DIVB",
+     "name": "iShares Core Dividend ETF",
+     "score": 80.0,
+     "label": "Strong Buy",
+     "category_score": null,
+     "sector": null,
+     "industry": "Large Value",
+     "exchange": "Cboe US"
+    },
+    {
+     "ticker": "EWJV",
+     "symbol": "EWJV",
+     "name": "iShares MSCI Japan Value ETF",
+     "score": 80.0,
+     "label": "Strong Buy",
+     "category_score": null,
+     "sector": null,
+     "industry": "Japan Stock",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "FLRN",
+     "symbol": "FLRN",
+     "name": "State Street SPDR Bloomberg Investment Grade Floating Rate ETF",
+     "score": 80.0,
+     "label": "Strong Buy",
+     "category_score": null,
+     "sector": null,
+     "industry": "Ultrashort Bond",
+     "exchange": "NYSEArca"
+    }
+   ]
+  },
+  {
+   "key": "etf_cost",
+   "title": "Lowest cost ETFs",
+   "description": "Lowest yearly fees, among ETFs rated Hold or better; equal fees go to the higher overall score.",
+   "group": "etf",
+   "asset_type": "fund",
+   "category_label": "Cost score",
+   "items": [
+    {
+     "ticker": "SCHF",
+     "symbol": "SCHF",
+     "name": "Schwab International Equity ETF",
+     "score": 82.0,
+     "label": "Strong Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Foreign Large Blend",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "XONE",
+     "symbol": "XONE",
+     "name": "Bondbloxx Bloomberg One Year Target Duration US Treasury ETF",
+     "score": 82.0,
+     "label": "Strong Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Short Government",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "SPDW",
+     "symbol": "SPDW",
+     "name": "State Street SPDR Portfolio Developed World ex-US ETF",
+     "score": 81.0,
+     "label": "Strong Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Foreign Large Blend",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "VCIT",
+     "symbol": "VCIT",
+     "name": "Vanguard Intermediate-Term Corporate Bond Index Fund ETF Shares",
+     "score": 81.0,
+     "label": "Strong Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Corporate Bond",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "SCHI",
+     "symbol": "SCHI",
+     "name": "Schwab 5-10 Year Corporate Bond ETF",
+     "score": 80.0,
+     "label": "Strong Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Corporate Bond",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "VEA",
+     "symbol": "VEA",
+     "name": "Vanguard FTSE Developed Markets Index Fund ETF Shares",
+     "score": 80.0,
+     "label": "Strong Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Foreign Large Blend",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "VCSH",
+     "symbol": "VCSH",
+     "name": "Vanguard Short-Term Corporate Bond Index Fund ETF Shares",
+     "score": 79.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Short-Term Bond",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "BND",
+     "symbol": "BND",
+     "name": "Vanguard Total Bond Market Index Fund ETF Shares",
+     "score": 78.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Intermediate Core Bond",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "IVV",
+     "symbol": "IVV",
+     "name": "iShares Core S&P 500 ETF",
+     "score": 78.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Large Blend",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "SPTS",
+     "symbol": "SPTS",
+     "name": "State Street SPDR Portfolio Short Term Treasury ETF",
+     "score": 78.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Short Government",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "SPYM",
+     "symbol": "SPYM",
+     "name": "State Street SPDR Portfolio S&P 500 ETF",
+     "score": 78.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Large Blend",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "VGSH",
+     "symbol": "VGSH",
+     "name": "Vanguard Short-Term Treasury Index Fund ETF Shares",
+     "score": 78.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Short Government",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "VOO",
+     "symbol": "VOO",
+     "name": "Vanguard S&P 500 ETF",
+     "score": 78.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Large Blend",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "AGG",
+     "symbol": "AGG",
+     "name": "iShares Core U.S. Aggregate Bond ETF",
+     "score": 77.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Intermediate Core Bond",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "SCHZ",
+     "symbol": "SCHZ",
+     "name": "Schwab U.S. Aggregate Bond ETF",
+     "score": 77.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Intermediate Core Bond",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "VV",
+     "symbol": "VV",
+     "name": "Vanguard Morningstar Large-Cap ETF",
+     "score": 77.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Large Blend",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "BIV",
+     "symbol": "BIV",
+     "name": "Vanguard Intermediate-Term Bond Index Fund ETF Shares",
+     "score": 76.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Intermediate Core Bond",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "BKLC",
+     "symbol": "BKLC",
+     "name": "BNY Mellon US Large Cap Core Equity ETF",
+     "score": 76.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Large Blend",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "SCYB",
+     "symbol": "SCYB",
+     "name": "Schwab High Yield Bond ETF",
+     "score": 76.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "High Yield Bond",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "STIP",
+     "symbol": "STIP",
+     "name": "iShares 0-5 Year TIPS Bond ETF",
+     "score": 76.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Short-Term Inflation-Protected Bond",
+     "exchange": "NYSEArca"
+    }
+   ]
+  },
+  {
+   "key": "etf_performance",
+   "title": "Best performing ETFs",
+   "description": "Best 1-, 3- and 5-year returns compared with ETFs of the same kind, among ETFs rated Hold or better.",
+   "group": "etf",
+   "asset_type": "fund",
+   "category_label": "Performance score",
+   "items": [
+    {
+     "ticker": "EWJV",
+     "symbol": "EWJV",
+     "name": "iShares MSCI Japan Value ETF",
+     "score": 80.0,
+     "label": "Strong Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Japan Stock",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "DISV",
+     "symbol": "DISV",
+     "name": "Dimensional International Small Cap Value ETF",
+     "score": 71.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Foreign Small/Mid Value",
+     "exchange": "Cboe US"
+    },
+    {
+     "ticker": "DXJ",
+     "symbol": "DXJ",
+     "name": "WisdomTree Japan Hedged Equity Fund",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Japan Stock",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "HEWJ",
+     "symbol": "HEWJ",
+     "name": "iShares Currency Hedged MSCI Japan ETF",
+     "score": 67.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Japan Stock",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "DBJP",
+     "symbol": "DBJP",
+     "name": "Xtrackers MSCI Japan Hedged Equity ETF",
+     "score": 65.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Japan Stock",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "IALT",
+     "symbol": "IALT",
+     "name": "iShares Systematic Alternatives Active ETF",
+     "score": 62.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Multistrategy",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "XTL",
+     "symbol": "XTL",
+     "name": "State Street SPDR S&P Telecom ETF",
+     "score": 62.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Communications",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "CLSE",
+     "symbol": "CLSE",
+     "name": "Convergence Long/Short Equity ETF",
+     "score": 56.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Long-Short Equity",
+     "exchange": "Cboe US"
+    },
+    {
+     "ticker": "FWD",
+     "symbol": "FWD",
+     "name": "AB Disruptors ETF",
+     "score": 52.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Global Large-Stock Growth",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "SFTX",
+     "symbol": "SFTX",
+     "name": "Horizon International Managed Risk ETF",
+     "score": 52.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Tactical Allocation",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "RSST",
+     "symbol": "RSST",
+     "name": "Return Stacked U.S. Stocks & Managed Futures ETF",
+     "score": 51.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Multi-Asset Overlay",
+     "exchange": "Cboe US"
+    },
+    {
+     "ticker": "AVDV",
+     "symbol": "AVDV",
+     "name": "Avantis International Small Cap Value ETF",
+     "score": 76.0,
+     "label": "Buy",
+     "category_score": 99.9,
+     "sector": null,
+     "industry": "Foreign Small/Mid Value",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "ATMP",
+     "symbol": "ATMP",
+     "name": "Barclays ETN+ Select MLP ETN",
+     "score": 60.0,
+     "label": "Hold",
+     "category_score": 99.9,
+     "sector": null,
+     "industry": "Energy Limited Partnership",
+     "exchange": "Cboe US"
+    },
+    {
+     "ticker": "SLVP",
+     "symbol": "SLVP",
+     "name": "iShares MSCI Global Silver and Metals Miners ETF",
+     "score": 59.0,
+     "label": "Hold",
+     "category_score": 99.9,
+     "sector": null,
+     "industry": "Equity Precious Metals",
+     "exchange": "Cboe US"
+    },
+    {
+     "ticker": "AIA",
+     "symbol": "AIA",
+     "name": "iShares Asia 50 ETF",
+     "score": 63.0,
+     "label": "Hold",
+     "category_score": 99.8,
+     "sector": null,
+     "industry": "Pacific/Asia ex-Japan Stk",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "GRID",
+     "symbol": "GRID",
+     "name": "First Trust NASDAQ Clean Edge Smart Grid Infrastructure Index Fund",
+     "score": 61.0,
+     "label": "Hold",
+     "category_score": 99.7,
+     "sector": null,
+     "industry": "Infrastructure",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "VLUE",
+     "symbol": "VLUE",
+     "name": "iShares MSCI USA Value Factor ETF",
+     "score": 78.0,
+     "label": "Buy",
+     "category_score": 99.6,
+     "sector": null,
+     "industry": "Large Value",
+     "exchange": "Cboe US"
+    },
+    {
+     "ticker": "BLCR",
+     "symbol": "BLCR",
+     "name": "iShares Large Cap Core Active ETF",
+     "score": 72.0,
+     "label": "Buy",
+     "category_score": 99.6,
+     "sector": null,
+     "industry": "Large Blend",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "FLTW",
+     "symbol": "FLTW",
+     "name": "Franklin FTSE Taiwan ETF",
+     "score": 72.0,
+     "label": "Buy",
+     "category_score": 99.6,
+     "sector": null,
+     "industry": "Greater China Region",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "VFLO",
+     "symbol": "VFLO",
+     "name": "Victoryshares Free Cash Flow ETF",
+     "score": 71.0,
+     "label": "Buy",
+     "category_score": 99.6,
+     "sector": null,
+     "industry": "Mid-Cap Value",
+     "exchange": "NasdaqGM"
+    }
+   ]
+  },
+  {
+   "key": "etf_dividends",
+   "title": "Best dividend ETFs",
+   "description": "Highest dividend yields, among ETFs rated Hold or better.",
+   "group": "etf",
+   "asset_type": "fund",
+   "category_label": "Dividend score",
+   "items": [
+    {
+     "ticker": "GPIQ",
+     "symbol": "GPIQ",
+     "name": "Goldman Sachs Nasdaq-100 Premiu",
+     "score": 82.0,
+     "label": "Strong Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Derivative Income",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "SPHY",
+     "symbol": "SPHY",
+     "name": "State Street SPDR Portfolio High Yield Bond ETF",
+     "score": 81.0,
+     "label": "Strong Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "High Yield Bond",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "USHY",
+     "symbol": "USHY",
+     "name": "iShares Broad USD High Yield Corporate Bond ETF",
+     "score": 81.0,
+     "label": "Strong Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "High Yield Bond",
+     "exchange": "Cboe US"
+    },
+    {
+     "ticker": "JEPQ",
+     "symbol": "JEPQ",
+     "name": "JPMorgan Nasdaq Equity Premium Income ETF",
+     "score": 77.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Derivative Income",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "QQA",
+     "symbol": "QQA",
+     "name": "Invesco QQQ Income Advantage ETF",
+     "score": 77.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Derivative Income",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "SCYB",
+     "symbol": "SCYB",
+     "name": "Schwab High Yield Bond ETF",
+     "score": 76.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "High Yield Bond",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "GPIX",
+     "symbol": "GPIX",
+     "name": "Goldman Sachs S&P 500 Premium Income ETF",
+     "score": 75.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Derivative Income",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "BALI",
+     "symbol": "BALI",
+     "name": "iShares U.S. Large Cap Premium Income Active ETF",
+     "score": 73.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Derivative Income",
+     "exchange": "Cboe US"
+    },
+    {
+     "ticker": "SHYG",
+     "symbol": "SHYG",
+     "name": "iShares 0-5 Year High Yield Corporate Bond ETF",
+     "score": 73.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "High Yield Bond",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "BBHY",
+     "symbol": "BBHY",
+     "name": "JPMorgan BetaBuilders USD High Yield Corporate Bond ETF",
+     "score": 71.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "High Yield Bond",
+     "exchange": "Cboe US"
+    },
+    {
+     "ticker": "CLOZ",
+     "symbol": "CLOZ",
+     "name": "Eldridge BBB-B CLO ETF",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Securitized Bond - Focused",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "NBOS",
+     "symbol": "NBOS",
+     "name": "Neuberger Option Strategy ETF",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Equity Hedged",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "TLTW",
+     "symbol": "TLTW",
+     "name": "iShares 20+ Year Treasury Bond Buywrite Strategy ETF",
+     "score": 67.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Long Government",
+     "exchange": "Cboe US"
+    },
+    {
+     "ticker": "AMLP",
+     "symbol": "AMLP",
+     "name": "Alerian MLP ETF",
+     "score": 65.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Energy Limited Partnership",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "HYDB",
+     "symbol": "HYDB",
+     "name": "iShares High Yield Systematic Bond ETF",
+     "score": 65.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "High Yield Bond",
+     "exchange": "Cboe US"
+    },
+    {
+     "ticker": "QYLD",
+     "symbol": "QYLD",
+     "name": "Global X NASDAQ 100 Covered Call ETF",
+     "score": 65.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Derivative Income",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "SJNK",
+     "symbol": "SJNK",
+     "name": "State Street SPDR Bloomberg Short Term High Yield Bond ETF",
+     "score": 65.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "High Yield Bond",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "BCI",
+     "symbol": "BCI",
+     "name": "abrdn Bloomberg All Commodity Strategy K-1 Free ETF",
+     "score": 64.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Commodities Broad Basket",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "YLD",
+     "symbol": "YLD",
+     "name": "Principal Active High Yield ETF",
+     "score": 64.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "High Yield Bond",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "HYEM",
+     "symbol": "HYEM",
+     "name": "VanEck Emerging Markets High Yield Bond ETF",
+     "score": 63.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Emerging Markets Bond",
+     "exchange": "NYSEArca"
+    }
+   ]
+  },
+  {
+   "key": "etf_low_risk",
+   "title": "Lowest risk ETFs",
+   "description": "Steadiest prices, among ETFs rated Hold or better. Mostly bond and cash-like funds.",
+   "group": "etf",
+   "asset_type": "fund",
+   "category_label": "Low-risk score",
+   "items": [
+    {
+     "ticker": "VBIL",
+     "symbol": "VBIL",
+     "name": "Vanguard 0-3 Month Treasury Bill ETF",
+     "score": 77.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Ultrashort Bond",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "BOXX",
+     "symbol": "BOXX",
+     "name": "Alpha Architect 1-3 Month Box ETF",
+     "score": 75.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Ultrashort Bond",
+     "exchange": "Cboe US"
+    },
+    {
+     "ticker": "ACLO",
+     "symbol": "ACLO",
+     "name": "TCW AAA CLO ETF",
+     "score": 72.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Securitized Bond - Focused",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "CLIP",
+     "symbol": "CLIP",
+     "name": "Global X 1-3 Month T-Bill ETF",
+     "score": 71.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Ultrashort Bond",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "SBIL",
+     "symbol": "SBIL",
+     "name": "Simplify Government Money Market ETF",
+     "score": 69.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Money Market-Taxable",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "VGUS",
+     "symbol": "VGUS",
+     "name": "Vanguard Ultra-Short Treasury ETF",
+     "score": 69.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Ultrashort Bond",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "IQMM",
+     "symbol": "IQMM",
+     "name": "Proshares Genius Money Market ETF",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Money Market-Taxable",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "TBIL",
+     "symbol": "TBIL",
+     "name": "F/m US Treasury 3 Month Bill Fund - ETF Class Shares",
+     "score": 67.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Ultrashort Bond",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "ABI",
+     "symbol": "ABI",
+     "name": "VictoryShares Pioneer Asset-Based Inc ETF",
+     "score": 65.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Multisector Bond",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "PMMF",
+     "symbol": "PMMF",
+     "name": "iShares Prime Money Market ETF",
+     "score": 64.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Prime Money Market",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "XHLF",
+     "symbol": "XHLF",
+     "name": "Bondbloxx Bloomberg Six Month Target Duration US Treasury ETF",
+     "score": 63.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Ultrashort Bond",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "SGVT",
+     "symbol": "SGVT",
+     "name": "Schwab Government Money Market ETF",
+     "score": 61.0,
+     "label": "Hold",
+     "category_score": 100.0,
+     "sector": null,
+     "industry": "Money Market-Taxable",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "XONE",
+     "symbol": "XONE",
+     "name": "Bondbloxx Bloomberg One Year Target Duration US Treasury ETF",
+     "score": 82.0,
+     "label": "Strong Buy",
+     "category_score": 99.9,
+     "sector": null,
+     "industry": "Short Government",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "USFR",
+     "symbol": "USFR",
+     "name": "WisdomTree Floating Rate Treasury Fund",
+     "score": 74.0,
+     "label": "Buy",
+     "category_score": 99.9,
+     "sector": null,
+     "industry": "Ultrashort Bond",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "SGOV",
+     "symbol": "SGOV",
+     "name": "iShares 0-3 Month Treasury Bond ETF",
+     "score": 73.0,
+     "label": "Buy",
+     "category_score": 99.9,
+     "sector": null,
+     "industry": "Ultrashort Bond",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "TFLO",
+     "symbol": "TFLO",
+     "name": "iShares Treasury Floating Rate Bond ETF",
+     "score": 73.0,
+     "label": "Buy",
+     "category_score": 99.9,
+     "sector": null,
+     "industry": "Ultrashort Bond",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "MYCH",
+     "symbol": "MYCH",
+     "name": "State Street My2028 Corporate Bond ETF",
+     "score": 70.0,
+     "label": "Buy",
+     "category_score": 99.9,
+     "sector": null,
+     "industry": "Target Maturity",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "BIL",
+     "symbol": "BIL",
+     "name": "State Street SPDR Bloomberg 1-3 Month T-Bill ETF",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": 99.9,
+     "sector": null,
+     "industry": "Ultrashort Bond",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "BILZ",
+     "symbol": "BILZ",
+     "name": "PIMCO Ultra Short Government Active Exchange-Traded Fund",
+     "score": 64.0,
+     "label": "Hold",
+     "category_score": 99.9,
+     "sector": null,
+     "industry": "Ultrashort Bond",
+     "exchange": "NYSEArca"
+    },
+    {
+     "ticker": "BILS",
+     "symbol": "BILS",
+     "name": "State Street SPDR Bloomberg 3-12 Month T-Bill ETF",
+     "score": 62.0,
+     "label": "Hold",
+     "category_score": 99.9,
+     "sector": null,
+     "industry": "Ultrashort Bond",
+     "exchange": "NYSEArca"
     }
    ]
   }
