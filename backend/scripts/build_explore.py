@@ -144,13 +144,16 @@ def main() -> None:
     if not args.limit_industries and (stocks_rated < 1000 or coins_rated < 50):
         sys.exit(f"only {stocks_rated} stocks and {coins_rated} coins rated; refusing to publish thin rankings")
 
+    lists = explore.build(ratings)
+    for lst in lists:
+        log.info("%s: %s", lst["title"], ", ".join(f"{i['symbol']} {i['score']:.0f}" for i in lst["items"][:5]))
     OUT.write_text(json.dumps({
         "generated_at": datetime.now(tz=timezone.utc).isoformat(timespec="minutes"),
         "universe": f"US-listed companies worth over ${MIN_STOCK_MARKET_CAP // 1_000_000_000}B (including foreign "
                     f"companies' US listings) and coins worth over ${MIN_COIN_MARKET_CAP // 1_000_000}M",
         "stocks_rated": stocks_rated,
         "coins_rated": coins_rated,
-        "lists": explore.build(ratings),
+        "lists": lists,
     }, indent=1))
     log.info("wrote %s: %d stocks and %d coins rated", OUT, stocks_rated, coins_rated)
 
