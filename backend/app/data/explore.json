@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-10T18:19+00:00",
+ "generated_at": "2026-10-10T18:28+00:00",
  "universe": "US-listed companies worth over $1B (including foreign companies' US listings) and coins worth over $100M",
  "stocks_rated": 2476,
  "coins_rated": 205,
@@ -1433,17 +1433,6 @@
      "exchange": null
     },
     {
-     "ticker": "HYPE32196-USD",
-     "symbol": "HYPE",
-     "name": "Hyperliquid",
-     "score": 69.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": null,
-     "industry": null,
-     "exchange": null
-    },
-    {
      "ticker": "NEAR-USD",
      "symbol": "NEAR",
      "name": "NEAR Protocol",
@@ -1458,6 +1447,17 @@
      "ticker": "DRV35014-USD",
      "symbol": "DRV",
      "name": "Derive",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": null,
+     "industry": null,
+     "exchange": null
+    },
+    {
+     "ticker": "HYPE32196-USD",
+     "symbol": "HYPE",
+     "name": "Hyperliquid",
      "score": 68.0,
      "label": "Buy",
      "category_score": null,
@@ -1598,9 +1598,9 @@
      "exchange": null
     },
     {
-     "ticker": "BTCB-USD",
-     "symbol": "BTCB",
-     "name": "Bitcoin BEP2",
+     "ticker": "PUMP36507-USD",
+     "symbol": "PUMP",
+     "name": "Pump.fun",
      "score": 61.0,
      "label": "Hold",
      "category_score": null,
@@ -1609,9 +1609,9 @@
      "exchange": null
     },
     {
-     "ticker": "LEO-USD",
-     "symbol": "LEO",
-     "name": "UNUS SED LEO",
+     "ticker": "RUNE-USD",
+     "symbol": "RUNE",
+     "name": "THORChain",
      "score": 61.0,
      "label": "Hold",
      "category_score": null,
