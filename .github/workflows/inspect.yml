@@ -1,0 +1,26 @@
+name: Inspect ratings
+
+# Prints the full rating breakdown for the given tickers from live Yahoo data.
+on:
+  workflow_dispatch:
+    inputs:
+      tickers:
+        description: "Space-separated tickers, e.g. ENB ENB.TO"
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - run: pip install -r backend/requirements.txt
+      - run: python backend/scripts/inspect_rating.py $TICKERS
+        env:
+          TICKERS: ${{ inputs.tickers }}
