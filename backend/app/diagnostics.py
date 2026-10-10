@@ -59,22 +59,11 @@ def _crypto_screener() -> str:
     return f"{total} coins listed; first: {quotes[0].get('symbol')}"
 
 
-def _quote_summary() -> str:
-    # Not used by the app (it needs a crumb some hosts are refused); reported for reference.
-    import yfinance as yf
-
-    info = yf.Ticker("MSFT").info or {}
-    if not info.get("shortName"):
-        raise RuntimeError(f"no company data ({len(info)} keys)")
-    return f"{len(info)} keys"
-
-
 CHECKS: dict[str, Callable[[], str]] = {
     "yahoo_chart": _chart,
     "yahoo_statements": _timeseries,
     "yahoo_search": _search,
     "yahoo_crypto_screener": _crypto_screener,
-    "yahoo_quote_summary_unused": _quote_summary,
 }
 
 
@@ -83,7 +72,7 @@ def run() -> dict:
     with _lock:
         if _cached and time.monotonic() - _cached[0] < CACHE_SECONDS:
             return _cached[1]
-    with ThreadPoolExecutor(max_workers=5) as pool:
+    with ThreadPoolExecutor(max_workers=len(CHECKS)) as pool:
         results = dict(zip(CHECKS, pool.map(_check, CHECKS.values())))
     report = {"checked_at": int(time.time()), "checks": results}
     with _lock:

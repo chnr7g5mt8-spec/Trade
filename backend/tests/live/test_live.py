@@ -115,5 +115,5 @@ def test_site_data_sources_reachable_from_server():
     status, body = get("/api/diagnostics")
     assert status == 200
     checks = body["checks"]
-    failed = {k: v["detail"] for k, v in checks.items() if not v["ok"] and k != "yahoo_quote_summary_unused"}
+    failed = {k: v["detail"] for k, v in checks.items() if not v["ok"]}
     assert not failed, failed

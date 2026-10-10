@@ -1,0 +1,5 @@
+# Extra packages for the GitHub Actions data jobs (benchmarks, backtest), which
+# use yfinance's screener to pick the companies to analyse.
+-r requirements.txt
+yfinance==1.7.0
+pandas==3.0.6

@@ -28,7 +28,7 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: "3.13"
-      - run: pip install -r backend/requirements.txt
+      - run: pip install -r backend/requirements-scripts.txt
       - run: python backend/scripts/backtest.py --size "${{ inputs.size || 500 }}"
       - name: Commit results
         run: |

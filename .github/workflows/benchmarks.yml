@@ -27,7 +27,7 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: "3.13"
-      - run: pip install -r backend/requirements.txt
+      - run: pip install -r backend/requirements-scripts.txt
       - run: python backend/scripts/build_benchmarks.py --limit-industries "${{ inputs.limit_industries || 0 }}"
       - name: Commit benchmarks
         if: ${{ !inputs.limit_industries || inputs.limit_industries == '0' }}

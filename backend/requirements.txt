@@ -1,4 +1,4 @@
+# What the server needs at runtime.
 fastapi==0.143.0
 uvicorn[standard]==0.54.0
-yfinance==1.7.0
-pandas==3.0.6
+curl_cffi==0.16.3
