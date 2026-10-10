@@ -8,6 +8,7 @@ largest first), which is paged through and cached.
 from __future__ import annotations
 
 import logging
+import re
 import time
 
 from .. import stats
@@ -42,6 +43,25 @@ def _days_back(chart: Chart, days: int) -> float | None:
     return best
 
 
+def pegged_to(price: float | None, volatility: float | None, name: str | None) -> str | None:
+    """What a coin is designed to track (stablecoins, gold tokens), or None for a free-floating coin.
+
+    Free-floating coins swing far more than 15% a year, so anything steadier
+    is pegged to something: the dollar when it trades near $1, otherwise
+    another currency (euro stablecoins). Gold tokens move like gold, which is
+    steadier than any free-floating coin.
+    """
+    if not price or volatility is None:
+        return None
+    if 0.95 <= price <= 1.05 and volatility < 0.15:
+        return "the US dollar ($1)"
+    if volatility < 0.12:
+        return "a traditional currency"
+    if name and re.search(r"\bgold\b", name, re.IGNORECASE) and volatility < 0.5:
+        return "the price of gold"
+    return None
+
+
 def build_crypto(ticker: str, chart: Chart, listing: dict | None = None, rank: int | None = None,
                  now: float | None = None) -> CryptoData:
     now = time.time() if now is None else now
@@ -53,6 +73,8 @@ def build_crypto(ticker: str, chart: Chart, listing: dict | None = None, rank: i
     year = [c for t, c in zip(chart.timestamps, chart.closes) if t >= year_start]
 
     symbol = listing.get("fromCurrency") or ticker.upper().removesuffix("-USD").split("-")[0]
+    # Yahoo tells apart coins that share a symbol with a numeric id (HYPE32196); show the symbol.
+    symbol = re.sub(r"^([A-Z]{2,})\d{4,}$", r"\1", symbol)
     name = listing.get("longName") or listing.get("shortName") or meta.get("longName") or meta.get("shortName")
     if name and name.endswith(" USD"):
         name = name[:-4]
@@ -85,10 +107,11 @@ def build_crypto(ticker: str, chart: Chart, listing: dict | None = None, rank: i
         data["age_years"] = max(0.0, (now - started) / (365.25 * 86400))
 
     notes: list[str] = []
-    vol = data.get("volatility_1y")
-    if price and 0.97 <= price <= 1.03 and vol is not None and vol < 0.05:
+    pegged = pegged_to(price, data.get("volatility_1y"), name)
+    if pegged:
         data["is_stablecoin"] = True
-        notes.append("This is a stablecoin, designed to stay at $1, so it isn't rated as an investment.")
+        notes.append(f"This is a stablecoin or token designed to track {pegged}, so it isn't rated "
+                     "as an investment.")
     if not listing:
         notes.append("Market cap and supply aren't available for this coin, so the rating uses price data only.")
 

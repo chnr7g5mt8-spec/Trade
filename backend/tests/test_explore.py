@@ -151,3 +151,33 @@ def test_script_rates_like_the_app():
 def test_script_skips_unknown_symbols():
     provider = StockProvider(RecordedClient())
     assert build_explore.rate_stock(provider, EMPTY, {"symbol": "NOPE"}, "Technology", "Software") is None
+
+
+def test_preferred_shares_and_closed_end_funds_are_left_out():
+    def am(ticker, name, score):
+        r = rating(ticker, score, sector="Financial Services", name=name)
+        return r.model_copy(update={"industry": "Asset Management"})
+
+    ratings = [
+        rating("KIM-PM", 90.0, name="Kimco Realty Corporation"),
+        rating("TRTN-PA", 90.0, name="Triton International Limited"),
+        am("BSTZ", "BlackRock Science and Technology Term Trust", 90.0),
+        am("AOD", "Abrdn Total Dynamic Dividend Fund", 90.0),
+        am("GAM", "General American Investors Company, Inc.", 90.0),
+        am("BLK", "BlackRock, Inc.", 70.0),  # an asset manager is a company
+        rating("BRK-B", 60.0, name="Berkshire Hathaway Inc."),  # share classes stay
+        rating("PBR-A", 55.0, name="Petróleo Brasileiro S.A. - Petrobras"),
+    ]
+    assert [i["ticker"] for i in lists_by_key(ratings)["top"]["items"]] == ["BLK", "BRK-B", "PBR-A"]
+
+
+def test_wrapped_and_staked_coins_are_left_out():
+    def coin(ticker, name, score):
+        return rating(ticker, score, asset_type="crypto", sector=None, name=name).model_copy(
+            update={"symbol": ticker.removesuffix("-USD")})
+
+    ratings = [coin("BTC-USD", "Bitcoin", 60.0), coin("WBTC-USD", "Wrapped Bitcoin", 61.0),
+               coin("ETH-USD", "Ethereum", 55.0), coin("WETH-USD", "WETH", 56.0),
+               coin("STETH-USD", "Lido Staked ETH", 57.0), coin("WIF-USD", "dogwifhat", 50.0),
+               coin("W-USD", "Wormhole", 45.0)]
+    assert [i["ticker"] for i in lists_by_key(ratings)["crypto"]["items"]] == ["BTC-USD", "ETH-USD", "WIF-USD", "W-USD"]

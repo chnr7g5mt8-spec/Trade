@@ -9,6 +9,7 @@ in app/data/explore.json.
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -48,7 +49,8 @@ FEATURED = [
              "stock", "risk", "Low-risk score"),
     ListSpec("momentum", "Strongest momentum", f"Strongest price trend, {HOLD_OR_BETTER}.",
              "stock", "momentum", "Momentum score"),
-    ListSpec("crypto", "Top crypto", "Highest-rated coins. Stablecoins aren't rated.", "crypto"),
+    ListSpec("crypto", "Top crypto",
+             "Highest-rated coins. Stablecoins, gold tokens and wrapped copies of other coins are left out.", "crypto"),
 ]
 
 
@@ -107,8 +109,32 @@ def _make_list(spec: ListSpec, pool: list[Rating], group: str) -> dict:
     }
 
 
+# Preferred shares (TRTN-PA, KIM-PM) trade like bonds but are rated on the
+# company's financials, so they'd duplicate the company with a misleadingly
+# low risk.
+PREFERRED_RE = re.compile(r"-P[A-Z]?$")
+# Closed-end funds are listed like companies, in Yahoo's Asset Management
+# industry, but are funds: a list of the best companies shouldn't hold them.
+FUND_NAME_RE = re.compile(r"\b(fund|funds|trust|investors|portfolio|municipal|income|opportunities)\b", re.IGNORECASE)
+# Tokens that are claims on another coin (WBTC, WETH, staked ETH) would repeat it.
+DERIVED_COIN_RE = re.compile(r"\b(wrapped|bridged|staked)\b", re.IGNORECASE)
+
+
+def is_fund_like(r: Rating) -> bool:
+    return (r.industry or "").lower() == "asset management" and bool(FUND_NAME_RE.search(r.name or ""))
+
+
 def eligible(r: Rating) -> bool:
-    return r.asset_type in ("stock", "crypto") and r.score is not None and r.coverage >= MIN_COVERAGE
+    if r.asset_type not in ("stock", "crypto") or r.score is None or r.coverage < MIN_COVERAGE:
+        return False
+    return r.asset_type == "crypto" or not (PREFERRED_RE.search(r.ticker) or is_fund_like(r))
+
+
+def derived_coins(coins: list[Rating]) -> set[str]:
+    """Tickers of wrapped or staked versions of other coins in the list."""
+    symbols = {c.symbol for c in coins}
+    return {c.ticker for c in coins
+            if DERIVED_COIN_RE.search(c.name or "") or (c.symbol.startswith("W") and c.symbol[1:] in symbols)}
 
 
 def build(ratings: list[Rating]) -> list[dict]:
@@ -116,6 +142,8 @@ def build(ratings: list[Rating]) -> list[dict]:
     rated = [r for r in ratings if eligible(r)]
     stocks = [r for r in rated if r.asset_type == "stock"]
     coins = [r for r in rated if r.asset_type == "crypto"]
+    derived = derived_coins(coins)
+    coins = [r for r in coins if r.ticker not in derived]
     lists = [_make_list(spec, coins if spec.asset_type == "crypto" else stocks, "featured") for spec in FEATURED]
 
     by_sector: dict[str, list[Rating]] = {}

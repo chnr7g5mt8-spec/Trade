@@ -1,4 +1,6 @@
-from app.providers.crypto import CryptoDirectory, PAGE_SIZE, build_crypto, is_crypto_symbol
+import pytest
+
+from app.providers.crypto import CryptoDirectory, PAGE_SIZE, build_crypto, is_crypto_symbol, pegged_to
 from app.sources import recorded
 from tests.recordings import RECORDED_AT, chart
 
@@ -84,3 +86,27 @@ def test_directory_failure_is_not_fatal():
             raise YahooError("down")
 
     assert CryptoDirectory(Broken()).find("BTC-USD") == (None, None)
+
+
+@pytest.mark.parametrize("price, vol, name, expected", [
+    (1.0004, 0.01, "Tether USDt", "the US dollar ($1)"),
+    (0.998, 0.11, "crvUSD", "the US dollar ($1)"),  # wobbles more, still pegged
+    (1.16, 0.07, "EURC", "a traditional currency"),
+    (4010.0, 0.22, "PAX Gold", "the price of gold"),
+    (3990.0, 0.21, "Tether Gold", "the price of gold"),
+    (1.02, 0.85, "Some Coin", None),  # trades near $1 but floats freely
+    (67000.0, 0.45, "Bitcoin", None),
+    (0.31, 0.95, "Goldfinch", None),  # "gold" only as a whole word
+    (None, 0.01, "x", None),
+    (1.0, None, "x", None),
+])
+def test_pegged_coins(price, vol, name, expected):
+    assert pegged_to(price, vol, name) == expected
+
+
+def test_yahoo_numeric_symbol_ids_are_shown_as_the_symbol():
+    q, rank = listing("BTC-USD")
+    c = chart("BTC-USD")
+    d = build_crypto("HYPE32196-USD", c, {**q, "fromCurrency": "HYPE32196"}, rank, now=RECORDED_AT)
+    assert d.symbol == "HYPE"
+    assert build_crypto("1INCH-USD", c, {**q, "fromCurrency": "1INCH"}, rank, now=RECORDED_AT).symbol == "1INCH"

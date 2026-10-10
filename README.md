@@ -54,7 +54,7 @@ which don't apply to how they work.
 | Maturity & supply | 10% | Years of trading; share of maximum supply already issued |
 
 Crypto scores compare coins with each other; even the best-rated coins are far
-more volatile than most stocks. Stablecoins aren't rated.
+more volatile than most stocks. Stablecoins and gold-backed tokens aren't rated.
 
 ### Explore
 
@@ -67,7 +67,8 @@ $1B (including foreign companies' US listings) and every coin worth over $100M
 each weekday after the US close, with the same code as a single rating, and
 stores the lists in `backend/app/data/explore.json`. Category lists only
 include stocks rated Hold or better, and every list needs at least 60% of the
-measures to be available. Tapping an entry opens its live rating.
+measures to be available. Preferred shares, closed-end funds and wrapped or
+staked copies of other coins are left out. Tapping an entry opens its live rating.
 
 ### Labels
 
