@@ -93,6 +93,19 @@ export default function About() {
         <Categories categories={data.crypto_categories} />
       </Section>
 
+      {!!data.fund_categories && (
+        <Section title="ETFs">
+          <Text style={styles.body}>
+            A fund holds many companies, so it’s rated on what matters for a fund: its yearly fee, its 1-, 3- and
+            5-year returns compared with ETFs of the same kind (so a bond fund isn’t judged against a tech fund), risk,
+            size and dividends. Fees, sizes and categories are collected daily for US-listed ETFs worth over $500M;
+            other funds are shown but not rated. Leveraged and inverse ETFs aren’t rated: they’re built for short-term
+            trading.
+          </Text>
+          <Categories categories={data.fund_categories} />
+        </Section>
+      )}
+
       <Section title="Future outlook">
         <Text style={styles.body}>
           For US-listed stocks the app also shows what Wall Street analysts expect, scored from 0 to 100: forecast

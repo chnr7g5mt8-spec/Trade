@@ -51,6 +51,7 @@ export default function ExploreScreen() {
   const current = data.lists.find((l) => l.key === selectedKey) ?? data.lists[0];
   const featured = data.lists.filter((l) => l.group === 'featured');
   const sectors = data.lists.filter((l) => l.group === 'sector');
+  const etfs = data.lists.filter((l) => l.group === 'etf');
   const select = (key: string) => router.setParams({ list: key });
 
   return (
@@ -62,6 +63,12 @@ export default function ExploreScreen() {
       ListHeaderComponent={
         <View style={styles.header}>
           <Chips lists={featured} current={current?.key} onSelect={select} />
+          {etfs.length > 0 && (
+            <View style={{ gap: 6 }}>
+              <Text style={styles.sectionTitle}>ETFs</Text>
+              <Chips lists={etfs} current={current?.key} onSelect={select} />
+            </View>
+          )}
           {sectors.length > 0 && (
             <View style={{ gap: 6 }}>
               <Text style={styles.sectionTitle}>By sector</Text>
@@ -84,7 +91,7 @@ export default function ExploreScreen() {
         <View style={styles.footer}>
           <Text style={styles.muted}>
             {data.generated_at
-              ? `Ranked ${formatRankedAt(data.generated_at)} from ${data.stocks_rated.toLocaleString('en-US')} stocks and ${data.coins_rated} coins: ${data.universe}. Tap one for its live rating.`
+              ? `Ranked ${formatRankedAt(data.generated_at)} from ${counted(data)}: ${data.universe}. Tap one for its live rating.`
               : "Demo data: ranked from the recorded sample assets only, prices aren't live."}
           </Text>
           <Text style={styles.muted}>
@@ -150,6 +157,13 @@ function Row({ item, rank, list }: { item: ExploreItem; rank: number; list: Expl
       </View>
     </Pressable>
   );
+}
+
+function counted(data: Explore): string {
+  const parts = [`${data.stocks_rated.toLocaleString('en-US')} stocks`];
+  if (data.etfs_rated) parts.push(`${data.etfs_rated.toLocaleString('en-US')} ETFs`);
+  parts.push(`${data.coins_rated} coins`);
+  return parts.length === 3 ? `${parts[0]}, ${parts[1]} and ${parts[2]}` : parts.join(' and ');
 }
 
 /** e.g. "Oct 9, 6:11 PM" in the viewer's own time zone. */

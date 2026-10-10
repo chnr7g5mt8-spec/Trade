@@ -106,7 +106,7 @@ export default function StockDetail() {
     rating.asset_type === 'crypto'
       ? 'Cryptocurrency'
       : rating.asset_type === 'fund'
-        ? ['Fund', rating.exchange].filter(Boolean).join(' · ')
+        ? ['Fund', rating.industry, rating.exchange].filter(Boolean).join(' · ')
         : [rating.industry ?? rating.sector, rating.exchange].filter(Boolean).join(' · ');
   const peer = rating.peer_group;
 
@@ -162,8 +162,10 @@ export default function StockDetail() {
       <Text style={styles.sectionTitle}>Score breakdown</Text>
       {peer && (
         <Text style={styles.peer}>
-          Measures marked “vs peers” compare it with {peer.companies} companies in the {peer.name} {peer.level}. Tap
-          a category for details.
+          {rating.asset_type === 'fund'
+            ? `Returns marked “vs peers” compare it with ${peer.companies} ETFs in the ${peer.name} category.`
+            : `Measures marked “vs peers” compare it with ${peer.companies} companies in the ${peer.name} ${peer.level}.`}{' '}
+          Tap a category for details.
         </Text>
       )}
       {rating.categories.map((c) => (

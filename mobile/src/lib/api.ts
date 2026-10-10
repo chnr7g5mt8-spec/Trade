@@ -116,6 +116,7 @@ export type Methodology = {
   min_peers: number;
   stock_categories: MethodologyCategory[];
   crypto_categories: MethodologyCategory[];
+  fund_categories?: MethodologyCategory[];
   benchmarks: { generated_at: string | null; industries: number; sectors: number };
   track_record: TrackRecord | null;
 };
@@ -213,8 +214,8 @@ export type ExploreList = {
   key: string;
   title: string;
   description: string;
-  group: 'featured' | 'sector';
-  asset_type: 'stock' | 'crypto';
+  group: 'featured' | 'sector' | 'etf';
+  asset_type: 'stock' | 'crypto' | 'fund';
   category_label: string | null;
   items: ExploreItem[];
 };
@@ -224,6 +225,8 @@ export type Explore = {
   universe: string;
   stocks_rated: number;
   coins_rated: number;
+  /** Missing in rankings made before ETFs were rated. */
+  etfs_rated?: number;
   lists: ExploreList[];
 };
 
