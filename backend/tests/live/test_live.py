@@ -128,9 +128,21 @@ def test_site_explore_lists_are_full_and_recent():
     assert datetime.now(timezone.utc) - ranked < timedelta(days=5), "Explore rankings are stale"
     assert body["stocks_rated"] >= 1000 and body["coins_rated"] >= 50
     lists = {lst["key"]: lst for lst in body["lists"]}
-    for key in ["top", "value", "growth", "dividends", "low_risk", "momentum", "crypto"]:
+    for key in ["top", "today_and_ahead", "outlook", "garp", "value", "growth", "dividends", "low_risk", "momentum",
+                "crypto"]:
         assert len(lists[key]["items"]) == 20, key
     assert sum(lst["group"] == "sector" for lst in body["lists"]) >= 10
     first = lists["top"]["items"][0]
     status, rating = get(f"/api/rating/{first['ticker']}")
     assert status == 200 and rating["score"] is not None
+
+
+@site
+def test_site_shows_analyst_outlook_for_us_stocks():
+    status, body = get("/api/rating/MSFT")
+    assert status == 200, body
+    outlook = body["outlook"]
+    assert outlook["analysts"] >= 10 and 0 <= outlook["score"] <= 100
+    assert all(m["score"] is not None and m["benchmark"] for m in outlook["category"]["metrics"])
+    status, body = get("/api/rating/BTC-USD")
+    assert status == 200 and body["outlook"] is None
