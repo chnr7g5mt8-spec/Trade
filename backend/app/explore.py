@@ -35,9 +35,12 @@ def category(key: str) -> Callable[[Rating], float | None]:
 
 
 def outlook_score(r: Rating) -> float | None:
-    if r.outlook is None or r.outlook.analysts < MIN_ANALYSTS_FOR_LISTS:
+    # Lists need every forecast, which also means the company is profitable
+    # now: growth forecasts from a loss are too speculative to rank on.
+    o = r.outlook
+    if o is None or o.analysts < MIN_ANALYSTS_FOR_LISTS or any(m.score is None for m in o.category.metrics):
         return None
-    return r.outlook.score
+    return o.score
 
 
 def today_and_ahead(r: Rating) -> float | None:
@@ -72,7 +75,8 @@ FEATURED = [
              f"{HOLD_OR_BETTER}.", "stock", today_and_ahead, "Combined score"),
     ListSpec("outlook", "Future outlook",
              f"Best analyst outlook: forecast earnings and sales growth, price targets and buy ratings, "
-             f"{HOLD_OR_BETTER}. Analysts' forecasts are often too optimistic.", "stock", outlook_score,
+             f"{HOLD_OR_BETTER} and profitable now. Analysts' forecasts are often too optimistic.", "stock",
+             outlook_score,
              "Outlook score"),
     ListSpec("garp", "Growth at a fair price",
              f"Scores at least 50 on both growth and value: growing fast without being expensive, "

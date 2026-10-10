@@ -169,13 +169,14 @@ def main() -> None:
     with ThreadPoolExecutor(max_workers=4) as pool:
         forecasts = dict(zip((r.ticker for r in stocks), pool.map(lambda r: fetch_outlook(r.ticker), stocks)))
     forecasts = {t: f for t, f in forecasts.items() if f}
+    stored = {"generated_at": generated_at, "distributions": outlook.distributions(forecasts), "stocks": forecasts}
+    store = outlook.OutlookStore(stored)
     for r in stocks:
-        r.outlook = outlook.build(forecasts.get(r.ticker), r.price, generated_at)
+        r.outlook = store.get(r.ticker, r.price)
     log.info("analyst forecasts for %d of %d stocks; outlook scores for %d", len(forecasts), len(stocks),
              sum(r.outlook is not None for r in stocks))
     if args.limit_industries or len(forecasts) >= len(stocks) / 2:
-        outlook.DEFAULT_PATH.write_text(json.dumps({"generated_at": generated_at, "stocks": forecasts},
-                                                   indent=0, sort_keys=True))
+        outlook.DEFAULT_PATH.write_text(json.dumps(stored, indent=0, sort_keys=True))
     else:
         log.warning("too few forecasts; keeping the previous outlook.json")
 

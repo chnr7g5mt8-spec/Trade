@@ -45,7 +45,11 @@ export function CategoryCard({ category, note }: { category: CategoryScore; note
                   {m.score == null ? '—' : Math.round(m.score)}
                 </Text>
               </View>
-              {!!m.benchmark && <Text style={styles.benchmark}>vs peers · {m.benchmark}</Text>}
+              {!!m.benchmark && (
+                <Text style={styles.benchmark}>
+                  {m.benchmark.startsWith('vs ') ? m.benchmark : `vs peers · ${m.benchmark}`}
+                </Text>
+              )}
             </View>
           ))}
         </View>

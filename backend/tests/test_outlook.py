@@ -4,7 +4,7 @@ import pytest
 
 from app import explore, main, outlook
 from app.benchmarks import EMPTY
-from app.models import CategoryScore, Outlook, Rating
+from app.models import CategoryScore, MetricScore, Outlook, Rating
 from app.providers.market import MarketData
 from app.sources.recorded import RecordedClient
 
@@ -97,3 +97,44 @@ def test_outlook_and_blended_lists():
     assert [(i["ticker"], i["category_score"]) for i in lists["garp"]["items"]] == [("D", 65.0), ("A", 65.0)]
     assert lists["outlook"]["category_label"] == "Outlook score"
     assert [lst["key"] for lst in explore.build(ratings)][:4] == ["top", "today_and_ahead", "outlook", "garp"]
+
+
+def test_forecasts_are_ranked_against_all_stocks():
+    # 200 stocks with forecast sales growth 0%..19.9%; analysts' targets 0..39.8% above the price.
+    stocks = {f"S{i}": {"analysts": 10, "price": 100.0, "target_mean": 100.0 + i / 5, "recommendation": 2.0,
+                        "revenue_growth_next_year": i / 1000} for i in range(200)}
+    dists = outlook.distributions(stocks)
+    assert set(dists) == {"revenue_growth_next_year", "target_upside", "recommendation"}  # EPS: too few
+    assert dists["target_upside"]["count"] == 200 and len(dists["target_upside"]["q"]) == 99
+    store = outlook.OutlookStore({"generated_at": "x", "distributions": dists, "stocks": stocks})
+    top, middle = store.get("S199", 100.0), store.get("S100", 100.0)
+    metrics = {m.key: m for m in top.category.metrics}
+    assert metrics["revenue_growth_next_year"].benchmark == "vs all US stocks · median 10.0%"
+    # 70% rank among all stocks + 30% fixed scale.
+    assert metrics["revenue_growth_next_year"].score == pytest.approx(0.7 * 99.5 + 0.3 * 99.5, abs=0.5)
+    assert top.score > middle.score
+    # Distinct forecasts get distinct scores near the top instead of tying at 100.
+    assert store.get("S190", 100.0).score < store.get("S199", 100.0).score < 100
+
+
+def test_future_outlook_list_needs_every_forecast():
+    def with_metrics(ticker, ahead, keys):
+        r = stock(ticker, 60.0, ahead=ahead)
+        metrics = [MetricScore(key=k, label=k, value=1.0, display="", score=None if k not in keys else 50.0)
+                   for k in ("eps_growth_next_year", "revenue_growth_next_year", "target_upside", "recommendation")]
+        r.outlook.category.metrics = metrics
+        return r
+
+    all_four = ("eps_growth_next_year", "revenue_growth_next_year", "target_upside", "recommendation")
+    ratings = [with_metrics("FULL", 70.0, all_four), with_metrics("LOSS", 90.0, all_four[1:])]
+    assert [i["ticker"] for i in {l["key"]: l for l in explore.build(ratings)}["outlook"]["items"]] == ["FULL"]
+
+
+def test_sample_mode_uses_recorded_forecasts():
+    # Real forecasts recorded with the demo data (scripts/build_explore.py output for these stocks).
+    market = MarketData(RecordedClient())
+    market.name = "sample"
+    service = main.RatingService(market, benchmarks=EMPTY)
+    nvda = service.get("NVDA").outlook
+    assert nvda.analysts >= 20 and all(m.benchmark for m in nvda.category.metrics)
+    assert service.get("VOD.L").outlook is None  # not US-listed
