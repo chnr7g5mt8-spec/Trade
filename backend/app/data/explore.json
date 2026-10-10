@@ -1,7 +1,7 @@
 {
- "generated_at": "2026-10-10T19:10+00:00",
+ "generated_at": "2026-10-10T19:29+00:00",
  "universe": "US-listed companies worth over $1B (including foreign companies' US listings) and coins worth over $100M",
- "stocks_rated": 2476,
+ "stocks_rated": 2450,
  "coins_rated": 205,
  "lists": [
   {
@@ -57,17 +57,6 @@
      "exchange": "NYSE"
     },
     {
-     "ticker": "GSL",
-     "symbol": "GSL",
-     "name": "Global Ship Lease, Inc.",
-     "score": 79.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Marine Shipping",
-     "exchange": "NYSE"
-    },
-    {
      "ticker": "STNG",
      "symbol": "STNG",
      "name": "Scorpio Tankers Inc.",
@@ -109,17 +98,6 @@
      "category_score": null,
      "sector": "Energy",
      "industry": "Oil & Gas Midstream",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "DAC",
-     "symbol": "DAC",
-     "name": "Danaos Corporation",
-     "score": 77.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Marine Shipping",
      "exchange": "NYSE"
     },
     {
@@ -231,6 +209,28 @@
      "sector": "Financial Services",
      "industry": "Asset Management",
      "exchange": "NYSE"
+    },
+    {
+     "ticker": "EOG",
+     "symbol": "EOG",
+     "name": "EOG Resources, Inc.",
+     "score": 75.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Energy",
+     "industry": "Oil & Gas E&P",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "FRO",
+     "symbol": "FRO",
+     "name": "Frontline plc",
+     "score": 75.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Energy",
+     "industry": "Oil & Gas Midstream",
+     "exchange": "NYSE"
     }
    ]
   },
@@ -248,7 +248,7 @@
      "name": "NVIDIA Corporation",
      "score": 74.0,
      "label": "Buy",
-     "category_score": 87.0,
+     "category_score": 83.4,
      "sector": "Technology",
      "industry": "Semiconductors",
      "exchange": "NasdaqGS"
@@ -259,9 +259,42 @@
      "name": "SK hynix Inc.",
      "score": 73.0,
      "label": "Buy",
-     "category_score": 86.5,
+     "category_score": 81.1,
      "sector": "Technology",
      "industry": "Semiconductors",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "AVGO",
+     "symbol": "AVGO",
+     "name": "Broadcom Inc.",
+     "score": 66.0,
+     "label": "Buy",
+     "category_score": 79.8,
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "ATAT",
+     "symbol": "ATAT",
+     "name": "Atour Lifestyle Holdings Limited",
+     "score": 72.0,
+     "label": "Buy",
+     "category_score": 79.7,
+     "sector": "Consumer Cyclical",
+     "industry": "Lodging",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "PICS",
+     "symbol": "PICS",
+     "name": "PicS N.V.",
+     "score": 62.0,
+     "label": "Hold",
+     "category_score": 77.8,
+     "sector": "Technology",
+     "industry": "Software\u2014Infrastructure",
      "exchange": "NasdaqGS"
     },
     {
@@ -270,31 +303,20 @@
      "name": "Taiwan Semiconductor Manufacturing Company Limited",
      "score": 73.0,
      "label": "Buy",
-     "category_score": 83.8,
+     "category_score": 77.7,
      "sector": "Technology",
      "industry": "Semiconductors",
      "exchange": "NYSE"
     },
     {
-     "ticker": "ATAT",
-     "symbol": "ATAT",
-     "name": "Atour Lifestyle Holdings Limited",
-     "score": 72.0,
+     "ticker": "ARGX",
+     "symbol": "ARGX",
+     "name": "argenx SE",
+     "score": 66.0,
      "label": "Buy",
-     "category_score": 83.7,
-     "sector": "Consumer Cyclical",
-     "industry": "Lodging",
-     "exchange": "NasdaqGS"
-    },
-    {
-     "ticker": "SNDK",
-     "symbol": "SNDK",
-     "name": "Sandisk Corporation",
-     "score": 70.0,
-     "label": "Buy",
-     "category_score": 83.6,
-     "sector": "Technology",
-     "industry": "Computer Hardware",
+     "category_score": 77.1,
+     "sector": "Healthcare",
+     "industry": "Biotechnology",
      "exchange": "NasdaqGS"
     },
     {
@@ -303,42 +325,20 @@
      "name": "Monolithic Power Systems, Inc.",
      "score": 67.0,
      "label": "Buy",
-     "category_score": 83.5,
+     "category_score": 76.8,
      "sector": "Technology",
      "industry": "Semiconductors",
      "exchange": "NasdaqGS"
     },
     {
-     "ticker": "AVGO",
-     "symbol": "AVGO",
-     "name": "Broadcom Inc.",
-     "score": 66.0,
+     "ticker": "MU",
+     "symbol": "MU",
+     "name": "Micron Technology, Inc.",
+     "score": 72.0,
      "label": "Buy",
-     "category_score": 83.0,
+     "category_score": 76.8,
      "sector": "Technology",
      "industry": "Semiconductors",
-     "exchange": "NasdaqGS"
-    },
-    {
-     "ticker": "ARGX",
-     "symbol": "ARGX",
-     "name": "argenx SE",
-     "score": 66.0,
-     "label": "Buy",
-     "category_score": 82.8,
-     "sector": "Healthcare",
-     "industry": "Biotechnology",
-     "exchange": "NasdaqGS"
-    },
-    {
-     "ticker": "AMAT",
-     "symbol": "AMAT",
-     "name": "Applied Materials, Inc.",
-     "score": 68.0,
-     "label": "Buy",
-     "category_score": 82.6,
-     "sector": "Technology",
-     "industry": "Semiconductor Equipment & Materials",
      "exchange": "NasdaqGS"
     },
     {
@@ -347,21 +347,54 @@
      "name": "Credo Technology Group Holding Ltd",
      "score": 65.0,
      "label": "Buy",
-     "category_score": 82.1,
+     "category_score": 76.7,
      "sector": "Technology",
      "industry": "Semiconductors",
      "exchange": "NasdaqGS"
     },
     {
-     "ticker": "GLBE",
-     "symbol": "GLBE",
-     "name": "Global-E Online Ltd.",
-     "score": 67.0,
+     "ticker": "SNDK",
+     "symbol": "SNDK",
+     "name": "Sandisk Corporation",
+     "score": 70.0,
      "label": "Buy",
-     "category_score": 82.0,
-     "sector": "Consumer Cyclical",
-     "industry": "Internet Retail",
+     "category_score": 76.5,
+     "sector": "Technology",
+     "industry": "Computer Hardware",
      "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "AMAT",
+     "symbol": "AMAT",
+     "name": "Applied Materials, Inc.",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": 76.3,
+     "sector": "Technology",
+     "industry": "Semiconductor Equipment & Materials",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "ONTO",
+     "symbol": "ONTO",
+     "name": "Onto Innovation Inc.",
+     "score": 63.0,
+     "label": "Hold",
+     "category_score": 76.2,
+     "sector": "Technology",
+     "industry": "Semiconductor Equipment & Materials",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "ALM",
+     "symbol": "ALM",
+     "name": "Almonty Industries Inc.",
+     "score": 54.0,
+     "label": "Hold",
+     "category_score": 76.2,
+     "sector": "Basic Materials",
+     "industry": "Other Industrial Metals & Mining",
+     "exchange": "NasdaqCM"
     },
     {
      "ticker": "FIX",
@@ -369,173 +402,31 @@
      "name": "Comfort Systems USA, Inc.",
      "score": 68.0,
      "label": "Buy",
-     "category_score": 81.8,
+     "category_score": 75.7,
      "sector": "Industrials",
      "industry": "Engineering & Construction",
      "exchange": "NYSE"
     },
     {
-     "ticker": "ONTO",
-     "symbol": "ONTO",
-     "name": "Onto Innovation Inc.",
-     "score": 63.0,
+     "ticker": "CLS",
+     "symbol": "CLS",
+     "name": "Celestica Inc.",
+     "score": 60.0,
      "label": "Hold",
-     "category_score": 81.5,
+     "category_score": 75.5,
      "sector": "Technology",
-     "industry": "Semiconductor Equipment & Materials",
+     "industry": "Electronic Components",
      "exchange": "NYSE"
     },
     {
-     "ticker": "SEZL",
-     "symbol": "SEZL",
-     "name": "Sezzle Inc.",
-     "score": 69.0,
-     "label": "Buy",
-     "category_score": 81.3,
-     "sector": "Financial Services",
-     "industry": "Credit Services",
-     "exchange": "NasdaqCM"
-    },
-    {
-     "ticker": "DLO",
-     "symbol": "DLO",
-     "name": "DLocal Limited",
-     "score": 67.0,
-     "label": "Buy",
-     "category_score": 81.2,
-     "sector": "Technology",
-     "industry": "Software\u2014Infrastructure",
-     "exchange": "NasdaqGS"
-    },
-    {
-     "ticker": "GOOG",
-     "symbol": "GOOG",
-     "name": "Alphabet Inc.",
-     "score": 69.0,
-     "label": "Buy",
-     "category_score": 81.1,
-     "sector": "Communication Services",
-     "industry": "Internet Content & Information",
-     "exchange": "NasdaqGS"
-    },
-    {
-     "ticker": "PICS",
-     "symbol": "PICS",
-     "name": "PicS N.V.",
-     "score": 62.0,
-     "label": "Hold",
-     "category_score": 81.0,
-     "sector": "Technology",
-     "industry": "Software\u2014Infrastructure",
-     "exchange": "NasdaqGS"
-    },
-    {
-     "ticker": "RMBS",
-     "symbol": "RMBS",
-     "name": "Rambus Inc.",
-     "score": 62.0,
-     "label": "Hold",
-     "category_score": 80.7,
-     "sector": "Technology",
-     "industry": "Semiconductors",
-     "exchange": "NasdaqGS"
-    },
-    {
-     "ticker": "DAVE",
-     "symbol": "DAVE",
-     "name": "Dave Inc.",
-     "score": 69.0,
-     "label": "Buy",
-     "category_score": 80.5,
-     "sector": "Technology",
-     "industry": "Software\u2014Application",
-     "exchange": "NasdaqGM"
-    },
-    {
-     "ticker": "SIMO",
-     "symbol": "SIMO",
-     "name": "Silicon Motion Technology Corporation",
-     "score": 61.0,
-     "label": "Hold",
-     "category_score": 80.5,
-     "sector": "Technology",
-     "industry": "Semiconductors",
-     "exchange": "NasdaqGS"
-    }
-   ]
-  },
-  {
-   "key": "outlook",
-   "title": "Future outlook",
-   "description": "Best analyst outlook: forecast earnings and sales growth, price targets and buy ratings, among stocks rated Hold or better. Analysts' forecasts are often too optimistic.",
-   "group": "featured",
-   "asset_type": "stock",
-   "category_label": "Outlook score",
-   "items": [
-    {
-     "ticker": "NVDA",
-     "symbol": "NVDA",
-     "name": "NVIDIA Corporation",
-     "score": 74.0,
-     "label": "Buy",
-     "category_score": 100.0,
-     "sector": "Technology",
-     "industry": "Semiconductors",
-     "exchange": "NasdaqGS"
-    },
-    {
-     "ticker": "SKHY",
-     "symbol": "SKHY",
-     "name": "SK hynix Inc.",
-     "score": 73.0,
-     "label": "Buy",
-     "category_score": 100.0,
-     "sector": "Technology",
-     "industry": "Semiconductors",
-     "exchange": "NasdaqGS"
-    },
-    {
-     "ticker": "MPWR",
-     "symbol": "MPWR",
-     "name": "Monolithic Power Systems, Inc.",
-     "score": 67.0,
-     "label": "Buy",
-     "category_score": 100.0,
-     "sector": "Technology",
-     "industry": "Semiconductors",
-     "exchange": "NasdaqGS"
-    },
-    {
-     "ticker": "AVGO",
-     "symbol": "AVGO",
-     "name": "Broadcom Inc.",
+     "ticker": "KNSA",
+     "symbol": "KNSA",
+     "name": "Kiniksa Pharmaceuticals International, plc",
      "score": 66.0,
      "label": "Buy",
-     "category_score": 100.0,
-     "sector": "Technology",
-     "industry": "Semiconductors",
-     "exchange": "NasdaqGS"
-    },
-    {
-     "ticker": "ONTO",
-     "symbol": "ONTO",
-     "name": "Onto Innovation Inc.",
-     "score": 63.0,
-     "label": "Hold",
-     "category_score": 100.0,
-     "sector": "Technology",
-     "industry": "Semiconductor Equipment & Materials",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "PICS",
-     "symbol": "PICS",
-     "name": "PicS N.V.",
-     "score": 62.0,
-     "label": "Hold",
-     "category_score": 100.0,
-     "sector": "Technology",
-     "industry": "Software\u2014Infrastructure",
+     "category_score": 75.4,
+     "sector": "Healthcare",
+     "industry": "Drug Manufacturers\u2014Specialty & Generic",
      "exchange": "NasdaqGS"
     },
     {
@@ -544,7 +435,7 @@
      "name": "Silicon Motion Technology Corporation",
      "score": 61.0,
      "label": "Hold",
-     "category_score": 100.0,
+     "category_score": 75.0,
      "sector": "Technology",
      "industry": "Semiconductors",
      "exchange": "NasdaqGS"
@@ -555,32 +446,10 @@
      "name": "ACM Research, Inc.",
      "score": 60.0,
      "label": "Hold",
-     "category_score": 100.0,
+     "category_score": 75.0,
      "sector": "Technology",
      "industry": "Semiconductor Equipment & Materials",
      "exchange": "NasdaqGM"
-    },
-    {
-     "ticker": "CHYM",
-     "symbol": "CHYM",
-     "name": "Chime Financial, Inc.",
-     "score": 60.0,
-     "label": "Hold",
-     "category_score": 100.0,
-     "sector": "Technology",
-     "industry": "Software\u2014Application",
-     "exchange": "NasdaqGS"
-    },
-    {
-     "ticker": "CLS",
-     "symbol": "CLS",
-     "name": "Celestica Inc.",
-     "score": 60.0,
-     "label": "Hold",
-     "category_score": 100.0,
-     "sector": "Technology",
-     "industry": "Electronic Components",
-     "exchange": "NYSE"
     },
     {
      "ticker": "AGBK",
@@ -588,21 +457,185 @@
      "name": "AGI Inc",
      "score": 57.0,
      "label": "Hold",
-     "category_score": 100.0,
+     "category_score": 75.0,
+     "sector": "Financial Services",
+     "industry": "Banks\u2014Regional",
+     "exchange": "NYSE"
+    }
+   ]
+  },
+  {
+   "key": "outlook",
+   "title": "Future outlook",
+   "description": "Best analyst outlook: forecast earnings and sales growth, price targets and buy ratings, among stocks rated Hold or better and profitable now. Analysts' forecasts are often too optimistic.",
+   "group": "featured",
+   "asset_type": "stock",
+   "category_label": "Outlook score",
+   "items": [
+    {
+     "ticker": "ALM",
+     "symbol": "ALM",
+     "name": "Almonty Industries Inc.",
+     "score": 54.0,
+     "label": "Hold",
+     "category_score": 98.3,
+     "sector": "Basic Materials",
+     "industry": "Other Industrial Metals & Mining",
+     "exchange": "NasdaqCM"
+    },
+    {
+     "ticker": "FTAI",
+     "symbol": "FTAI",
+     "name": "FTAI Aviation Ltd.",
+     "score": 49.0,
+     "label": "Hold",
+     "category_score": 95.4,
+     "sector": "Industrials",
+     "industry": "Aerospace & Defense",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "HSAI",
+     "symbol": "HSAI",
+     "name": "Hesai Group",
+     "score": 50.0,
+     "label": "Hold",
+     "category_score": 95.1,
+     "sector": "Consumer Cyclical",
+     "industry": "Auto Parts",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "MOD",
+     "symbol": "MOD",
+     "name": "Modine Manufacturing Company",
+     "score": 48.0,
+     "label": "Hold",
+     "category_score": 94.0,
+     "sector": "Consumer Cyclical",
+     "industry": "Auto Parts",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "TVTX",
+     "symbol": "TVTX",
+     "name": "Travere Therapeutics, Inc.",
+     "score": 45.0,
+     "label": "Hold",
+     "category_score": 93.9,
+     "sector": "Healthcare",
+     "industry": "Biotechnology",
+     "exchange": "NasdaqGM"
+    },
+    {
+     "ticker": "PICS",
+     "symbol": "PICS",
+     "name": "PicS N.V.",
+     "score": 62.0,
+     "label": "Hold",
+     "category_score": 93.6,
+     "sector": "Technology",
+     "industry": "Software\u2014Infrastructure",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "AVGO",
+     "symbol": "AVGO",
+     "name": "Broadcom Inc.",
+     "score": 66.0,
+     "label": "Buy",
+     "category_score": 93.5,
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "AGBK",
+     "symbol": "AGBK",
+     "name": "AGI Inc",
+     "score": 57.0,
+     "label": "Hold",
+     "category_score": 93.1,
      "sector": "Financial Services",
      "industry": "Banks\u2014Regional",
      "exchange": "NYSE"
     },
     {
-     "ticker": "ARQT",
-     "symbol": "ARQT",
-     "name": "Arcutis Biotherapeutics, Inc.",
+     "ticker": "NVDA",
+     "symbol": "NVDA",
+     "name": "NVIDIA Corporation",
+     "score": 74.0,
+     "label": "Buy",
+     "category_score": 92.8,
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "NESR",
+     "symbol": "NESR",
+     "name": "National Energy Services Reunited Corp.",
+     "score": 50.0,
+     "label": "Hold",
+     "category_score": 92.0,
+     "sector": "Energy",
+     "industry": "Oil & Gas Equipment & Services",
+     "exchange": "NasdaqCM"
+    },
+    {
+     "ticker": "STRL",
+     "symbol": "STRL",
+     "name": "Sterling Infrastructure, Inc.",
      "score": 57.0,
      "label": "Hold",
-     "category_score": 100.0,
-     "sector": "Healthcare",
-     "industry": "Biotechnology",
+     "category_score": 91.4,
+     "sector": "Industrials",
+     "industry": "Engineering & Construction",
      "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "WDC",
+     "symbol": "WDC",
+     "name": "Western Digital Corporation",
+     "score": 57.0,
+     "label": "Hold",
+     "category_score": 91.4,
+     "sector": "Technology",
+     "industry": "Computer Hardware",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "SEI",
+     "symbol": "SEI",
+     "name": "Solaris Energy Infrastructure, Inc.",
+     "score": 51.0,
+     "label": "Hold",
+     "category_score": 91.3,
+     "sector": "Energy",
+     "industry": "Oil & Gas Equipment & Services",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "SE",
+     "symbol": "SE",
+     "name": "Sea Limited",
+     "score": 49.0,
+     "label": "Hold",
+     "category_score": 91.2,
+     "sector": "Consumer Cyclical",
+     "industry": "Internet Retail",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "CLS",
+     "symbol": "CLS",
+     "name": "Celestica Inc.",
+     "score": 60.0,
+     "label": "Hold",
+     "category_score": 91.1,
+     "sector": "Technology",
+     "industry": "Electronic Components",
+     "exchange": "NYSE"
     },
     {
      "ticker": "STX",
@@ -610,86 +643,53 @@
      "name": "Seagate Technology Holdings plc",
      "score": 57.0,
      "label": "Hold",
-     "category_score": 100.0,
+     "category_score": 90.5,
      "sector": "Technology",
      "industry": "Computer Hardware",
      "exchange": "NasdaqGS"
     },
     {
-     "ticker": "FPS",
-     "symbol": "FPS",
-     "name": "Forgent Power Solutions, Inc.",
-     "score": 55.0,
+     "ticker": "AEIS",
+     "symbol": "AEIS",
+     "name": "Advanced Energy Industries, Inc.",
+     "score": 51.0,
      "label": "Hold",
-     "category_score": 100.0,
+     "category_score": 90.3,
      "sector": "Industrials",
      "industry": "Electrical Equipment & Parts",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "TSEM",
-     "symbol": "TSEM",
-     "name": "Tower Semiconductor Ltd.",
-     "score": 55.0,
-     "label": "Hold",
-     "category_score": 100.0,
-     "sector": "Technology",
-     "industry": "Semiconductors",
      "exchange": "NasdaqGS"
     },
     {
-     "ticker": "VRT",
-     "symbol": "VRT",
-     "name": "Vertiv Holdings Co",
-     "score": 55.0,
+     "ticker": "VCEL",
+     "symbol": "VCEL",
+     "name": "Vericel Corporation",
+     "score": 56.0,
      "label": "Hold",
-     "category_score": 100.0,
-     "sector": "Industrials",
-     "industry": "Electrical Equipment & Parts",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "ALM",
-     "symbol": "ALM",
-     "name": "Almonty Industries Inc.",
-     "score": 54.0,
-     "label": "Hold",
-     "category_score": 100.0,
-     "sector": "Basic Materials",
-     "industry": "Other Industrial Metals & Mining",
-     "exchange": "NasdaqCM"
-    },
-    {
-     "ticker": "IDYA",
-     "symbol": "IDYA",
-     "name": "IDEAYA Biosciences, Inc.",
-     "score": 54.0,
-     "label": "Hold",
-     "category_score": 100.0,
+     "category_score": 90.2,
      "sector": "Healthcare",
      "industry": "Biotechnology",
-     "exchange": "NasdaqGS"
+     "exchange": "NasdaqGM"
     },
     {
-     "ticker": "LSCC",
-     "symbol": "LSCC",
-     "name": "Lattice Semiconductor Corporation",
-     "score": 52.0,
+     "ticker": "ACMR",
+     "symbol": "ACMR",
+     "name": "ACM Research, Inc.",
+     "score": 60.0,
      "label": "Hold",
-     "category_score": 100.0,
+     "category_score": 90.1,
      "sector": "Technology",
-     "industry": "Semiconductors",
-     "exchange": "NasdaqGS"
+     "industry": "Semiconductor Equipment & Materials",
+     "exchange": "NasdaqGM"
     },
     {
-     "ticker": "TARS",
-     "symbol": "TARS",
-     "name": "Tarsus Pharmaceuticals, Inc.",
-     "score": 52.0,
+     "ticker": "FLEX",
+     "symbol": "FLEX",
+     "name": "Flex Ltd.",
+     "score": 48.0,
      "label": "Hold",
-     "category_score": 100.0,
-     "sector": "Healthcare",
-     "industry": "Biotechnology",
+     "category_score": 89.9,
+     "sector": "Technology",
+     "industry": "Electronic Components",
      "exchange": "NasdaqGS"
     }
    ]
@@ -778,17 +778,6 @@
      "sector": "Technology",
      "industry": "Software\u2014Infrastructure",
      "exchange": "NasdaqGS"
-    },
-    {
-     "ticker": "CYD",
-     "symbol": "CYD",
-     "name": "China Yuchai International Limited",
-     "score": 60.0,
-     "label": "Hold",
-     "category_score": 85.0,
-     "sector": "Consumer Cyclical",
-     "industry": "Auto Manufacturers",
-     "exchange": "NYSE"
     },
     {
      "ticker": "JEF",
@@ -921,6 +910,17 @@
      "sector": "Consumer Cyclical",
      "industry": "Restaurants",
      "exchange": "NYSE"
+    },
+    {
+     "ticker": "ANIP",
+     "symbol": "ANIP",
+     "name": "ANI Pharmaceuticals, Inc.",
+     "score": 65.0,
+     "label": "Buy",
+     "category_score": 82.4,
+     "sector": "Healthcare",
+     "industry": "Drug Manufacturers\u2014Specialty & Generic",
+     "exchange": "NasdaqGM"
     }
    ]
   },
@@ -991,7 +991,7 @@
      "ticker": "EEFT",
      "symbol": "EEFT",
      "name": "Euronet Worldwide, Inc.",
-     "score": 50.0,
+     "score": 49.0,
      "label": "Hold",
      "category_score": 96.7,
      "sector": "Technology",
@@ -1328,17 +1328,6 @@
      "exchange": "NasdaqCM"
     },
     {
-     "ticker": "KEN",
-     "symbol": "KEN",
-     "name": "Kenon Holdings Ltd.",
-     "score": 55.0,
-     "label": "Hold",
-     "category_score": 97.0,
-     "sector": "Utilities",
-     "industry": "Utilities\u2014Independent Power Producers",
-     "exchange": "NYSE"
-    },
-    {
      "ticker": "ETON",
      "symbol": "ETON",
      "name": "Eton Pharmaceuticals, Inc.",
@@ -1381,6 +1370,17 @@
      "sector": "Technology",
      "industry": "Software\u2014Application",
      "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "ASTH",
+     "symbol": "ASTH",
+     "name": "Astrana Health, Inc.",
+     "score": 55.0,
+     "label": "Hold",
+     "category_score": 96.2,
+     "sector": "Healthcare",
+     "industry": "Medical Care Facilities",
+     "exchange": "NasdaqCM"
     }
    ]
   },
@@ -1626,7 +1626,7 @@
      "ticker": "QRVO",
      "symbol": "QRVO",
      "name": "Qorvo, Inc.",
-     "score": 68.0,
+     "score": 66.0,
      "label": "Buy",
      "category_score": 100.0,
      "sector": "Technology",
@@ -1654,17 +1654,6 @@
      "sector": "Communication Services",
      "industry": "Telecom Services",
      "exchange": "NYSE"
-    },
-    {
-     "ticker": "ET",
-     "symbol": "ET",
-     "name": "Energy Transfer LP",
-     "score": 52.0,
-     "label": "Hold",
-     "category_score": 100.0,
-     "sector": "Energy",
-     "industry": "Oil & Gas Midstream",
-     "exchange": "NYSE American"
     },
     {
      "ticker": "TXNM",
@@ -1709,6 +1698,17 @@
      "sector": "Utilities",
      "industry": "Utilities\u2014Regulated Electric",
      "exchange": "NYSE"
+    },
+    {
+     "ticker": "ET",
+     "symbol": "ET",
+     "name": "Energy Transfer LP",
+     "score": 56.0,
+     "label": "Hold",
+     "category_score": 98.5,
+     "sector": "Energy",
+     "industry": "Oil & Gas Midstream",
+     "exchange": "NYSE American"
     },
     {
      "ticker": "EVRG",
@@ -1813,7 +1813,7 @@
      "ticker": "DUK",
      "symbol": "DUK",
      "name": "Duke Energy Corporation",
-     "score": 56.0,
+     "score": 54.0,
      "label": "Hold",
      "category_score": 96.2,
      "sector": "Utilities",
@@ -1919,17 +1919,6 @@
      "exchange": "NYSE"
     },
     {
-     "ticker": "DAC",
-     "symbol": "DAC",
-     "name": "Danaos Corporation",
-     "score": 77.0,
-     "label": "Buy",
-     "category_score": 100.0,
-     "sector": "Industrials",
-     "industry": "Marine Shipping",
-     "exchange": "NYSE"
-    },
-    {
      "ticker": "ECO",
      "symbol": "ECO",
      "name": "Okeanis Eco Tankers Corp.",
@@ -2007,17 +1996,6 @@
      "exchange": "NasdaqGS"
     },
     {
-     "ticker": "REPX",
-     "symbol": "REPX",
-     "name": "Riley Exploration Permian, Inc.",
-     "score": 72.0,
-     "label": "Buy",
-     "category_score": 100.0,
-     "sector": "Energy",
-     "industry": "Oil & Gas E&P",
-     "exchange": "NYSE American"
-    },
-    {
      "ticker": "APH",
      "symbol": "APH",
      "name": "Amphenol Corporation",
@@ -2070,6 +2048,28 @@
      "category_score": 100.0,
      "sector": "Financial Services",
      "industry": "Banks\u2014Regional",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "NVGS",
+     "symbol": "NVGS",
+     "name": "Navigator Holdings Ltd.",
+     "score": 70.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": "Energy",
+     "industry": "Oil & Gas Midstream",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "PBR-A",
+     "symbol": "PBR-A",
+     "name": "Petr\u00f3leo Brasileiro S.A. - Petrobras",
+     "score": 70.0,
+     "label": "Buy",
+     "category_score": 100.0,
+     "sector": "Energy",
+     "industry": "Oil & Gas Integrated",
      "exchange": "NYSE"
     }
    ]
@@ -2160,10 +2160,10 @@
      "exchange": null
     },
     {
-     "ticker": "LTC-USD",
-     "symbol": "LTC",
-     "name": "Litecoin",
-     "score": 66.0,
+     "ticker": "XMR-USD",
+     "symbol": "XMR",
+     "name": "Monero",
+     "score": 67.0,
      "label": "Buy",
      "category_score": null,
      "sector": null,
@@ -2171,9 +2171,9 @@
      "exchange": null
     },
     {
-     "ticker": "XMR-USD",
-     "symbol": "XMR",
-     "name": "Monero",
+     "ticker": "LTC-USD",
+     "symbol": "LTC",
+     "name": "Litecoin",
      "score": 66.0,
      "label": "Buy",
      "category_score": null,
@@ -2259,6 +2259,17 @@
      "exchange": null
     },
     {
+     "ticker": "SUN-USD",
+     "symbol": "SUN",
+     "name": "Sun [New]",
+     "score": 62.0,
+     "label": "Hold",
+     "category_score": null,
+     "sector": null,
+     "industry": null,
+     "exchange": null
+    },
+    {
      "ticker": "ALGO-USD",
      "symbol": "ALGO",
      "name": "Algorand",
@@ -2284,17 +2295,6 @@
      "ticker": "RUNE-USD",
      "symbol": "RUNE",
      "name": "THORChain",
-     "score": 61.0,
-     "label": "Hold",
-     "category_score": null,
-     "sector": null,
-     "industry": null,
-     "exchange": null
-    },
-    {
-     "ticker": "SUN-USD",
-     "symbol": "SUN",
-     "name": "Sun [New]",
      "score": 61.0,
      "label": "Hold",
      "category_score": null,
@@ -2642,17 +2642,6 @@
      "exchange": "NYSE"
     },
     {
-     "ticker": "MCY",
-     "symbol": "MCY",
-     "name": "Mercury General Corporation",
-     "score": 72.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Insurance\u2014Property & Casualty",
-     "exchange": "NYSE"
-    },
-    {
      "ticker": "VCTR",
      "symbol": "VCTR",
      "name": "Victory Capital Holdings, Inc.",
@@ -2684,17 +2673,6 @@
      "sector": "Financial Services",
      "industry": "Banks\u2014Regional",
      "exchange": "NasdaqGS"
-    },
-    {
-     "ticker": "BLX",
-     "symbol": "BLX",
-     "name": "Bladex Inc.",
-     "score": 70.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Banks\u2014Regional",
-     "exchange": "NYSE"
     },
     {
      "ticker": "CINF",
@@ -2761,236 +2739,28 @@
      "sector": "Financial Services",
      "industry": "Banks\u2014Diversified",
      "exchange": "NYSE"
-    }
-   ]
-  },
-  {
-   "key": "sector:industrials",
-   "title": "Industrials",
-   "description": "Highest overall score among industrials companies.",
-   "group": "sector",
-   "asset_type": "stock",
-   "category_label": null,
-   "items": [
-    {
-     "ticker": "GSL",
-     "symbol": "GSL",
-     "name": "Global Ship Lease, Inc.",
-     "score": 79.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Marine Shipping",
-     "exchange": "NYSE"
     },
     {
-     "ticker": "DAC",
-     "symbol": "DAC",
-     "name": "Danaos Corporation",
-     "score": 77.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Marine Shipping",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "ECO",
-     "symbol": "ECO",
-     "name": "Okeanis Eco Tankers Corp.",
-     "score": 77.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Marine Shipping",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "GHC",
-     "symbol": "GHC",
-     "name": "Graham Holdings Company",
-     "score": 73.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Conglomerates",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "CAAP",
-     "symbol": "CAAP",
-     "name": "Corporaci\u00f3n Am\u00e9rica Airports S.A.",
-     "score": 71.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Airports & Air Services",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "GIC",
-     "symbol": "GIC",
-     "name": "Global Industrial Company",
-     "score": 71.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Industrial Distribution",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "KFY",
-     "symbol": "KFY",
-     "name": "Korn Ferry",
-     "score": 71.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Staffing & Employment Services",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "MLI",
-     "symbol": "MLI",
-     "name": "Mueller Industries, Inc.",
-     "score": 71.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Metal Fabrication",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "WTS",
-     "symbol": "WTS",
-     "name": "Watts Water Technologies, Inc.",
-     "score": 70.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Specialty Industrial Machinery",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "ZTO",
-     "symbol": "ZTO",
-     "name": "ZTO Express (Cayman) Inc.",
-     "score": 70.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Integrated Freight & Logistics",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "GWW",
-     "symbol": "GWW",
-     "name": "W.W. Grainger, Inc.",
+     "ticker": "CTBI",
+     "symbol": "CTBI",
+     "name": "Community Trust Bancorp, Inc.",
      "score": 69.0,
      "label": "Buy",
      "category_score": null,
-     "sector": "Industrials",
-     "industry": "Industrial Distribution",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "CPA",
-     "symbol": "CPA",
-     "name": "Copa Holdings, S.A.",
-     "score": 68.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Airlines",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "FIX",
-     "symbol": "FIX",
-     "name": "Comfort Systems USA, Inc.",
-     "score": 68.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Engineering & Construction",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "HAFN",
-     "symbol": "HAFN",
-     "name": "Hafnia Limited",
-     "score": 68.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Marine Shipping",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "KMT",
-     "symbol": "KMT",
-     "name": "Kennametal Inc.",
-     "score": 68.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Tools & Accessories",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "NPK",
-     "symbol": "NPK",
-     "name": "National Presto Industries, Inc.",
-     "score": 68.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Aerospace & Defense",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "SNA",
-     "symbol": "SNA",
-     "name": "Snap-on Incorporated",
-     "score": 68.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Tools & Accessories",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "AIT",
-     "symbol": "AIT",
-     "name": "Applied Industrial Technologies, Inc.",
-     "score": 67.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Industrial Distribution",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "EXPO",
-     "symbol": "EXPO",
-     "name": "Exponent, Inc.",
-     "score": 67.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Industrials",
-     "industry": "Engineering & Construction",
+     "sector": "Financial Services",
+     "industry": "Banks\u2014Regional",
      "exchange": "NasdaqGS"
     },
     {
-     "ticker": "IEX",
-     "symbol": "IEX",
-     "name": "IDEX Corporation",
-     "score": 67.0,
+     "ticker": "EZPW",
+     "symbol": "EZPW",
+     "name": "EZCORP, Inc.",
+     "score": 69.0,
      "label": "Buy",
      "category_score": null,
-     "sector": "Industrials",
-     "industry": "Specialty Industrial Machinery",
-     "exchange": "NYSE"
+     "sector": "Financial Services",
+     "industry": "Credit Services",
+     "exchange": "NasdaqGS"
     }
    ]
   },
@@ -3220,6 +2990,236 @@
      "category_score": null,
      "sector": "Healthcare",
      "industry": "Medical Devices",
+     "exchange": "NYSE"
+    }
+   ]
+  },
+  {
+   "key": "sector:industrials",
+   "title": "Industrials",
+   "description": "Highest overall score among industrials companies.",
+   "group": "sector",
+   "asset_type": "stock",
+   "category_label": null,
+   "items": [
+    {
+     "ticker": "ECO",
+     "symbol": "ECO",
+     "name": "Okeanis Eco Tankers Corp.",
+     "score": 77.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Marine Shipping",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "GHC",
+     "symbol": "GHC",
+     "name": "Graham Holdings Company",
+     "score": 73.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Conglomerates",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "CAAP",
+     "symbol": "CAAP",
+     "name": "Corporaci\u00f3n Am\u00e9rica Airports S.A.",
+     "score": 71.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Airports & Air Services",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "GIC",
+     "symbol": "GIC",
+     "name": "Global Industrial Company",
+     "score": 71.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Industrial Distribution",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "KFY",
+     "symbol": "KFY",
+     "name": "Korn Ferry",
+     "score": 71.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Staffing & Employment Services",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "MLI",
+     "symbol": "MLI",
+     "name": "Mueller Industries, Inc.",
+     "score": 71.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Metal Fabrication",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "WTS",
+     "symbol": "WTS",
+     "name": "Watts Water Technologies, Inc.",
+     "score": 70.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Specialty Industrial Machinery",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "ZTO",
+     "symbol": "ZTO",
+     "name": "ZTO Express (Cayman) Inc.",
+     "score": 70.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Integrated Freight & Logistics",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "GWW",
+     "symbol": "GWW",
+     "name": "W.W. Grainger, Inc.",
+     "score": 69.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Industrial Distribution",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "CPA",
+     "symbol": "CPA",
+     "name": "Copa Holdings, S.A.",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Airlines",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "FIX",
+     "symbol": "FIX",
+     "name": "Comfort Systems USA, Inc.",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Engineering & Construction",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "HAFN",
+     "symbol": "HAFN",
+     "name": "Hafnia Limited",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Marine Shipping",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "KMT",
+     "symbol": "KMT",
+     "name": "Kennametal Inc.",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Tools & Accessories",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "NPK",
+     "symbol": "NPK",
+     "name": "National Presto Industries, Inc.",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Aerospace & Defense",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "SNA",
+     "symbol": "SNA",
+     "name": "Snap-on Incorporated",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Tools & Accessories",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "AIT",
+     "symbol": "AIT",
+     "name": "Applied Industrial Technologies, Inc.",
+     "score": 67.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Industrial Distribution",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "EXPO",
+     "symbol": "EXPO",
+     "name": "Exponent, Inc.",
+     "score": 67.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Engineering & Construction",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "IEX",
+     "symbol": "IEX",
+     "name": "IDEX Corporation",
+     "score": 67.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Specialty Industrial Machinery",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "MWA",
+     "symbol": "MWA",
+     "name": "Mueller Water Products, Inc.",
+     "score": 67.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Specialty Industrial Machinery",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "NVT",
+     "symbol": "NVT",
+     "name": "nVent Electric plc",
+     "score": 67.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Industrials",
+     "industry": "Electrical Equipment & Parts",
      "exchange": "NYSE"
     }
    ]
@@ -3529,6 +3529,17 @@
      "exchange": "NYSE"
     },
     {
+     "ticker": "EOG",
+     "symbol": "EOG",
+     "name": "EOG Resources, Inc.",
+     "score": 75.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Energy",
+     "industry": "Oil & Gas E&P",
+     "exchange": "NYSE"
+    },
+    {
      "ticker": "FRO",
      "symbol": "FRO",
      "name": "Frontline plc",
@@ -3538,28 +3549,6 @@
      "sector": "Energy",
      "industry": "Oil & Gas Midstream",
      "exchange": "NYSE"
-    },
-    {
-     "ticker": "EOG",
-     "symbol": "EOG",
-     "name": "EOG Resources, Inc.",
-     "score": 72.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Energy",
-     "industry": "Oil & Gas E&P",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "REPX",
-     "symbol": "REPX",
-     "name": "Riley Exploration Permian, Inc.",
-     "score": 72.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Energy",
-     "industry": "Oil & Gas E&P",
-     "exchange": "NYSE American"
     },
     {
      "ticker": "NVGS",
@@ -3681,6 +3670,17 @@
      "sector": "Energy",
      "industry": "Oil & Gas Midstream",
      "exchange": "NYSE"
+    },
+    {
+     "ticker": "INVX",
+     "symbol": "INVX",
+     "name": "Innovex International, Inc.",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Energy",
+     "industry": "Oil & Gas Equipment & Services",
+     "exchange": "NYSE"
     }
    ]
   },
@@ -3756,17 +3756,6 @@
      "category_score": null,
      "sector": "Basic Materials",
      "industry": "Specialty Chemicals",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "UAN",
-     "symbol": "UAN",
-     "name": "CVR Partners, LP",
-     "score": 70.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Basic Materials",
-     "industry": "Agricultural Inputs",
      "exchange": "NYSE"
     },
     {
@@ -3910,6 +3899,17 @@
      "category_score": null,
      "sector": "Basic Materials",
      "industry": "Steel",
+     "exchange": "NYSE"
+    },
+    {
+     "ticker": "CTVA",
+     "symbol": "CTVA",
+     "name": "Corteva, Inc.",
+     "score": 64.0,
+     "label": "Hold",
+     "category_score": null,
+     "sector": "Basic Materials",
+     "industry": "Agricultural Inputs",
      "exchange": "NYSE"
     }
    ]
@@ -4756,17 +4756,6 @@
      "exchange": "NYSE"
     },
     {
-     "ticker": "DUK",
-     "symbol": "DUK",
-     "name": "Duke Energy Corporation",
-     "score": 56.0,
-     "label": "Hold",
-     "category_score": null,
-     "sector": "Utilities",
-     "industry": "Utilities\u2014Regulated Electric",
-     "exchange": "NYSE"
-    },
-    {
      "ticker": "EVRG",
      "symbol": "EVRG",
      "name": "Evergy, Inc.",
@@ -4822,14 +4811,25 @@
      "exchange": "NYSE"
     },
     {
-     "ticker": "KEN",
-     "symbol": "KEN",
-     "name": "Kenon Holdings Ltd.",
+     "ticker": "NWE",
+     "symbol": "NWE",
+     "name": "NorthWestern Energy Group, Inc.",
      "score": 55.0,
      "label": "Hold",
      "category_score": null,
      "sector": "Utilities",
-     "industry": "Utilities\u2014Independent Power Producers",
+     "industry": "Utilities\u2014Regulated Electric",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "AEE",
+     "symbol": "AEE",
+     "name": "Ameren Corporation",
+     "score": 54.0,
+     "label": "Hold",
+     "category_score": null,
+     "sector": "Utilities",
+     "industry": "Utilities\u2014Regulated Electric",
      "exchange": "NYSE"
     }
    ]
