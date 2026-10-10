@@ -135,6 +135,15 @@ class PeerInfo(BaseModel):
     companies: int
 
 
+class Outlook(BaseModel):
+    """Analysts' forecasts for a stock, scored 0-100. Not part of the rating."""
+
+    score: float | None
+    analysts: int
+    as_of: str | None  # when the forecasts were collected
+    category: CategoryScore
+
+
 class Rating(Quote):
     ticker: str  # the id used in URLs and the watchlist (e.g. "AAPL", "BTC-USD")
     symbol: str  # what to show (e.g. "AAPL", "BTC")
@@ -151,6 +160,7 @@ class Rating(Quote):
     facts: list[Fact] = []
     notes: list[str] = []
     source: str
+    outlook: Outlook | None = None
 
 
 class SearchResult(BaseModel):

@@ -24,6 +24,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from app import benchmarks as benchmarks_module  # noqa: E402
 from app import explore  # noqa: E402
+from app import outlook  # noqa: E402
 from app.models import Rating  # noqa: E402
 from app.providers.crypto import CryptoDirectory, build_crypto  # noqa: E402
 from app.providers.stocks import TIMESERIES_TYPES, StockProvider, build_stock  # noqa: E402
@@ -103,6 +104,30 @@ def rate_coin(client: yahoo.Client, listing: dict, rank: int) -> Rating | None:
                                                   "yahoo"))
 
 
+QUOTE_SUMMARY_URL = "https://query2.finance.yahoo.com/v10/finance/quoteSummary/"
+
+
+def fetch_outlook(symbol: str) -> dict | None:
+    """Analysts' forecasts for a stock. Yahoo only serves these with a login crumb, which yfinance handles."""
+    from yfinance.data import YfData
+
+    params = {"modules": "financialData,earningsTrend", "formatted": "false", "symbol": symbol,
+              "corsDomain": "finance.yahoo.com"}
+    for attempt in range(4):
+        try:
+            body = YfData().get_raw_json(QUOTE_SUMMARY_URL + symbol, params=params)
+            result = ((body or {}).get("quoteSummary") or {}).get("result") or []
+            return outlook.parse(result[0]) if result else None
+        except Exception as exc:  # yfinance raises several types; 404 = no forecasts for this symbol
+            text = str(exc)
+            if "404" in text or "Not Found" in text:
+                return None
+            wait = 15 * 2 ** attempt
+            log.warning("forecasts for %s failed (%s); retrying in %ss", symbol, text[:120], wait)
+            time.sleep(wait)
+    return None
+
+
 def main() -> None:
     from yfinance.const import EQUITY_SCREENER_EQ_MAP
 
@@ -139,6 +164,21 @@ def main() -> None:
     ratings.extend(coins)
     log.info("%d coins of %d listed over $%dM", len(coins), len(listings), MIN_COIN_MARKET_CAP // 1_000_000)
 
+    generated_at = datetime.now(tz=timezone.utc).isoformat(timespec="minutes")
+    stocks = [r for r in ratings if r.asset_type == "stock" and explore.eligible(r)]
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        forecasts = dict(zip((r.ticker for r in stocks), pool.map(lambda r: fetch_outlook(r.ticker), stocks)))
+    forecasts = {t: f for t, f in forecasts.items() if f}
+    for r in stocks:
+        r.outlook = outlook.build(forecasts.get(r.ticker), r.price, generated_at)
+    log.info("analyst forecasts for %d of %d stocks; outlook scores for %d", len(forecasts), len(stocks),
+             sum(r.outlook is not None for r in stocks))
+    if args.limit_industries or len(forecasts) >= len(stocks) / 2:
+        outlook.DEFAULT_PATH.write_text(json.dumps({"generated_at": generated_at, "stocks": forecasts},
+                                                   indent=0, sort_keys=True))
+    else:
+        log.warning("too few forecasts; keeping the previous outlook.json")
+
     stocks_rated = sum(r.asset_type == "stock" and explore.eligible(r) for r in ratings)
     coins_rated = sum(r.asset_type == "crypto" and explore.eligible(r) for r in ratings)
     if not args.limit_industries and (stocks_rated < 1000 or coins_rated < 50):
@@ -146,9 +186,10 @@ def main() -> None:
 
     lists = explore.build(ratings)
     for lst in lists:
-        log.info("%s: %s", lst["title"], ", ".join(f"{i['symbol']} {i['score']:.0f}" for i in lst["items"][:5]))
+        log.info("%s: %s", lst["title"], ", ".join(f"{i['symbol']} {i['score']:.0f}/{i['category_score']}"
+                                                  for i in lst["items"][:8]))
     OUT.write_text(json.dumps({
-        "generated_at": datetime.now(tz=timezone.utc).isoformat(timespec="minutes"),
+        "generated_at": generated_at,
         "universe": f"US-listed companies worth over ${MIN_STOCK_MARKET_CAP // 1_000_000_000}B (including foreign "
                     f"companies' US listings) and coins worth over ${MIN_COIN_MARKET_CAP // 1_000_000}M",
         "stocks_rated": stocks_rated,

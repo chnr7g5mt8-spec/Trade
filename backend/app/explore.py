@@ -11,6 +11,7 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import dataclass
+from typing import Callable
 from pathlib import Path
 
 from .models import Rating
@@ -20,10 +21,35 @@ LIST_SIZE = 20
 # A rating built from few measures can land at the extremes by chance, so
 # the lists only include ratings backed by most of the measures.
 MIN_COVERAGE = 0.6
-# Lists by category rank on that category alone, so they only include
-# companies rated Hold or better: a cheap stock with failing finances is not
-# "best value".
+# Lists by a single category or measure only include companies rated Hold or
+# better: a cheap stock with failing finances is not "best value".
 MIN_OVERALL_FOR_CATEGORY = 45
+
+
+def _category_score(r: Rating, key: str) -> float | None:
+    return next((c.score for c in r.categories if c.key == key), None)
+
+
+def category(key: str) -> Callable[[Rating], float | None]:
+    return lambda r: _category_score(r, key)
+
+
+def outlook_score(r: Rating) -> float | None:
+    if r.outlook is None or r.outlook.analysts < MIN_ANALYSTS_FOR_LISTS:
+        return None
+    return r.outlook.score
+
+
+def today_and_ahead(r: Rating) -> float | None:
+    ahead = outlook_score(r)
+    return None if ahead is None or r.score is None else (r.score + ahead) / 2
+
+
+def growth_at_fair_price(r: Rating) -> float | None:
+    growth, value = _category_score(r, "growth"), _category_score(r, "valuation")
+    if growth is None or value is None or min(growth, value) < 50:
+        return None
+    return (growth + value) / 2
 
 
 @dataclass(frozen=True)
@@ -32,65 +58,71 @@ class ListSpec:
     title: str
     description: str
     asset_type: str  # "stock" or "crypto"
-    category: str | None = None  # rank by this category's score; None = overall score
-    category_label: str | None = None  # how the app labels that score
+    measure: Callable[[Rating], float | None] | None = None  # rank by this; None = overall score
+    measure_label: str | None = None  # how the app labels that measure
 
 
+# Forecasts from one or two analysts are too thin to rank on.
+MIN_ANALYSTS_FOR_LISTS = 5
 HOLD_OR_BETTER = "among stocks rated Hold or better"
 FEATURED = [
     ListSpec("top", "Top rated", "Highest overall score.", "stock"),
+    ListSpec("today_and_ahead", "Strong today and ahead",
+             f"Half the overall score, half the analyst outlook: strong results now and strong forecasts, "
+             f"{HOLD_OR_BETTER}.", "stock", today_and_ahead, "Combined score"),
+    ListSpec("outlook", "Future outlook",
+             f"Best analyst outlook: forecast earnings and sales growth, price targets and buy ratings, "
+             f"{HOLD_OR_BETTER}. Analysts' forecasts are often too optimistic.", "stock", outlook_score,
+             "Outlook score"),
+    ListSpec("garp", "Growth at a fair price",
+             f"Scores at least 50 on both growth and value: growing fast without being expensive, "
+             f"{HOLD_OR_BETTER}.", "stock", growth_at_fair_price, "Growth + value score"),
     ListSpec("value", "Best value", f"Cheapest compared with similar companies, {HOLD_OR_BETTER}.",
-             "stock", "valuation", "Value score"),
+             "stock", category("valuation"), "Value score"),
     ListSpec("growth", "Strongest growth", f"Fastest-growing sales and earnings, {HOLD_OR_BETTER}.",
-             "stock", "growth", "Growth score"),
+             "stock", category("growth"), "Growth score"),
     ListSpec("dividends", "Best dividends", f"Best dividend yield, growth and safety, {HOLD_OR_BETTER}.",
-             "stock", "income", "Dividend score"),
+             "stock", category("income"), "Dividend score"),
     ListSpec("low_risk", "Lowest risk", f"Steadiest share prices, {HOLD_OR_BETTER}.",
-             "stock", "risk", "Low-risk score"),
+             "stock", category("risk"), "Low-risk score"),
     ListSpec("momentum", "Strongest momentum", f"Strongest price trend, {HOLD_OR_BETTER}.",
-             "stock", "momentum", "Momentum score"),
+             "stock", category("momentum"), "Momentum score"),
     ListSpec("crypto", "Top crypto",
              "Highest-rated coins. Stablecoins, gold tokens and wrapped copies of other coins are left out.", "crypto"),
 ]
 
 
-def _category_score(r: Rating, key: str) -> float | None:
-    return next((c.score for c in r.categories if c.key == key), None)
-
-
-def _item(r: Rating, category: str | None) -> dict:
+def _item(r: Rating, value: float | None) -> dict:
     return {
         "ticker": r.ticker,
         "symbol": r.symbol,
         "name": r.name or r.symbol,
         "score": r.score,
         "label": r.label,
-        "category_score": None if category is None else round(_category_score(r, category), 1),
+        "category_score": None if value is None else round(value, 1),
         "sector": r.sector,
         "industry": r.industry,
         "exchange": r.exchange,
     }
 
 
-def _ranked(pool: list[Rating], category: str | None) -> list[Rating]:
-    if category is None:
-        candidates = pool
-        def key(r: Rating):
-            return (-r.score, r.ticker)
+def _ranked(pool: list[Rating], measure) -> list[tuple[Rating, float | None]]:
+    if measure is None:
+        scored = sorted(((r, None) for r in pool), key=lambda x: (-x[0].score, x[0].ticker))
     else:
-        candidates = [r for r in pool if r.score >= MIN_OVERALL_FOR_CATEGORY
-                      and _category_score(r, category) is not None]
-        def key(r: Rating):
-            return (-_category_score(r, category), -r.score, r.ticker)
-    out: list[Rating] = []
+        # Lists by another measure only include companies rated Hold or better.
+        candidates = [(r, measure(r)) for r in pool if r.score >= MIN_OVERALL_FOR_CATEGORY]
+        scored = sorted(((r, v) for r, v in candidates if v is not None),
+                        key=lambda x: (-x[1], -x[0].score, x[0].ticker))
+    out: list[tuple[Rating, float | None]] = []
     names: set[str] = set()
-    for r in sorted(candidates, key=key):
+    for r, v in scored:
         # Share classes of one company (GOOG/GOOGL, BRK-A/BRK-B) appear once.
         name = (r.name or r.ticker).strip().lower()
         if name in names:
             continue
         names.add(name)
-        out.append(r)
+        out.append((r, v))
         if len(out) == LIST_SIZE:
             break
     return out
@@ -103,9 +135,8 @@ def _make_list(spec: ListSpec, pool: list[Rating], group: str) -> dict:
         "description": spec.description,
         "group": group,
         "asset_type": spec.asset_type,
-        "category": spec.category,
-        "category_label": spec.category_label,
-        "items": [_item(r, spec.category) for r in _ranked(pool, spec.category)],
+        "category_label": spec.measure_label,
+        "items": [_item(r, v) for r, v in _ranked(pool, spec.measure)],
     }
 
 

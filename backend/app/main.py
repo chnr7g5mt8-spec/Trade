@@ -22,6 +22,7 @@ from fastapi.responses import FileResponse
 
 from . import benchmarks as benchmarks_module
 from . import explore, methodology
+from . import outlook as outlook_module
 from .models import Rating, SearchResult
 from .providers import NotSupported, ProviderError, TickerNotFound
 from .providers.market import MarketData
@@ -48,6 +49,15 @@ def _make_market():
     return MarketData()
 
 
+def _default_outlook(market) -> outlook_module.OutlookStore:
+    if getattr(market, "name", None) == "sample":
+        # Forecasts recorded alongside the demo data, so they match its prices.
+        from .sources import recorded
+
+        return outlook_module.OutlookStore(recorded.load("outlook"))
+    return outlook_module.load()
+
+
 class RatingService:
     """Rates tickers through a market data provider, caching results.
 
@@ -56,12 +66,13 @@ class RatingService:
     """
 
     def __init__(self, market, ttl: float = CACHE_TTL_SECONDS, live_ttl: float = LIVE_CACHE_TTL_SECONDS,
-                 max_entries: int = CACHE_MAX_ENTRIES, benchmarks=None):
+                 max_entries: int = CACHE_MAX_ENTRIES, benchmarks=None, outlook=None):
         self.market = market
         self.ttl = ttl
         self.live_ttl = live_ttl
         self.max_entries = max_entries
         self.benchmarks = benchmarks if benchmarks is not None else benchmarks_module.load()
+        self.outlook = outlook if outlook is not None else _default_outlook(market)
         self._cache: OrderedDict[str, tuple[float, Rating]] = OrderedDict()  # ticker -> (expires_at, rating)
         self._lock = threading.Lock()
 
@@ -76,6 +87,8 @@ class RatingService:
                 self._cache.move_to_end(ticker)
                 return hit[1]
         rating = to_rating(self.market.fetch(ticker), self.source, self.benchmarks)
+        if rating.asset_type == "stock":
+            rating.outlook = self.outlook.get(rating.ticker, rating.price)
         ttl = self.live_ttl if rating.market_state in LIVE_MARKET_STATES else self.ttl
         with self._lock:
             self._cache[ticker] = (time.monotonic() + ttl, rating)
