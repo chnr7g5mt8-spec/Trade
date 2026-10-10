@@ -2,6 +2,7 @@ import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 
 export type MarketState = 'open' | 'pre' | 'post' | 'closed';
+export type AssetType = 'stock' | 'fund' | 'crypto';
 
 export type MetricScore = {
   key: string;
@@ -9,6 +10,8 @@ export type MetricScore = {
   value: number | null;
   display: string;
   score: number | null;
+  /** e.g. "Industry median 28.4x" when compared with peers. */
+  benchmark: string | null;
 };
 
 export type CategoryScore = {
@@ -17,12 +20,24 @@ export type CategoryScore = {
   weight: number;
   score: number | null;
   metrics: MetricScore[];
+  /** Only counted when it applies (e.g. dividends for dividend payers). */
+  optional: boolean;
 };
 
+export type Fact = { label: string; value: string };
+
+export type PeerGroup = { name: string; level: 'industry' | 'sector'; companies: number };
+
 export type Rating = {
+  /** Id used in URLs and the watchlist, e.g. "AAPL" or "BTC-USD". */
   ticker: string;
+  /** What to show, e.g. "AAPL" or "BTC". */
+  symbol: string;
+  asset_type: AssetType;
   name: string | null;
+  exchange: string | null;
   sector: string | null;
+  industry: string | null;
   currency: string | null;
   price: number | null;
   /** Unix seconds of the last regular-session trade. */
@@ -31,16 +46,64 @@ export type Rating = {
   /** Pre-market or after-hours price, when there is one. */
   extended_price: number | null;
   extended_session: 'pre' | 'post' | null;
+  fifty_two_week_high: number | null;
+  fifty_two_week_low: number | null;
+  price_history: number[];
   score: number | null;
   label: string;
   coverage: number;
   categories: CategoryScore[];
-  analyst_target_price: number | null;
-  analyst_recommendation: string | null;
-  fifty_two_week_high: number | null;
-  fifty_two_week_low: number | null;
-  price_history: number[];
+  peer_group: PeerGroup | null;
+  facts: Fact[];
+  notes: string[];
   source: string;
+};
+
+export type SearchResult = {
+  ticker: string;
+  symbol: string;
+  name: string;
+  asset_type: AssetType;
+  exchange: string | null;
+};
+
+export type MethodologyCategory = {
+  key: string;
+  label: string;
+  weight: number;
+  optional: boolean;
+  metrics: { key: string; label: string; relative: boolean; higher_is_better: boolean }[];
+};
+
+export type TrackRecord = {
+  generated_at: string;
+  universe: string;
+  method: string;
+  limitations: string[];
+  horizon_days: number;
+  summary?: {
+    test_dates: number;
+    observations: number;
+    quintile_returns: (number | null)[];
+    top_minus_bottom: number | null;
+    top_beat_bottom_share: number;
+    rank_correlation: number | null;
+    rank_correlation_t: number | null;
+    average_return: number | null;
+    by_label: Record<string, { count: number; average_return: number }>;
+    category_rank_correlation: Record<string, number | null>;
+  };
+};
+
+export type Methodology = {
+  labels: { label: string; min_score: number }[];
+  min_coverage: number;
+  relative_weight: number;
+  min_peers: number;
+  stock_categories: MethodologyCategory[];
+  crypto_categories: MethodologyCategory[];
+  benchmarks: { generated_at: string | null; industries: number; sectors: number };
+  track_record: TrackRecord | null;
 };
 
 /**
@@ -110,4 +173,12 @@ export function fetchRating(ticker: string): Promise<Rating> {
 export function fetchRatings(tickers: string[]): Promise<Rating[]> {
   if (tickers.length === 0) return Promise.resolve([]);
   return getJson<Rating[]>(`/api/ratings?tickers=${encodeURIComponent(tickers.join(','))}`);
+}
+
+export function searchAssets(query: string): Promise<SearchResult[]> {
+  return getJson<SearchResult[]>(`/api/search?q=${encodeURIComponent(query)}`);
+}
+
+export function fetchMethodology(): Promise<Methodology> {
+  return getJson<Methodology>('/api/methodology');
 }

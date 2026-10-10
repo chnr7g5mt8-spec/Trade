@@ -24,7 +24,9 @@ export function CategoryCard({ category }: { category: CategoryScore }) {
       accessibilityHint={open ? 'Hide metric details' : 'Show metric details'}>
       <View style={styles.header}>
         <Text style={styles.title}>{category.label}</Text>
-        <Text style={styles.weight}>{Math.round(category.weight * 100)}% weight</Text>
+        <Text style={styles.weight}>
+          {category.optional ? 'dividend payers only' : `${Math.round(category.weight * 100)}% weight`}
+        </Text>
         <Text style={[styles.score, { color: scoreColor(category.score) }]}>
           {category.score == null ? '—' : Math.round(category.score)}
         </Text>
@@ -34,12 +36,15 @@ export function CategoryCard({ category }: { category: CategoryScore }) {
       {open && (
         <View style={styles.metrics}>
           {category.metrics.map((m) => (
-            <View key={m.key} style={styles.metricRow}>
-              <Text style={styles.metricLabel}>{m.label}</Text>
-              <Text style={styles.metricValue}>{m.display}</Text>
-              <Text style={[styles.metricScore, { color: scoreColor(m.score) }]}>
-                {m.score == null ? '—' : Math.round(m.score)}
-              </Text>
+            <View key={m.key}>
+              <View style={styles.metricRow}>
+                <Text style={styles.metricLabel}>{m.label}</Text>
+                <Text style={styles.metricValue}>{m.display}</Text>
+                <Text style={[styles.metricScore, { color: scoreColor(m.score) }]}>
+                  {m.score == null ? '—' : Math.round(m.score)}
+                </Text>
+              </View>
+              {!!m.benchmark && <Text style={styles.benchmark}>vs peers · {m.benchmark}</Text>}
             </View>
           ))}
         </View>
@@ -61,5 +66,6 @@ const styles = StyleSheet.create({
   metricRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   metricLabel: { flex: 1, color: colors.text, fontSize: 14 },
   metricValue: { color: colors.muted, fontSize: 14, fontVariant: ['tabular-nums'] },
+  benchmark: { fontSize: 12, color: colors.muted, marginTop: 1 },
   metricScore: { width: 32, textAlign: 'right', fontWeight: '600', fontVariant: ['tabular-nums'] },
 });

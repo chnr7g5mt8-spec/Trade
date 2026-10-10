@@ -1,4 +1,4 @@
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Pressable, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
 
@@ -61,7 +61,7 @@ export default function StockDetail() {
   const header = (
     <Stack.Screen
       options={{
-        title: ticker,
+        title: rating?.symbol ?? ticker,
         // Only offer "Watch" once the ticker is known to resolve.
         headerRight: () =>
           rating && (
@@ -102,8 +102,13 @@ export default function StockDetail() {
 
   const history = rating.price_history;
   const up = history.length > 1 && history[history.length - 1] >= history[0];
-  const upside =
-    rating.analyst_target_price != null && rating.price ? rating.analyst_target_price / rating.price - 1 : null;
+  const subtitle =
+    rating.asset_type === 'crypto'
+      ? 'Cryptocurrency'
+      : rating.asset_type === 'fund'
+        ? ['Fund', rating.exchange].filter(Boolean).join(' · ')
+        : [rating.industry ?? rating.sector, rating.exchange].filter(Boolean).join(' · ');
+  const peer = rating.peer_group;
 
   return (
     <ScrollView
@@ -113,8 +118,8 @@ export default function StockDetail() {
 
       <View style={styles.hero}>
         <View style={{ flex: 1, gap: 4 }}>
-          <Text style={styles.name}>{rating.name ?? rating.ticker}</Text>
-          {rating.sector && <Text style={styles.muted}>{rating.sector}</Text>}
+          <Text style={styles.name}>{rating.name ?? rating.symbol}</Text>
+          {subtitle !== '' && <Text style={styles.muted}>{subtitle}</Text>}
           <Text style={styles.price}>{formatMoney(rating.price, rating.currency)}</Text>
           <PriceStatus rating={rating} />
           <View style={[styles.pill, { backgroundColor: scoreColor(rating.score) }]}>
@@ -124,13 +129,12 @@ export default function StockDetail() {
         <ScoreRing score={rating.score} />
       </View>
 
-      {rating.score == null && (
-        <Text style={styles.notice}>
-          Not enough data to give a rating: only {Math.round(rating.coverage * 100)}% of the metrics are available
-          (40% needed). This is common for ETFs, funds and very new listings.
+      {rating.notes.map((note) => (
+        <Text key={note} style={styles.notice}>
+          {note}
         </Text>
-      )}
-      {error && <Text style={styles.error}>{error}</Text>}
+      ))}
+      {!!error && <Text style={styles.error}>{error}</Text>}
 
       {history.length > 1 && (
         <View style={styles.card} onLayout={(e) => setChartWidth(e.nativeEvent.layout.width - 28)}>
@@ -143,27 +147,35 @@ export default function StockDetail() {
         </View>
       )}
 
+      {rating.facts.length > 0 && (
+        <View style={styles.card}>
+          <Text style={styles.cardTitle}>Key facts</Text>
+          {rating.facts.map((f) => (
+            <View key={f.label} style={styles.factRow}>
+              <Text style={styles.muted}>{f.label}</Text>
+              <Text style={styles.factValue}>{f.value}</Text>
+            </View>
+          ))}
+        </View>
+      )}
+
       <Text style={styles.sectionTitle}>Score breakdown</Text>
+      {peer && (
+        <Text style={styles.peer}>
+          Measures marked “vs peers” compare it with {peer.companies} companies in the {peer.name} {peer.level}. Tap
+          a category for details.
+        </Text>
+      )}
       {rating.categories.map((c) => (
         <CategoryCard key={c.key} category={c} />
       ))}
 
-      {(rating.analyst_recommendation || rating.analyst_target_price != null) && (
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>Wall Street analysts</Text>
-          <Text style={styles.muted}>Shown for comparison; not part of the score.</Text>
-          <View style={styles.rangeRow}>
-            <Text style={styles.body}>Consensus: {rating.analyst_recommendation ?? '—'}</Text>
-            <Text style={styles.body}>
-              Target {formatMoney(rating.analyst_target_price, rating.currency)}
-              {upside != null && ` (${upside >= 0 ? '+' : ''}${(upside * 100).toFixed(0)}%)`}
-            </Text>
-          </View>
-        </View>
-      )}
-
+      <Pressable onPress={() => router.push('/about')} accessibilityRole="link" style={styles.aboutLink}>
+        <Text style={styles.link}>How ratings work · track record</Text>
+      </Pressable>
       <Text style={styles.footnote}>
-        Based on {Math.round(rating.coverage * 100)}% of metrics · Source: {rating.source === 'sample' ? 'demo data' : 'Yahoo Finance'}
+        Based on {Math.round(rating.coverage * 100)}% of measures · Source:{' '}
+        {rating.source === 'sample' ? 'demo data (recorded)' : 'Yahoo Finance'}
         {'\n'}Educational use only, not investment advice.
       </Text>
     </ScrollView>
@@ -181,6 +193,11 @@ const styles = StyleSheet.create({
   card: { backgroundColor: colors.card, borderRadius: 12, padding: 14, gap: 8 },
   cardTitle: { fontSize: 16, fontWeight: '600', color: colors.text },
   rangeRow: { flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 },
+  factRow: { flexDirection: 'row', justifyContent: 'space-between', gap: 12 },
+  factValue: { color: colors.text, fontSize: 14, fontWeight: '600', flexShrink: 1, textAlign: 'right' },
+  peer: { color: colors.muted, fontSize: 13, lineHeight: 18 },
+  aboutLink: { alignSelf: 'center', marginTop: 8 },
+  link: { color: colors.accent, fontSize: 14, fontWeight: '600' },
   sectionTitle: {
     fontSize: 13,
     fontWeight: '600',
@@ -190,7 +207,6 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   muted: { color: colors.muted, fontSize: 13 },
-  body: { color: colors.text, fontSize: 14 },
   error: { color: colors.danger, textAlign: 'center' },
   notice: { color: colors.text, backgroundColor: '#FEF3C7', borderRadius: 12, padding: 12, lineHeight: 20 },
   retry: { backgroundColor: colors.accent, borderRadius: 10, paddingHorizontal: 18, paddingVertical: 10 },

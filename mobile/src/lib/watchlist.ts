@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCallback, useEffect, useState } from 'react';
 
 const KEY = 'watchlist:v1';
-const DEFAULT_WATCHLIST = ['AAPL', 'MSFT', 'KO'];
+const DEFAULT_WATCHLIST = ['AAPL', 'MSFT', 'KO', 'BTC-USD'];
 
 // Shared in-memory copy so the home and detail screens stay in sync.
 let current: string[] | null = null;

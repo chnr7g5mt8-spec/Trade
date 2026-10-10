@@ -23,9 +23,11 @@ export function formatMoney(value: number | null | undefined, currency?: string 
   if (value == null || !Number.isFinite(value)) return '—';
   const symbol = !currency || currency === 'USD' ? '$' : '';
   const suffix = symbol ? '' : ` ${currency}`;
-  // Penny stocks need more than two decimals to be meaningful.
-  const decimals = Math.abs(value) < 1 ? 4 : 2;
-  const amount = value.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+  // Sub-dollar prices (penny stocks, many coins) need significant digits, not fixed decimals.
+  const amount =
+    Math.abs(value) < 1
+      ? value.toLocaleString('en-US', { maximumSignificantDigits: 4 })
+      : value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   return `${symbol}${amount}${suffix}`;
 }
 

@@ -15,6 +15,7 @@ export default function RootLayout() {
         }}>
         <Stack.Screen name="index" options={{ title: 'Stock Rater' }} />
         <Stack.Screen name="stock/[ticker]" options={{ title: '' }} />
+        <Stack.Screen name="about" options={{ title: 'How ratings work' }} />
       </Stack>
     </>
   );
