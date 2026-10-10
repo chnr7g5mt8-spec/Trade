@@ -21,7 +21,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 
 from . import benchmarks as benchmarks_module
-from . import methodology
+from . import explore, methodology
 from .models import Rating, SearchResult
 from .providers import NotSupported, ProviderError, TickerNotFound
 from .providers.market import MarketData
@@ -175,6 +175,36 @@ def get_ratings(tickers: str = Query(..., description="Comma-separated tickers, 
 def get_methodology() -> dict:
     """How ratings are computed, and how well they have done historically."""
     return methodology.describe(service.benchmarks)
+
+
+_sample_explore: dict | None = None
+
+
+def sample_explore() -> dict:
+    """Explore lists for the demo mode, built from the recorded assets."""
+    global _sample_explore
+    if _sample_explore is None:
+        from .sources import recorded
+
+        tickers = sorted(set(recorded.available("chart_")) & set(recorded.available("search_")))
+        ratings = [service.get(t) for t in tickers]
+        _sample_explore = {
+            "generated_at": None,
+            "universe": "Recorded sample data only",
+            "stocks_rated": sum(r.asset_type == "stock" and r.score is not None for r in ratings),
+            "coins_rated": sum(r.asset_type == "crypto" and r.score is not None for r in ratings),
+            "lists": explore.build(ratings),
+        }
+    return _sample_explore
+
+
+@app.get("/api/explore")
+def get_explore() -> dict:
+    """The best-rated stocks and coins per category, ranked once a day."""
+    data = sample_explore() if service.source == "sample" else explore.load()
+    if data is None:
+        raise HTTPException(status_code=503, detail="The Explore rankings are being prepared. Check back later today.")
+    return data
 
 
 def mount_web_app(web_dir: str) -> None:

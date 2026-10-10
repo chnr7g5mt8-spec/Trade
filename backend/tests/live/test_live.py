@@ -7,6 +7,7 @@ Actions by .github/workflows/live-check.yml.
 import json
 import os
 import time
+from datetime import datetime, timedelta, timezone
 import urllib.error
 import urllib.request
 
@@ -117,3 +118,19 @@ def test_site_data_sources_reachable_from_server():
     checks = body["checks"]
     failed = {k: v["detail"] for k, v in checks.items() if not v["ok"]}
     assert not failed, failed
+
+
+@site
+def test_site_explore_lists_are_full_and_recent():
+    status, body = get("/api/explore")
+    assert status == 200, body
+    ranked = datetime.fromisoformat(body["generated_at"])
+    assert datetime.now(timezone.utc) - ranked < timedelta(days=5), "Explore rankings are stale"
+    assert body["stocks_rated"] >= 1000 and body["coins_rated"] >= 50
+    lists = {lst["key"]: lst for lst in body["lists"]}
+    for key in ["top", "value", "growth", "dividends", "low_risk", "momentum", "crypto"]:
+        assert len(lists[key]["items"]) == 20, key
+    assert sum(lst["group"] == "sector" for lst in body["lists"]) >= 10
+    first = lists["top"]["items"][0]
+    status, rating = get(f"/api/rating/{first['ticker']}")
+    assert status == 200 and rating["score"] is not None

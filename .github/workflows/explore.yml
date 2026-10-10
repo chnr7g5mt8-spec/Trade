@@ -1,0 +1,41 @@
+name: Refresh Explore rankings
+
+# Rates every US-listed company worth over $1B and the largest coins, and
+# stores the top 20 per category in backend/app/data/explore.json.
+on:
+  schedule:
+    - cron: "11 22 * * 1-5"  # weekdays after the US close
+  workflow_dispatch:
+    inputs:
+      limit_industries:
+        description: "Only this many industries (0 = all; small numbers for a quick test that isn't committed)"
+        default: "0"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-refresh
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - run: pip install -r backend/requirements-scripts.txt
+      - run: python backend/scripts/build_explore.py --limit-industries "${{ inputs.limit_industries || 0 }}"
+      - name: Commit rankings
+        if: ${{ !inputs.limit_industries || inputs.limit_industries == '0' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backend/app/data/explore.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Refresh Explore rankings"
+          git pull --rebase
+          git push

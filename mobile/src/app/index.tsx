@@ -77,6 +77,16 @@ export default function Home() {
       ListHeaderComponent={
         <View style={styles.header}>
           <SearchBox onSelect={open} />
+          <Pressable
+            style={({ pressed }) => [styles.explore, pressed && { opacity: 0.7 }]}
+            onPress={() => router.push('/explore')}
+            accessibilityRole="link">
+            <View style={{ flex: 1 }}>
+              <Text style={styles.exploreTitle}>Explore top-rated stocks and crypto</Text>
+              <Text style={styles.exploreText}>Top 20 by value, growth, dividends, low risk, momentum and sector</Text>
+            </View>
+            <Text style={styles.exploreArrow}>›</Text>
+          </Pressable>
           <View style={{ gap: 4 }}>
             <Text style={styles.sectionTitle}>Watchlist</Text>
             {!!marketStatus && <Text style={styles.marketStatus}>{marketStatus}</Text>}
@@ -139,6 +149,10 @@ function WatchRow({ ticker, rating, unavailable }: { ticker: string; rating?: Ra
 const styles = StyleSheet.create({
   content: { padding: 16, paddingBottom: 40 },
   header: { gap: 16, marginBottom: 12 },
+  explore: { flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: colors.accent, borderRadius: 12, padding: 14 },
+  exploreTitle: { color: '#fff', fontSize: 16, fontWeight: '700' },
+  exploreText: { color: '#DBEAFE', fontSize: 13, marginTop: 2 },
+  exploreArrow: { color: '#fff', fontSize: 28, fontWeight: '300' },
   sectionTitle: { fontSize: 13, fontWeight: '600', color: colors.muted, textTransform: 'uppercase', letterSpacing: 0.5 },
   marketStatus: { fontSize: 13, color: colors.muted },
   error: { color: colors.danger },

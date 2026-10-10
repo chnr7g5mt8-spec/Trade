@@ -186,3 +186,38 @@ export function searchAssets(query: string): Promise<SearchResult[]> {
 export function fetchMethodology(): Promise<Methodology> {
   return getJson<Methodology>('/api/methodology');
 }
+
+export type ExploreItem = {
+  ticker: string;
+  symbol: string;
+  name: string;
+  score: number;
+  label: string;
+  category_score: number | null;
+  sector: string | null;
+  industry: string | null;
+  exchange: string | null;
+};
+
+export type ExploreList = {
+  key: string;
+  title: string;
+  description: string;
+  group: 'featured' | 'sector';
+  asset_type: 'stock' | 'crypto';
+  category: string | null;
+  category_label: string | null;
+  items: ExploreItem[];
+};
+
+export type Explore = {
+  generated_at: string | null;
+  universe: string;
+  stocks_rated: number;
+  coins_rated: number;
+  lists: ExploreList[];
+};
+
+export function fetchExplore(): Promise<Explore> {
+  return getJson<Explore>('/api/explore');
+}

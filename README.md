@@ -56,6 +56,19 @@ which don't apply to how they work.
 Crypto scores compare coins with each other; even the best-rated coins are far
 more volatile than most stocks. Stablecoins aren't rated.
 
+### Explore
+
+The **Explore** page lists the top 20 in each of a few categories: top rated,
+best value, strongest growth, best dividends, lowest risk, strongest momentum,
+top crypto, and the top rated in each sector. Rating thousands of companies
+takes too long for a web request, so a GitHub Action
+(`backend/scripts/build_explore.py`) rates every US-listed company worth over
+$1B (including foreign companies' US listings) and every coin worth over $100M
+each weekday after the US close, with the same code as a single rating, and
+stores the lists in `backend/app/data/explore.json`. Category lists only
+include stocks rated Hold or better, and every list needs at least 60% of the
+measures to be available. Tapping an entry opens its live rating.
+
 ### Labels
 
 Scores are whole numbers and the label comes from the score: 80+ Strong Buy,
@@ -88,7 +101,7 @@ server.
 backend/   Python FastAPI API: data, scoring, peer benchmarks, backtest
 mobile/    Expo (React Native + TypeScript) app; its web build is served by the backend
 Dockerfile one container with both, deployed to Render (render.yaml)
-.github/   CI, monthly benchmarks, quarterly backtest, daily live check
+.github/   CI, daily Explore rankings, monthly benchmarks, quarterly backtest, daily live check
 ```
 
 ## Running it locally
