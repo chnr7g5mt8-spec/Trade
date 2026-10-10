@@ -93,7 +93,7 @@ function WatchRow({ ticker, rating, unavailable }: { ticker: string; rating?: Ra
   const history = rating?.price_history ?? [];
   const up = history.length > 1 && history[history.length - 1] >= history[0];
   const status = rating ? rating.label : unavailable ? 'Unavailable' : '…';
-  const a11y = [ticker, rating?.name, rating && status, rating?.score != null && `score ${rating.score}`]
+  const a11y = [ticker, rating?.name, status !== '…' && status, rating?.score != null && `score ${rating.score}`]
     .filter(Boolean)
     .join(', ');
 

@@ -27,8 +27,10 @@ function load(): Promise<string[]> {
 }
 
 async function update(change: (list: string[]) => string[]) {
-  // Wait for the stored list first so an early add/remove can't overwrite it.
-  const list = change(await load());
+  // Wait for the stored list first so an early add/remove can't overwrite it,
+  // then apply the change to the latest list in case another update landed.
+  await load();
+  const list = change(current ?? DEFAULT_WATCHLIST);
   current = list;
   listeners.forEach((fn) => fn(list));
   AsyncStorage.setItem(KEY, JSON.stringify(list)).catch(() => {});

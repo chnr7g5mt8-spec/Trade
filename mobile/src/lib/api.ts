@@ -52,19 +52,28 @@ export const API_URL = resolveBaseUrl();
 const TIMEOUT_MS = 30_000;
 
 async function getJson<T>(path: string): Promise<T> {
+  // The timeout covers the whole exchange, including reading the body.
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
-  let res: Response;
   try {
-    res = await fetch(`${API_URL}${path}`, { signal: controller.signal });
-  } catch {
-    throw new Error(
-      controller.signal.aborted
-        ? `The rating server at ${API_URL} took too long to respond. Try again.`
-        : `Can't reach the rating server at ${API_URL}. Is the backend running?`,
-    );
+    return await request<T>(path, controller.signal);
+  } catch (e) {
+    if (controller.signal.aborted) {
+      throw new Error(`The rating server at ${API_URL} took too long to respond. Try again.`);
+    }
+    throw e;
   } finally {
     clearTimeout(timer);
+  }
+}
+
+async function request<T>(path: string, signal: AbortSignal): Promise<T> {
+  let res: Response;
+  try {
+    res = await fetch(`${API_URL}${path}`, { signal });
+  } catch (e) {
+    if (signal.aborted) throw e;
+    throw new Error(`Can't reach the rating server at ${API_URL}. Is the backend running?`);
   }
   if (!res.ok) {
     let detail = `Request failed (${res.status})`;
