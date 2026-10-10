@@ -12,7 +12,8 @@ function Bar({ score }: { score: number | null }) {
   );
 }
 
-export function CategoryCard({ category }: { category: CategoryScore }) {
+/** `note` replaces the weight shown next to the title. */
+export function CategoryCard({ category, note }: { category: CategoryScore; note?: string }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -25,7 +26,7 @@ export function CategoryCard({ category }: { category: CategoryScore }) {
       <View style={styles.header}>
         <Text style={styles.title}>{category.label}</Text>
         <Text style={styles.weight}>
-          {category.optional ? 'dividend payers only' : `${Math.round(category.weight * 100)}% weight`}
+          {note ?? (category.optional ? 'dividend payers only' : `${Math.round(category.weight * 100)}% weight`)}
         </Text>
         <Text style={[styles.score, { color: scoreColor(category.score) }]}>
           {category.score == null ? '—' : Math.round(category.score)}

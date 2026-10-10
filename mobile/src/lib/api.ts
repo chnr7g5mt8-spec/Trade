@@ -57,6 +57,16 @@ export type Rating = {
   facts: Fact[];
   notes: string[];
   source: string;
+  /** Analysts' forecasts, scored; not part of the rating. US-listed stocks only. */
+  outlook: Outlook | null;
+};
+
+export type Outlook = {
+  score: number | null;
+  analysts: number;
+  /** ISO time the forecasts were collected. */
+  as_of: string | null;
+  category: CategoryScore;
 };
 
 export type SearchResult = {
@@ -205,7 +215,6 @@ export type ExploreList = {
   description: string;
   group: 'featured' | 'sector';
   asset_type: 'stock' | 'crypto';
-  category: string | null;
   category_label: string | null;
   items: ExploreItem[];
 };

@@ -170,6 +170,18 @@ export default function StockDetail() {
         <CategoryCard key={c.key} category={c} />
       ))}
 
+      {!!rating.outlook && (
+        <>
+          <Text style={styles.sectionTitle}>Future outlook</Text>
+          <Text style={styles.peer}>
+            What Wall Street analysts expect, from {rating.outlook.analysts} analysts
+            {rating.outlook.as_of ? ` (collected ${formatDay(rating.outlook.as_of)})` : ''}. Not part of the score
+            above: forecasts are often too optimistic, and price targets are frequently missed.
+          </Text>
+          <CategoryCard category={rating.outlook.category} note={`${rating.outlook.analysts} analysts`} />
+        </>
+      )}
+
       <Pressable onPress={() => router.push('/about')} accessibilityRole="link" style={styles.aboutLink}>
         <Text style={styles.link}>How ratings work · track record</Text>
       </Pressable>
@@ -180,6 +192,12 @@ export default function StockDetail() {
       </Text>
     </ScrollView>
   );
+}
+
+/** e.g. "Oct 10" in the viewer's own time zone. */
+function formatDay(iso: string): string {
+  const d = new Date(iso);
+  return Number.isNaN(d.getTime()) ? iso : d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
 
 const styles = StyleSheet.create({

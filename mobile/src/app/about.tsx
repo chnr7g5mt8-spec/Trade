@@ -93,6 +93,19 @@ export default function About() {
         <Categories categories={data.crypto_categories} />
       </Section>
 
+      <Section title="Future outlook">
+        <Text style={styles.body}>
+          For US-listed stocks the app also shows what Wall Street analysts expect, scored from 0 to 100: forecast
+          earnings growth and sales growth for next year, how far the average price target is above today’s price, and
+          the buy/sell consensus. It needs at least 3 analysts, and Explore lists need at least 5. The forecasts are
+          collected once a day.
+        </Text>
+        <Text style={styles.muted}>
+          The outlook is kept out of the main score. Analysts’ forecasts and price targets are often too optimistic and
+          frequently missed, so treat it as one more view, not a prediction.
+        </Text>
+      </Section>
+
       <Section title="Track record">
         {data.track_record?.summary?.quintile_median_returns ? (
           <Track record={data.track_record} categories={data.stock_categories} />
