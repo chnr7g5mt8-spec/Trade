@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from . import funds
+from . import funds, profiles
 from .benchmarks import Benchmarks, MIN_PEERS
 from .scoring import crypto, stock
 from .scoring.common import LABELS, MIN_COVERAGE, RELATIVE_WEIGHT, CategorySpec
@@ -41,6 +41,7 @@ def describe(benchmarks: Benchmarks) -> dict:
         "stock_categories": _categories(stock.CATEGORIES),
         "crypto_categories": _categories(crypto.CATEGORIES),
         "fund_categories": _categories(funds.CATEGORIES),
+        "profiles": profiles.describe(),
         "benchmarks": {
             "generated_at": benchmarks.generated_at,
             "industries": sum(1 for g in benchmarks.groups.values() if g.level == "industry"),

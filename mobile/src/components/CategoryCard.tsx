@@ -26,7 +26,12 @@ export function CategoryCard({ category, note }: { category: CategoryScore; note
       <View style={styles.header}>
         <Text style={styles.title}>{category.label}</Text>
         <Text style={styles.weight}>
-          {note ?? (category.optional ? 'dividend payers only' : `${Math.round(category.weight * 100)}% weight`)}
+          {note ??
+            (category.weight === 0
+              ? 'not counted for your style'
+              : category.optional
+                ? 'dividend payers only'
+                : `${Math.round(category.weight * 100)}% weight`)}
         </Text>
         <Text style={[styles.score, { color: scoreColor(category.score) }]}>
           {category.score == null ? '—' : Math.round(category.score)}

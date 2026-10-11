@@ -3,16 +3,19 @@ import { useCallback, useRef, useState } from 'react';
 import { FlatList, Pressable, RefreshControl, StyleSheet, Text, View } from 'react-native';
 
 import { ScoreRing } from '../components/ScoreRing';
+import { ProfilePicker } from '../components/ProfilePicker';
 import { SearchBox } from '../components/SearchBox';
 import { Sparkline } from '../components/Sparkline';
 import { fetchRatings, type Rating } from '../lib/api';
 import { colors, formatMoney, formatTime, marketLabel, scoreColor } from '../lib/theme';
+import { useProfile } from '../lib/profile';
 import { useWatchlist } from '../lib/watchlist';
 
 const REFRESH_MS = 60_000;
 
 export default function Home() {
   const { list, ready } = useWatchlist();
+  const { profile, ready: profileReady } = useProfile();
   const [ratings, setRatings] = useState<Record<string, Rating>>({});
   // Tickers the last successful load asked for; those missing from the
   // response failed on the server and are shown as unavailable.
@@ -23,12 +26,12 @@ export default function Home() {
   const latestRequest = useRef(0);
 
   const load = useCallback(async () => {
-    if (!ready) return;
+    if (!ready || !profileReady) return;
     const id = ++latestRequest.current;
     setLoading(true);
     setError(null);
     try {
-      const results = await fetchRatings(list);
+      const results = await fetchRatings(list, profile);
       if (id !== latestRequest.current) return; // a newer load superseded this one
       setRatings(Object.fromEntries(results.map((r) => [r.ticker, r])));
       setRequested(new Set(list));
@@ -38,7 +41,7 @@ export default function Home() {
     } finally {
       if (id === latestRequest.current) setLoading(false);
     }
-  }, [list, ready]);
+  }, [list, ready, profile, profileReady]);
 
   const loaded = Object.values(ratings);
   const demo = loaded.some((r) => r.source === 'sample');
@@ -87,6 +90,7 @@ export default function Home() {
             </View>
             <Text style={styles.exploreArrow}>›</Text>
           </Pressable>
+          <ProfilePicker />
           <View style={{ gap: 4 }}>
             <Text style={styles.sectionTitle}>Watchlist</Text>
             {!!marketStatus && <Text style={styles.marketStatus}>{marketStatus}</Text>}

@@ -61,6 +61,8 @@ export type Rating = {
   source: string;
   /** Analysts' forecasts, scored; not part of the rating. US-listed stocks only. */
   outlook: Outlook | null;
+  /** Investor profile the overall score is weighted for; null = balanced. */
+  profile?: string | null;
   /** What an ETF invests in; rated ETFs only. */
   fund_profile?: FundProfile | null;
 };
@@ -130,6 +132,7 @@ export type Methodology = {
   stock_categories: MethodologyCategory[];
   crypto_categories: MethodologyCategory[];
   fund_categories?: MethodologyCategory[];
+  profiles?: { key: string; label: string; description: string; weights: Record<string, number> }[];
   benchmarks: { generated_at: string | null; industries: number; sectors: number };
   track_record: TrackRecord | null;
 };
@@ -194,13 +197,25 @@ async function request<T>(path: string, signal: AbortSignal): Promise<T> {
   return res.json() as Promise<T>;
 }
 
-export function fetchRating(ticker: string): Promise<Rating> {
-  return getJson<Rating>(`/api/rating/${encodeURIComponent(ticker)}`);
+const withProfile = (profile?: string) => (profile && profile !== 'balanced' ? `profile=${profile}` : '');
+
+export function fetchRating(ticker: string, profile?: string): Promise<Rating> {
+  const q = withProfile(profile);
+  return getJson<Rating>(`/api/rating/${encodeURIComponent(ticker)}${q ? `?${q}` : ''}`);
 }
 
-export function fetchRatings(tickers: string[]): Promise<Rating[]> {
-  if (tickers.length === 0) return Promise.resolve([]);
-  return getJson<Rating[]>(`/api/ratings?tickers=${encodeURIComponent(tickers.join(','))}`);
+const MAX_BATCH = 25;
+
+/** Ratings in request order; long lists are fetched in batches of 25. */
+export async function fetchRatings(tickers: string[], profile?: string): Promise<Rating[]> {
+  if (tickers.length === 0) return [];
+  const q = withProfile(profile);
+  const batches: string[][] = [];
+  for (let i = 0; i < tickers.length; i += MAX_BATCH) batches.push(tickers.slice(i, i + MAX_BATCH));
+  const results = await Promise.all(
+    batches.map((b) => getJson<Rating[]>(`/api/ratings?tickers=${encodeURIComponent(b.join(','))}${q ? `&${q}` : ''}`)),
+  );
+  return results.flat();
 }
 
 export function searchAssets(query: string): Promise<SearchResult[]> {
@@ -244,6 +259,7 @@ export type Explore = {
   lists: ExploreList[];
 };
 
-export function fetchExplore(): Promise<Explore> {
-  return getJson<Explore>('/api/explore');
+export function fetchExplore(profile?: string): Promise<Explore> {
+  const q = withProfile(profile);
+  return getJson<Explore>(`/api/explore${q ? `?${q}` : ''}`);
 }

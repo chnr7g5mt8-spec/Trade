@@ -2,25 +2,29 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
+import { ProfilePicker } from '../components/ProfilePicker';
 import { ScoreRing } from '../components/ScoreRing';
 import { fetchExplore, type Explore, type ExploreItem, type ExploreList } from '../lib/api';
+import { useProfile } from '../lib/profile';
 import { colors, scoreColor } from '../lib/theme';
 
 export default function ExploreScreen() {
   const { list: selectedKey } = useLocalSearchParams<{ list?: string }>();
   const [data, setData] = useState<Explore | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const { profile, ready } = useProfile();
 
   // Only sets state once the request settles, so it is safe to call from an effect.
   const load = useCallback(() => {
-    fetchExplore().then(
+    if (!ready) return;
+    fetchExplore(profile).then(
       (result) => {
         setData(result);
         setError(null);
       },
       (e: Error) => setError(e.message),
     );
-  }, []);
+  }, [profile, ready]);
 
   const retry = () => {
     setError(null);
@@ -63,6 +67,7 @@ export default function ExploreScreen() {
       contentContainerStyle={styles.content}
       ListHeaderComponent={
         <View style={styles.header}>
+          <ProfilePicker />
           <Chips lists={featured} current={current?.key} onSelect={select} />
           {canada.length > 0 && (
             <View style={{ gap: 6 }}>
@@ -125,7 +130,8 @@ function Chips({ lists, current, onSelect }: { lists: ExploreList[]; current?: s
             onPress={() => onSelect(l.key)}
             style={[styles.chip, active && styles.chipActive]}
             accessibilityRole="tab"
-            accessibilityState={{ selected: active }}>
+            accessibilityState={{ selected: active }}
+            aria-selected={active}>
             <Text style={[styles.chipText, active && styles.chipTextActive]}>{l.title}</Text>
           </Pressable>
         );

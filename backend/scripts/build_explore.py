@@ -283,6 +283,7 @@ def main() -> None:
         "canadian_rated": canadian_rated,
         "coins_rated": coins_rated,
         "lists": lists,
+        "profiles": explore.build_for_profiles(ratings),
     }, indent=1))
     log.info("wrote %s: %d stocks and %d coins rated", OUT, stocks_rated, coins_rated)
 

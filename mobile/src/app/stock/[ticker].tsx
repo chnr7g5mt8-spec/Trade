@@ -9,12 +9,14 @@ import { ScoreRing } from '../../components/ScoreRing';
 import { Sparkline } from '../../components/Sparkline';
 import { fetchRating, type Rating } from '../../lib/api';
 import { colors, formatMoney, scoreColor } from '../../lib/theme';
+import { profileLabel, useProfile } from '../../lib/profile';
 import { useWatchlist } from '../../lib/watchlist';
 
 export default function StockDetail() {
   const { ticker: raw } = useLocalSearchParams<{ ticker: string }>();
   const ticker = String(raw ?? '').toUpperCase();
   const watchlist = useWatchlist();
+  const { profile, ready: profileReady } = useProfile();
   const [rating, setRating] = useState<Rating | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -23,8 +25,9 @@ export default function StockDetail() {
 
   // Only sets state once the request settles, so it is safe to call from an effect.
   const fetchLatest = useCallback(() => {
+    if (!profileReady) return;
     const id = ++latestRequest.current;
-    fetchRating(ticker).then(
+    fetchRating(ticker, profile).then(
       (result) => {
         if (id !== latestRequest.current) return; // superseded by a newer request
         setRating(result);
@@ -37,7 +40,7 @@ export default function StockDetail() {
         setLoading(false);
       },
     );
-  }, [ticker]);
+  }, [ticker, profile, profileReady]);
 
   useEffect(() => {
     fetchLatest();
@@ -163,6 +166,11 @@ export default function StockDetail() {
       {!!rating.fund_profile && <FundHoldings profile={rating.fund_profile} />}
 
       <Text style={styles.sectionTitle}>Score breakdown</Text>
+      {!!rating.profile && (
+        <Text style={styles.peer}>
+          Weighted for your investing style: {profileLabel(rating.profile)}. Change it on the home screen.
+        </Text>
+      )}
       {peer && (
         <Text style={styles.peer}>
           {rating.asset_type === 'fund'

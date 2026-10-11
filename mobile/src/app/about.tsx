@@ -93,6 +93,29 @@ export default function About() {
         <Categories categories={data.crypto_categories} />
       </Section>
 
+      {!!data.profiles && (
+        <Section title="Investing styles">
+          <Text style={styles.body}>
+            Pick a style on the home screen to weight stocks’ overall scores for how you invest. The categories are
+            measured the same way; only how much each counts changes. ETFs and coins aren’t affected.
+          </Text>
+          {data.profiles.map((p) => (
+            <View key={p.key} style={{ gap: 2 }}>
+              <Text style={styles.rowLabel}>{p.label}</Text>
+              <Text style={styles.muted}>{p.description}</Text>
+              {Object.keys(p.weights).length > 0 && (
+                <Text style={styles.muted}>
+                  {Object.entries(p.weights)
+                    .sort((a, b) => b[1] - a[1])
+                    .map(([k, w]) => `${data.stock_categories.find((c) => c.key === k)?.label ?? k} ${Math.round(w * 100)}%`)
+                    .join(' · ')}
+                </Text>
+              )}
+            </View>
+          ))}
+        </Section>
+      )}
+
       {!!data.fund_categories && (
         <Section title="ETFs">
           <Text style={styles.body}>

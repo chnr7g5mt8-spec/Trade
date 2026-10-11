@@ -24,6 +24,7 @@ from fastapi.responses import FileResponse
 from . import benchmarks as benchmarks_module
 from . import explore, methodology
 from . import funds as funds_module
+from . import profiles
 from . import outlook as outlook_module
 from .models import Rating, SearchResult
 from .providers import NotSupported, ProviderError, TickerNotFound
@@ -157,13 +158,16 @@ def search(q: str = Query(..., min_length=1, max_length=60)) -> list[SearchResul
         raise HTTPException(status_code=502, detail=str(exc))
 
 
+PROFILE_QUERY = Query(None, description="Investor profile: " + ", ".join(profiles.PROFILES))
+
+
 @app.get("/api/rating/{ticker}", response_model=Rating)
-def get_rating(ticker: str) -> Rating:
+def get_rating(ticker: str, profile: str | None = PROFILE_QUERY) -> Rating:
     symbol = parse_ticker(ticker)
     if symbol is None:
         raise HTTPException(status_code=400, detail=f"{ticker.strip()!r} is not a valid ticker symbol")
     try:
-        return service.get(symbol)
+        return profiles.apply(service.get(symbol), profile)
     except TickerNotFound:
         raise HTTPException(status_code=404, detail=f"No data found for {symbol}")
     except NotSupported as exc:
@@ -173,7 +177,8 @@ def get_rating(ticker: str) -> Rating:
 
 
 @app.get("/api/ratings", response_model=list[Rating])
-def get_ratings(tickers: str = Query(..., description="Comma-separated tickers, e.g. AAPL,BTC-USD")) -> list[Rating]:
+def get_ratings(tickers: str = Query(..., description="Comma-separated tickers, e.g. AAPL,BTC-USD"),
+                profile: str | None = PROFILE_QUERY) -> list[Rating]:
     """Batch endpoint for the watchlist, in request order.
 
     Invalid, unknown and failing tickers are skipped so one bad entry
@@ -187,7 +192,7 @@ def get_ratings(tickers: str = Query(..., description="Comma-separated tickers, 
 
     def fetch(symbol: str) -> Rating | ProviderError | None:
         try:
-            return service.get(symbol)
+            return profiles.apply(service.get(symbol), profile)
         except (TickerNotFound, NotSupported):
             return None
         except ProviderError as exc:
@@ -226,17 +231,18 @@ def sample_explore() -> dict:
             "coins_rated": sum(r.asset_type == "crypto" and r.score is not None for r in ratings),
             "etfs_rated": sum(r.asset_type == "fund" and r.score is not None for r in ratings),
             "lists": explore.build(ratings),
+            "profiles": explore.build_for_profiles(ratings),
         }
     return _sample_explore
 
 
 @app.get("/api/explore")
-def get_explore() -> dict:
+def get_explore(profile: str | None = PROFILE_QUERY) -> dict:
     """The best-rated stocks and coins per category, ranked once a day."""
     data = sample_explore() if service.source == "sample" else explore.load()
     if data is None:
         raise HTTPException(status_code=503, detail="The Explore rankings are being prepared. Check back later today.")
-    return data
+    return explore.for_profile(data, profile)
 
 
 def mount_web_app(web_dir: str) -> None:

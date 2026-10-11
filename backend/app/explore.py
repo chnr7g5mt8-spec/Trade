@@ -271,3 +271,20 @@ def load(path: Path | None = None) -> dict | None:
     except FileNotFoundError:
         return None
     return data if data.get("lists") else None
+
+
+def build_for_profiles(ratings: list[Rating]) -> dict[str, list[dict]]:
+    """Lists for each non-balanced investor profile (the balanced lists are `build(ratings)`)."""
+    from . import profiles
+
+    return {key: build([profiles.apply(r, key) for r in ratings])
+            for key in profiles.PROFILES if key != profiles.BALANCED}
+
+
+def for_profile(data: dict, profile: str | None) -> dict:
+    """The stored Explore data with the lists for `profile`."""
+    out = {k: v for k, v in data.items() if k != "profiles"}
+    lists = (data.get("profiles") or {}).get(profile or "")
+    if lists:
+        out["lists"], out["profile"] = lists, profile
+    return out

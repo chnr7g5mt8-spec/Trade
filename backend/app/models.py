@@ -186,6 +186,7 @@ class Rating(Quote):
     source: str
     outlook: Outlook | None = None
     fund_profile: FundProfile | None = None
+    profile: str | None = None  # investor profile the overall score is weighted for (None = balanced)
 
 
 class SearchResult(BaseModel):
