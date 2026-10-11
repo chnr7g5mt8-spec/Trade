@@ -125,6 +125,24 @@ ETF_LISTS = [
 ]
 
 
+CANADA_LISTS = [
+    ListSpec("ca_top", "Top Canadian stocks", "Highest overall score among Toronto-listed companies.", "stock"),
+    ListSpec("ca_dividends", "Canadian dividends",
+             "Best dividend yield, growth and safety among Toronto-listed companies rated Hold or better.",
+             "stock", category("income"), "Dividend score"),
+    ListSpec("ca_value", "Canadian value",
+             "Cheapest compared with similar companies, among Toronto-listed companies rated Hold or better.",
+             "stock", category("valuation"), "Value score"),
+    ListSpec("ca_low_risk", "Canadian low risk",
+             "Steadiest share prices among Toronto-listed companies rated Hold or better.",
+             "stock", category("risk"), "Low-risk score"),
+]
+
+
+def is_canadian(r: Rating) -> bool:
+    return r.ticker.endswith(".TO")
+
+
 def _item(r: Rating, value: float | None) -> dict:
     return {
         "ticker": r.ticker,
@@ -224,9 +242,10 @@ def derived_coins(coins: list[Rating]) -> set[str]:
 
 
 def build(ratings: list[Rating]) -> list[dict]:
-    """The Explore lists: featured categories, one per sector (largest first), then ETF lists."""
+    """The Explore lists: featured, one per sector (largest first), Canadian, then ETF lists."""
     rated = [r for r in ratings if eligible(r)]
-    stocks = [r for r in rated if r.asset_type == "stock"]
+    stocks = [r for r in rated if r.asset_type == "stock" and not is_canadian(r)]
+    canadian = [r for r in rated if r.asset_type == "stock" and is_canadian(r)]
     coins = [r for r in rated if r.asset_type == "crypto"]
     derived = derived_coins(coins)
     coins = [r for r in coins if r.ticker not in derived]
@@ -240,6 +259,7 @@ def build(ratings: list[Rating]) -> list[dict]:
         spec = ListSpec("sector:" + sector.lower().replace(" ", "-"), sector,
                         f"Highest overall score among {sector.lower()} companies.", "stock")
         lists.append(_make_list(spec, by_sector[sector], "sector"))
+    lists.extend(_make_list(spec, canadian, "canada") for spec in CANADA_LISTS)
     etfs = [r for r in rated if r.asset_type == "fund"]
     lists.extend(_make_list(spec, etfs, "etf") for spec in ETF_LISTS)
     return [lst for lst in lists if lst["items"]]

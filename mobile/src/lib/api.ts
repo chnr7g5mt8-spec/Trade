@@ -227,7 +227,7 @@ export type ExploreList = {
   key: string;
   title: string;
   description: string;
-  group: 'featured' | 'sector' | 'etf';
+  group: 'featured' | 'sector' | 'canada' | 'etf';
   asset_type: 'stock' | 'crypto' | 'fund';
   category_label: string | null;
   items: ExploreItem[];
@@ -240,6 +240,7 @@ export type Explore = {
   coins_rated: number;
   /** Missing in rankings made before ETFs were rated. */
   etfs_rated?: number;
+  canadian_rated?: number;
   lists: ExploreList[];
 };
 

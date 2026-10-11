@@ -40,14 +40,17 @@ PER_INDUSTRY = 250  # Yahoo's largest page; no industry has more US companies ov
 log = logging.getLogger("explore")
 
 
-def industry_companies(industry: str) -> list[dict]:
-    """Screener rows (symbol, names, market cap) for an industry's US-listed companies over $1B."""
+CANADIAN_EXCHANGES = ["TOR"]
+
+
+def industry_companies(industry: str, exchanges: list[str] = US_EXCHANGES) -> list[dict]:
+    """Screener rows (symbol, names, market cap) for an industry's companies over 1B (in the listing's currency)."""
     import yfinance as yf
     from yfinance import EquityQuery
 
     query = EquityQuery("and", [
         EquityQuery("eq", ["industry", industry]),
-        EquityQuery("is-in", ["exchange", *US_EXCHANGES]),
+        EquityQuery("is-in", ["exchange", *exchanges]),
         EquityQuery("gt", ["intradaymarketcap", MIN_STOCK_MARKET_CAP]),
     ])
     for attempt in range(5):
@@ -219,7 +222,9 @@ def main() -> None:
     ratings: list[Rating] = []
     seen: set[str] = set()
     for i, (sector, industry) in enumerate(pairs, 1):
-        rows = [r for r in industry_companies(industry) if r["symbol"] not in seen]
+        # US-listed companies, then Toronto-listed ones (Canada has its own Explore lists).
+        rows = [r for r in industry_companies(industry) + industry_companies(industry, CANADIAN_EXCHANGES)
+                if r["symbol"] not in seen]
         seen.update(r["symbol"] for r in rows)
         with ThreadPoolExecutor(max_workers=args.workers) as pool:
             got = [r for r in pool.map(lambda row: rate_stock(provider, benchmarks, row, sector, industry), rows)
@@ -255,6 +260,9 @@ def main() -> None:
 
     stocks_rated = sum(r.asset_type == "stock" and explore.eligible(r) for r in ratings)
     etfs_rated = sum(r.asset_type == "fund" and explore.eligible(r) for r in ratings)
+    canadian_rated = sum(r.asset_type == "stock" and explore.is_canadian(r) and explore.eligible(r)
+                         for r in ratings)
+    stocks_rated -= canadian_rated
     coins_rated = sum(r.asset_type == "crypto" and explore.eligible(r) for r in ratings)
     if not args.limit_industries and (stocks_rated < 1000 or coins_rated < 50 or etfs_rated < 200):
         sys.exit(f"only {stocks_rated} stocks, {etfs_rated} ETFs and {coins_rated} coins rated; "
@@ -267,10 +275,12 @@ def main() -> None:
     OUT.write_text(json.dumps({
         "generated_at": generated_at,
         "universe": f"US-listed companies worth over ${MIN_STOCK_MARKET_CAP // 1_000_000_000}B (including foreign "
-                    f"companies' US listings), US-listed ETFs worth over ${funds.MIN_FUND_ASSETS // 1_000_000}M "
-                    f"and coins worth over ${MIN_COIN_MARKET_CAP // 1_000_000}M",
+                    f"companies' US listings), Toronto-listed companies worth over C$1B, US-listed ETFs worth "
+                    f"over ${funds.MIN_FUND_ASSETS // 1_000_000}M and coins worth over "
+                    f"${MIN_COIN_MARKET_CAP // 1_000_000}M",
         "stocks_rated": stocks_rated,
         "etfs_rated": etfs_rated,
+        "canadian_rated": canadian_rated,
         "coins_rated": coins_rated,
         "lists": lists,
     }, indent=1))

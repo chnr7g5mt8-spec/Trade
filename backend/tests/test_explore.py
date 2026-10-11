@@ -198,3 +198,15 @@ def test_coins_trading_as_copies_of_a_larger_coin_are_left_out():
                coin("SMALL-USD", 50, 0.301, 0.10, 55.0), coin("TINY-USD", 60, 0.30, 0.10, 54.0)]  # cheap: no test
     assert [i["ticker"] for i in lists_by_key(ratings)["crypto"]["items"]] == [
         "BTC-USD", "SMALL-USD", "TINY-USD", "OTHER-USD"]
+
+
+def test_canadian_stocks_have_their_own_lists():
+    ratings = [rating("ENB.TO", 40.0, sector="Energy", income=70.0), rating("RY.TO", 70.0, sector="Financial Services"),
+               rating("ENB", 39.0, name="Enbridge Inc. (NYSE)", sector="Energy", income=69.0)]
+    lists = {lst["key"]: lst for lst in explore.build(ratings)}
+    assert [i["ticker"] for i in lists["ca_top"]["items"]] == ["RY.TO", "ENB.TO"]
+    assert lists["ca_top"]["group"] == "canada"
+    # Toronto listings stay out of the US lists and the sector lists.
+    assert [i["ticker"] for i in lists["top"]["items"]] == ["ENB"]
+    assert all(i["ticker"] == "ENB" for i in lists["sector:energy"]["items"])
+    assert "ca_dividends" not in lists  # ENB.TO is rated Sell

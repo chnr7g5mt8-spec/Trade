@@ -52,6 +52,7 @@ export default function ExploreScreen() {
   const featured = data.lists.filter((l) => l.group === 'featured');
   const sectors = data.lists.filter((l) => l.group === 'sector');
   const etfs = data.lists.filter((l) => l.group === 'etf');
+  const canada = data.lists.filter((l) => l.group === 'canada');
   const select = (key: string) => router.setParams({ list: key });
 
   return (
@@ -63,6 +64,12 @@ export default function ExploreScreen() {
       ListHeaderComponent={
         <View style={styles.header}>
           <Chips lists={featured} current={current?.key} onSelect={select} />
+          {canada.length > 0 && (
+            <View style={{ gap: 6 }}>
+              <Text style={styles.sectionTitle}>Canada (TSX)</Text>
+              <Chips lists={canada} current={current?.key} onSelect={select} />
+            </View>
+          )}
           {etfs.length > 0 && (
             <View style={{ gap: 6 }}>
               <Text style={styles.sectionTitle}>ETFs</Text>
@@ -160,10 +167,11 @@ function Row({ item, rank, list }: { item: ExploreItem; rank: number; list: Expl
 }
 
 function counted(data: Explore): string {
-  const parts = [`${data.stocks_rated.toLocaleString('en-US')} stocks`];
+  const parts = [`${data.stocks_rated.toLocaleString('en-US')} US stocks`];
+  if (data.canadian_rated) parts.push(`${data.canadian_rated.toLocaleString('en-US')} Canadian stocks`);
   if (data.etfs_rated) parts.push(`${data.etfs_rated.toLocaleString('en-US')} ETFs`);
   parts.push(`${data.coins_rated} coins`);
-  return parts.length === 3 ? `${parts[0]}, ${parts[1]} and ${parts[2]}` : parts.join(' and ');
+  return parts.length > 1 ? `${parts.slice(0, -1).join(', ')} and ${parts[parts.length - 1]}` : parts[0];
 }
 
 /** e.g. "Oct 9, 6:11 PM" in the viewer's own time zone. */
