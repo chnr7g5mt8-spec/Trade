@@ -36,7 +36,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add backend/app/data/explore.json backend/app/data/outlook.json backend/app/data/funds.json
+          git add backend/app/data/explore.json backend/app/data/outlook.json backend/app/data/funds.json backend/app/data/history
           git diff --cached --quiet && exit 0
           git commit -m "Refresh Explore rankings"
           git pull --rebase
