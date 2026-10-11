@@ -24,9 +24,10 @@ from fastapi.responses import FileResponse
 from . import benchmarks as benchmarks_module
 from . import explore, methodology
 from . import funds as funds_module
+from . import history as history_module
 from . import profiles
 from . import outlook as outlook_module
-from .models import Rating, SearchResult
+from .models import NewsItem, Rating, SearchResult
 from .providers import NotSupported, ProviderError, TickerNotFound
 from .providers.market import MarketData
 from .ratings import to_rating
@@ -205,6 +206,35 @@ def get_ratings(tickers: str = Query(..., description="Comma-separated tickers, 
     if failures and not ratings:
         raise HTTPException(status_code=502, detail=str(failures[0]))
     return ratings
+
+
+score_history = history_module.History()
+
+
+@app.get("/api/history/{ticker}")
+def get_history(ticker: str) -> dict:
+    """Daily overall scores recorded by the daily job (balanced style)."""
+    symbol = parse_ticker(ticker)
+    if symbol is None:
+        raise HTTPException(status_code=400, detail=f"{ticker.strip()!r} is not a valid ticker symbol")
+    return {"ticker": symbol, "points": [{"date": d, "score": s} for d, s in score_history.get(symbol)]}
+
+
+@app.get("/api/news/{ticker}", response_model=list[NewsItem])
+def get_news(ticker: str) -> list[NewsItem]:
+    """Recent news stories about a stock, fund or coin."""
+    symbol = parse_ticker(ticker)
+    if symbol is None:
+        raise HTTPException(status_code=400, detail=f"{ticker.strip()!r} is not a valid ticker symbol")
+    name = None
+    try:
+        name = service.get(symbol).name  # helps find news for listings like ENB.TO
+    except (TickerNotFound, NotSupported, ProviderError):
+        pass
+    try:
+        return service.market.news(symbol, name)
+    except ProviderError as exc:
+        raise HTTPException(status_code=502, detail=str(exc))
 
 
 @app.get("/api/methodology")

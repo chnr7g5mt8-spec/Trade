@@ -24,7 +24,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from app import benchmarks as benchmarks_module  # noqa: E402
 from app import explore  # noqa: E402
-from app import funds, outlook  # noqa: E402
+from app import funds, history, outlook  # noqa: E402
 from app.models import Rating, StockData  # noqa: E402
 from app.providers.crypto import CryptoDirectory, build_crypto  # noqa: E402
 from app.providers.stocks import TIMESERIES_TYPES, StockProvider, build_stock  # noqa: E402
@@ -267,6 +267,9 @@ def main() -> None:
     if not args.limit_industries and (stocks_rated < 1000 or coins_rated < 50 or etfs_rated < 200):
         sys.exit(f"only {stocks_rated} stocks, {etfs_rated} ETFs and {coins_rated} coins rated; "
                  "refusing to publish thin rankings")
+
+    path = history.record([r for r in ratings if explore.eligible(r)], generated_at[:10])
+    log.info("score history: %s", path.name)
 
     lists = explore.build(ratings)
     for lst in lists:

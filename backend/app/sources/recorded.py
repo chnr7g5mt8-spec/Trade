@@ -55,6 +55,8 @@ class RecordedClient(yahoo.Client):
                       if set((r.get("meta") or {}).get("type") or []) & wanted]
             return {"timeseries": {"result": result, "error": None}}
         if path == "/v1/finance/search":
+            if int(params.get("newsCount") or 0) > 0:
+                return load(f"news_{params.get('q', '')}") or {"news": []}
             return self._search(str(params.get("q", "")))
         if path == yahoo.SCREENER_URL:
             data = load("screener_crypto") or {"finance": {"result": [{"quotes": [], "total": 0}]}}

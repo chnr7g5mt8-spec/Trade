@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 
-from ..models import CryptoData, SearchResult, StockData
+from ..models import CryptoData, NewsItem, SearchResult, StockData
 from ..sources import yahoo
 from . import NotSupported, ProviderError, TickerNotFound
 from .cache import TTLCache
@@ -31,6 +31,7 @@ class MarketData:
         self.stocks = StockProvider(self.client)
         self.crypto = CryptoProvider(self.client)
         self._searches = TTLCache(600, max_entries=500)
+        self._news = TTLCache(900, max_entries=500)
 
     def fetch(self, ticker: str) -> StockData | CryptoData:
         try:
@@ -53,6 +54,77 @@ class MarketData:
         except yahoo.YahooError as exc:
             raise _user_error(query, exc) from exc
         return to_results(quotes)
+
+
+    def news(self, ticker: str, name: str | None = None) -> list[NewsItem]:
+        """Yahoo finds news by plain symbols and names, not always by listing symbols like ENB.TO or BTC-USD."""
+        queries = list(dict.fromkeys(q for q in (ticker, base_symbol(ticker), keyword(name)) if q))
+        try:
+            for q in queries:
+                items = self._news.get(q, lambda: self.client.news(q, 12))
+                found = to_news(items, ticker, name)
+                if found:
+                    return found
+        except yahoo.YahooError as exc:
+            raise _user_error(ticker, exc) from exc
+        return []
+
+
+def base_symbol(ticker: str) -> str:
+    """'ENB.TO' -> 'ENB', 'BTC-USD' -> 'BTC'."""
+    return ticker.upper().split(".")[0].removesuffix("-USD")
+
+
+_NAME_NOISE = {"the", "inc", "inc.", "corp", "corp.", "corporation", "company", "co.", "ltd", "ltd.", "plc", "sa",
+               "s.a.", "ag", "group", "holdings", "trust", "etf", "fund", "&"}
+
+
+def keyword(name: str | None) -> str | None:
+    """The distinctive first word of a name: 'The Coca-Cola Company' -> 'Coca-Cola'."""
+    words = [w.strip(",") for w in (name or "").split() if w.strip(",").lower() not in _NAME_NOISE]
+    return words[0] if words and len(words[0]) >= 3 else None
+
+
+def to_news(items: list[dict], ticker: str, name: str | None = None, limit: int = 8) -> list[NewsItem]:
+    """Stories about the ticker, newest first, those mainly about it first; web links only."""
+    base = base_symbol(ticker)
+    word = (keyword(name) or "").lower()
+
+    def related(n: dict) -> list[str]:
+        return [base_symbol(str(t)) for t in n.get("relatedTickers") or []]
+
+    def about(n: dict) -> bool:
+        return base in related(n) or (bool(word) and word in str(n.get("title", "")).lower())
+
+    def mainly(n: dict) -> bool:
+        tags = related(n)
+        title = str(n.get("title", "")).lower()
+        return (bool(tags) and tags[0] == base) or (bool(word) and word in title) or base.lower() in title.split()
+
+    def thumb(n: dict) -> str | None:
+        sizes = ((n.get("thumbnail") or {}).get("resolutions")) or []
+        small = [r for r in sizes if isinstance(r, dict) and str(r.get("url", "")).startswith("https://")]
+        small.sort(key=lambda r: r.get("width") or 0)
+        return small[0]["url"] if small else None
+
+    usable = [n for n in items if str(n.get("link", "")).startswith("https://")]
+    tagged = [n for n in usable if about(n)]
+    chosen = tagged if tagged else usable
+    chosen.sort(key=lambda n: (not mainly(n), -(n.get("providerPublishTime") or 0)))
+    seen: set[str] = set()
+    out: list[NewsItem] = []
+    for n in chosen:
+        title = " ".join(str(n["title"]).split())
+        if title.lower() in seen:
+            continue
+        seen.add(title.lower())
+        published = n.get("providerPublishTime")
+        out.append(NewsItem(title=title, publisher=n.get("publisher"), link=n["link"],
+                            published=int(published) if isinstance(published, (int, float)) else None,
+                            thumbnail=thumb(n)))
+        if len(out) == limit:
+            break
+    return out
 
 
 def to_results(quotes: list[dict], limit: int = 12) -> list[SearchResult]:

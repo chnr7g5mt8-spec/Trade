@@ -107,6 +107,9 @@ export default function Home() {
       )}
       ListFooterComponent={
         <View style={styles.footer}>
+          <Pressable onPress={() => router.push('/compare')} accessibilityRole="link" hitSlop={8}>
+            <Text style={styles.link}>Compare stocks, ETFs or coins side by side</Text>
+          </Pressable>
           <Pressable onPress={() => router.push('/about')} accessibilityRole="link" hitSlop={8}>
             <Text style={styles.link}>How ratings work · track record</Text>
           </Pressable>

@@ -263,3 +263,22 @@ export function fetchExplore(profile?: string): Promise<Explore> {
   const q = withProfile(profile);
   return getJson<Explore>(`/api/explore${q ? `?${q}` : ''}`);
 }
+
+export type NewsItem = {
+  title: string;
+  publisher: string | null;
+  link: string;
+  /** Unix seconds. */
+  published: number | null;
+  thumbnail: string | null;
+};
+
+export function fetchNews(ticker: string): Promise<NewsItem[]> {
+  return getJson<NewsItem[]>(`/api/news/${encodeURIComponent(ticker)}`);
+}
+
+export type ScoreHistory = { ticker: string; points: { date: string; score: number }[] };
+
+export function fetchHistory(ticker: string): Promise<ScoreHistory> {
+  return getJson<ScoreHistory>(`/api/history/${encodeURIComponent(ticker)}`);
+}

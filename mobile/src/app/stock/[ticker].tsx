@@ -4,6 +4,8 @@ import { ActivityIndicator, Pressable, RefreshControl, ScrollView, StyleSheet, T
 
 import { CategoryCard } from '../../components/CategoryCard';
 import { FundHoldings } from '../../components/FundHoldings';
+import { NewsCard } from '../../components/NewsCard';
+import { ScoreHistoryCard } from '../../components/ScoreHistoryCard';
 import { PriceStatus } from '../../components/PriceStatus';
 import { ScoreRing } from '../../components/ScoreRing';
 import { Sparkline } from '../../components/Sparkline';
@@ -195,6 +197,15 @@ export default function StockDetail() {
         </>
       )}
 
+      <ScoreHistoryCard ticker={rating.ticker} />
+      <NewsCard ticker={rating.ticker} />
+
+      <Pressable
+        onPress={() => router.push({ pathname: '/compare', params: { tickers: rating.ticker } })}
+        accessibilityRole="link"
+        style={styles.aboutLink}>
+        <Text style={styles.link}>Compare with another stock, ETF or coin</Text>
+      </Pressable>
       <Pressable onPress={() => router.push('/about')} accessibilityRole="link" style={styles.aboutLink}>
         <Text style={styles.link}>How ratings work · track record</Text>
       </Pressable>

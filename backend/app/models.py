@@ -189,6 +189,14 @@ class Rating(Quote):
     profile: str | None = None  # investor profile the overall score is weighted for (None = balanced)
 
 
+class NewsItem(BaseModel):
+    title: str
+    publisher: str | None = None
+    link: str
+    published: int | None = None  # Unix seconds
+    thumbnail: str | None = None
+
+
 class SearchResult(BaseModel):
     ticker: str
     symbol: str

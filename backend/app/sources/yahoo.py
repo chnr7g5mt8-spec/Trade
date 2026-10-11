@@ -134,6 +134,14 @@ class Client:
         return [q for q in data.get("quotes") or [] if isinstance(q, dict) and q.get("symbol")]
 
 
+    def news(self, query: str, count: int = 10) -> list[dict]:
+        """Recent news stories Yahoo links to a symbol or name."""
+        data = self._get("/v1/finance/search", {
+            "q": query, "quotesCount": 0, "newsCount": count, "listsCount": 0, "enableFuzzyQuery": "false",
+        })
+        return [n for n in data.get("news") or [] if isinstance(n, dict) and n.get("title") and n.get("link")]
+
+
 def _error_description(data: object) -> str | None:
     if not isinstance(data, dict):
         return None
