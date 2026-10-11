@@ -165,3 +165,34 @@ def test_site_shows_analyst_outlook_for_us_stocks():
     assert all(m["score"] is not None and m["benchmark"] for m in outlook["category"]["metrics"])
     status, body = get("/api/rating/BTC-USD")
     assert status == 200 and body["outlook"] is None
+
+
+@site
+def test_site_news_for_us_canadian_and_crypto_listings():
+    for ticker in ("AAPL", "ENB.TO", "BTC-USD"):
+        status, body = get(f"/api/news/{ticker}")
+        assert status == 200 and len(body) >= 3, (ticker, body)
+        assert all(n["link"].startswith("https://") and n["title"] for n in body)
+
+
+@site
+def test_site_fx_and_dividend_schedule():
+    status, body = get("/api/fx?pairs=USDCAD,CADUSD")
+    assert status == 200 and 1.0 < body["rates"]["USDCAD"] < 2.0 and 0.5 < body["rates"]["CADUSD"] < 1.0
+    status, body = get("/api/rating/ENB.TO")
+    d = body["dividend"]
+    assert d["per_year"] == 4 and d["currency"] == "CAD" and d["next_ex_date"] > time.time() - 86400
+
+
+@site
+def test_site_canadian_lists_styles_and_history():
+    status, body = get("/api/explore")
+    assert status == 200 and body["canadian_rated"] >= 100
+    keys = {lst["key"] for lst in body["lists"]}
+    assert {"ca_top", "ca_dividends"} <= keys
+    status, dividend = get("/api/explore?profile=dividend")
+    assert dividend["profile"] == "dividend"
+    status, rating = get("/api/rating/KO?profile=dividend")
+    assert rating["profile"] == "dividend"
+    status, history = get("/api/history/AAPL")
+    assert status == 200 and history["points"], "no score history recorded yet"
