@@ -143,6 +143,25 @@ def is_canadian(r: Rating) -> bool:
     return r.ticker.endswith(".TO")
 
 
+# A company listed in both Toronto and New York trades at about the exchange
+# rate apart (C$1.37 per US$). Canadian Depositary Receipts of US companies
+# (NVDA.TO, GOOG.TO) carry the same name but cost a small fraction of a share.
+INTERLISTED_PRICE_RATIO = (1.15, 1.65)
+
+
+def depositary_receipts(canadian: list[Rating], us: list[Rating]) -> set[str]:
+    """Toronto tickers that are receipts for a US-listed company rather than Canadian companies."""
+    us_by_name = {(r.name or "").strip().lower(): r for r in us if r.name}
+    out = set()
+    for r in canadian:
+        twin = us_by_name.get((r.name or "").strip().lower())
+        if twin and twin.price and r.price:
+            lo, hi = INTERLISTED_PRICE_RATIO
+            if not lo <= r.price / twin.price <= hi:
+                out.add(r.ticker)
+    return out
+
+
 def _item(r: Rating, value: float | None) -> dict:
     return {
         "ticker": r.ticker,
@@ -194,10 +213,11 @@ def _make_list(spec: ListSpec, pool: list[Rating], group: str) -> dict:
 # Preferred shares (TRTN-PA, KIM-PM) trade like bonds but are rated on the
 # company's financials, so they'd duplicate the company with a misleadingly
 # low risk.
-PREFERRED_RE = re.compile(r"-P[A-Z]?$")
+PREFERRED_RE = re.compile(r"-P[A-Z]?(\.[A-Z]+)?$")  # also Toronto's BCE-PS.TO
 # Closed-end funds are listed like companies, in Yahoo's Asset Management
 # industry, but are funds: a list of the best companies shouldn't hold them.
-FUND_NAME_RE = re.compile(r"\b(fund|funds|trust|investors|portfolio|municipal|income|opportunities)\b", re.IGNORECASE)
+FUND_NAME_RE = re.compile(
+    r"\b(fund|funds|trust|investors|portfolio|municipal|income|opportunities|split|corporations)\b", re.IGNORECASE)
 # Tokens that are claims on another coin (WBTC, WETH, staked ETH) would repeat it.
 DERIVED_COIN_RE = re.compile(r"\b(wrapped|bridged|staked)\b", re.IGNORECASE)
 
@@ -246,6 +266,9 @@ def build(ratings: list[Rating]) -> list[dict]:
     rated = [r for r in ratings if eligible(r)]
     stocks = [r for r in rated if r.asset_type == "stock" and not is_canadian(r)]
     canadian = [r for r in rated if r.asset_type == "stock" and is_canadian(r)]
+    us_listed = [r for r in ratings if r.asset_type == "stock" and not is_canadian(r)]
+    receipts = depositary_receipts(canadian, us_listed)
+    canadian = [r for r in canadian if r.ticker not in receipts]
     coins = [r for r in rated if r.asset_type == "crypto"]
     derived = derived_coins(coins)
     coins = [r for r in coins if r.ticker not in derived]

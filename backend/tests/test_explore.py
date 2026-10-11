@@ -210,3 +210,18 @@ def test_canadian_stocks_have_their_own_lists():
     assert [i["ticker"] for i in lists["top"]["items"]] == ["ENB"]
     assert all(i["ticker"] == "ENB" for i in lists["sector:energy"]["items"])
     assert "ca_dividends" not in lists  # ENB.TO is rated Sell
+
+
+def test_toronto_preferreds_split_funds_and_receipts_are_left_out():
+    def priced(ticker, score, name, price, **kw):
+        return rating(ticker, score, name=name, **kw).model_copy(update={"price": price})
+
+    split = rating("LBS.TO", 80.0, name="Life & Banc Split Corp.").model_copy(update={"industry": "Asset Management"})
+    ratings = [
+        priced("NVDA", 74.0, "NVIDIA Corporation", 229.0), priced("NVDA.TO", 73.0, "NVIDIA Corporation", 35.0),
+        priced("ENB", 39.0, "Enbridge Inc.", 46.6, sector="Energy"),
+        priced("ENB.TO", 46.0, "Enbridge Inc.", 66.5, sector="Energy"),
+        priced("BCE-PS.TO", 66.0, "BCE Preferred", 20.0), split,
+    ]
+    lists = {lst["key"]: lst for lst in explore.build(ratings)}
+    assert [i["ticker"] for i in lists["ca_top"]["items"]] == ["ENB.TO"]
