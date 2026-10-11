@@ -64,3 +64,13 @@ export function useWatchlist() {
 
   return { list, ready, add, remove, has: (t: string) => list.includes(t) };
 }
+
+/** The current watchlist (for backups). */
+export function watchlistSnapshot(): Promise<string[]> {
+  return load();
+}
+
+/** Replace the whole watchlist (restoring a backup). */
+export function replaceWatchlist(list: string[]): Promise<void> {
+  return update(() => [...new Set(list.map((t) => t.toUpperCase()))]);
+}

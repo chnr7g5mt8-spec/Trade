@@ -4,6 +4,7 @@ import { ActivityIndicator, Pressable, RefreshControl, ScrollView, StyleSheet, T
 
 import { CategoryCard } from '../../components/CategoryCard';
 import { FundHoldings } from '../../components/FundHoldings';
+import { HoldingEditor } from '../../components/HoldingEditor';
 import { NewsCard } from '../../components/NewsCard';
 import { ScoreHistoryCard } from '../../components/ScoreHistoryCard';
 import { PriceStatus } from '../../components/PriceStatus';
@@ -11,6 +12,7 @@ import { ScoreRing } from '../../components/ScoreRing';
 import { Sparkline } from '../../components/Sparkline';
 import { fetchRating, type Rating } from '../../lib/api';
 import { colors, formatMoney, scoreColor } from '../../lib/theme';
+import { holdingsStore } from '../../lib/portfolio';
 import { profileLabel, useProfile } from '../../lib/profile';
 import { useWatchlist } from '../../lib/watchlist';
 
@@ -64,6 +66,9 @@ export default function StockDetail() {
   }, [fetchLatest]);
 
   const watching = watchlist.has(ticker);
+  const holdings = holdingsStore.use();
+  const held = holdings.value.find((h) => h.ticker === ticker);
+  const [editing, setEditing] = useState(false);
   const header = (
     <Stack.Screen
       options={{
@@ -134,6 +139,18 @@ export default function StockDetail() {
         </View>
         <ScoreRing score={rating.score} />
       </View>
+
+      {editing ? (
+        <HoldingEditor ticker={rating.ticker} onDone={() => setEditing(false)} />
+      ) : (
+        <Pressable onPress={() => setEditing(true)} style={styles.portfolioButton} accessibilityRole="button">
+          <Text style={styles.portfolioText}>
+            {held
+              ? `In your portfolio: ${held.shares.toLocaleString('en-US')} shares · Edit`
+              : '+ Add to my portfolio'}
+          </Text>
+        </Pressable>
+      )}
 
       {rating.notes.map((note) => (
         <Text key={note} style={styles.notice}>
@@ -225,6 +242,8 @@ function formatDay(iso: string): string {
 }
 
 const styles = StyleSheet.create({
+  portfolioButton: { backgroundColor: colors.card, borderRadius: 12, padding: 12, alignItems: 'center', borderWidth: 1, borderColor: colors.border },
+  portfolioText: { color: colors.accent, fontWeight: '700', fontSize: 15 },
   content: { padding: 16, gap: 12, paddingBottom: 40 },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24, gap: 16 },
   hero: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.card, borderRadius: 16, padding: 16, gap: 12 },

@@ -8,6 +8,8 @@ import { SearchBox } from '../components/SearchBox';
 import { Sparkline } from '../components/Sparkline';
 import { fetchRatings, type Rating } from '../lib/api';
 import { colors, formatMoney, formatTime, marketLabel, scoreColor } from '../lib/theme';
+import { alertsStore, checkAlerts } from '../lib/alerts';
+import { holdingsStore } from '../lib/portfolio';
 import { useProfile } from '../lib/profile';
 import { useWatchlist } from '../lib/watchlist';
 
@@ -16,6 +18,8 @@ const REFRESH_MS = 60_000;
 export default function Home() {
   const { list, ready } = useWatchlist();
   const { profile, ready: profileReady } = useProfile();
+  const holdings = holdingsStore.use();
+  const alerts = alertsStore.use();
   const [ratings, setRatings] = useState<Record<string, Rating>>({});
   // Tickers the last successful load asked for; those missing from the
   // response failed on the server and are shown as unavailable.
@@ -34,6 +38,7 @@ export default function Home() {
       const results = await fetchRatings(list, profile);
       if (id !== latestRequest.current) return; // a newer load superseded this one
       setRatings(Object.fromEntries(results.map((r) => [r.ticker, r])));
+      checkAlerts(results);
       setRequested(new Set(list));
       setCheckedAt(Date.now() / 1000);
     } catch (e) {
@@ -80,6 +85,27 @@ export default function Home() {
       ListHeaderComponent={
         <View style={styles.header}>
           <SearchBox onSelect={open} />
+          {alerts.value.length > 0 && (
+            <Pressable onPress={() => router.push('/portfolio')} style={styles.alertBanner} accessibilityRole="link">
+              <Text style={styles.alertText}>
+                {alerts.value.length} new alert{alerts.value.length === 1 ? '' : 's'}: {alerts.value[0].message}
+              </Text>
+            </Pressable>
+          )}
+          <Pressable
+            style={({ pressed }) => [styles.portfolio, pressed && { opacity: 0.7 }]}
+            onPress={() => router.push('/portfolio')}
+            accessibilityRole="link">
+            <View style={{ flex: 1 }}>
+              <Text style={styles.portfolioTitle}>My portfolio</Text>
+              <Text style={styles.portfolioText}>
+                {holdings.value.length
+                  ? `${holdings.value.length} holding${holdings.value.length === 1 ? '' : 's'} · value, dividend income and calendar`
+                  : 'Track what you own: value, dividend income, calendar and alerts'}
+              </Text>
+            </View>
+            <Text style={styles.portfolioArrow}>›</Text>
+          </Pressable>
           <Pressable
             style={({ pressed }) => [styles.explore, pressed && { opacity: 0.7 }]}
             onPress={() => router.push('/explore')}
@@ -156,6 +182,12 @@ function WatchRow({ ticker, rating, unavailable }: { ticker: string; rating?: Ra
 const styles = StyleSheet.create({
   content: { padding: 16, paddingBottom: 40 },
   header: { gap: 16, marginBottom: 12 },
+  portfolio: { flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: colors.card, borderRadius: 12, padding: 14, borderWidth: 1, borderColor: colors.border },
+  portfolioTitle: { color: colors.text, fontSize: 16, fontWeight: '700' },
+  portfolioText: { color: colors.muted, fontSize: 13, marginTop: 2 },
+  portfolioArrow: { color: colors.muted, fontSize: 28, fontWeight: '300' },
+  alertBanner: { backgroundColor: '#FEF3C7', borderRadius: 12, padding: 12 },
+  alertText: { color: '#92400E', fontSize: 14, fontWeight: '600' },
   explore: { flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: colors.accent, borderRadius: 12, padding: 14 },
   exploreTitle: { color: '#fff', fontSize: 16, fontWeight: '700' },
   exploreText: { color: '#DBEAFE', fontSize: 13, marginTop: 2 },

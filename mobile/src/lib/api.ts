@@ -61,11 +61,29 @@ export type Rating = {
   source: string;
   /** Analysts' forecasts, scored; not part of the rating. US-listed stocks only. */
   outlook: Outlook | null;
+  /** The regular dividend, when it pays on a schedule. */
+  dividend?: DividendInfo | null;
   /** Investor profile the overall score is weighted for; null = balanced. */
   profile?: string | null;
   /** What an ETF invests in; rated ETFs only. */
   fund_profile?: FundProfile | null;
 };
+
+export type DividendInfo = {
+  per_year: number;
+  /** A regular payment per share, in the listing's currency. */
+  amount: number;
+  currency: string | null;
+  /** Unix seconds. */
+  last_ex_date: number;
+  /** Unix seconds; estimated from the schedule. */
+  next_ex_date: number | null;
+};
+
+export function fetchFx(pairs: string[]): Promise<{ rates: Record<string, number | null> }> {
+  if (pairs.length === 0) return Promise.resolve({ rates: {} });
+  return getJson(`/api/fx?pairs=${encodeURIComponent(pairs.join(','))}`);
+}
 
 export type FundProfile = {
   summary: string | null;
