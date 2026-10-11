@@ -17,6 +17,15 @@ from app.providers.market import MarketData  # noqa: E402
 
 def main() -> None:
     service = RatingService(MarketData())
+    if sys.argv[1:2] == ["--news-json"]:
+        # Raw Yahoo news responses, e.g. to record demo data.
+        import json
+
+        for ticker in sys.argv[2:]:
+            body = service.market.client._get("/v1/finance/search", {
+                "q": ticker, "quotesCount": 0, "newsCount": 12, "listsCount": 0, "enableFuzzyQuery": "false"})
+            print(f"NEWS {ticker} " + json.dumps({"news": body.get("news") or []}))
+        return
     for ticker in sys.argv[1:]:
         r = service.get(ticker.upper())
         print(f"\n=== {r.ticker} {r.name} ({r.exchange}, {r.currency}) price {r.price}")
