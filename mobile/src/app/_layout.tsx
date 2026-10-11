@@ -18,6 +18,7 @@ export default function RootLayout() {
         <Stack.Screen name="explore" options={{ title: 'Explore' }} />
         <Stack.Screen name="compare" options={{ title: 'Compare' }} />
         <Stack.Screen name="portfolio" options={{ title: 'My portfolio' }} />
+        <Stack.Screen name="privacy" options={{ title: 'Privacy' }} />
         <Stack.Screen name="about" options={{ title: 'How ratings work' }} />
       </Stack>
     </>

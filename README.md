@@ -18,6 +18,20 @@ Live app: https://stock-rater-n7st.onrender.com
   what matters for a fund, and its page shows what it holds. Other funds are
   shown with price trend, risk and dividends but not rated.
 
+## Features
+
+- **Ratings** for stocks worldwide, US-listed ETFs and crypto, with a breakdown and a definition of every
+  category, peer comparisons, an analyst outlook, score history and news.
+- **Investing styles** (Balanced, Dividend, Growth, Value, Safety first) reweight stocks' overall scores
+  everywhere in the app.
+- **Explore**: top 20 lists by category, by sector, for Canadian (TSX) stocks and for ETFs, rebuilt every
+  weekday for every investing style.
+- **Compare** up to three stocks, ETFs or coins side by side.
+- **My portfolio**: value and gains in US or Canadian dollars, dividend income by month, a dividend calendar,
+  a reinvestment projection, sector mix warnings, alerts (rating changes, dividend cuts, price drops) and a
+  backup code to move everything to another device. It's kept on the device only; nothing is uploaded.
+- Privacy policy at `/privacy`; publishing to the app stores is described in [STORE_RELEASE.md](STORE_RELEASE.md).
+
 ## How the rating works
 
 ### Stocks
@@ -99,6 +113,22 @@ analysts; Explore lists need 5). Yahoo serves forecasts only to logged-in
 sessions, which Render can't get, so the daily Explore job collects them into
 `backend/app/data/outlook.json`. The outlook is shown next to the rating but
 kept out of it: analysts' forecasts are often too optimistic.
+
+### Investing styles
+
+| Style | Weights (stocks) |
+| --- | --- |
+| Balanced | the standard weights above |
+| Dividend investor | dividends 30%, financial health 20%, consistency 15%, valuation 15%, profitability 10%, risk 5%, momentum 3%, growth 2%; no dividend counts as 0 |
+| Growth investor | growth 35%, momentum 20%, profitability 15%, valuation 10%, health 10%, consistency 5%, risk 5% |
+| Value investor | valuation 40%, profitability 15%, health 15%, consistency 10%, growth 10%, momentum 5%, risk 5% |
+| Safety first | risk 30%, health 25%, consistency 15%, profitability 15%, valuation 10%, momentum 5% |
+
+### Score history and news
+
+The daily job saves every rated ticker's score in `backend/app/data/history/` (one file per month, two
+years kept); stock pages chart it. News headlines come from Yahoo Finance's search, stories mainly about the
+company first.
 
 ### Labels
 

@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 
@@ -156,6 +157,9 @@ export default function About() {
       <Text style={styles.footnote}>
         Data from Yahoo Finance. Educational use only, not investment advice.
       </Text>
+      <Pressable onPress={() => router.push('/privacy')} accessibilityRole="link" style={{ alignSelf: 'center' }}>
+        <Text style={[styles.footnote, { color: colors.accent }]}>Privacy policy</Text>
+      </Pressable>
     </ScrollView>
   );
 }
