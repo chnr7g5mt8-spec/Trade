@@ -302,3 +302,16 @@ def test_special_dividend_on_a_payment_day():
     assert stocks._payments_per_year([t for t, _ in c.dividends]) == 4
     assert out["dividend_yield"] == pytest.approx(4 * 0.80 * 1.03 ** 9 / 50, rel=0.01)  # the special isn't annualised
     assert stocks._payments_per_year([T0, T0]) is None and stocks._payments_per_year([T0]) is None
+
+
+def test_dividend_schedule():
+    c = _quarterly()
+    last = c.dividends[-1][0]
+    d = stocks.dividend_schedule(c, last + 10 * DAY)
+    assert d.per_year == 4 and d.amount == pytest.approx(0.80 * 1.03 ** 9) and d.last_ex_date == last
+    assert d.next_ex_date == pytest.approx(last + 365.25 * DAY / 4, abs=1)
+    # Later than one gap: the estimate moves on to the next expected date.
+    assert stocks.dividend_schedule(c, last + 100 * DAY).next_ex_date == pytest.approx(last + 2 * 365.25 * DAY / 4,
+                                                                                        abs=1)
+    assert stocks.dividend_schedule(c, last + 200 * DAY) is None  # stopped paying
+    assert stocks.dividend_schedule(make_chart([1.0, 1.0]), T0) is None

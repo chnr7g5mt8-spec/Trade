@@ -15,7 +15,7 @@ from datetime import date, datetime, timezone
 from typing import Callable
 
 from .. import stats
-from ..models import Fact, Quote, StockData
+from ..models import DividendInfo, Fact, Quote, StockData
 from ..sources import yahoo
 from ..sources.yahoo import Chart, Point
 from .cache import TTLCache
@@ -267,6 +267,25 @@ def _annual_rate(amounts: list[float], per_year: int) -> float:
     return xs[len(xs) // 2] * per_year if len(xs) % 2 else (xs[len(xs) // 2 - 1] + xs[len(xs) // 2]) / 2 * per_year
 
 
+def dividend_schedule(chart: Chart, now: float) -> DividendInfo | None:
+    """The regular payment and the next expected ex-dividend date, when the company pays on a schedule."""
+    if not chart.dividends:
+        return None
+    times = [t for t, _ in chart.dividends]
+    per_year = _payments_per_year(times)
+    if not per_year:
+        return None
+    gap = 365.25 * 86400 / per_year
+    if now - times[-1] >= 1.6 * gap:
+        return None  # payments have stopped (or paused)
+    amount = _annual_rate([a for _, a in chart.dividends[-per_year:]], per_year) / per_year
+    nxt = times[-1] + gap
+    while nxt < now:
+        nxt += gap
+    return DividendInfo(per_year=per_year, amount=amount, currency=chart.currency, last_ex_date=int(times[-1]),
+                        next_ex_date=int(nxt))
+
+
 def _dividend_metrics(chart: Chart, price: float | None, now: float,
                       to_home: Callable[[int, float], float] | None = None) -> dict[str, float | None]:
     """Yield, 5-year growth and streak of increases.
@@ -351,6 +370,7 @@ def build_stock(ticker: str, chart: Chart, ts: dict[str, list[Point]], profile: 
     data["max_drawdown_1y"] = stats.max_drawdown(year)
     data["beta"] = beta(chart, index_chart, now=now)
     data.update(_dividend_metrics(chart, price, now, _converter(dividend_fx)))
+    data["dividend"] = dividend_schedule(chart, now)
 
     if asset_type == "fund":
         data["return_3y"] = annualized_return(chart, 3)

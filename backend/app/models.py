@@ -23,6 +23,16 @@ class Quote(BaseModel):
     price_history: list[float] = []  # ~1 year, downsampled for a sparkline
 
 
+class DividendInfo(BaseModel):
+    """A regular dividend: what each payment is and when the next is expected."""
+
+    per_year: int  # 1, 2, 4 or 12
+    amount: float  # a regular payment per share, in the listing's currency
+    currency: str | None = None
+    last_ex_date: int  # Unix seconds of the latest ex-dividend date
+    next_ex_date: int | None = None  # estimated from the schedule
+
+
 class StockData(BaseModel):
     """Raw inputs needed to rate a stock. Any metric may be missing (None)."""
 
@@ -77,6 +87,7 @@ class StockData(BaseModel):
     payout_ratio: float | None = None
     dividend_growth_5y: float | None = None  # annualised growth of the yearly dividend
     dividend_streak: float | None = None  # consecutive years of higher dividends
+    dividend: DividendInfo | None = None
 
     facts: list[Fact] = []
     notes: list[str] = []
@@ -186,6 +197,7 @@ class Rating(Quote):
     source: str
     outlook: Outlook | None = None
     fund_profile: FundProfile | None = None
+    dividend: DividendInfo | None = None
     profile: str | None = None  # investor profile the overall score is weighted for (None = balanced)
 
 

@@ -180,3 +180,18 @@ def test_unexpected_data_error_is_reported_not_crashed(monkeypatch):
     assert res.status_code == 502 and "doesn't understand" in res.json()["detail"]
     # One broken ticker doesn't blank out the watchlist.
     assert [r["ticker"] for r in client.get("/api/ratings?tickers=BAD,AAPL").json()] == ["AAPL"]
+
+
+def test_fx_endpoint(client, monkeypatch):
+    monkeypatch.setattr(main.service.market.stocks, "fx", lambda a, b: {"USDCAD": 1.37}.get(a + b))
+    assert client.get("/api/fx?pairs=usdcad,CADCAD,EURJPY").json() == {
+        "rates": {"USDCAD": 1.37, "CADCAD": 1.0, "EURJPY": None}}
+    assert client.get("/api/fx?pairs=USD").status_code == 400
+    too_many = ",".join(f"USDAA{chr(65 + i)}" for i in range(21))
+    assert client.get(f"/api/fx?pairs={too_many}").status_code == 400
+
+
+def test_rating_includes_dividend_schedule(client):
+    d = client.get("/api/rating/KO").json()["dividend"]
+    assert d["per_year"] == 4 and d["amount"] > 0 and d["next_ex_date"] > d["last_ex_date"]
+    assert client.get("/api/rating/BTC-USD").json()["dividend"] is None

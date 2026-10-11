@@ -237,6 +237,22 @@ def get_news(ticker: str) -> list[NewsItem]:
         raise HTTPException(status_code=502, detail=str(exc))
 
 
+CURRENCY_RE = re.compile(r"^[A-Z]{3}$")
+
+
+@app.get("/api/fx")
+def get_fx(pairs: str = Query(..., description="Comma-separated currency pairs, e.g. USDCAD,GBPCAD")) -> dict:
+    """Current exchange rates (units of the second currency per one of the first)."""
+    wanted = list(dict.fromkeys(p.strip().upper() for p in pairs.split(",") if p.strip()))
+    if len(wanted) > 20:
+        raise HTTPException(status_code=400, detail="At most 20 pairs per request")
+    for pair in wanted:
+        if len(pair) != 6 or not (CURRENCY_RE.match(pair[:3]) and CURRENCY_RE.match(pair[3:])):
+            raise HTTPException(status_code=400, detail=f"{pair!r} is not a currency pair like USDCAD")
+    return {"rates": {pair: 1.0 if pair[:3] == pair[3:] else service.market.stocks.fx(pair[:3], pair[3:])
+                      for pair in wanted}}
+
+
 @app.get("/api/methodology")
 def get_methodology() -> dict:
     """How ratings are computed, and how well they have done historically."""

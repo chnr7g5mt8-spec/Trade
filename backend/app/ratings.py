@@ -62,4 +62,5 @@ def to_rating(data: StockData | CryptoData, source: str, benchmarks: Benchmarks 
         notes=notes,
         source=source,
         fund_profile=fund_profile,
+        dividend=getattr(data, "dividend", None),
     )
