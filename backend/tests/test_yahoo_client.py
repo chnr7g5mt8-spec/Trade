@@ -111,3 +111,49 @@ def test_capture_script_requests_the_same_series_as_the_app():
     from app.providers.stocks import TIMESERIES_TYPES
 
     assert ns["TIMESERIES_TYPES"] == TIMESERIES_TYPES
+
+
+class _Response:
+    def __init__(self, status, body=None):
+        self.status_code = status
+        self._body = body
+
+    def json(self):
+        if self._body is None:
+            raise ValueError("not JSON")
+        return self._body
+
+
+class _Session:
+    def __init__(self, responses):
+        self.responses = list(responses)
+        self.calls = 0
+
+    def get(self, url, params=None, timeout=None):
+        self.calls += 1
+        r = self.responses.pop(0)
+        if isinstance(r, Exception):
+            raise r
+        return r
+
+
+def test_server_errors_and_dropped_connections_are_retried(monkeypatch):
+    from app.sources import yahoo
+
+    monkeypatch.setattr(yahoo.time, "sleep", lambda s: None)
+    session = _Session([_Response(500), ConnectionError("reset"), _Response(200, {"ok": 1})])
+    assert yahoo.Client(session=session)._get("/x", {}) == {"ok": 1} and session.calls == 3
+
+    always = _Session([_Response(503)] * 3)
+    with pytest.raises(yahoo.YahooError, match="503"):
+        yahoo.Client(session=always)._get("/x", {})
+    assert always.calls == 3
+
+    # Not retried: rate limits and unknown symbols.
+    limited = _Session([_Response(429)])
+    with pytest.raises(yahoo.YahooRateLimited):
+        yahoo.Client(session=limited)._get("/x", {})
+    missing = _Session([_Response(404)])
+    with pytest.raises(yahoo.YahooNotFound):
+        yahoo.Client(session=missing)._get("/x", {})
+    assert limited.calls == missing.calls == 1

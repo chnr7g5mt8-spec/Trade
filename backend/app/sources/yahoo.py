@@ -59,6 +59,14 @@ class Point:
     period: str | None  # "12M", "3M", "TTM"...
 
 
+class YahooTransient(YahooError):
+    """A server error or dropped connection that is worth retrying."""
+
+
+# Pauses before the 1st and 2nd retries.
+RETRY_WAITS = (0.5, 1.5)
+
+
 class Client:
     def __init__(self, session=None):
         if session is None:
@@ -69,12 +77,29 @@ class Client:
         self._session = session
 
     def _get(self, path: str, params: dict) -> dict:
-        """GET a path under BASE (or a full URL) and return the decoded JSON."""
+        """GET a path under BASE (or a full URL) and return the decoded JSON.
+
+        Yahoo now and then answers with a server error or drops a connection
+        for a moment; those are retried twice, briefly, before giving up.
+        """
+        for wait in RETRY_WAITS:
+            try:
+                return self._get_once(path, params)
+            except YahooTransient:
+                time.sleep(wait)
+        try:
+            return self._get_once(path, params)
+        except YahooTransient as exc:
+            raise YahooError(str(exc)) from exc
+
+    def _get_once(self, path: str, params: dict) -> dict:
         url = path if path.startswith("https://") else BASE + path
         try:
             r = self._session.get(url, params=params, timeout=TIMEOUT)
         except Exception as exc:
-            raise YahooError(f"network error: {exc}") from exc
+            raise YahooTransient(f"network error: {exc}") from exc
+        if r.status_code in (500, 502, 503, 504):
+            raise YahooTransient(f"HTTP {r.status_code}: Yahoo server error")
         if r.status_code == 429:
             raise YahooRateLimited("rate limited (HTTP 429)")
         if r.status_code == 404:
