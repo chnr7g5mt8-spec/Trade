@@ -80,6 +80,22 @@ def major_currency(code: str | None) -> tuple[str | None, float]:
     return code, 1.0
 
 
+def _market_cap_from_shares(ts: dict[str, list[Point]], price: float | None,
+                            quote_currency: str | None) -> tuple[float | None, str | None]:
+    """Shares outstanding x price, in the reporting currency.
+
+    Only for listings quoted in the company's own currency: a depositary
+    receipt in another currency can stand for several shares (one TSM ADR is
+    five shares), so shares x price would be wrong there.
+    """
+    shares = _balance(ts, "OrdinarySharesNumber")
+    major, units = major_currency(quote_currency)
+    home = home_currency(ts)
+    if not shares or shares.value <= 0 or not price or not home or home != major:
+        return None, None
+    return shares.value * price / units, home
+
+
 def home_currency(ts: dict[str, list[Point]]) -> str | None:
     """The currency the company reports in, from its latest annual figures."""
     seen = [pts[-1].currency for k, pts in ts.items() if k.startswith("annual") and pts and pts[-1].currency]
@@ -400,6 +416,12 @@ def build_stock(ticker: str, chart: Chart, ts: dict[str, list[Point]], profile: 
         if ev and ratio and ev[0].value > 0:
             ev_now = ev[0].value + market_cap - f[0].value  # debt and cash unchanged; equity repriced
             data["ev_to_ebitda"] = ratio[0].value * ev_now / ev[0].value
+    computed = False
+    if market_cap is None:
+        # Yahoo's ratios can be months old for some listings (ENB.TO's were); work the market cap out
+        # from the shares outstanding and today's price instead.
+        market_cap, cap_currency = _market_cap_from_shares(ts, price, chart.currency)
+        computed = market_cap is not None
     data["market_cap"] = market_cap
 
     ni = _ttm(ts, "NetIncomeCommonStockholders")
@@ -421,6 +443,14 @@ def build_stock(ticker: str, chart: Chart, ts: dict[str, list[Point]], profile: 
     else:
         data["return_on_equity"] = _ratio(ni, equity)
     data["return_on_assets"] = _ratio(ni, assets)
+    if computed:
+        # The same ratios Yahoo publishes, from the latest results and today's price.
+        if data.get("pe_ratio") is None and ni and ni.value > 0:
+            data["pe_ratio"] = market_cap / ni.value
+        if data.get("price_to_sales") is None and revenue and revenue.value > 0:
+            data["price_to_sales"] = market_cap / revenue.value
+        if data.get("price_to_book") is None and equity and equity.value > 0:
+            data["price_to_book"] = market_cap / equity.value
     if revenue and revenue.value > 0:
         data["gross_margin"] = _ratio(_ttm(ts, "GrossProfit"), revenue)
         data["operating_margin"] = _ratio(_ttm(ts, "OperatingIncome"), revenue)

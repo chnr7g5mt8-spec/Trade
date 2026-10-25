@@ -315,3 +315,23 @@ def test_dividend_schedule():
                                                                                         abs=1)
     assert stocks.dividend_schedule(c, last + 200 * DAY) is None  # stopped paying
     assert stocks.dividend_schedule(make_chart([1.0, 1.0]), T0) is None
+
+
+@pytest.mark.parametrize("ticker", ["KO", "MSFT", "XOM"])
+def test_valuation_is_worked_out_when_yahoos_ratios_are_stale(ticker):
+    # Real recorded data with Yahoo's published ratios removed, as when they're over 90 days old.
+    ts = timeseries(ticker)
+    with_yahoo = build_stock(ticker, chart(ticker), ts, profile(ticker), now=RECORDED_AT)
+    stale = {k: v for k, v in ts.items() if not any(k == "trailing" + item for item in stocks._VALUATION_ITEMS)}
+    own = build_stock(ticker, chart(ticker), stale, profile(ticker), now=RECORDED_AT)
+    assert own.market_cap == pytest.approx(with_yahoo.market_cap, rel=0.05)
+    for field in ("pe_ratio", "price_to_sales", "price_to_book", "fcf_yield"):
+        assert getattr(own, field) == pytest.approx(getattr(with_yahoo, field), rel=0.15), field
+    assert any(f.label == "Market cap" for f in own.facts)
+
+
+def test_no_worked_out_market_cap_for_receipts_in_another_currency():
+    # TSM's US receipts stand for five shares each; shares x price would be five times too small.
+    ts = {k: v for k, v in timeseries("TSM").items() if not k.startswith("trailingMarketCap")}
+    d = build_stock("TSM", chart("TSM"), ts, profile("TSM"), now=RECORDED_AT)
+    assert d.market_cap is None
