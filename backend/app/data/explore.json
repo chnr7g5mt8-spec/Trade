@@ -1,9 +1,9 @@
 {
- "generated_at": "2026-11-26T04:21+00:00",
+ "generated_at": "2026-11-27T04:29+00:00",
  "universe": "US-listed companies worth over $1B (including foreign companies' US listings), Toronto-listed companies worth over C$1B, US-listed ETFs worth over $500M and coins worth over $100M",
  "stocks_rated": 2399,
  "etfs_rated": 1431,
- "canadian_rated": 299,
+ "canadian_rated": 300,
  "coins_rated": 203,
  "lists": [
   {
@@ -256,17 +256,6 @@
      "exchange": "NasdaqGS"
     },
     {
-     "ticker": "SKHY",
-     "symbol": "SKHY",
-     "name": "SK hynix Inc.",
-     "score": 66.0,
-     "label": "Buy",
-     "category_score": 79.9,
-     "sector": "Technology",
-     "industry": "Semiconductors",
-     "exchange": "NasdaqGS"
-    },
-    {
      "ticker": "ATAT",
      "symbol": "ATAT",
      "name": "Atour Lifestyle Holdings Limited",
@@ -278,37 +267,15 @@
      "exchange": "NasdaqGS"
     },
     {
-     "ticker": "TSM",
-     "symbol": "TSM",
-     "name": "Taiwan Semiconductor Manufacturing Company Limited",
-     "score": 66.0,
-     "label": "Buy",
-     "category_score": 78.5,
-     "sector": "Technology",
-     "industry": "Semiconductors",
-     "exchange": "NYSE"
-    },
-    {
-     "ticker": "AVGO",
-     "symbol": "AVGO",
-     "name": "Broadcom Inc.",
-     "score": 59.0,
-     "label": "Hold",
-     "category_score": 76.7,
-     "sector": "Technology",
-     "industry": "Semiconductors",
-     "exchange": "NasdaqGS"
-    },
-    {
-     "ticker": "ALM",
-     "symbol": "ALM",
-     "name": "Almonty Industries Inc.",
-     "score": 54.0,
+     "ticker": "ASML",
+     "symbol": "ASML",
+     "name": "ASML Holding N.V.",
+     "score": 62.0,
      "label": "Hold",
      "category_score": 76.5,
-     "sector": "Basic Materials",
-     "industry": "Other Industrial Metals & Mining",
-     "exchange": "NasdaqCM"
+     "sector": "Technology",
+     "industry": "Semiconductor Equipment & Materials",
+     "exchange": "NasdaqGS"
     },
     {
      "ticker": "NVT",
@@ -316,21 +283,21 @@
      "name": "nVent Electric plc",
      "score": 60.0,
      "label": "Hold",
-     "category_score": 76.4,
+     "category_score": 76.5,
      "sector": "Industrials",
      "industry": "Electrical Equipment & Parts",
      "exchange": "NYSE"
     },
     {
-     "ticker": "ASML",
-     "symbol": "ASML",
-     "name": "ASML Holding N.V.",
-     "score": 62.0,
+     "ticker": "ALM",
+     "symbol": "ALM",
+     "name": "Almonty Industries Inc.",
+     "score": 54.0,
      "label": "Hold",
-     "category_score": 76.3,
-     "sector": "Technology",
-     "industry": "Semiconductor Equipment & Materials",
-     "exchange": "NasdaqGS"
+     "category_score": 76.4,
+     "sector": "Basic Materials",
+     "industry": "Other Industrial Metals & Mining",
+     "exchange": "NasdaqCM"
     },
     {
      "ticker": "ANET",
@@ -344,17 +311,6 @@
      "exchange": "NYSE"
     },
     {
-     "ticker": "MU",
-     "symbol": "MU",
-     "name": "Micron Technology, Inc.",
-     "score": 69.0,
-     "label": "Buy",
-     "category_score": 76.2,
-     "sector": "Technology",
-     "industry": "Semiconductors",
-     "exchange": "NasdaqGS"
-    },
-    {
      "ticker": "LRCX",
      "symbol": "LRCX",
      "name": "Lam Research Corporation",
@@ -363,17 +319,6 @@
      "category_score": 75.9,
      "sector": "Technology",
      "industry": "Semiconductor Equipment & Materials",
-     "exchange": "NasdaqGS"
-    },
-    {
-     "ticker": "NVDA",
-     "symbol": "NVDA",
-     "name": "NVIDIA Corporation",
-     "score": 63.0,
-     "label": "Hold",
-     "category_score": 75.8,
-     "sector": "Technology",
-     "industry": "Semiconductors",
      "exchange": "NasdaqGS"
     },
     {
@@ -388,12 +333,23 @@
      "exchange": "NasdaqGS"
     },
     {
+     "ticker": "NVDA",
+     "symbol": "NVDA",
+     "name": "NVIDIA Corporation",
+     "score": 63.0,
+     "label": "Hold",
+     "category_score": 75.8,
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "exchange": "NasdaqGS"
+    },
+    {
      "ticker": "APH",
      "symbol": "APH",
      "name": "Amphenol Corporation",
      "score": 64.0,
      "label": "Hold",
-     "category_score": 75.6,
+     "category_score": 75.7,
      "sector": "Technology",
      "industry": "Electronic Components",
      "exchange": "NYSE"
@@ -404,7 +360,7 @@
      "name": "Silicon Motion Technology Corporation",
      "score": 57.0,
      "label": "Hold",
-     "category_score": 75.6,
+     "category_score": 75.7,
      "sector": "Technology",
      "industry": "Semiconductors",
      "exchange": "NasdaqGS"
@@ -426,7 +382,7 @@
      "name": "Pattern Group Inc.",
      "score": 61.0,
      "label": "Hold",
-     "category_score": 75.0,
+     "category_score": 75.1,
      "sector": "Consumer Cyclical",
      "industry": "Internet Retail",
      "exchange": "NasdaqGS"
@@ -448,7 +404,7 @@
      "name": "argenx SE",
      "score": 73.0,
      "label": "Buy",
-     "category_score": 74.9,
+     "category_score": 75.0,
      "sector": "Healthcare",
      "industry": "Biotechnology",
      "exchange": "NasdaqGS"
@@ -459,10 +415,54 @@
      "name": "DLocal Limited",
      "score": 62.0,
      "label": "Hold",
-     "category_score": 74.9,
+     "category_score": 75.0,
      "sector": "Technology",
      "industry": "Software\u2014Infrastructure",
      "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "CRDO",
+     "symbol": "CRDO",
+     "name": "Credo Technology Group Holding Ltd",
+     "score": 55.0,
+     "label": "Hold",
+     "category_score": 74.8,
+     "sector": "Technology",
+     "industry": "Semiconductors",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "NBIX",
+     "symbol": "NBIX",
+     "name": "Neurocrine Biosciences, Inc.",
+     "score": 75.0,
+     "label": "Buy",
+     "category_score": 74.7,
+     "sector": "Healthcare",
+     "industry": "Drug Manufacturers\u2014Specialty & Generic",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "TER",
+     "symbol": "TER",
+     "name": "Teradyne, Inc.",
+     "score": 61.0,
+     "label": "Hold",
+     "category_score": 74.6,
+     "sector": "Technology",
+     "industry": "Semiconductor Equipment & Materials",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "CLS",
+     "symbol": "CLS",
+     "name": "Celestica Inc.",
+     "score": 52.0,
+     "label": "Hold",
+     "category_score": 74.5,
+     "sector": "Technology",
+     "industry": "Electronic Components",
+     "exchange": "NYSE"
     }
    ]
   },
@@ -480,7 +480,7 @@
      "name": "Almonty Industries Inc.",
      "score": 54.0,
      "label": "Hold",
-     "category_score": 98.9,
+     "category_score": 98.8,
      "sector": "Basic Materials",
      "industry": "Other Industrial Metals & Mining",
      "exchange": "NasdaqCM"
@@ -519,23 +519,12 @@
      "exchange": "NasdaqGS"
     },
     {
-     "ticker": "FTAI",
-     "symbol": "FTAI",
-     "name": "FTAI Aviation Ltd.",
-     "score": 47.0,
-     "label": "Hold",
-     "category_score": 95.2,
-     "sector": "Industrials",
-     "industry": "Aerospace & Defense",
-     "exchange": "NasdaqGS"
-    },
-    {
      "ticker": "TSEM",
      "symbol": "TSEM",
      "name": "Tower Semiconductor Ltd.",
      "score": 50.0,
      "label": "Hold",
-     "category_score": 94.8,
+     "category_score": 94.9,
      "sector": "Technology",
      "industry": "Semiconductors",
      "exchange": "NasdaqGS"
@@ -574,34 +563,12 @@
      "exchange": "NasdaqGS"
     },
     {
-     "ticker": "AVGO",
-     "symbol": "AVGO",
-     "name": "Broadcom Inc.",
-     "score": 59.0,
-     "label": "Hold",
-     "category_score": 94.4,
-     "sector": "Technology",
-     "industry": "Semiconductors",
-     "exchange": "NasdaqGS"
-    },
-    {
      "ticker": "SIMO",
      "symbol": "SIMO",
      "name": "Silicon Motion Technology Corporation",
      "score": 57.0,
      "label": "Hold",
-     "category_score": 94.2,
-     "sector": "Technology",
-     "industry": "Semiconductors",
-     "exchange": "NasdaqGS"
-    },
-    {
-     "ticker": "SKHY",
-     "symbol": "SKHY",
-     "name": "SK hynix Inc.",
-     "score": 66.0,
-     "label": "Buy",
-     "category_score": 93.8,
+     "category_score": 94.3,
      "sector": "Technology",
      "industry": "Semiconductors",
      "exchange": "NasdaqGS"
@@ -612,7 +579,7 @@
      "name": "Advanced Micro Devices, Inc.",
      "score": 52.0,
      "label": "Hold",
-     "category_score": 93.8,
+     "category_score": 93.9,
      "sector": "Technology",
      "industry": "Semiconductors",
      "exchange": "NasdaqGS"
@@ -623,7 +590,7 @@
      "name": "Sterling Infrastructure, Inc.",
      "score": 58.0,
      "label": "Hold",
-     "category_score": 93.5,
+     "category_score": 93.7,
      "sector": "Industrials",
      "industry": "Engineering & Construction",
      "exchange": "NasdaqGS"
@@ -640,6 +607,17 @@
      "exchange": "NasdaqGS"
     },
     {
+     "ticker": "ANAB",
+     "symbol": "ANAB",
+     "name": "AnaptysBio, Inc.",
+     "score": 46.0,
+     "label": "Hold",
+     "category_score": 93.4,
+     "sector": "Healthcare",
+     "industry": "Biotechnology",
+     "exchange": "NasdaqGS"
+    },
+    {
      "ticker": "STX",
      "symbol": "STX",
      "name": "Seagate Technology Holdings plc",
@@ -648,6 +626,17 @@
      "category_score": 93.3,
      "sector": "Technology",
      "industry": "Computer Hardware",
+     "exchange": "NasdaqGS"
+    },
+    {
+     "ticker": "AEIS",
+     "symbol": "AEIS",
+     "name": "Advanced Energy Industries, Inc.",
+     "score": 52.0,
+     "label": "Hold",
+     "category_score": 93.1,
+     "sector": "Industrials",
+     "industry": "Electrical Equipment & Parts",
      "exchange": "NasdaqGS"
     },
     {
@@ -673,14 +662,14 @@
      "exchange": "NYSE"
     },
     {
-     "ticker": "AEIS",
-     "symbol": "AEIS",
-     "name": "Advanced Energy Industries, Inc.",
-     "score": 52.0,
+     "ticker": "DIOD",
+     "symbol": "DIOD",
+     "name": "Diodes Incorporated",
+     "score": 51.0,
      "label": "Hold",
      "category_score": 93.0,
-     "sector": "Industrials",
-     "industry": "Electrical Equipment & Parts",
+     "sector": "Technology",
+     "industry": "Semiconductors",
      "exchange": "NasdaqGS"
     },
     {
@@ -689,10 +678,21 @@
      "name": "nVent Electric plc",
      "score": 60.0,
      "label": "Hold",
-     "category_score": 92.8,
+     "category_score": 92.9,
      "sector": "Industrials",
      "industry": "Electrical Equipment & Parts",
      "exchange": "NYSE"
+    },
+    {
+     "ticker": "WDC",
+     "symbol": "WDC",
+     "name": "Western Digital Corporation",
+     "score": 56.0,
+     "label": "Hold",
+     "category_score": 92.5,
+     "sector": "Technology",
+     "industry": "Computer Hardware",
+     "exchange": "NasdaqGS"
     }
    ]
   },
@@ -2099,19 +2099,8 @@
      "ticker": "JST-USD",
      "symbol": "JST",
      "name": "JUST",
-     "score": 77.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": null,
-     "industry": null,
-     "exchange": null
-    },
-    {
-     "ticker": "TRX-USD",
-     "symbol": "TRX",
-     "name": "TRON",
-     "score": 69.0,
-     "label": "Buy",
+     "score": 80.0,
+     "label": "Strong Buy",
      "category_score": null,
      "sector": null,
      "industry": null,
@@ -2129,33 +2118,11 @@
      "exchange": null
     },
     {
-     "ticker": "DGAI-USD",
-     "symbol": "DGAI",
-     "name": "DGrid AI",
-     "score": 65.0,
+     "ticker": "TRX-USD",
+     "symbol": "TRX",
+     "name": "TRON",
+     "score": 67.0,
      "label": "Buy",
-     "category_score": null,
-     "sector": null,
-     "industry": null,
-     "exchange": null
-    },
-    {
-     "ticker": "BTC-USD",
-     "symbol": "BTC",
-     "name": "Bitcoin",
-     "score": 64.0,
-     "label": "Hold",
-     "category_score": null,
-     "sector": null,
-     "industry": null,
-     "exchange": null
-    },
-    {
-     "ticker": "GOMINING-USD",
-     "symbol": "GOMINING",
-     "name": "Go\u041cining",
-     "score": 64.0,
-     "label": "Hold",
      "category_score": null,
      "sector": null,
      "industry": null,
@@ -2165,7 +2132,18 @@
      "ticker": "VVV35509-USD",
      "symbol": "VVV",
      "name": "Venice Token",
-     "score": 64.0,
+     "score": 65.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": null,
+     "industry": null,
+     "exchange": null
+    },
+    {
+     "ticker": "GOMINING-USD",
+     "symbol": "GOMINING",
+     "name": "Go\u041cining",
+     "score": 63.0,
      "label": "Hold",
      "category_score": null,
      "sector": null,
@@ -2176,7 +2154,7 @@
      "ticker": "LEO-USD",
      "symbol": "LEO",
      "name": "UNUS SED LEO",
-     "score": 62.0,
+     "score": 63.0,
      "label": "Hold",
      "category_score": null,
      "sector": null,
@@ -2184,10 +2162,10 @@
      "exchange": null
     },
     {
-     "ticker": "XMR-USD",
-     "symbol": "XMR",
-     "name": "Monero",
-     "score": 59.0,
+     "ticker": "CAP40531-USD",
+     "symbol": "CAP",
+     "name": "Cap",
+     "score": 61.0,
      "label": "Hold",
      "category_score": null,
      "sector": null,
@@ -2195,10 +2173,10 @@
      "exchange": null
     },
     {
-     "ticker": "APEPE27048-USD",
-     "symbol": "APEPE",
-     "name": "Ape and Pepe",
-     "score": 58.0,
+     "ticker": "DGAI-USD",
+     "symbol": "DGAI",
+     "name": "DGrid AI",
+     "score": 61.0,
      "label": "Hold",
      "category_score": null,
      "sector": null,
@@ -2209,6 +2187,39 @@
      "ticker": "DRV35014-USD",
      "symbol": "DRV",
      "name": "Derive",
+     "score": 59.0,
+     "label": "Hold",
+     "category_score": null,
+     "sector": null,
+     "industry": null,
+     "exchange": null
+    },
+    {
+     "ticker": "HYPE32196-USD",
+     "symbol": "HYPE",
+     "name": "Hyperliquid",
+     "score": 59.0,
+     "label": "Hold",
+     "category_score": null,
+     "sector": null,
+     "industry": null,
+     "exchange": null
+    },
+    {
+     "ticker": "BTC-USD",
+     "symbol": "BTC",
+     "name": "Bitcoin",
+     "score": 58.0,
+     "label": "Hold",
+     "category_score": null,
+     "sector": null,
+     "industry": null,
+     "exchange": null
+    },
+    {
+     "ticker": "ETH-USD",
+     "symbol": "ETH",
+     "name": "Ethereum",
      "score": 57.0,
      "label": "Hold",
      "category_score": null,
@@ -2228,9 +2239,9 @@
      "exchange": null
     },
     {
-     "ticker": "ETH-USD",
-     "symbol": "ETH",
-     "name": "Ethereum",
+     "ticker": "XMR-USD",
+     "symbol": "XMR",
+     "name": "Monero",
      "score": 56.0,
      "label": "Hold",
      "category_score": null,
@@ -2239,20 +2250,9 @@
      "exchange": null
     },
     {
-     "ticker": "CAP40531-USD",
-     "symbol": "CAP",
-     "name": "Cap",
-     "score": 55.0,
-     "label": "Hold",
-     "category_score": null,
-     "sector": null,
-     "industry": null,
-     "exchange": null
-    },
-    {
-     "ticker": "HYPE32196-USD",
-     "symbol": "HYPE",
-     "name": "Hyperliquid",
+     "ticker": "APEPE27048-USD",
+     "symbol": "APEPE",
+     "name": "Ape and Pepe",
      "score": 55.0,
      "label": "Hold",
      "category_score": null,
@@ -2272,6 +2272,17 @@
      "exchange": null
     },
     {
+     "ticker": "BRWL-USD",
+     "symbol": "BRWL",
+     "name": "Blockchain Brawlers",
+     "score": 54.0,
+     "label": "Hold",
+     "category_score": null,
+     "sector": null,
+     "industry": null,
+     "exchange": null
+    },
+    {
      "ticker": "ARIA38102-USD",
      "symbol": "ARIA",
      "name": "AriaAI",
@@ -2283,21 +2294,10 @@
      "exchange": null
     },
     {
-     "ticker": "D11374-USD",
-     "symbol": "D11374",
-     "name": "DAR Open Network",
-     "score": 53.0,
-     "label": "Hold",
-     "category_score": null,
-     "sector": null,
-     "industry": null,
-     "exchange": null
-    },
-    {
      "ticker": "BNB-USD",
      "symbol": "BNB",
      "name": "BNB",
-     "score": 52.0,
+     "score": 53.0,
      "label": "Hold",
      "category_score": null,
      "sector": null,
@@ -4813,6 +4813,17 @@
      "exchange": "NYSE"
     },
     {
+     "ticker": "CIG-C",
+     "symbol": "CIG-C",
+     "name": "Companhia Energ\u00e9tica de Minas Gerais - CEMIG",
+     "score": 59.0,
+     "label": "Hold",
+     "category_score": null,
+     "sector": "Utilities",
+     "industry": "Utilities\u2014Regulated Electric",
+     "exchange": "NYSE"
+    },
+    {
      "ticker": "D",
      "symbol": "D",
      "name": "Dominion Energy, Inc.",
@@ -4822,17 +4833,6 @@
      "sector": "Utilities",
      "industry": "Utilities\u2014Regulated Electric",
      "exchange": "NYSE"
-    },
-    {
-     "ticker": "EXC",
-     "symbol": "EXC",
-     "name": "Exelon Corporation",
-     "score": 59.0,
-     "label": "Hold",
-     "category_score": null,
-     "sector": "Utilities",
-     "industry": "Utilities\u2014Regulated Electric",
-     "exchange": "NasdaqGS"
     }
    ]
   },
@@ -4878,6 +4878,17 @@
      "exchange": "Toronto"
     },
     {
+     "ticker": "CEU.TO",
+     "symbol": "CEU.TO",
+     "name": "CES Energy Solutions Corp.",
+     "score": 70.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Energy",
+     "industry": "Oil & Gas Equipment & Services",
+     "exchange": "Toronto"
+    },
+    {
      "ticker": "CRT-UN.TO",
      "symbol": "CRT-UN.TO",
      "name": "CT Real Estate Investment Trust",
@@ -4886,6 +4897,39 @@
      "category_score": null,
      "sector": "Real Estate",
      "industry": "REIT\u2014Retail",
+     "exchange": "Toronto"
+    },
+    {
+     "ticker": "CYB.TO",
+     "symbol": "CYB.TO",
+     "name": "Cymbria Corporation",
+     "score": 70.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Asset Management",
+     "exchange": "Toronto"
+    },
+    {
+     "ticker": "SU.TO",
+     "symbol": "SU.TO",
+     "name": "Suncor Energy Inc.",
+     "score": 70.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Energy",
+     "industry": "Oil & Gas Integrated",
+     "exchange": "Toronto"
+    },
+    {
+     "ticker": "TOT.TO",
+     "symbol": "TOT.TO",
+     "name": "Total Energy Services Inc.",
+     "score": 70.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Energy",
+     "industry": "Oil & Gas Equipment & Services",
      "exchange": "Toronto"
     },
     {
@@ -4900,20 +4944,9 @@
      "exchange": "Toronto"
     },
     {
-     "ticker": "CEU.TO",
-     "symbol": "CEU.TO",
-     "name": "CES Energy Solutions Corp.",
-     "score": 69.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Energy",
-     "industry": "Oil & Gas Equipment & Services",
-     "exchange": "Toronto"
-    },
-    {
-     "ticker": "CYB.TO",
-     "symbol": "CYB.TO",
-     "name": "Cymbria Corporation",
+     "ticker": "CVG.TO",
+     "symbol": "CVG.TO",
+     "name": "Clairvest Group Inc.",
      "score": 69.0,
      "label": "Buy",
      "category_score": null,
@@ -4933,25 +4966,14 @@
      "exchange": "Toronto"
     },
     {
-     "ticker": "SU.TO",
-     "symbol": "SU.TO",
-     "name": "Suncor Energy Inc.",
+     "ticker": "PEY.TO",
+     "symbol": "PEY.TO",
+     "name": "Peyto Exploration & Development Corp.",
      "score": 69.0,
      "label": "Buy",
      "category_score": null,
      "sector": "Energy",
-     "industry": "Oil & Gas Integrated",
-     "exchange": "Toronto"
-    },
-    {
-     "ticker": "TOT.TO",
-     "symbol": "TOT.TO",
-     "name": "Total Energy Services Inc.",
-     "score": 69.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Energy",
-     "industry": "Oil & Gas Equipment & Services",
+     "industry": "Oil & Gas E&P",
      "exchange": "Toronto"
     },
     {
@@ -4966,17 +4988,6 @@
      "exchange": "Toronto"
     },
     {
-     "ticker": "CVG.TO",
-     "symbol": "CVG.TO",
-     "name": "Clairvest Group Inc.",
-     "score": 68.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Financial Services",
-     "industry": "Asset Management",
-     "exchange": "Toronto"
-    },
-    {
      "ticker": "DSG.TO",
      "symbol": "DSG.TO",
      "name": "The Descartes Systems Group Inc.",
@@ -4988,14 +4999,25 @@
      "exchange": "Toronto"
     },
     {
-     "ticker": "PEY.TO",
-     "symbol": "PEY.TO",
-     "name": "Peyto Exploration & Development Corp.",
+     "ticker": "FIH-U.TO",
+     "symbol": "FIH-U.TO",
+     "name": "Fairfax India Holdings Corporation",
      "score": 68.0,
      "label": "Buy",
      "category_score": null,
-     "sector": "Energy",
-     "industry": "Oil & Gas E&P",
+     "sector": "Financial Services",
+     "industry": "Asset Management",
+     "exchange": "Toronto"
+    },
+    {
+     "ticker": "NFI.TO",
+     "symbol": "NFI.TO",
+     "name": "NFI Group Inc.",
+     "score": 68.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Consumer Cyclical",
+     "industry": "Auto Manufacturers",
      "exchange": "Toronto"
     },
     {
@@ -5021,6 +5043,17 @@
      "exchange": "Toronto"
     },
     {
+     "ticker": "IGM.TO",
+     "symbol": "IGM.TO",
+     "name": "IGM Financial Inc.",
+     "score": 67.0,
+     "label": "Buy",
+     "category_score": null,
+     "sector": "Financial Services",
+     "industry": "Asset Management",
+     "exchange": "Toronto"
+    },
+    {
      "ticker": "JWEL.TO",
      "symbol": "JWEL.TO",
      "name": "Jamieson Wellness Inc.",
@@ -5029,39 +5062,6 @@
      "category_score": null,
      "sector": "Consumer Defensive",
      "industry": "Packaged Foods",
-     "exchange": "Toronto"
-    },
-    {
-     "ticker": "NFI.TO",
-     "symbol": "NFI.TO",
-     "name": "NFI Group Inc.",
-     "score": 67.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Consumer Cyclical",
-     "industry": "Auto Manufacturers",
-     "exchange": "Toronto"
-    },
-    {
-     "ticker": "PSI.TO",
-     "symbol": "PSI.TO",
-     "name": "Pason Systems Inc.",
-     "score": 67.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Energy",
-     "industry": "Oil & Gas Equipment & Services",
-     "exchange": "Toronto"
-    },
-    {
-     "ticker": "WDO.TO",
-     "symbol": "WDO.TO",
-     "name": "Wesdome Gold Mines Ltd.",
-     "score": 67.0,
-     "label": "Buy",
-     "category_score": null,
-     "sector": "Basic Materials",
-     "industry": "Gold",
      "exchange": "Toronto"
     }
    ]
@@ -5089,7 +5089,7 @@
      "ticker": "OTEX.TO",
      "symbol": "OTEX.TO",
      "name": "Open Text Corporation",
-     "score": 55.0,
+     "score": 56.0,
      "label": "Hold",
      "category_score": 96.6,
      "sector": "Technology",
@@ -5102,7 +5102,7 @@
      "name": "Canadian Natural Resources Limited",
      "score": 67.0,
      "label": "Buy",
-     "category_score": 93.9,
+     "category_score": 93.8,
      "sector": "Energy",
      "industry": "Oil & Gas E&P",
      "exchange": "Toronto"
@@ -5113,20 +5113,9 @@
      "name": "TFI International Inc.",
      "score": 50.0,
      "label": "Hold",
-     "category_score": 90.5,
+     "category_score": 90.3,
      "sector": "Industrials",
      "industry": "Trucking",
-     "exchange": "Toronto"
-    },
-    {
-     "ticker": "WGX.TO",
-     "symbol": "WGX.TO",
-     "name": "Westgold Resources Limited",
-     "score": 55.0,
-     "label": "Hold",
-     "category_score": 89.5,
-     "sector": "Basic Materials",
-     "industry": "Gold",
      "exchange": "Toronto"
     },
     {
@@ -5138,6 +5127,17 @@
      "category_score": 88.7,
      "sector": "Basic Materials",
      "industry": "Lumber & Wood Production",
+     "exchange": "Toronto"
+    },
+    {
+     "ticker": "WGX.TO",
+     "symbol": "WGX.TO",
+     "name": "Westgold Resources Limited",
+     "score": 55.0,
+     "label": "Hold",
+     "category_score": 88.7,
+     "sector": "Basic Materials",
+     "industry": "Gold",
      "exchange": "Toronto"
     },
     {
@@ -5155,9 +5155,9 @@
      "ticker": "BDGI.TO",
      "symbol": "BDGI.TO",
      "name": "Badger Infrastructure Solutions Ltd.",
-     "score": 54.0,
+     "score": 55.0,
      "label": "Hold",
-     "category_score": 87.7,
+     "category_score": 87.6,
      "sector": "Industrials",
      "industry": "Engineering & Construction",
      "exchange": "Toronto"
@@ -5201,7 +5201,7 @@
      "name": "Canadian National Railway Company",
      "score": 68.0,
      "label": "Buy",
-     "category_score": 84.8,
+     "category_score": 84.7,
      "sector": "Industrials",
      "industry": "Railroads",
      "exchange": "Toronto"
@@ -5212,7 +5212,7 @@
      "name": "ADENTRA Inc.",
      "score": 64.0,
      "label": "Hold",
-     "category_score": 84.3,
+     "category_score": 84.4,
      "sector": "Industrials",
      "industry": "Industrial Distribution",
      "exchange": "Toronto"
@@ -5234,7 +5234,7 @@
      "name": "Endeavour Mining plc",
      "score": 55.0,
      "label": "Hold",
-     "category_score": 81.9,
+     "category_score": 81.8,
      "sector": "Basic Materials",
      "industry": "Gold",
      "exchange": "Toronto"
@@ -5287,7 +5287,7 @@
      "ticker": "FTS.TO",
      "symbol": "FTS.TO",
      "name": "Fortis Inc.",
-     "score": 60.0,
+     "score": 59.0,
      "label": "Hold",
      "category_score": 80.0,
      "sector": "Utilities",
@@ -5319,7 +5319,7 @@
      "ticker": "LAS-A.TO",
      "symbol": "LAS-A.TO",
      "name": "Lassonde Industries Inc.",
-     "score": 58.0,
+     "score": 57.0,
      "label": "Hold",
      "category_score": 98.0,
      "sector": "Consumer Defensive",
@@ -5332,7 +5332,7 @@
      "name": "Parex Resources Inc.",
      "score": 60.0,
      "label": "Hold",
-     "category_score": 97.8,
+     "category_score": 97.7,
      "sector": "Energy",
      "industry": "Oil & Gas E&P",
      "exchange": "Toronto"
@@ -5341,7 +5341,7 @@
      "ticker": "OTEX.TO",
      "symbol": "OTEX.TO",
      "name": "Open Text Corporation",
-     "score": 55.0,
+     "score": 56.0,
      "label": "Hold",
      "category_score": 97.6,
      "sector": "Technology",
@@ -5354,20 +5354,9 @@
      "name": "ADENTRA Inc.",
      "score": 64.0,
      "label": "Hold",
-     "category_score": 96.6,
+     "category_score": 96.8,
      "sector": "Industrials",
      "industry": "Industrial Distribution",
-     "exchange": "Toronto"
-    },
-    {
-     "ticker": "BTO.TO",
-     "symbol": "BTO.TO",
-     "name": "B2Gold Corp.",
-     "score": 54.0,
-     "label": "Hold",
-     "category_score": 95.2,
-     "sector": "Basic Materials",
-     "industry": "Gold",
      "exchange": "Toronto"
     },
     {
@@ -5376,9 +5365,20 @@
      "name": "Cascades Inc.",
      "score": 60.0,
      "label": "Hold",
-     "category_score": 95.1,
+     "category_score": 95.0,
      "sector": "Consumer Cyclical",
      "industry": "Packaging & Containers",
+     "exchange": "Toronto"
+    },
+    {
+     "ticker": "BTO.TO",
+     "symbol": "BTO.TO",
+     "name": "B2Gold Corp.",
+     "score": 54.0,
+     "label": "Hold",
+     "category_score": 95.0,
+     "sector": "Basic Materials",
+     "industry": "Gold",
      "exchange": "Toronto"
     },
     {
@@ -5387,7 +5387,7 @@
      "name": "Orezone Gold Corporation",
      "score": 63.0,
      "label": "Hold",
-     "category_score": 93.4,
+     "category_score": 93.2,
      "sector": "Basic Materials",
      "industry": "Gold",
      "exchange": "Toronto"
@@ -5396,9 +5396,9 @@
      "ticker": "ERO.TO",
      "symbol": "ERO.TO",
      "name": "Ero Copper Corp.",
-     "score": 63.0,
+     "score": 62.0,
      "label": "Hold",
-     "category_score": 92.6,
+     "category_score": 92.5,
      "sector": "Basic Materials",
      "industry": "Copper",
      "exchange": "Toronto"
@@ -5431,7 +5431,7 @@
      "name": "Fortuna Mining Corp.",
      "score": 52.0,
      "label": "Hold",
-     "category_score": 90.2,
+     "category_score": 89.8,
      "sector": "Basic Materials",
      "industry": "Gold",
      "exchange": "Toronto"
@@ -5440,9 +5440,9 @@
      "ticker": "LNR.TO",
      "symbol": "LNR.TO",
      "name": "Linamar Corporation",
-     "score": 66.0,
+     "score": 65.0,
      "label": "Buy",
-     "category_score": 89.2,
+     "category_score": 89.5,
      "sector": "Consumer Cyclical",
      "industry": "Auto Parts",
      "exchange": "Toronto"
@@ -5453,7 +5453,7 @@
      "name": "Trican Well Service Ltd.",
      "score": 66.0,
      "label": "Buy",
-     "category_score": 89.0,
+     "category_score": 88.8,
      "sector": "Energy",
      "industry": "Oil & Gas Equipment & Services",
      "exchange": "Toronto"
@@ -5464,7 +5464,7 @@
      "name": "Torex Resources Inc.",
      "score": 61.0,
      "label": "Hold",
-     "category_score": 88.1,
+     "category_score": 87.1,
      "sector": "Basic Materials",
      "industry": "Gold",
      "exchange": "Toronto"
@@ -5473,9 +5473,9 @@
      "ticker": "TOT.TO",
      "symbol": "TOT.TO",
      "name": "Total Energy Services Inc.",
-     "score": 69.0,
+     "score": 70.0,
      "label": "Buy",
-     "category_score": 87.9,
+     "category_score": 86.8,
      "sector": "Energy",
      "industry": "Oil & Gas Equipment & Services",
      "exchange": "Toronto"
@@ -5484,11 +5484,22 @@
      "ticker": "OGC.TO",
      "symbol": "OGC.TO",
      "name": "OceanaGold Corporation",
-     "score": 62.0,
+     "score": 63.0,
      "label": "Hold",
-     "category_score": 87.4,
+     "category_score": 86.3,
      "sector": "Basic Materials",
      "industry": "Gold",
+     "exchange": "Toronto"
+    },
+    {
+     "ticker": "SCZ.TO",
+     "symbol": "SCZ.TO",
+     "name": "Santacruz Silver Mining Ltd.",
+     "score": 65.0,
+     "label": "Buy",
+     "category_score": 85.2,
+     "sector": "Basic Materials",
+     "industry": "Other Industrial Metals & Mining",
      "exchange": "Toronto"
     },
     {
@@ -5497,29 +5508,18 @@
      "name": "IAMGOLD Corporation",
      "score": 57.0,
      "label": "Hold",
-     "category_score": 84.1,
+     "category_score": 83.1,
      "sector": "Basic Materials",
      "industry": "Gold",
      "exchange": "Toronto"
     },
     {
-     "ticker": "ARIS.TO",
-     "symbol": "ARIS.TO",
-     "name": "Aris Mining Corporation",
+     "ticker": "LUN.TO",
+     "symbol": "LUN.TO",
+     "name": "Lundin Mining Corporation",
      "score": 53.0,
      "label": "Hold",
-     "category_score": 82.8,
-     "sector": "Basic Materials",
-     "industry": "Gold",
-     "exchange": "Toronto"
-    },
-    {
-     "ticker": "CS.TO",
-     "symbol": "CS.TO",
-     "name": "Capstone Copper Corp.",
-     "score": 47.0,
-     "label": "Hold",
-     "category_score": 82.4,
+     "category_score": 82.0,
      "sector": "Basic Materials",
      "industry": "Copper",
      "exchange": "Toronto"
@@ -5538,7 +5538,7 @@
      "ticker": "FTS.TO",
      "symbol": "FTS.TO",
      "name": "Fortis Inc.",
-     "score": 60.0,
+     "score": 59.0,
      "label": "Hold",
      "category_score": 100.0,
      "sector": "Utilities",
@@ -5549,7 +5549,7 @@
      "ticker": "CVG.TO",
      "symbol": "CVG.TO",
      "name": "Clairvest Group Inc.",
-     "score": 68.0,
+     "score": 69.0,
      "label": "Buy",
      "category_score": 99.2,
      "sector": "Financial Services",
@@ -5560,7 +5560,7 @@
      "ticker": "CYB.TO",
      "symbol": "CYB.TO",
      "name": "Cymbria Corporation",
-     "score": 69.0,
+     "score": 70.0,
      "label": "Buy",
      "category_score": 97.9,
      "sector": "Financial Services",
@@ -5595,7 +5595,7 @@
      "name": "CCL Industries Inc.",
      "score": 72.0,
      "label": "Buy",
-     "category_score": 96.4,
+     "category_score": 96.5,
      "sector": "Consumer Cyclical",
      "industry": "Packaging & Containers",
      "exchange": "Toronto"
@@ -5612,6 +5612,17 @@
      "exchange": "Toronto"
     },
     {
+     "ticker": "H.TO",
+     "symbol": "H.TO",
+     "name": "Hydro One Limited",
+     "score": 56.0,
+     "label": "Hold",
+     "category_score": 95.4,
+     "sector": "Utilities",
+     "industry": "Utilities\u2014Regulated Electric",
+     "exchange": "Toronto"
+    },
+    {
      "ticker": "CU.TO",
      "symbol": "CU.TO",
      "name": "Canadian Utilities Limited",
@@ -5620,17 +5631,6 @@
      "category_score": 95.4,
      "sector": "Utilities",
      "industry": "Utilities\u2014Diversified",
-     "exchange": "Toronto"
-    },
-    {
-     "ticker": "H.TO",
-     "symbol": "H.TO",
-     "name": "Hydro One Limited",
-     "score": 56.0,
-     "label": "Hold",
-     "category_score": 95.3,
-     "sector": "Utilities",
-     "industry": "Utilities\u2014Regulated Electric",
      "exchange": "Toronto"
     },
     {
@@ -5648,7 +5648,7 @@
      "ticker": "MRU.TO",
      "symbol": "MRU.TO",
      "name": "Metro Inc.",
-     "score": 60.0,
+     "score": 59.0,
      "label": "Hold",
      "category_score": 95.0,
      "sector": "Consumer Defensive",
@@ -5681,7 +5681,7 @@
      "ticker": "CHP-UN.TO",
      "symbol": "CHP-UN.TO",
      "name": "Choice Properties Real Estate Investment Trust",
-     "score": 61.0,
+     "score": 60.0,
      "label": "Hold",
      "category_score": 94.3,
      "sector": "Real Estate",
@@ -5725,7 +5725,7 @@
      "ticker": "ELF.TO",
      "symbol": "ELF.TO",
      "name": "E-L Financial Corporation Limited",
-     "score": 62.0,
+     "score": 63.0,
      "label": "Hold",
      "category_score": 92.3,
      "sector": "Financial Services",
@@ -7378,36 +7378,14 @@
     "category_label": "Combined score",
     "items": [
      {
-      "ticker": "TSM",
-      "symbol": "TSM",
-      "name": "Taiwan Semiconductor Manufacturing Company Limited",
-      "score": 74.0,
-      "label": "Buy",
-      "category_score": 82.5,
-      "sector": "Technology",
-      "industry": "Semiconductors",
-      "exchange": "NYSE"
-     },
-     {
       "ticker": "AMAT",
       "symbol": "AMAT",
       "name": "Applied Materials, Inc.",
       "score": 75.0,
       "label": "Buy",
-      "category_score": 81.7,
+      "category_score": 81.8,
       "sector": "Technology",
       "industry": "Semiconductor Equipment & Materials",
-      "exchange": "NasdaqGS"
-     },
-     {
-      "ticker": "AVGO",
-      "symbol": "AVGO",
-      "name": "Broadcom Inc.",
-      "score": 68.0,
-      "label": "Buy",
-      "category_score": 81.2,
-      "sector": "Technology",
-      "industry": "Semiconductors",
       "exchange": "NasdaqGS"
      },
      {
@@ -7427,7 +7405,7 @@
       "name": "nVent Electric plc",
       "score": 67.0,
       "label": "Buy",
-      "category_score": 79.9,
+      "category_score": 80.0,
       "sector": "Industrials",
       "industry": "Electrical Equipment & Parts",
       "exchange": "NYSE"
@@ -7449,7 +7427,7 @@
       "name": "Amphenol Corporation",
       "score": 71.0,
       "label": "Buy",
-      "category_score": 79.1,
+      "category_score": 79.2,
       "sector": "Technology",
       "industry": "Electronic Components",
       "exchange": "NYSE"
@@ -7471,7 +7449,7 @@
       "name": "Atour Lifestyle Holdings Limited",
       "score": 75.0,
       "label": "Buy",
-      "category_score": 78.2,
+      "category_score": 78.3,
       "sector": "Consumer Cyclical",
       "industry": "Lodging",
       "exchange": "NasdaqGS"
@@ -7482,7 +7460,7 @@
       "name": "Silicon Motion Technology Corporation",
       "score": 62.0,
       "label": "Hold",
-      "category_score": 78.1,
+      "category_score": 78.2,
       "sector": "Technology",
       "industry": "Semiconductors",
       "exchange": "NasdaqGS"
@@ -7493,7 +7471,7 @@
       "name": "ASML Holding N.V.",
       "score": 65.0,
       "label": "Buy",
-      "category_score": 77.8,
+      "category_score": 78.0,
       "sector": "Technology",
       "industry": "Semiconductor Equipment & Materials",
       "exchange": "NasdaqGS"
@@ -7526,7 +7504,7 @@
       "name": "DLocal Limited",
       "score": 65.0,
       "label": "Buy",
-      "category_score": 76.4,
+      "category_score": 76.5,
       "sector": "Technology",
       "industry": "Software\u2014Infrastructure",
       "exchange": "NasdaqGS"
@@ -7548,7 +7526,7 @@
       "name": "Companhia de Saneamento B\u00e1sico do Estado de S\u00e3o Paulo - SABESP",
       "score": 65.0,
       "label": "Buy",
-      "category_score": 75.3,
+      "category_score": 75.2,
       "sector": "Utilities",
       "industry": "Utilities\u2014Regulated Water",
       "exchange": "NYSE"
@@ -7563,6 +7541,17 @@
       "sector": "Consumer Cyclical",
       "industry": "Auto Parts",
       "exchange": "NasdaqGS"
+     },
+     {
+      "ticker": "AGX",
+      "symbol": "AGX",
+      "name": "Argan, Inc.",
+      "score": 69.0,
+      "label": "Buy",
+      "category_score": 75.0,
+      "sector": "Industrials",
+      "industry": "Engineering & Construction",
+      "exchange": "NYSE"
      },
      {
       "ticker": "OPRA",
@@ -7581,7 +7570,7 @@
       "name": "NetEase, Inc.",
       "score": 75.0,
       "label": "Buy",
-      "category_score": 74.6,
+      "category_score": 74.7,
       "sector": "Communication Services",
       "industry": "Electronic Gaming & Multimedia",
       "exchange": "NasdaqGS"
@@ -7596,6 +7585,17 @@
       "sector": "Consumer Cyclical",
       "industry": "Internet Retail",
       "exchange": "NYSE"
+     },
+     {
+      "ticker": "STX",
+      "symbol": "STX",
+      "name": "Seagate Technology Holdings plc",
+      "score": 55.0,
+      "label": "Hold",
+      "category_score": 74.2,
+      "sector": "Technology",
+      "industry": "Computer Hardware",
+      "exchange": "NasdaqGS"
      }
     ]
    },
@@ -7619,28 +7619,6 @@
       "exchange": "NYSE"
      },
      {
-      "ticker": "SEI",
-      "symbol": "SEI",
-      "name": "Solaris Energy Infrastructure, Inc.",
-      "score": 45.0,
-      "label": "Hold",
-      "category_score": 95.8,
-      "sector": "Energy",
-      "industry": "Oil & Gas Equipment & Services",
-      "exchange": "NYSE"
-     },
-     {
-      "ticker": "FTAI",
-      "symbol": "FTAI",
-      "name": "FTAI Aviation Ltd.",
-      "score": 49.0,
-      "label": "Hold",
-      "category_score": 95.2,
-      "sector": "Industrials",
-      "industry": "Aerospace & Defense",
-      "exchange": "NasdaqGS"
-     },
-     {
       "ticker": "MRVL",
       "symbol": "MRVL",
       "name": "Marvell Technology, Inc.",
@@ -7652,34 +7630,12 @@
       "exchange": "NasdaqGS"
      },
      {
-      "ticker": "AVGO",
-      "symbol": "AVGO",
-      "name": "Broadcom Inc.",
-      "score": 68.0,
-      "label": "Buy",
-      "category_score": 94.4,
-      "sector": "Technology",
-      "industry": "Semiconductors",
-      "exchange": "NasdaqGS"
-     },
-     {
       "ticker": "SIMO",
       "symbol": "SIMO",
       "name": "Silicon Motion Technology Corporation",
       "score": 62.0,
       "label": "Hold",
-      "category_score": 94.2,
-      "sector": "Technology",
-      "industry": "Semiconductors",
-      "exchange": "NasdaqGS"
-     },
-     {
-      "ticker": "SKHY",
-      "symbol": "SKHY",
-      "name": "SK hynix Inc.",
-      "score": 50.0,
-      "label": "Hold",
-      "category_score": 93.8,
+      "category_score": 94.3,
       "sector": "Technology",
       "industry": "Semiconductors",
       "exchange": "NasdaqGS"
@@ -7690,7 +7646,7 @@
       "name": "Sterling Infrastructure, Inc.",
       "score": 48.0,
       "label": "Hold",
-      "category_score": 93.5,
+      "category_score": 93.7,
       "sector": "Industrials",
       "industry": "Engineering & Construction",
       "exchange": "NasdaqGS"
@@ -7712,7 +7668,7 @@
       "name": "Advanced Energy Industries, Inc.",
       "score": 55.0,
       "label": "Hold",
-      "category_score": 93.0,
+      "category_score": 93.1,
       "sector": "Industrials",
       "industry": "Electrical Equipment & Parts",
       "exchange": "NasdaqGS"
@@ -7723,7 +7679,7 @@
       "name": "nVent Electric plc",
       "score": 67.0,
       "label": "Buy",
-      "category_score": 92.8,
+      "category_score": 92.9,
       "sector": "Industrials",
       "industry": "Electrical Equipment & Parts",
       "exchange": "NYSE"
@@ -7767,7 +7723,7 @@
       "name": "ACM Research, Inc.",
       "score": 45.0,
       "label": "Hold",
-      "category_score": 91.4,
+      "category_score": 91.5,
       "sector": "Technology",
       "industry": "Semiconductor Equipment & Materials",
       "exchange": "NasdaqGM"
@@ -7778,20 +7734,9 @@
       "name": "Vertiv Holdings Co",
       "score": 63.0,
       "label": "Hold",
-      "category_score": 91.3,
+      "category_score": 91.4,
       "sector": "Industrials",
       "industry": "Electrical Equipment & Parts",
-      "exchange": "NYSE"
-     },
-     {
-      "ticker": "TSM",
-      "symbol": "TSM",
-      "name": "Taiwan Semiconductor Manufacturing Company Limited",
-      "score": 74.0,
-      "label": "Buy",
-      "category_score": 91.1,
-      "sector": "Technology",
-      "industry": "Semiconductors",
       "exchange": "NYSE"
      },
      {
@@ -7800,7 +7745,7 @@
       "name": "ASML Holding N.V.",
       "score": 65.0,
       "label": "Buy",
-      "category_score": 90.6,
+      "category_score": 90.9,
       "sector": "Technology",
       "industry": "Semiconductor Equipment & Materials",
       "exchange": "NasdaqGS"
@@ -7811,7 +7756,7 @@
       "name": "Sandisk Corporation",
       "score": 50.0,
       "label": "Hold",
-      "category_score": 90.6,
+      "category_score": 90.7,
       "sector": "Technology",
       "industry": "Computer Hardware",
       "exchange": "NasdaqGS"
@@ -7823,6 +7768,61 @@
       "score": 71.0,
       "label": "Buy",
       "category_score": 89.8,
+      "sector": "Technology",
+      "industry": "Semiconductor Equipment & Materials",
+      "exchange": "NasdaqGS"
+     },
+     {
+      "ticker": "STM",
+      "symbol": "STM",
+      "name": "STMicroelectronics N.V.",
+      "score": 50.0,
+      "label": "Hold",
+      "category_score": 89.4,
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "exchange": "NYSE"
+     },
+     {
+      "ticker": "RLX",
+      "symbol": "RLX",
+      "name": "RLX Technology Inc.",
+      "score": 49.0,
+      "label": "Hold",
+      "category_score": 89.3,
+      "sector": "Consumer Defensive",
+      "industry": "Tobacco",
+      "exchange": "NYSE"
+     },
+     {
+      "ticker": "FIX",
+      "symbol": "FIX",
+      "name": "Comfort Systems USA, Inc.",
+      "score": 70.0,
+      "label": "Buy",
+      "category_score": 89.1,
+      "sector": "Industrials",
+      "industry": "Engineering & Construction",
+      "exchange": "NYSE"
+     },
+     {
+      "ticker": "GLW",
+      "symbol": "GLW",
+      "name": "Corning Incorporated",
+      "score": 51.0,
+      "label": "Hold",
+      "category_score": 89.0,
+      "sector": "Technology",
+      "industry": "Electronic Components",
+      "exchange": "NYSE"
+     },
+     {
+      "ticker": "AMAT",
+      "symbol": "AMAT",
+      "name": "Applied Materials, Inc.",
+      "score": 75.0,
+      "label": "Buy",
+      "category_score": 88.5,
       "sector": "Technology",
       "industry": "Semiconductor Equipment & Materials",
       "exchange": "NasdaqGS"
@@ -9232,19 +9232,8 @@
       "ticker": "JST-USD",
       "symbol": "JST",
       "name": "JUST",
-      "score": 77.0,
-      "label": "Buy",
-      "category_score": null,
-      "sector": null,
-      "industry": null,
-      "exchange": null
-     },
-     {
-      "ticker": "TRX-USD",
-      "symbol": "TRX",
-      "name": "TRON",
-      "score": 69.0,
-      "label": "Buy",
+      "score": 80.0,
+      "label": "Strong Buy",
       "category_score": null,
       "sector": null,
       "industry": null,
@@ -9262,33 +9251,11 @@
       "exchange": null
      },
      {
-      "ticker": "DGAI-USD",
-      "symbol": "DGAI",
-      "name": "DGrid AI",
-      "score": 65.0,
+      "ticker": "TRX-USD",
+      "symbol": "TRX",
+      "name": "TRON",
+      "score": 67.0,
       "label": "Buy",
-      "category_score": null,
-      "sector": null,
-      "industry": null,
-      "exchange": null
-     },
-     {
-      "ticker": "BTC-USD",
-      "symbol": "BTC",
-      "name": "Bitcoin",
-      "score": 64.0,
-      "label": "Hold",
-      "category_score": null,
-      "sector": null,
-      "industry": null,
-      "exchange": null
-     },
-     {
-      "ticker": "GOMINING-USD",
-      "symbol": "GOMINING",
-      "name": "Go\u041cining",
-      "score": 64.0,
-      "label": "Hold",
       "category_score": null,
       "sector": null,
       "industry": null,
@@ -9298,7 +9265,18 @@
       "ticker": "VVV35509-USD",
       "symbol": "VVV",
       "name": "Venice Token",
-      "score": 64.0,
+      "score": 65.0,
+      "label": "Buy",
+      "category_score": null,
+      "sector": null,
+      "industry": null,
+      "exchange": null
+     },
+     {
+      "ticker": "GOMINING-USD",
+      "symbol": "GOMINING",
+      "name": "Go\u041cining",
+      "score": 63.0,
       "label": "Hold",
       "category_score": null,
       "sector": null,
@@ -9309,7 +9287,7 @@
       "ticker": "LEO-USD",
       "symbol": "LEO",
       "name": "UNUS SED LEO",
-      "score": 62.0,
+      "score": 63.0,
       "label": "Hold",
       "category_score": null,
       "sector": null,
@@ -9317,10 +9295,10 @@
       "exchange": null
      },
      {
-      "ticker": "XMR-USD",
-      "symbol": "XMR",
-      "name": "Monero",
-      "score": 59.0,
+      "ticker": "CAP40531-USD",
+      "symbol": "CAP",
+      "name": "Cap",
+      "score": 61.0,
       "label": "Hold",
       "category_score": null,
       "sector": null,
@@ -9328,10 +9306,10 @@
       "exchange": null
      },
      {
-      "ticker": "APEPE27048-USD",
-      "symbol": "APEPE",
-      "name": "Ape and Pepe",
-      "score": 58.0,
+      "ticker": "DGAI-USD",
+      "symbol": "DGAI",
+      "name": "DGrid AI",
+      "score": 61.0,
       "label": "Hold",
       "category_score": null,
       "sector": null,
@@ -9342,6 +9320,39 @@
       "ticker": "DRV35014-USD",
       "symbol": "DRV",
       "name": "Derive",
+      "score": 59.0,
+      "label": "Hold",
+      "category_score": null,
+      "sector": null,
+      "industry": null,
+      "exchange": null
+     },
+     {
+      "ticker": "HYPE32196-USD",
+      "symbol": "HYPE",
+      "name": "Hyperliquid",
+      "score": 59.0,
+      "label": "Hold",
+      "category_score": null,
+      "sector": null,
+      "industry": null,
+      "exchange": null
+     },
+     {
+      "ticker": "BTC-USD",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "score": 58.0,
+      "label": "Hold",
+      "category_score": null,
+      "sector": null,
+      "industry": null,
+      "exchange": null
+     },
+     {
+      "ticker": "ETH-USD",
+      "symbol": "ETH",
+      "name": "Ethereum",
       "score": 57.0,
       "label": "Hold",
       "category_score": null,
@@ -9361,9 +9372,9 @@
       "exchange": null
      },
      {
-      "ticker": "ETH-USD",
-      "symbol": "ETH",
-      "name": "Ethereum",
+      "ticker": "XMR-USD",
+      "symbol": "XMR",
+      "name": "Monero",
       "score": 56.0,
       "label": "Hold",
       "category_score": null,
@@ -9372,20 +9383,9 @@
       "exchange": null
      },
      {
-      "ticker": "CAP40531-USD",
-      "symbol": "CAP",
-      "name": "Cap",
-      "score": 55.0,
-      "label": "Hold",
-      "category_score": null,
-      "sector": null,
-      "industry": null,
-      "exchange": null
-     },
-     {
-      "ticker": "HYPE32196-USD",
-      "symbol": "HYPE",
-      "name": "Hyperliquid",
+      "ticker": "APEPE27048-USD",
+      "symbol": "APEPE",
+      "name": "Ape and Pepe",
       "score": 55.0,
       "label": "Hold",
       "category_score": null,
@@ -9405,6 +9405,17 @@
       "exchange": null
      },
      {
+      "ticker": "BRWL-USD",
+      "symbol": "BRWL",
+      "name": "Blockchain Brawlers",
+      "score": 54.0,
+      "label": "Hold",
+      "category_score": null,
+      "sector": null,
+      "industry": null,
+      "exchange": null
+     },
+     {
       "ticker": "ARIA38102-USD",
       "symbol": "ARIA",
       "name": "AriaAI",
@@ -9416,21 +9427,10 @@
       "exchange": null
      },
      {
-      "ticker": "D11374-USD",
-      "symbol": "D11374",
-      "name": "DAR Open Network",
-      "score": 53.0,
-      "label": "Hold",
-      "category_score": null,
-      "sector": null,
-      "industry": null,
-      "exchange": null
-     },
-     {
       "ticker": "BNB-USD",
       "symbol": "BNB",
       "name": "BNB",
-      "score": 52.0,
+      "score": 53.0,
       "label": "Hold",
       "category_score": null,
       "sector": null,
@@ -12055,17 +12055,6 @@
       "exchange": "Toronto"
      },
      {
-      "ticker": "DPM.TO",
-      "symbol": "DPM.TO",
-      "name": "DPM Metals Inc.",
-      "score": 72.0,
-      "label": "Buy",
-      "category_score": null,
-      "sector": "Basic Materials",
-      "industry": "Gold",
-      "exchange": "Toronto"
-     },
-     {
       "ticker": "LNR.TO",
       "symbol": "LNR.TO",
       "name": "Linamar Corporation",
@@ -12074,17 +12063,6 @@
       "category_score": null,
       "sector": "Consumer Cyclical",
       "industry": "Auto Parts",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "SU.TO",
-      "symbol": "SU.TO",
-      "name": "Suncor Energy Inc.",
-      "score": 72.0,
-      "label": "Buy",
-      "category_score": null,
-      "sector": "Energy",
-      "industry": "Oil & Gas Integrated",
       "exchange": "Toronto"
      },
      {
@@ -12132,14 +12110,14 @@
       "exchange": "Toronto"
      },
      {
-      "ticker": "CVE.TO",
-      "symbol": "CVE.TO",
-      "name": "Cenovus Energy Inc.",
+      "ticker": "DPM.TO",
+      "symbol": "DPM.TO",
+      "name": "DPM Metals Inc.",
       "score": 71.0,
       "label": "Buy",
       "category_score": null,
-      "sector": "Energy",
-      "industry": "Oil & Gas Integrated",
+      "sector": "Basic Materials",
+      "industry": "Gold",
       "exchange": "Toronto"
      },
      {
@@ -12151,6 +12129,28 @@
       "category_score": null,
       "sector": "Consumer Cyclical",
       "industry": "Specialty Retail",
+      "exchange": "Toronto"
+     },
+     {
+      "ticker": "SU.TO",
+      "symbol": "SU.TO",
+      "name": "Suncor Energy Inc.",
+      "score": 71.0,
+      "label": "Buy",
+      "category_score": null,
+      "sector": "Energy",
+      "industry": "Oil & Gas Integrated",
+      "exchange": "Toronto"
+     },
+     {
+      "ticker": "CVE.TO",
+      "symbol": "CVE.TO",
+      "name": "Cenovus Energy Inc.",
+      "score": 70.0,
+      "label": "Buy",
+      "category_score": null,
+      "sector": "Energy",
+      "industry": "Oil & Gas Integrated",
       "exchange": "Toronto"
      },
      {
@@ -12187,14 +12187,14 @@
       "exchange": "Toronto"
      },
      {
-      "ticker": "TOT.TO",
-      "symbol": "TOT.TO",
-      "name": "Total Energy Services Inc.",
+      "ticker": "OTEX.TO",
+      "symbol": "OTEX.TO",
+      "name": "Open Text Corporation",
       "score": 69.0,
       "label": "Buy",
       "category_score": null,
-      "sector": "Energy",
-      "industry": "Oil & Gas Equipment & Services",
+      "sector": "Technology",
+      "industry": "Software\u2014Application",
       "exchange": "Toronto"
      }
     ]
@@ -12244,7 +12244,7 @@
       "ticker": "OTEX.TO",
       "symbol": "OTEX.TO",
       "name": "Open Text Corporation",
-      "score": 68.0,
+      "score": 69.0,
       "label": "Buy",
       "category_score": 96.6,
       "sector": "Technology",
@@ -12257,7 +12257,7 @@
       "name": "Canadian Natural Resources Limited",
       "score": 74.0,
       "label": "Buy",
-      "category_score": 93.9,
+      "category_score": 93.8,
       "sector": "Energy",
       "industry": "Oil & Gas E&P",
       "exchange": "Toronto"
@@ -12268,7 +12268,7 @@
       "name": "Capital Power Corporation",
       "score": 55.0,
       "label": "Hold",
-      "category_score": 91.8,
+      "category_score": 91.7,
       "sector": "Utilities",
       "industry": "Utilities\u2014Independent Power Producers",
       "exchange": "Toronto"
@@ -12277,22 +12277,11 @@
       "ticker": "TFII.TO",
       "symbol": "TFII.TO",
       "name": "TFI International Inc.",
-      "score": 61.0,
+      "score": 60.0,
       "label": "Hold",
-      "category_score": 90.5,
+      "category_score": 90.3,
       "sector": "Industrials",
       "industry": "Trucking",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "WGX.TO",
-      "symbol": "WGX.TO",
-      "name": "Westgold Resources Limited",
-      "score": 72.0,
-      "label": "Buy",
-      "category_score": 89.5,
-      "sector": "Basic Materials",
-      "industry": "Gold",
       "exchange": "Toronto"
      },
      {
@@ -12304,6 +12293,17 @@
       "category_score": 88.7,
       "sector": "Basic Materials",
       "industry": "Lumber & Wood Production",
+      "exchange": "Toronto"
+     },
+     {
+      "ticker": "WGX.TO",
+      "symbol": "WGX.TO",
+      "name": "Westgold Resources Limited",
+      "score": 72.0,
+      "label": "Buy",
+      "category_score": 88.7,
+      "sector": "Basic Materials",
+      "industry": "Gold",
       "exchange": "Toronto"
      },
      {
@@ -12323,7 +12323,7 @@
       "name": "Badger Infrastructure Solutions Ltd.",
       "score": 69.0,
       "label": "Buy",
-      "category_score": 87.7,
+      "category_score": 87.6,
       "sector": "Industrials",
       "industry": "Engineering & Construction",
       "exchange": "Toronto"
@@ -12367,7 +12367,7 @@
       "name": "Canadian National Railway Company",
       "score": 68.0,
       "label": "Buy",
-      "category_score": 84.8,
+      "category_score": 84.7,
       "sector": "Industrials",
       "industry": "Railroads",
       "exchange": "Toronto"
@@ -12378,7 +12378,7 @@
       "name": "ADENTRA Inc.",
       "score": 66.0,
       "label": "Buy",
-      "category_score": 84.3,
+      "category_score": 84.4,
       "sector": "Industrials",
       "industry": "Industrial Distribution",
       "exchange": "Toronto"
@@ -12400,7 +12400,7 @@
       "name": "Endeavour Mining plc",
       "score": 65.0,
       "label": "Buy",
-      "category_score": 81.9,
+      "category_score": 81.8,
       "sector": "Basic Materials",
       "industry": "Gold",
       "exchange": "Toronto"
@@ -12463,9 +12463,9 @@
       "ticker": "PXT.TO",
       "symbol": "PXT.TO",
       "name": "Parex Resources Inc.",
-      "score": 65.0,
-      "label": "Buy",
-      "category_score": 97.8,
+      "score": 64.0,
+      "label": "Hold",
+      "category_score": 97.7,
       "sector": "Energy",
       "industry": "Oil & Gas E&P",
       "exchange": "Toronto"
@@ -12474,7 +12474,7 @@
       "ticker": "OTEX.TO",
       "symbol": "OTEX.TO",
       "name": "Open Text Corporation",
-      "score": 68.0,
+      "score": 69.0,
       "label": "Buy",
       "category_score": 97.6,
       "sector": "Technology",
@@ -12487,20 +12487,9 @@
       "name": "ADENTRA Inc.",
       "score": 66.0,
       "label": "Buy",
-      "category_score": 96.6,
+      "category_score": 96.8,
       "sector": "Industrials",
       "industry": "Industrial Distribution",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "BTO.TO",
-      "symbol": "BTO.TO",
-      "name": "B2Gold Corp.",
-      "score": 54.0,
-      "label": "Hold",
-      "category_score": 95.2,
-      "sector": "Basic Materials",
-      "industry": "Gold",
       "exchange": "Toronto"
      },
      {
@@ -12509,9 +12498,20 @@
       "name": "Cascades Inc.",
       "score": 59.0,
       "label": "Hold",
-      "category_score": 95.1,
+      "category_score": 95.0,
       "sector": "Consumer Cyclical",
       "industry": "Packaging & Containers",
+      "exchange": "Toronto"
+     },
+     {
+      "ticker": "BTO.TO",
+      "symbol": "BTO.TO",
+      "name": "B2Gold Corp.",
+      "score": 54.0,
+      "label": "Hold",
+      "category_score": 95.0,
+      "sector": "Basic Materials",
+      "industry": "Gold",
       "exchange": "Toronto"
      },
      {
@@ -12520,7 +12520,7 @@
       "name": "Orezone Gold Corporation",
       "score": 47.0,
       "label": "Hold",
-      "category_score": 93.4,
+      "category_score": 93.2,
       "sector": "Basic Materials",
       "industry": "Gold",
       "exchange": "Toronto"
@@ -12531,7 +12531,7 @@
       "name": "Ero Copper Corp.",
       "score": 45.0,
       "label": "Hold",
-      "category_score": 92.6,
+      "category_score": 92.5,
       "sector": "Basic Materials",
       "industry": "Copper",
       "exchange": "Toronto"
@@ -12564,7 +12564,7 @@
       "name": "Linamar Corporation",
       "score": 72.0,
       "label": "Buy",
-      "category_score": 89.2,
+      "category_score": 89.5,
       "sector": "Consumer Cyclical",
       "industry": "Auto Parts",
       "exchange": "Toronto"
@@ -12575,7 +12575,7 @@
       "name": "Trican Well Service Ltd.",
       "score": 76.0,
       "label": "Buy",
-      "category_score": 89.0,
+      "category_score": 88.8,
       "sector": "Energy",
       "industry": "Oil & Gas Equipment & Services",
       "exchange": "Toronto"
@@ -12584,9 +12584,9 @@
       "ticker": "TXR.TO",
       "symbol": "TXR.TO",
       "name": "Torex Resources Inc.",
-      "score": 65.0,
-      "label": "Buy",
-      "category_score": 88.1,
+      "score": 64.0,
+      "label": "Hold",
+      "category_score": 87.1,
       "sector": "Basic Materials",
       "industry": "Gold",
       "exchange": "Toronto"
@@ -12597,7 +12597,7 @@
       "name": "Total Energy Services Inc.",
       "score": 69.0,
       "label": "Buy",
-      "category_score": 87.9,
+      "category_score": 86.8,
       "sector": "Energy",
       "industry": "Oil & Gas Equipment & Services",
       "exchange": "Toronto"
@@ -12608,7 +12608,7 @@
       "name": "OceanaGold Corporation",
       "score": 67.0,
       "label": "Buy",
-      "category_score": 87.4,
+      "category_score": 86.3,
       "sector": "Basic Materials",
       "industry": "Gold",
       "exchange": "Toronto"
@@ -12619,20 +12619,9 @@
       "name": "IAMGOLD Corporation",
       "score": 47.0,
       "label": "Hold",
-      "category_score": 84.1,
+      "category_score": 83.1,
       "sector": "Basic Materials",
       "industry": "Gold",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "LNF.TO",
-      "symbol": "LNF.TO",
-      "name": "Leon's Furniture Limited",
-      "score": 71.0,
-      "label": "Buy",
-      "category_score": 82.2,
-      "sector": "Consumer Cyclical",
-      "industry": "Specialty Retail",
       "exchange": "Toronto"
      },
      {
@@ -12641,20 +12630,31 @@
       "name": "Lundin Mining Corporation",
       "score": 52.0,
       "label": "Hold",
-      "category_score": 82.1,
+      "category_score": 82.0,
       "sector": "Basic Materials",
       "industry": "Copper",
       "exchange": "Toronto"
      },
      {
-      "ticker": "K.TO",
-      "symbol": "K.TO",
-      "name": "Kinross Gold Corporation",
+      "ticker": "LNF.TO",
+      "symbol": "LNF.TO",
+      "name": "Leon's Furniture Limited",
+      "score": 71.0,
+      "label": "Buy",
+      "category_score": 81.8,
+      "sector": "Consumer Cyclical",
+      "industry": "Specialty Retail",
+      "exchange": "Toronto"
+     },
+     {
+      "ticker": "TECK-A.TO",
+      "symbol": "TECK-A.TO",
+      "name": "Teck Resources Limited",
       "score": 63.0,
       "label": "Hold",
-      "category_score": 81.7,
+      "category_score": 80.9,
       "sector": "Basic Materials",
-      "industry": "Gold",
+      "industry": "Copper",
       "exchange": "Toronto"
      }
     ]
@@ -12728,7 +12728,7 @@
       "name": "CCL Industries Inc.",
       "score": 72.0,
       "label": "Buy",
-      "category_score": 96.4,
+      "category_score": 96.5,
       "sector": "Consumer Cyclical",
       "industry": "Packaging & Containers",
       "exchange": "Toronto"
@@ -12745,6 +12745,17 @@
       "exchange": "Toronto"
      },
      {
+      "ticker": "H.TO",
+      "symbol": "H.TO",
+      "name": "Hydro One Limited",
+      "score": 61.0,
+      "label": "Hold",
+      "category_score": 95.4,
+      "sector": "Utilities",
+      "industry": "Utilities\u2014Regulated Electric",
+      "exchange": "Toronto"
+     },
+     {
       "ticker": "CU.TO",
       "symbol": "CU.TO",
       "name": "Canadian Utilities Limited",
@@ -12753,17 +12764,6 @@
       "category_score": 95.4,
       "sector": "Utilities",
       "industry": "Utilities\u2014Diversified",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "H.TO",
-      "symbol": "H.TO",
-      "name": "Hydro One Limited",
-      "score": 61.0,
-      "label": "Hold",
-      "category_score": 95.3,
-      "sector": "Utilities",
-      "industry": "Utilities\u2014Regulated Electric",
       "exchange": "Toronto"
      },
      {
@@ -14554,25 +14554,14 @@
       "exchange": "NasdaqCM"
      },
      {
-      "ticker": "SKHY",
-      "symbol": "SKHY",
-      "name": "SK hynix Inc.",
-      "score": 66.0,
+      "ticker": "ASML",
+      "symbol": "ASML",
+      "name": "ASML Holding N.V.",
+      "score": 68.0,
       "label": "Buy",
-      "category_score": 79.9,
+      "category_score": 79.5,
       "sector": "Technology",
-      "industry": "Semiconductors",
-      "exchange": "NasdaqGS"
-     },
-     {
-      "ticker": "MU",
-      "symbol": "MU",
-      "name": "Micron Technology, Inc.",
-      "score": 76.0,
-      "label": "Buy",
-      "category_score": 79.7,
-      "sector": "Technology",
-      "industry": "Semiconductors",
+      "industry": "Semiconductor Equipment & Materials",
       "exchange": "NasdaqGS"
      },
      {
@@ -14581,21 +14570,10 @@
       "name": "Almonty Industries Inc.",
       "score": 60.0,
       "label": "Hold",
-      "category_score": 79.5,
+      "category_score": 79.4,
       "sector": "Basic Materials",
       "industry": "Other Industrial Metals & Mining",
       "exchange": "NasdaqCM"
-     },
-     {
-      "ticker": "ASML",
-      "symbol": "ASML",
-      "name": "ASML Holding N.V.",
-      "score": 68.0,
-      "label": "Buy",
-      "category_score": 79.3,
-      "sector": "Technology",
-      "industry": "Semiconductor Equipment & Materials",
-      "exchange": "NasdaqGS"
      },
      {
       "ticker": "HNGE",
@@ -14603,20 +14581,9 @@
       "name": "Hinge Health, Inc.",
       "score": 76.0,
       "label": "Buy",
-      "category_score": 78.7,
+      "category_score": 78.8,
       "sector": "Healthcare",
       "industry": "Health Information Services",
-      "exchange": "NYSE"
-     },
-     {
-      "ticker": "TSM",
-      "symbol": "TSM",
-      "name": "Taiwan Semiconductor Manufacturing Company Limited",
-      "score": 65.0,
-      "label": "Buy",
-      "category_score": 78.0,
-      "sector": "Technology",
-      "industry": "Semiconductors",
       "exchange": "NYSE"
      },
      {
@@ -14631,17 +14598,6 @@
       "exchange": "NasdaqGS"
      },
      {
-      "ticker": "ATLC",
-      "symbol": "ATLC",
-      "name": "Atlanticus Holdings Corporation",
-      "score": 70.0,
-      "label": "Buy",
-      "category_score": 77.8,
-      "sector": "Financial Services",
-      "industry": "Credit Services",
-      "exchange": "NasdaqGS"
-     },
-     {
       "ticker": "ANET",
       "symbol": "ANET",
       "name": "Arista Networks, Inc.",
@@ -14653,23 +14609,12 @@
       "exchange": "NYSE"
      },
      {
-      "ticker": "AVGO",
-      "symbol": "AVGO",
-      "name": "Broadcom Inc.",
-      "score": 61.0,
-      "label": "Hold",
-      "category_score": 77.7,
-      "sector": "Technology",
-      "industry": "Semiconductors",
-      "exchange": "NasdaqGS"
-     },
-     {
       "ticker": "ARGX",
       "symbol": "ARGX",
       "name": "argenx SE",
       "score": 78.0,
       "label": "Buy",
-      "category_score": 77.4,
+      "category_score": 77.5,
       "sector": "Healthcare",
       "industry": "Biotechnology",
       "exchange": "NasdaqGS"
@@ -14691,7 +14636,7 @@
       "name": "Amphenol Corporation",
       "score": 67.0,
       "label": "Buy",
-      "category_score": 77.1,
+      "category_score": 77.2,
       "sector": "Technology",
       "industry": "Electronic Components",
       "exchange": "NYSE"
@@ -14702,7 +14647,7 @@
       "name": "Pattern Group Inc.",
       "score": 65.0,
       "label": "Buy",
-      "category_score": 77.0,
+      "category_score": 77.1,
       "sector": "Consumer Cyclical",
       "industry": "Internet Retail",
       "exchange": "NasdaqGS"
@@ -14719,6 +14664,17 @@
       "exchange": "NYSE"
      },
      {
+      "ticker": "STRL",
+      "symbol": "STRL",
+      "name": "Sterling Infrastructure, Inc.",
+      "score": 60.0,
+      "label": "Hold",
+      "category_score": 76.8,
+      "sector": "Industrials",
+      "industry": "Engineering & Construction",
+      "exchange": "NasdaqGS"
+     },
+     {
       "ticker": "CRDO",
       "symbol": "CRDO",
       "name": "Credo Technology Group Holding Ltd",
@@ -14728,6 +14684,50 @@
       "sector": "Technology",
       "industry": "Semiconductors",
       "exchange": "NasdaqGS"
+     },
+     {
+      "ticker": "PLTR",
+      "symbol": "PLTR",
+      "name": "Palantir Technologies Inc.",
+      "score": 70.0,
+      "label": "Buy",
+      "category_score": 76.7,
+      "sector": "Technology",
+      "industry": "Software\u2014Infrastructure",
+      "exchange": "NasdaqGS"
+     },
+     {
+      "ticker": "STX",
+      "symbol": "STX",
+      "name": "Seagate Technology Holdings plc",
+      "score": 60.0,
+      "label": "Hold",
+      "category_score": 76.7,
+      "sector": "Technology",
+      "industry": "Computer Hardware",
+      "exchange": "NasdaqGS"
+     },
+     {
+      "ticker": "TER",
+      "symbol": "TER",
+      "name": "Teradyne, Inc.",
+      "score": 65.0,
+      "label": "Buy",
+      "category_score": 76.6,
+      "sector": "Technology",
+      "industry": "Semiconductor Equipment & Materials",
+      "exchange": "NasdaqGS"
+     },
+     {
+      "ticker": "CLS",
+      "symbol": "CLS",
+      "name": "Celestica Inc.",
+      "score": 56.0,
+      "label": "Hold",
+      "category_score": 76.5,
+      "sector": "Technology",
+      "industry": "Electronic Components",
+      "exchange": "NYSE"
      }
     ]
    },
@@ -14745,7 +14745,7 @@
       "name": "Almonty Industries Inc.",
       "score": 60.0,
       "label": "Hold",
-      "category_score": 98.9,
+      "category_score": 98.8,
       "sector": "Basic Materials",
       "industry": "Other Industrial Metals & Mining",
       "exchange": "NasdaqCM"
@@ -14795,34 +14795,12 @@
       "exchange": "NasdaqGS"
      },
      {
-      "ticker": "SEI",
-      "symbol": "SEI",
-      "name": "Solaris Energy Infrastructure, Inc.",
-      "score": 56.0,
-      "label": "Hold",
-      "category_score": 95.8,
-      "sector": "Energy",
-      "industry": "Oil & Gas Equipment & Services",
-      "exchange": "NYSE"
-     },
-     {
-      "ticker": "FTAI",
-      "symbol": "FTAI",
-      "name": "FTAI Aviation Ltd.",
-      "score": 49.0,
-      "label": "Hold",
-      "category_score": 95.2,
-      "sector": "Industrials",
-      "industry": "Aerospace & Defense",
-      "exchange": "NasdaqGS"
-     },
-     {
       "ticker": "TSEM",
       "symbol": "TSEM",
       "name": "Tower Semiconductor Ltd.",
       "score": 47.0,
       "label": "Hold",
-      "category_score": 94.8,
+      "category_score": 94.9,
       "sector": "Technology",
       "industry": "Semiconductors",
       "exchange": "NasdaqGS"
@@ -14837,6 +14815,17 @@
       "sector": "Technology",
       "industry": "Semiconductors",
       "exchange": "NasdaqGS"
+     },
+     {
+      "ticker": "LYNX",
+      "symbol": "LYNX",
+      "name": "Lyntris Inc.",
+      "score": 50.0,
+      "label": "Hold",
+      "category_score": 94.6,
+      "sector": "Industrials",
+      "industry": "Aerospace & Defense",
+      "exchange": "NYSE"
      },
      {
       "ticker": "ONTO",
@@ -14872,45 +14861,12 @@
       "exchange": "NYSE"
      },
      {
-      "ticker": "LYNX",
-      "symbol": "LYNX",
-      "name": "Lyntris Inc.",
-      "score": 50.0,
-      "label": "Hold",
-      "category_score": 94.5,
-      "sector": "Industrials",
-      "industry": "Aerospace & Defense",
-      "exchange": "NYSE"
-     },
-     {
-      "ticker": "AVGO",
-      "symbol": "AVGO",
-      "name": "Broadcom Inc.",
-      "score": 61.0,
-      "label": "Hold",
-      "category_score": 94.4,
-      "sector": "Technology",
-      "industry": "Semiconductors",
-      "exchange": "NasdaqGS"
-     },
-     {
       "ticker": "SIMO",
       "symbol": "SIMO",
       "name": "Silicon Motion Technology Corporation",
       "score": 57.0,
       "label": "Hold",
-      "category_score": 94.2,
-      "sector": "Technology",
-      "industry": "Semiconductors",
-      "exchange": "NasdaqGS"
-     },
-     {
-      "ticker": "SKHY",
-      "symbol": "SKHY",
-      "name": "SK hynix Inc.",
-      "score": 66.0,
-      "label": "Buy",
-      "category_score": 93.8,
+      "category_score": 94.3,
       "sector": "Technology",
       "industry": "Semiconductors",
       "exchange": "NasdaqGS"
@@ -14921,7 +14877,7 @@
       "name": "Advanced Micro Devices, Inc.",
       "score": 58.0,
       "label": "Hold",
-      "category_score": 93.8,
+      "category_score": 93.9,
       "sector": "Technology",
       "industry": "Semiconductors",
       "exchange": "NasdaqGS"
@@ -14932,7 +14888,7 @@
       "name": "Sterling Infrastructure, Inc.",
       "score": 60.0,
       "label": "Hold",
-      "category_score": 93.5,
+      "category_score": 93.7,
       "sector": "Industrials",
       "industry": "Engineering & Construction",
       "exchange": "NasdaqGS"
@@ -14949,6 +14905,17 @@
       "exchange": "NasdaqGS"
      },
      {
+      "ticker": "ANAB",
+      "symbol": "ANAB",
+      "name": "AnaptysBio, Inc.",
+      "score": 49.0,
+      "label": "Hold",
+      "category_score": 93.4,
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "exchange": "NasdaqGS"
+     },
+     {
       "ticker": "STX",
       "symbol": "STX",
       "name": "Seagate Technology Holdings plc",
@@ -14957,6 +14924,39 @@
       "category_score": 93.3,
       "sector": "Technology",
       "industry": "Computer Hardware",
+      "exchange": "NasdaqGS"
+     },
+     {
+      "ticker": "SITM",
+      "symbol": "SITM",
+      "name": "SiTime Corporation",
+      "score": 50.0,
+      "label": "Hold",
+      "category_score": 93.2,
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "exchange": "NasdaqGM"
+     },
+     {
+      "ticker": "FPS",
+      "symbol": "FPS",
+      "name": "Forgent Power Solutions, Inc.",
+      "score": 52.0,
+      "label": "Hold",
+      "category_score": 93.1,
+      "sector": "Industrials",
+      "industry": "Electrical Equipment & Parts",
+      "exchange": "NYSE"
+     },
+     {
+      "ticker": "AEIS",
+      "symbol": "AEIS",
+      "name": "Advanced Energy Industries, Inc.",
+      "score": 51.0,
+      "label": "Hold",
+      "category_score": 93.1,
+      "sector": "Industrials",
+      "industry": "Electrical Equipment & Parts",
       "exchange": "NasdaqGS"
      }
     ]
@@ -16364,19 +16364,8 @@
       "ticker": "JST-USD",
       "symbol": "JST",
       "name": "JUST",
-      "score": 77.0,
-      "label": "Buy",
-      "category_score": null,
-      "sector": null,
-      "industry": null,
-      "exchange": null
-     },
-     {
-      "ticker": "TRX-USD",
-      "symbol": "TRX",
-      "name": "TRON",
-      "score": 69.0,
-      "label": "Buy",
+      "score": 80.0,
+      "label": "Strong Buy",
       "category_score": null,
       "sector": null,
       "industry": null,
@@ -16394,33 +16383,11 @@
       "exchange": null
      },
      {
-      "ticker": "DGAI-USD",
-      "symbol": "DGAI",
-      "name": "DGrid AI",
-      "score": 65.0,
+      "ticker": "TRX-USD",
+      "symbol": "TRX",
+      "name": "TRON",
+      "score": 67.0,
       "label": "Buy",
-      "category_score": null,
-      "sector": null,
-      "industry": null,
-      "exchange": null
-     },
-     {
-      "ticker": "BTC-USD",
-      "symbol": "BTC",
-      "name": "Bitcoin",
-      "score": 64.0,
-      "label": "Hold",
-      "category_score": null,
-      "sector": null,
-      "industry": null,
-      "exchange": null
-     },
-     {
-      "ticker": "GOMINING-USD",
-      "symbol": "GOMINING",
-      "name": "Go\u041cining",
-      "score": 64.0,
-      "label": "Hold",
       "category_score": null,
       "sector": null,
       "industry": null,
@@ -16430,7 +16397,18 @@
       "ticker": "VVV35509-USD",
       "symbol": "VVV",
       "name": "Venice Token",
-      "score": 64.0,
+      "score": 65.0,
+      "label": "Buy",
+      "category_score": null,
+      "sector": null,
+      "industry": null,
+      "exchange": null
+     },
+     {
+      "ticker": "GOMINING-USD",
+      "symbol": "GOMINING",
+      "name": "Go\u041cining",
+      "score": 63.0,
       "label": "Hold",
       "category_score": null,
       "sector": null,
@@ -16441,7 +16419,7 @@
       "ticker": "LEO-USD",
       "symbol": "LEO",
       "name": "UNUS SED LEO",
-      "score": 62.0,
+      "score": 63.0,
       "label": "Hold",
       "category_score": null,
       "sector": null,
@@ -16449,10 +16427,10 @@
       "exchange": null
      },
      {
-      "ticker": "XMR-USD",
-      "symbol": "XMR",
-      "name": "Monero",
-      "score": 59.0,
+      "ticker": "CAP40531-USD",
+      "symbol": "CAP",
+      "name": "Cap",
+      "score": 61.0,
       "label": "Hold",
       "category_score": null,
       "sector": null,
@@ -16460,10 +16438,10 @@
       "exchange": null
      },
      {
-      "ticker": "APEPE27048-USD",
-      "symbol": "APEPE",
-      "name": "Ape and Pepe",
-      "score": 58.0,
+      "ticker": "DGAI-USD",
+      "symbol": "DGAI",
+      "name": "DGrid AI",
+      "score": 61.0,
       "label": "Hold",
       "category_score": null,
       "sector": null,
@@ -16474,6 +16452,39 @@
       "ticker": "DRV35014-USD",
       "symbol": "DRV",
       "name": "Derive",
+      "score": 59.0,
+      "label": "Hold",
+      "category_score": null,
+      "sector": null,
+      "industry": null,
+      "exchange": null
+     },
+     {
+      "ticker": "HYPE32196-USD",
+      "symbol": "HYPE",
+      "name": "Hyperliquid",
+      "score": 59.0,
+      "label": "Hold",
+      "category_score": null,
+      "sector": null,
+      "industry": null,
+      "exchange": null
+     },
+     {
+      "ticker": "BTC-USD",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "score": 58.0,
+      "label": "Hold",
+      "category_score": null,
+      "sector": null,
+      "industry": null,
+      "exchange": null
+     },
+     {
+      "ticker": "ETH-USD",
+      "symbol": "ETH",
+      "name": "Ethereum",
       "score": 57.0,
       "label": "Hold",
       "category_score": null,
@@ -16493,9 +16504,9 @@
       "exchange": null
      },
      {
-      "ticker": "ETH-USD",
-      "symbol": "ETH",
-      "name": "Ethereum",
+      "ticker": "XMR-USD",
+      "symbol": "XMR",
+      "name": "Monero",
       "score": 56.0,
       "label": "Hold",
       "category_score": null,
@@ -16504,20 +16515,9 @@
       "exchange": null
      },
      {
-      "ticker": "CAP40531-USD",
-      "symbol": "CAP",
-      "name": "Cap",
-      "score": 55.0,
-      "label": "Hold",
-      "category_score": null,
-      "sector": null,
-      "industry": null,
-      "exchange": null
-     },
-     {
-      "ticker": "HYPE32196-USD",
-      "symbol": "HYPE",
-      "name": "Hyperliquid",
+      "ticker": "APEPE27048-USD",
+      "symbol": "APEPE",
+      "name": "Ape and Pepe",
       "score": 55.0,
       "label": "Hold",
       "category_score": null,
@@ -16537,6 +16537,17 @@
       "exchange": null
      },
      {
+      "ticker": "BRWL-USD",
+      "symbol": "BRWL",
+      "name": "Blockchain Brawlers",
+      "score": 54.0,
+      "label": "Hold",
+      "category_score": null,
+      "sector": null,
+      "industry": null,
+      "exchange": null
+     },
+     {
       "ticker": "ARIA38102-USD",
       "symbol": "ARIA",
       "name": "AriaAI",
@@ -16548,21 +16559,10 @@
       "exchange": null
      },
      {
-      "ticker": "D11374-USD",
-      "symbol": "D11374",
-      "name": "DAR Open Network",
-      "score": 53.0,
-      "label": "Hold",
-      "category_score": null,
-      "sector": null,
-      "industry": null,
-      "exchange": null
-     },
-     {
       "ticker": "BNB-USD",
       "symbol": "BNB",
       "name": "BNB",
-      "score": 52.0,
+      "score": 53.0,
       "label": "Hold",
       "category_score": null,
       "sector": null,
@@ -19124,11 +19124,22 @@
       "ticker": "ATZ.TO",
       "symbol": "ATZ.TO",
       "name": "Aritzia Inc.",
-      "score": 77.0,
+      "score": 78.0,
       "label": "Buy",
       "category_score": null,
       "sector": "Consumer Cyclical",
       "industry": "Apparel Retail",
+      "exchange": "Toronto"
+     },
+     {
+      "ticker": "CEU.TO",
+      "symbol": "CEU.TO",
+      "name": "CES Energy Solutions Corp.",
+      "score": 76.0,
+      "label": "Buy",
+      "category_score": null,
+      "sector": "Energy",
+      "industry": "Oil & Gas Equipment & Services",
       "exchange": "Toronto"
      },
      {
@@ -19165,6 +19176,17 @@
       "exchange": "Toronto"
      },
      {
+      "ticker": "TOT.TO",
+      "symbol": "TOT.TO",
+      "name": "Total Energy Services Inc.",
+      "score": 74.0,
+      "label": "Buy",
+      "category_score": null,
+      "sector": "Energy",
+      "industry": "Oil & Gas Equipment & Services",
+      "exchange": "Toronto"
+     },
+     {
       "ticker": "CCL-A.TO",
       "symbol": "CCL-A.TO",
       "name": "CCL Industries Inc.",
@@ -19173,17 +19195,6 @@
       "category_score": null,
       "sector": "Consumer Cyclical",
       "industry": "Packaging & Containers",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "CEU.TO",
-      "symbol": "CEU.TO",
-      "name": "CES Energy Solutions Corp.",
-      "score": 73.0,
-      "label": "Buy",
-      "category_score": null,
-      "sector": "Energy",
-      "industry": "Oil & Gas Equipment & Services",
       "exchange": "Toronto"
      },
      {
@@ -19198,6 +19209,17 @@
       "exchange": "Toronto"
      },
      {
+      "ticker": "AYA.TO",
+      "symbol": "AYA.TO",
+      "name": "Aya Gold & Silver Inc.",
+      "score": 72.0,
+      "label": "Buy",
+      "category_score": null,
+      "sector": "Basic Materials",
+      "industry": "Silver",
+      "exchange": "Toronto"
+     },
+     {
       "ticker": "NWC.TO",
       "symbol": "NWC.TO",
       "name": "The North West Company Inc.",
@@ -19206,28 +19228,6 @@
       "category_score": null,
       "sector": "Consumer Defensive",
       "industry": "Grocery Stores",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "TOT.TO",
-      "symbol": "TOT.TO",
-      "name": "Total Energy Services Inc.",
-      "score": 72.0,
-      "label": "Buy",
-      "category_score": null,
-      "sector": "Energy",
-      "industry": "Oil & Gas Equipment & Services",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "AYA.TO",
-      "symbol": "AYA.TO",
-      "name": "Aya Gold & Silver Inc.",
-      "score": 71.0,
-      "label": "Buy",
-      "category_score": null,
-      "sector": "Basic Materials",
-      "industry": "Silver",
       "exchange": "Toronto"
      },
      {
@@ -19253,6 +19253,17 @@
       "exchange": "Toronto"
      },
      {
+      "ticker": "IGM.TO",
+      "symbol": "IGM.TO",
+      "name": "IGM Financial Inc.",
+      "score": 71.0,
+      "label": "Buy",
+      "category_score": null,
+      "sector": "Financial Services",
+      "industry": "Asset Management",
+      "exchange": "Toronto"
+     },
+     {
       "ticker": "DSG.TO",
       "symbol": "DSG.TO",
       "name": "The Descartes Systems Group Inc.",
@@ -19264,14 +19275,36 @@
       "exchange": "Toronto"
      },
      {
-      "ticker": "IGM.TO",
-      "symbol": "IGM.TO",
-      "name": "IGM Financial Inc.",
+      "ticker": "FIH-U.TO",
+      "symbol": "FIH-U.TO",
+      "name": "Fairfax India Holdings Corporation",
       "score": 70.0,
       "label": "Buy",
       "category_score": null,
       "sector": "Financial Services",
       "industry": "Asset Management",
+      "exchange": "Toronto"
+     },
+     {
+      "ticker": "BDI.TO",
+      "symbol": "BDI.TO",
+      "name": "Black Diamond Group Limited",
+      "score": 69.0,
+      "label": "Buy",
+      "category_score": null,
+      "sector": "Industrials",
+      "industry": "Rental & Leasing Services",
+      "exchange": "Toronto"
+     },
+     {
+      "ticker": "EIF.TO",
+      "symbol": "EIF.TO",
+      "name": "Exchange Income Corporation",
+      "score": 69.0,
+      "label": "Buy",
+      "category_score": null,
+      "sector": "Industrials",
+      "industry": "Airlines",
       "exchange": "Toronto"
      },
      {
@@ -19286,47 +19319,14 @@
       "exchange": "Toronto"
      },
      {
-      "ticker": "BDI.TO",
-      "symbol": "BDI.TO",
-      "name": "Black Diamond Group Limited",
-      "score": 68.0,
+      "ticker": "NFI.TO",
+      "symbol": "NFI.TO",
+      "name": "NFI Group Inc.",
+      "score": 69.0,
       "label": "Buy",
       "category_score": null,
-      "sector": "Industrials",
-      "industry": "Rental & Leasing Services",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "DCBO.TO",
-      "symbol": "DCBO.TO",
-      "name": "Docebo Inc.",
-      "score": 68.0,
-      "label": "Buy",
-      "category_score": null,
-      "sector": "Technology",
-      "industry": "Software\u2014Application",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "EIF.TO",
-      "symbol": "EIF.TO",
-      "name": "Exchange Income Corporation",
-      "score": 68.0,
-      "label": "Buy",
-      "category_score": null,
-      "sector": "Industrials",
-      "industry": "Airlines",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "FIH-U.TO",
-      "symbol": "FIH-U.TO",
-      "name": "Fairfax India Holdings Corporation",
-      "score": 68.0,
-      "label": "Buy",
-      "category_score": null,
-      "sector": "Financial Services",
-      "industry": "Asset Management",
+      "sector": "Consumer Cyclical",
+      "industry": "Auto Manufacturers",
       "exchange": "Toronto"
      }
     ]
@@ -19354,18 +19354,29 @@
       "ticker": "CNQ.TO",
       "symbol": "CNQ.TO",
       "name": "Canadian Natural Resources Limited",
-      "score": 61.0,
+      "score": 62.0,
       "label": "Hold",
-      "category_score": 93.9,
+      "category_score": 93.8,
       "sector": "Energy",
       "industry": "Oil & Gas E&P",
+      "exchange": "Toronto"
+     },
+     {
+      "ticker": "WGX.TO",
+      "symbol": "WGX.TO",
+      "name": "Westgold Resources Limited",
+      "score": 47.0,
+      "label": "Hold",
+      "category_score": 88.7,
+      "sector": "Basic Materials",
+      "industry": "Gold",
       "exchange": "Toronto"
      },
      {
       "ticker": "SJ.TO",
       "symbol": "SJ.TO",
       "name": "Stella-Jones Inc.",
-      "score": 45.0,
+      "score": 46.0,
       "label": "Hold",
       "category_score": 88.7,
       "sector": "Basic Materials",
@@ -19389,7 +19400,7 @@
       "name": "Badger Infrastructure Solutions Ltd.",
       "score": 51.0,
       "label": "Hold",
-      "category_score": 87.7,
+      "category_score": 87.6,
       "sector": "Industrials",
       "industry": "Engineering & Construction",
       "exchange": "Toronto"
@@ -19422,7 +19433,7 @@
       "name": "Canadian National Railway Company",
       "score": 67.0,
       "label": "Buy",
-      "category_score": 84.8,
+      "category_score": 84.7,
       "sector": "Industrials",
       "industry": "Railroads",
       "exchange": "Toronto"
@@ -19433,7 +19444,7 @@
       "name": "ADENTRA Inc.",
       "score": 60.0,
       "label": "Hold",
-      "category_score": 84.3,
+      "category_score": 84.4,
       "sector": "Industrials",
       "industry": "Industrial Distribution",
       "exchange": "Toronto"
@@ -19453,9 +19464,9 @@
       "ticker": "EDV.TO",
       "symbol": "EDV.TO",
       "name": "Endeavour Mining plc",
-      "score": 49.0,
+      "score": 48.0,
       "label": "Hold",
-      "category_score": 81.9,
+      "category_score": 81.8,
       "sector": "Basic Materials",
       "industry": "Gold",
       "exchange": "Toronto"
@@ -19508,16 +19519,16 @@
       "ticker": "ATD.TO",
       "symbol": "ATD.TO",
       "name": "Alimentation Couche-Tard Inc.",
-      "score": 60.0,
+      "score": 61.0,
       "label": "Hold",
-      "category_score": 79.6,
+      "category_score": 79.5,
       "sector": "Consumer Cyclical",
       "industry": "Specialty Retail",
       "exchange": "Toronto"
      },
      {
-      "ticker": "CCL-B.TO",
-      "symbol": "CCL-B.TO",
+      "ticker": "CCL-A.TO",
+      "symbol": "CCL-A.TO",
       "name": "CCL Industries Inc.",
       "score": 73.0,
       "label": "Buy",
@@ -19535,17 +19546,6 @@
       "category_score": 79.3,
       "sector": "Consumer Defensive",
       "industry": "Grocery Stores",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "FNV.TO",
-      "symbol": "FNV.TO",
-      "name": "Franco-Nevada Corporation",
-      "score": 60.0,
-      "label": "Hold",
-      "category_score": 79.0,
-      "sector": "Basic Materials",
-      "industry": "Gold",
       "exchange": "Toronto"
      },
      {
@@ -19597,7 +19597,7 @@
       "name": "Parex Resources Inc.",
       "score": 49.0,
       "label": "Hold",
-      "category_score": 97.8,
+      "category_score": 97.7,
       "sector": "Energy",
       "industry": "Oil & Gas E&P",
       "exchange": "Toronto"
@@ -19608,20 +19608,9 @@
       "name": "ADENTRA Inc.",
       "score": 60.0,
       "label": "Hold",
-      "category_score": 96.6,
+      "category_score": 96.8,
       "sector": "Industrials",
       "industry": "Industrial Distribution",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "BTO.TO",
-      "symbol": "BTO.TO",
-      "name": "B2Gold Corp.",
-      "score": 46.0,
-      "label": "Hold",
-      "category_score": 95.2,
-      "sector": "Basic Materials",
-      "industry": "Gold",
       "exchange": "Toronto"
      },
      {
@@ -19630,9 +19619,20 @@
       "name": "Cascades Inc.",
       "score": 55.0,
       "label": "Hold",
-      "category_score": 95.1,
+      "category_score": 95.0,
       "sector": "Consumer Cyclical",
       "industry": "Packaging & Containers",
+      "exchange": "Toronto"
+     },
+     {
+      "ticker": "BTO.TO",
+      "symbol": "BTO.TO",
+      "name": "B2Gold Corp.",
+      "score": 46.0,
+      "label": "Hold",
+      "category_score": 95.0,
+      "sector": "Basic Materials",
+      "industry": "Gold",
       "exchange": "Toronto"
      },
      {
@@ -19641,7 +19641,7 @@
       "name": "Orezone Gold Corporation",
       "score": 68.0,
       "label": "Buy",
-      "category_score": 93.4,
+      "category_score": 93.2,
       "sector": "Basic Materials",
       "industry": "Gold",
       "exchange": "Toronto"
@@ -19652,7 +19652,7 @@
       "name": "Ero Copper Corp.",
       "score": 63.0,
       "label": "Hold",
-      "category_score": 92.6,
+      "category_score": 92.5,
       "sector": "Basic Materials",
       "industry": "Copper",
       "exchange": "Toronto"
@@ -19663,7 +19663,7 @@
       "name": "Fortuna Mining Corp.",
       "score": 46.0,
       "label": "Hold",
-      "category_score": 90.2,
+      "category_score": 89.8,
       "sector": "Basic Materials",
       "industry": "Gold",
       "exchange": "Toronto"
@@ -19672,9 +19672,9 @@
       "ticker": "LNR.TO",
       "symbol": "LNR.TO",
       "name": "Linamar Corporation",
-      "score": 63.0,
+      "score": 62.0,
       "label": "Hold",
-      "category_score": 89.2,
+      "category_score": 89.5,
       "sector": "Consumer Cyclical",
       "industry": "Auto Parts",
       "exchange": "Toronto"
@@ -19685,7 +19685,7 @@
       "name": "Trican Well Service Ltd.",
       "score": 58.0,
       "label": "Hold",
-      "category_score": 89.0,
+      "category_score": 88.8,
       "sector": "Energy",
       "industry": "Oil & Gas Equipment & Services",
       "exchange": "Toronto"
@@ -19694,9 +19694,9 @@
       "ticker": "TXR.TO",
       "symbol": "TXR.TO",
       "name": "Torex Resources Inc.",
-      "score": 57.0,
+      "score": 58.0,
       "label": "Hold",
-      "category_score": 88.1,
+      "category_score": 87.1,
       "sector": "Basic Materials",
       "industry": "Gold",
       "exchange": "Toronto"
@@ -19705,9 +19705,9 @@
       "ticker": "TOT.TO",
       "symbol": "TOT.TO",
       "name": "Total Energy Services Inc.",
-      "score": 72.0,
+      "score": 74.0,
       "label": "Buy",
-      "category_score": 87.9,
+      "category_score": 86.8,
       "sector": "Energy",
       "industry": "Oil & Gas Equipment & Services",
       "exchange": "Toronto"
@@ -19718,9 +19718,20 @@
       "name": "OceanaGold Corporation",
       "score": 61.0,
       "label": "Hold",
-      "category_score": 87.4,
+      "category_score": 86.3,
       "sector": "Basic Materials",
       "industry": "Gold",
+      "exchange": "Toronto"
+     },
+     {
+      "ticker": "SCZ.TO",
+      "symbol": "SCZ.TO",
+      "name": "Santacruz Silver Mining Ltd.",
+      "score": 68.0,
+      "label": "Buy",
+      "category_score": 85.2,
+      "sector": "Basic Materials",
+      "industry": "Other Industrial Metals & Mining",
       "exchange": "Toronto"
      },
      {
@@ -19729,7 +19740,7 @@
       "name": "IAMGOLD Corporation",
       "score": 51.0,
       "label": "Hold",
-      "category_score": 84.1,
+      "category_score": 83.1,
       "sector": "Basic Materials",
       "industry": "Gold",
       "exchange": "Toronto"
@@ -19740,9 +19751,20 @@
       "name": "Aris Mining Corporation",
       "score": 52.0,
       "label": "Hold",
-      "category_score": 82.8,
+      "category_score": 82.0,
       "sector": "Basic Materials",
       "industry": "Gold",
+      "exchange": "Toronto"
+     },
+     {
+      "ticker": "LUN.TO",
+      "symbol": "LUN.TO",
+      "name": "Lundin Mining Corporation",
+      "score": 49.0,
+      "label": "Hold",
+      "category_score": 82.0,
+      "sector": "Basic Materials",
+      "industry": "Copper",
       "exchange": "Toronto"
      },
      {
@@ -19751,7 +19773,7 @@
       "name": "Capstone Copper Corp.",
       "score": 51.0,
       "label": "Hold",
-      "category_score": 82.4,
+      "category_score": 81.9,
       "sector": "Basic Materials",
       "industry": "Copper",
       "exchange": "Toronto"
@@ -19760,33 +19782,11 @@
       "ticker": "LNF.TO",
       "symbol": "LNF.TO",
       "name": "Leon's Furniture Limited",
-      "score": 55.0,
+      "score": 56.0,
       "label": "Hold",
-      "category_score": 82.2,
+      "category_score": 81.8,
       "sector": "Consumer Cyclical",
       "industry": "Specialty Retail",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "LUN.TO",
-      "symbol": "LUN.TO",
-      "name": "Lundin Mining Corporation",
-      "score": 50.0,
-      "label": "Hold",
-      "category_score": 82.1,
-      "sector": "Basic Materials",
-      "industry": "Copper",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "K.TO",
-      "symbol": "K.TO",
-      "name": "Kinross Gold Corporation",
-      "score": 50.0,
-      "label": "Hold",
-      "category_score": 81.7,
-      "sector": "Basic Materials",
-      "industry": "Gold",
       "exchange": "Toronto"
      }
     ]
@@ -19814,8 +19814,8 @@
       "ticker": "CVG.TO",
       "symbol": "CVG.TO",
       "name": "Clairvest Group Inc.",
-      "score": 64.0,
-      "label": "Hold",
+      "score": 65.0,
+      "label": "Buy",
       "category_score": 99.2,
       "sector": "Financial Services",
       "industry": "Asset Management",
@@ -19825,7 +19825,7 @@
       "ticker": "CYB.TO",
       "symbol": "CYB.TO",
       "name": "Cymbria Corporation",
-      "score": 60.0,
+      "score": 61.0,
       "label": "Hold",
       "category_score": 97.9,
       "sector": "Financial Services",
@@ -19849,7 +19849,7 @@
       "name": "CCL Industries Inc.",
       "score": 73.0,
       "label": "Buy",
-      "category_score": 96.4,
+      "category_score": 96.5,
       "sector": "Consumer Cyclical",
       "industry": "Packaging & Containers",
       "exchange": "Toronto"
@@ -19866,6 +19866,17 @@
       "exchange": "Toronto"
      },
      {
+      "ticker": "H.TO",
+      "symbol": "H.TO",
+      "name": "Hydro One Limited",
+      "score": 56.0,
+      "label": "Hold",
+      "category_score": 95.4,
+      "sector": "Utilities",
+      "industry": "Utilities\u2014Regulated Electric",
+      "exchange": "Toronto"
+     },
+     {
       "ticker": "CU.TO",
       "symbol": "CU.TO",
       "name": "Canadian Utilities Limited",
@@ -19874,17 +19885,6 @@
       "category_score": 95.4,
       "sector": "Utilities",
       "industry": "Utilities\u2014Diversified",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "H.TO",
-      "symbol": "H.TO",
-      "name": "Hydro One Limited",
-      "score": 56.0,
-      "label": "Hold",
-      "category_score": 95.3,
-      "sector": "Utilities",
-      "industry": "Utilities\u2014Regulated Electric",
       "exchange": "Toronto"
      },
      {
@@ -19968,7 +19968,7 @@
       "ticker": "ELF.TO",
       "symbol": "ELF.TO",
       "name": "E-L Financial Corporation Limited",
-      "score": 47.0,
+      "score": 48.0,
       "label": "Hold",
       "category_score": 92.3,
       "sector": "Financial Services",
@@ -20001,7 +20001,7 @@
       "ticker": "PPL.TO",
       "symbol": "PPL.TO",
       "name": "Pembina Pipeline Corporation",
-      "score": 50.0,
+      "score": 51.0,
       "label": "Hold",
       "category_score": 91.8,
       "sector": "Energy",
@@ -21642,17 +21642,6 @@
     "category_label": "Combined score",
     "items": [
      {
-      "ticker": "SKHY",
-      "symbol": "SKHY",
-      "name": "SK hynix Inc.",
-      "score": 78.0,
-      "label": "Buy",
-      "category_score": 85.9,
-      "sector": "Technology",
-      "industry": "Semiconductors",
-      "exchange": "NasdaqGS"
-     },
-     {
       "ticker": "SNDK",
       "symbol": "SNDK",
       "name": "Sandisk Corporation",
@@ -21661,17 +21650,6 @@
       "category_score": 84.8,
       "sector": "Technology",
       "industry": "Computer Hardware",
-      "exchange": "NasdaqGS"
-     },
-     {
-      "ticker": "MU",
-      "symbol": "MU",
-      "name": "Micron Technology, Inc.",
-      "score": 81.0,
-      "label": "Strong Buy",
-      "category_score": 82.2,
-      "sector": "Technology",
-      "industry": "Semiconductors",
       "exchange": "NasdaqGS"
      },
      {
@@ -21713,7 +21691,7 @@
       "name": "nVent Electric plc",
       "score": 68.0,
       "label": "Buy",
-      "category_score": 80.4,
+      "category_score": 80.5,
       "sector": "Industrials",
       "industry": "Electrical Equipment & Parts",
       "exchange": "NYSE"
@@ -21724,7 +21702,7 @@
       "name": "DLocal Limited",
       "score": 72.0,
       "label": "Buy",
-      "category_score": 79.9,
+      "category_score": 80.0,
       "sector": "Technology",
       "industry": "Software\u2014Infrastructure",
       "exchange": "NasdaqGS"
@@ -21735,7 +21713,7 @@
       "name": "Atour Lifestyle Holdings Limited",
       "score": 77.0,
       "label": "Buy",
-      "category_score": 79.2,
+      "category_score": 79.3,
       "sector": "Consumer Cyclical",
       "industry": "Lodging",
       "exchange": "NasdaqGS"
@@ -21746,21 +21724,10 @@
       "name": "Silicon Motion Technology Corporation",
       "score": 64.0,
       "label": "Hold",
-      "category_score": 79.1,
+      "category_score": 79.2,
       "sector": "Technology",
       "industry": "Semiconductors",
       "exchange": "NasdaqGS"
-     },
-     {
-      "ticker": "TSM",
-      "symbol": "TSM",
-      "name": "Taiwan Semiconductor Manufacturing Company Limited",
-      "score": 67.0,
-      "label": "Buy",
-      "category_score": 79.0,
-      "sector": "Technology",
-      "industry": "Semiconductors",
-      "exchange": "NYSE"
      },
      {
       "ticker": "FSLR",
@@ -21801,7 +21768,7 @@
       "name": "Teradyne, Inc.",
       "score": 68.0,
       "label": "Buy",
-      "category_score": 77.9,
+      "category_score": 78.1,
       "sector": "Technology",
       "industry": "Semiconductor Equipment & Materials",
       "exchange": "NasdaqGS"
@@ -21818,23 +21785,12 @@
       "exchange": "NasdaqGS"
      },
      {
-      "ticker": "AVGO",
-      "symbol": "AVGO",
-      "name": "Broadcom Inc.",
-      "score": 61.0,
-      "label": "Hold",
-      "category_score": 77.7,
-      "sector": "Technology",
-      "industry": "Semiconductors",
-      "exchange": "NasdaqGS"
-     },
-     {
       "ticker": "DIOD",
       "symbol": "DIOD",
       "name": "Diodes Incorporated",
       "score": 62.0,
       "label": "Hold",
-      "category_score": 77.2,
+      "category_score": 77.5,
       "sector": "Technology",
       "industry": "Semiconductors",
       "exchange": "NasdaqGS"
@@ -21845,21 +21801,65 @@
       "name": "Hudbay Minerals Inc.",
       "score": 68.0,
       "label": "Buy",
-      "category_score": 77.0,
+      "category_score": 77.3,
       "sector": "Basic Materials",
       "industry": "Copper",
       "exchange": "NYSE"
      },
      {
-      "ticker": "ATLC",
-      "symbol": "ATLC",
-      "name": "Atlanticus Holdings Corporation",
-      "score": 68.0,
+      "ticker": "AMAT",
+      "symbol": "AMAT",
+      "name": "Applied Materials, Inc.",
+      "score": 65.0,
       "label": "Buy",
       "category_score": 76.8,
-      "sector": "Financial Services",
-      "industry": "Credit Services",
+      "sector": "Technology",
+      "industry": "Semiconductor Equipment & Materials",
       "exchange": "NasdaqGS"
+     },
+     {
+      "ticker": "ACMR",
+      "symbol": "ACMR",
+      "name": "ACM Research, Inc.",
+      "score": 62.0,
+      "label": "Hold",
+      "category_score": 76.8,
+      "sector": "Technology",
+      "industry": "Semiconductor Equipment & Materials",
+      "exchange": "NasdaqGM"
+     },
+     {
+      "ticker": "SE",
+      "symbol": "SE",
+      "name": "Sea Limited",
+      "score": 62.0,
+      "label": "Hold",
+      "category_score": 76.8,
+      "sector": "Consumer Cyclical",
+      "industry": "Internet Retail",
+      "exchange": "NYSE"
+     },
+     {
+      "ticker": "RMBS",
+      "symbol": "RMBS",
+      "name": "Rambus Inc.",
+      "score": 65.0,
+      "label": "Buy",
+      "category_score": 76.7,
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "exchange": "NasdaqGS"
+     },
+     {
+      "ticker": "NESR",
+      "symbol": "NESR",
+      "name": "National Energy Services Reunited Corp.",
+      "score": 62.0,
+      "label": "Hold",
+      "category_score": 76.5,
+      "sector": "Energy",
+      "industry": "Oil & Gas Equipment & Services",
+      "exchange": "NasdaqCM"
      }
     ]
    },
@@ -21877,7 +21877,7 @@
       "name": "Almonty Industries Inc.",
       "score": 53.0,
       "label": "Hold",
-      "category_score": 98.9,
+      "category_score": 98.8,
       "sector": "Basic Materials",
       "industry": "Other Industrial Metals & Mining",
       "exchange": "NasdaqCM"
@@ -21916,23 +21916,12 @@
       "exchange": "NasdaqGS"
      },
      {
-      "ticker": "FTAI",
-      "symbol": "FTAI",
-      "name": "FTAI Aviation Ltd.",
-      "score": 49.0,
-      "label": "Hold",
-      "category_score": 95.2,
-      "sector": "Industrials",
-      "industry": "Aerospace & Defense",
-      "exchange": "NasdaqGS"
-     },
-     {
       "ticker": "FLEX",
       "symbol": "FLEX",
       "name": "Flex Ltd.",
       "score": 50.0,
       "label": "Hold",
-      "category_score": 94.9,
+      "category_score": 95.0,
       "sector": "Technology",
       "industry": "Electronic Components",
       "exchange": "NasdaqGS"
@@ -21943,7 +21932,7 @@
       "name": "Modexus Solutions, Inc.",
       "score": 45.0,
       "label": "Hold",
-      "category_score": 94.9,
+      "category_score": 95.0,
       "sector": "Industrials",
       "industry": "Building Products & Equipment",
       "exchange": "NYSE"
@@ -21954,7 +21943,7 @@
       "name": "Tower Semiconductor Ltd.",
       "score": 55.0,
       "label": "Hold",
-      "category_score": 94.8,
+      "category_score": 94.9,
       "sector": "Technology",
       "industry": "Semiconductors",
       "exchange": "NasdaqGS"
@@ -22004,34 +21993,12 @@
       "exchange": "NYSE"
      },
      {
-      "ticker": "AVGO",
-      "symbol": "AVGO",
-      "name": "Broadcom Inc.",
-      "score": 61.0,
-      "label": "Hold",
-      "category_score": 94.4,
-      "sector": "Technology",
-      "industry": "Semiconductors",
-      "exchange": "NasdaqGS"
-     },
-     {
       "ticker": "SIMO",
       "symbol": "SIMO",
       "name": "Silicon Motion Technology Corporation",
       "score": 64.0,
       "label": "Hold",
-      "category_score": 94.2,
-      "sector": "Technology",
-      "industry": "Semiconductors",
-      "exchange": "NasdaqGS"
-     },
-     {
-      "ticker": "SKHY",
-      "symbol": "SKHY",
-      "name": "SK hynix Inc.",
-      "score": 78.0,
-      "label": "Buy",
-      "category_score": 93.8,
+      "category_score": 94.3,
       "sector": "Technology",
       "industry": "Semiconductors",
       "exchange": "NasdaqGS"
@@ -22042,7 +22009,7 @@
       "name": "Advanced Micro Devices, Inc.",
       "score": 51.0,
       "label": "Hold",
-      "category_score": 93.8,
+      "category_score": 93.9,
       "sector": "Technology",
       "industry": "Semiconductors",
       "exchange": "NasdaqGS"
@@ -22053,7 +22020,7 @@
       "name": "Sterling Infrastructure, Inc.",
       "score": 70.0,
       "label": "Buy",
-      "category_score": 93.5,
+      "category_score": 93.7,
       "sector": "Industrials",
       "industry": "Engineering & Construction",
       "exchange": "NasdaqGS"
@@ -22081,6 +22048,17 @@
       "exchange": "NasdaqGS"
      },
      {
+      "ticker": "AEIS",
+      "symbol": "AEIS",
+      "name": "Advanced Energy Industries, Inc.",
+      "score": 59.0,
+      "label": "Hold",
+      "category_score": 93.1,
+      "sector": "Industrials",
+      "industry": "Electrical Equipment & Parts",
+      "exchange": "NasdaqGS"
+     },
+     {
       "ticker": "FPS",
       "symbol": "FPS",
       "name": "Forgent Power Solutions, Inc.",
@@ -22090,6 +22068,28 @@
       "sector": "Industrials",
       "industry": "Electrical Equipment & Parts",
       "exchange": "NYSE"
+     },
+     {
+      "ticker": "AXTI",
+      "symbol": "AXTI",
+      "name": "AXT, Inc.",
+      "score": 50.0,
+      "label": "Hold",
+      "category_score": 93.1,
+      "sector": "Technology",
+      "industry": "Semiconductor Equipment & Materials",
+      "exchange": "NasdaqGS"
+     },
+     {
+      "ticker": "DIOD",
+      "symbol": "DIOD",
+      "name": "Diodes Incorporated",
+      "score": 62.0,
+      "label": "Hold",
+      "category_score": 93.0,
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "exchange": "NasdaqGS"
      }
     ]
    },
@@ -23496,19 +23496,8 @@
       "ticker": "JST-USD",
       "symbol": "JST",
       "name": "JUST",
-      "score": 77.0,
-      "label": "Buy",
-      "category_score": null,
-      "sector": null,
-      "industry": null,
-      "exchange": null
-     },
-     {
-      "ticker": "TRX-USD",
-      "symbol": "TRX",
-      "name": "TRON",
-      "score": 69.0,
-      "label": "Buy",
+      "score": 80.0,
+      "label": "Strong Buy",
       "category_score": null,
       "sector": null,
       "industry": null,
@@ -23526,33 +23515,11 @@
       "exchange": null
      },
      {
-      "ticker": "DGAI-USD",
-      "symbol": "DGAI",
-      "name": "DGrid AI",
-      "score": 65.0,
+      "ticker": "TRX-USD",
+      "symbol": "TRX",
+      "name": "TRON",
+      "score": 67.0,
       "label": "Buy",
-      "category_score": null,
-      "sector": null,
-      "industry": null,
-      "exchange": null
-     },
-     {
-      "ticker": "BTC-USD",
-      "symbol": "BTC",
-      "name": "Bitcoin",
-      "score": 64.0,
-      "label": "Hold",
-      "category_score": null,
-      "sector": null,
-      "industry": null,
-      "exchange": null
-     },
-     {
-      "ticker": "GOMINING-USD",
-      "symbol": "GOMINING",
-      "name": "Go\u041cining",
-      "score": 64.0,
-      "label": "Hold",
       "category_score": null,
       "sector": null,
       "industry": null,
@@ -23562,7 +23529,18 @@
       "ticker": "VVV35509-USD",
       "symbol": "VVV",
       "name": "Venice Token",
-      "score": 64.0,
+      "score": 65.0,
+      "label": "Buy",
+      "category_score": null,
+      "sector": null,
+      "industry": null,
+      "exchange": null
+     },
+     {
+      "ticker": "GOMINING-USD",
+      "symbol": "GOMINING",
+      "name": "Go\u041cining",
+      "score": 63.0,
       "label": "Hold",
       "category_score": null,
       "sector": null,
@@ -23573,7 +23551,7 @@
       "ticker": "LEO-USD",
       "symbol": "LEO",
       "name": "UNUS SED LEO",
-      "score": 62.0,
+      "score": 63.0,
       "label": "Hold",
       "category_score": null,
       "sector": null,
@@ -23581,10 +23559,10 @@
       "exchange": null
      },
      {
-      "ticker": "XMR-USD",
-      "symbol": "XMR",
-      "name": "Monero",
-      "score": 59.0,
+      "ticker": "CAP40531-USD",
+      "symbol": "CAP",
+      "name": "Cap",
+      "score": 61.0,
       "label": "Hold",
       "category_score": null,
       "sector": null,
@@ -23592,10 +23570,10 @@
       "exchange": null
      },
      {
-      "ticker": "APEPE27048-USD",
-      "symbol": "APEPE",
-      "name": "Ape and Pepe",
-      "score": 58.0,
+      "ticker": "DGAI-USD",
+      "symbol": "DGAI",
+      "name": "DGrid AI",
+      "score": 61.0,
       "label": "Hold",
       "category_score": null,
       "sector": null,
@@ -23606,6 +23584,39 @@
       "ticker": "DRV35014-USD",
       "symbol": "DRV",
       "name": "Derive",
+      "score": 59.0,
+      "label": "Hold",
+      "category_score": null,
+      "sector": null,
+      "industry": null,
+      "exchange": null
+     },
+     {
+      "ticker": "HYPE32196-USD",
+      "symbol": "HYPE",
+      "name": "Hyperliquid",
+      "score": 59.0,
+      "label": "Hold",
+      "category_score": null,
+      "sector": null,
+      "industry": null,
+      "exchange": null
+     },
+     {
+      "ticker": "BTC-USD",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "score": 58.0,
+      "label": "Hold",
+      "category_score": null,
+      "sector": null,
+      "industry": null,
+      "exchange": null
+     },
+     {
+      "ticker": "ETH-USD",
+      "symbol": "ETH",
+      "name": "Ethereum",
       "score": 57.0,
       "label": "Hold",
       "category_score": null,
@@ -23625,9 +23636,9 @@
       "exchange": null
      },
      {
-      "ticker": "ETH-USD",
-      "symbol": "ETH",
-      "name": "Ethereum",
+      "ticker": "XMR-USD",
+      "symbol": "XMR",
+      "name": "Monero",
       "score": 56.0,
       "label": "Hold",
       "category_score": null,
@@ -23636,20 +23647,9 @@
       "exchange": null
      },
      {
-      "ticker": "CAP40531-USD",
-      "symbol": "CAP",
-      "name": "Cap",
-      "score": 55.0,
-      "label": "Hold",
-      "category_score": null,
-      "sector": null,
-      "industry": null,
-      "exchange": null
-     },
-     {
-      "ticker": "HYPE32196-USD",
-      "symbol": "HYPE",
-      "name": "Hyperliquid",
+      "ticker": "APEPE27048-USD",
+      "symbol": "APEPE",
+      "name": "Ape and Pepe",
       "score": 55.0,
       "label": "Hold",
       "category_score": null,
@@ -23669,6 +23669,17 @@
       "exchange": null
      },
      {
+      "ticker": "BRWL-USD",
+      "symbol": "BRWL",
+      "name": "Blockchain Brawlers",
+      "score": 54.0,
+      "label": "Hold",
+      "category_score": null,
+      "sector": null,
+      "industry": null,
+      "exchange": null
+     },
+     {
       "ticker": "ARIA38102-USD",
       "symbol": "ARIA",
       "name": "AriaAI",
@@ -23680,21 +23691,10 @@
       "exchange": null
      },
      {
-      "ticker": "D11374-USD",
-      "symbol": "D11374",
-      "name": "DAR Open Network",
-      "score": 53.0,
-      "label": "Hold",
-      "category_score": null,
-      "sector": null,
-      "industry": null,
-      "exchange": null
-     },
-     {
       "ticker": "BNB-USD",
       "symbol": "BNB",
       "name": "BNB",
-      "score": 52.0,
+      "score": 53.0,
       "label": "Hold",
       "category_score": null,
       "sector": null,
@@ -26319,17 +26319,6 @@
       "exchange": "Toronto"
      },
      {
-      "ticker": "TXR.TO",
-      "symbol": "TXR.TO",
-      "name": "Torex Resources Inc.",
-      "score": 73.0,
-      "label": "Buy",
-      "category_score": null,
-      "sector": "Basic Materials",
-      "industry": "Gold",
-      "exchange": "Toronto"
-     },
-     {
       "ticker": "WDO.TO",
       "symbol": "WDO.TO",
       "name": "Wesdome Gold Mines Ltd.",
@@ -26363,21 +26352,10 @@
       "exchange": "Toronto"
      },
      {
-      "ticker": "DPM.TO",
-      "symbol": "DPM.TO",
-      "name": "DPM Metals Inc.",
-      "score": 71.0,
-      "label": "Buy",
-      "category_score": null,
-      "sector": "Basic Materials",
-      "industry": "Gold",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "K.TO",
-      "symbol": "K.TO",
-      "name": "Kinross Gold Corporation",
-      "score": 71.0,
+      "ticker": "TXR.TO",
+      "symbol": "TXR.TO",
+      "name": "Torex Resources Inc.",
+      "score": 72.0,
       "label": "Buy",
       "category_score": null,
       "sector": "Basic Materials",
@@ -26396,6 +26374,17 @@
       "exchange": "Toronto"
      },
      {
+      "ticker": "LNF.TO",
+      "symbol": "LNF.TO",
+      "name": "Leon's Furniture Limited",
+      "score": 71.0,
+      "label": "Buy",
+      "category_score": null,
+      "sector": "Consumer Cyclical",
+      "industry": "Specialty Retail",
+      "exchange": "Toronto"
+     },
+     {
       "ticker": "PSI.TO",
       "symbol": "PSI.TO",
       "name": "Pason Systems Inc.",
@@ -26407,9 +26396,20 @@
       "exchange": "Toronto"
      },
      {
-      "ticker": "ALK.TO",
-      "symbol": "ALK.TO",
-      "name": "Alkane Resources Ltd",
+      "ticker": "SCZ.TO",
+      "symbol": "SCZ.TO",
+      "name": "Santacruz Silver Mining Ltd.",
+      "score": 71.0,
+      "label": "Buy",
+      "category_score": null,
+      "sector": "Basic Materials",
+      "industry": "Other Industrial Metals & Mining",
+      "exchange": "Toronto"
+     },
+     {
+      "ticker": "DPM.TO",
+      "symbol": "DPM.TO",
+      "name": "DPM Metals Inc.",
       "score": 70.0,
       "label": "Buy",
       "category_score": null,
@@ -26429,14 +26429,14 @@
       "exchange": "Toronto"
      },
      {
-      "ticker": "LNF.TO",
-      "symbol": "LNF.TO",
-      "name": "Leon's Furniture Limited",
+      "ticker": "K.TO",
+      "symbol": "K.TO",
+      "name": "Kinross Gold Corporation",
       "score": 70.0,
       "label": "Buy",
       "category_score": null,
-      "sector": "Consumer Cyclical",
-      "industry": "Specialty Retail",
+      "sector": "Basic Materials",
+      "industry": "Gold",
       "exchange": "Toronto"
      },
      {
@@ -26451,10 +26451,10 @@
       "exchange": "Toronto"
      },
      {
-      "ticker": "IMG.TO",
-      "symbol": "IMG.TO",
-      "name": "IAMGOLD Corporation",
-      "score": 69.0,
+      "ticker": "ABX.TO",
+      "symbol": "ABX.TO",
+      "name": "Barrick Mining Corporation",
+      "score": 68.0,
       "label": "Buy",
       "category_score": null,
       "sector": "Basic Materials",
@@ -26475,7 +26475,7 @@
       "ticker": "DCBO.TO",
       "symbol": "DCBO.TO",
       "name": "Docebo Inc.",
-      "score": 59.0,
+      "score": 58.0,
       "label": "Hold",
       "category_score": 98.2,
       "sector": "Technology",
@@ -26499,7 +26499,7 @@
       "name": "Canadian Natural Resources Limited",
       "score": 65.0,
       "label": "Buy",
-      "category_score": 93.9,
+      "category_score": 93.8,
       "sector": "Energy",
       "industry": "Oil & Gas E&P",
       "exchange": "Toronto"
@@ -26510,7 +26510,7 @@
       "name": "TFI International Inc.",
       "score": 56.0,
       "label": "Hold",
-      "category_score": 90.5,
+      "category_score": 90.3,
       "sector": "Industrials",
       "industry": "Trucking",
       "exchange": "Toronto"
@@ -26519,9 +26519,9 @@
       "ticker": "WGX.TO",
       "symbol": "WGX.TO",
       "name": "Westgold Resources Limited",
-      "score": 66.0,
+      "score": 65.0,
       "label": "Buy",
-      "category_score": 89.5,
+      "category_score": 88.7,
       "sector": "Basic Materials",
       "industry": "Gold",
       "exchange": "Toronto"
@@ -26554,7 +26554,7 @@
       "name": "Badger Infrastructure Solutions Ltd.",
       "score": 54.0,
       "label": "Hold",
-      "category_score": 87.7,
+      "category_score": 87.6,
       "sector": "Industrials",
       "industry": "Engineering & Construction",
       "exchange": "Toronto"
@@ -26585,9 +26585,9 @@
       "ticker": "CNR.TO",
       "symbol": "CNR.TO",
       "name": "Canadian National Railway Company",
-      "score": 59.0,
+      "score": 58.0,
       "label": "Hold",
-      "category_score": 84.8,
+      "category_score": 84.7,
       "sector": "Industrials",
       "industry": "Railroads",
       "exchange": "Toronto"
@@ -26598,7 +26598,7 @@
       "name": "ADENTRA Inc.",
       "score": 67.0,
       "label": "Buy",
-      "category_score": 84.3,
+      "category_score": 84.4,
       "sector": "Industrials",
       "industry": "Industrial Distribution",
       "exchange": "Toronto"
@@ -26620,7 +26620,7 @@
       "name": "Endeavour Mining plc",
       "score": 61.0,
       "label": "Hold",
-      "category_score": 81.9,
+      "category_score": 81.8,
       "sector": "Basic Materials",
       "industry": "Gold",
       "exchange": "Toronto"
@@ -26686,7 +26686,7 @@
       "name": "Alimentation Couche-Tard Inc.",
       "score": 57.0,
       "label": "Hold",
-      "category_score": 79.6,
+      "category_score": 79.5,
       "sector": "Consumer Cyclical",
       "industry": "Specialty Retail",
       "exchange": "Toronto"
@@ -26729,7 +26729,7 @@
       "name": "Parex Resources Inc.",
       "score": 72.0,
       "label": "Buy",
-      "category_score": 97.8,
+      "category_score": 97.7,
       "sector": "Energy",
       "industry": "Oil & Gas E&P",
       "exchange": "Toronto"
@@ -26751,7 +26751,7 @@
       "name": "ADENTRA Inc.",
       "score": 67.0,
       "label": "Buy",
-      "category_score": 96.6,
+      "category_score": 96.8,
       "sector": "Industrials",
       "industry": "Industrial Distribution",
       "exchange": "Toronto"
@@ -26762,7 +26762,7 @@
       "name": "B2Gold Corp.",
       "score": 68.0,
       "label": "Buy",
-      "category_score": 95.2,
+      "category_score": 95.0,
       "sector": "Basic Materials",
       "industry": "Gold",
       "exchange": "Toronto"
@@ -26773,7 +26773,7 @@
       "name": "Cascades Inc.",
       "score": 67.0,
       "label": "Buy",
-      "category_score": 95.1,
+      "category_score": 95.0,
       "sector": "Consumer Cyclical",
       "industry": "Packaging & Containers",
       "exchange": "Toronto"
@@ -26784,7 +26784,7 @@
       "name": "Orezone Gold Corporation",
       "score": 74.0,
       "label": "Buy",
-      "category_score": 93.4,
+      "category_score": 93.2,
       "sector": "Basic Materials",
       "industry": "Gold",
       "exchange": "Toronto"
@@ -26795,7 +26795,7 @@
       "name": "Ero Copper Corp.",
       "score": 74.0,
       "label": "Buy",
-      "category_score": 92.6,
+      "category_score": 92.5,
       "sector": "Basic Materials",
       "industry": "Copper",
       "exchange": "Toronto"
@@ -26804,7 +26804,7 @@
       "ticker": "MRC.TO",
       "symbol": "MRC.TO",
       "name": "Morguard Corporation",
-      "score": 63.0,
+      "score": 62.0,
       "label": "Hold",
       "category_score": 91.8,
       "sector": "Real Estate",
@@ -26837,9 +26837,9 @@
       "ticker": "FVI.TO",
       "symbol": "FVI.TO",
       "name": "Fortuna Mining Corp.",
-      "score": 67.0,
+      "score": 66.0,
       "label": "Buy",
-      "category_score": 90.2,
+      "category_score": 89.8,
       "sector": "Basic Materials",
       "industry": "Gold",
       "exchange": "Toronto"
@@ -26850,7 +26850,7 @@
       "name": "Linamar Corporation",
       "score": 74.0,
       "label": "Buy",
-      "category_score": 89.2,
+      "category_score": 89.5,
       "sector": "Consumer Cyclical",
       "industry": "Auto Parts",
       "exchange": "Toronto"
@@ -26861,29 +26861,29 @@
       "name": "Trican Well Service Ltd.",
       "score": 76.0,
       "label": "Buy",
-      "category_score": 89.0,
+      "category_score": 88.8,
       "sector": "Energy",
       "industry": "Oil & Gas Equipment & Services",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "HMMC.TO",
-      "symbol": "HMMC.TO",
-      "name": "Hemlo Mining Corp.",
-      "score": 55.0,
-      "label": "Hold",
-      "category_score": 88.2,
-      "sector": "Basic Materials",
-      "industry": "Gold",
       "exchange": "Toronto"
      },
      {
       "ticker": "TXR.TO",
       "symbol": "TXR.TO",
       "name": "Torex Resources Inc.",
-      "score": 73.0,
+      "score": 72.0,
       "label": "Buy",
-      "category_score": 88.1,
+      "category_score": 87.1,
+      "sector": "Basic Materials",
+      "industry": "Gold",
+      "exchange": "Toronto"
+     },
+     {
+      "ticker": "HMMC.TO",
+      "symbol": "HMMC.TO",
+      "name": "Hemlo Mining Corp.",
+      "score": 54.0,
+      "label": "Hold",
+      "category_score": 86.9,
       "sector": "Basic Materials",
       "industry": "Gold",
       "exchange": "Toronto"
@@ -26894,7 +26894,7 @@
       "name": "Total Energy Services Inc.",
       "score": 75.0,
       "label": "Buy",
-      "category_score": 87.9,
+      "category_score": 86.8,
       "sector": "Energy",
       "industry": "Oil & Gas Equipment & Services",
       "exchange": "Toronto"
@@ -26905,20 +26905,20 @@
       "name": "OceanaGold Corporation",
       "score": 75.0,
       "label": "Buy",
-      "category_score": 87.4,
+      "category_score": 86.3,
       "sector": "Basic Materials",
       "industry": "Gold",
       "exchange": "Toronto"
      },
      {
-      "ticker": "IMG.TO",
-      "symbol": "IMG.TO",
-      "name": "IAMGOLD Corporation",
-      "score": 69.0,
+      "ticker": "SCZ.TO",
+      "symbol": "SCZ.TO",
+      "name": "Santacruz Silver Mining Ltd.",
+      "score": 71.0,
       "label": "Buy",
-      "category_score": 84.1,
+      "category_score": 85.2,
       "sector": "Basic Materials",
-      "industry": "Gold",
+      "industry": "Other Industrial Metals & Mining",
       "exchange": "Toronto"
      }
     ]
@@ -26968,7 +26968,7 @@
       "ticker": "MRC.TO",
       "symbol": "MRC.TO",
       "name": "Morguard Corporation",
-      "score": 63.0,
+      "score": 62.0,
       "label": "Hold",
       "category_score": 97.1,
       "sector": "Real Estate",
@@ -26981,7 +26981,7 @@
       "name": "CCL Industries Inc.",
       "score": 62.0,
       "label": "Hold",
-      "category_score": 96.4,
+      "category_score": 96.5,
       "sector": "Consumer Cyclical",
       "industry": "Packaging & Containers",
       "exchange": "Toronto"
@@ -27003,7 +27003,7 @@
       "name": "Hydro One Limited",
       "score": 46.0,
       "label": "Hold",
-      "category_score": 95.3,
+      "category_score": 95.4,
       "sector": "Utilities",
       "industry": "Utilities\u2014Regulated Electric",
       "exchange": "Toronto"
@@ -27078,7 +27078,7 @@
       "ticker": "ELF.TO",
       "symbol": "ELF.TO",
       "name": "E-L Financial Corporation Limited",
-      "score": 63.0,
+      "score": 64.0,
       "label": "Hold",
       "category_score": 92.3,
       "sector": "Financial Services",
@@ -28779,7 +28779,7 @@
       "name": "Atour Lifestyle Holdings Limited",
       "score": 81.0,
       "label": "Strong Buy",
-      "category_score": 81.2,
+      "category_score": 81.3,
       "sector": "Consumer Cyclical",
       "industry": "Lodging",
       "exchange": "NasdaqGS"
@@ -28796,26 +28796,26 @@
       "exchange": "NYSE"
      },
      {
-      "ticker": "TSM",
-      "symbol": "TSM",
-      "name": "Taiwan Semiconductor Manufacturing Company Limited",
-      "score": 62.0,
-      "label": "Hold",
-      "category_score": 76.5,
-      "sector": "Technology",
-      "industry": "Semiconductors",
-      "exchange": "NYSE"
-     },
-     {
       "ticker": "RLX",
       "symbol": "RLX",
       "name": "RLX Technology Inc.",
       "score": 64.0,
       "label": "Hold",
-      "category_score": 76.2,
+      "category_score": 76.7,
       "sector": "Consumer Defensive",
       "industry": "Tobacco",
       "exchange": "NYSE"
+     },
+     {
+      "ticker": "DLO",
+      "symbol": "DLO",
+      "name": "DLocal Limited",
+      "score": 64.0,
+      "label": "Hold",
+      "category_score": 76.0,
+      "sector": "Technology",
+      "industry": "Software\u2014Infrastructure",
+      "exchange": "NasdaqGS"
      },
      {
       "ticker": "INVA",
@@ -28826,28 +28826,6 @@
       "category_score": 75.9,
       "sector": "Healthcare",
       "industry": "Biotechnology",
-      "exchange": "NasdaqGS"
-     },
-     {
-      "ticker": "DLO",
-      "symbol": "DLO",
-      "name": "DLocal Limited",
-      "score": 64.0,
-      "label": "Hold",
-      "category_score": 75.9,
-      "sector": "Technology",
-      "industry": "Software\u2014Infrastructure",
-      "exchange": "NasdaqGS"
-     },
-     {
-      "ticker": "AVGO",
-      "symbol": "AVGO",
-      "name": "Broadcom Inc.",
-      "score": 57.0,
-      "label": "Hold",
-      "category_score": 75.7,
-      "sector": "Technology",
-      "industry": "Semiconductors",
       "exchange": "NasdaqGS"
      },
      {
@@ -28867,7 +28845,7 @@
       "name": "NetEase, Inc.",
       "score": 77.0,
       "label": "Buy",
-      "category_score": 75.6,
+      "category_score": 75.7,
       "sector": "Communication Services",
       "industry": "Electronic Gaming & Multimedia",
       "exchange": "NasdaqGS"
@@ -28900,7 +28878,7 @@
       "name": "nVent Electric plc",
       "score": 57.0,
       "label": "Hold",
-      "category_score": 74.9,
+      "category_score": 75.0,
       "sector": "Industrials",
       "industry": "Electrical Equipment & Parts",
       "exchange": "NYSE"
@@ -28911,7 +28889,7 @@
       "name": "United Therapeutics Corporation",
       "score": 83.0,
       "label": "Strong Buy",
-      "category_score": 74.5,
+      "category_score": 74.6,
       "sector": "Healthcare",
       "industry": "Drug Manufacturers\u2014Specialty & Generic",
       "exchange": "NasdaqGS"
@@ -28922,7 +28900,7 @@
       "name": "Tower Semiconductor Ltd.",
       "score": 54.0,
       "label": "Hold",
-      "category_score": 74.4,
+      "category_score": 74.5,
       "sector": "Technology",
       "industry": "Semiconductors",
       "exchange": "NasdaqGS"
@@ -28933,7 +28911,7 @@
       "name": "Full Truck Alliance Co. Ltd.",
       "score": 81.0,
       "label": "Strong Buy",
-      "category_score": 74.2,
+      "category_score": 74.3,
       "sector": "Technology",
       "industry": "Software\u2014Application",
       "exchange": "NYSE"
@@ -28955,7 +28933,7 @@
       "name": "argenx SE",
       "score": 71.0,
       "label": "Buy",
-      "category_score": 73.9,
+      "category_score": 74.0,
       "sector": "Healthcare",
       "industry": "Biotechnology",
       "exchange": "NasdaqGS"
@@ -28966,31 +28944,53 @@
       "name": "Amphenol Corporation",
       "score": 60.0,
       "label": "Hold",
-      "category_score": 73.6,
+      "category_score": 73.7,
       "sector": "Technology",
       "industry": "Electronic Components",
       "exchange": "NYSE"
      },
      {
-      "ticker": "BZ",
-      "symbol": "BZ",
-      "name": "Kanzhun Limited",
-      "score": 72.0,
-      "label": "Buy",
-      "category_score": 73.5,
-      "sector": "Communication Services",
-      "industry": "Internet Content & Information",
+      "ticker": "NVDA",
+      "symbol": "NVDA",
+      "name": "NVIDIA Corporation",
+      "score": 58.0,
+      "label": "Hold",
+      "category_score": 73.2,
+      "sector": "Technology",
+      "industry": "Semiconductors",
       "exchange": "NasdaqGS"
      },
      {
-      "ticker": "SKHY",
-      "symbol": "SKHY",
-      "name": "SK hynix Inc.",
-      "score": 53.0,
+      "ticker": "BABA",
+      "symbol": "BABA",
+      "name": "Alibaba Group Holding Limited",
+      "score": 60.0,
       "label": "Hold",
-      "category_score": 73.4,
+      "category_score": 72.8,
+      "sector": "Consumer Cyclical",
+      "industry": "Internet Retail",
+      "exchange": "NYSE"
+     },
+     {
+      "ticker": "ASML",
+      "symbol": "ASML",
+      "name": "ASML Holding N.V.",
+      "score": 54.0,
+      "label": "Hold",
+      "category_score": 72.5,
       "sector": "Technology",
-      "industry": "Semiconductors",
+      "industry": "Semiconductor Equipment & Materials",
+      "exchange": "NasdaqGS"
+     },
+     {
+      "ticker": "OPRA",
+      "symbol": "OPRA",
+      "name": "Opera Limited",
+      "score": 60.0,
+      "label": "Hold",
+      "category_score": 72.3,
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information",
       "exchange": "NasdaqGS"
      }
     ]
@@ -29020,7 +29020,7 @@
       "name": "Tower Semiconductor Ltd.",
       "score": 54.0,
       "label": "Hold",
-      "category_score": 94.8,
+      "category_score": 94.9,
       "sector": "Technology",
       "industry": "Semiconductors",
       "exchange": "NasdaqGS"
@@ -29048,34 +29048,12 @@
       "exchange": "NYSE"
      },
      {
-      "ticker": "AVGO",
-      "symbol": "AVGO",
-      "name": "Broadcom Inc.",
-      "score": 57.0,
-      "label": "Hold",
-      "category_score": 94.4,
-      "sector": "Technology",
-      "industry": "Semiconductors",
-      "exchange": "NasdaqGS"
-     },
-     {
       "ticker": "SIMO",
       "symbol": "SIMO",
       "name": "Silicon Motion Technology Corporation",
       "score": 47.0,
       "label": "Hold",
-      "category_score": 94.2,
-      "sector": "Technology",
-      "industry": "Semiconductors",
-      "exchange": "NasdaqGS"
-     },
-     {
-      "ticker": "SKHY",
-      "symbol": "SKHY",
-      "name": "SK hynix Inc.",
-      "score": 53.0,
-      "label": "Hold",
-      "category_score": 93.8,
+      "category_score": 94.3,
       "sector": "Technology",
       "industry": "Semiconductors",
       "exchange": "NasdaqGS"
@@ -29086,7 +29064,7 @@
       "name": "Advanced Micro Devices, Inc.",
       "score": 47.0,
       "label": "Hold",
-      "category_score": 93.8,
+      "category_score": 93.9,
       "sector": "Technology",
       "industry": "Semiconductors",
       "exchange": "NasdaqGS"
@@ -29097,7 +29075,7 @@
       "name": "Sterling Infrastructure, Inc.",
       "score": 49.0,
       "label": "Hold",
-      "category_score": 93.5,
+      "category_score": 93.7,
       "sector": "Industrials",
       "industry": "Engineering & Construction",
       "exchange": "NasdaqGS"
@@ -29114,12 +29092,23 @@
       "exchange": "NasdaqGS"
      },
      {
+      "ticker": "ANAB",
+      "symbol": "ANAB",
+      "name": "AnaptysBio, Inc.",
+      "score": 46.0,
+      "label": "Hold",
+      "category_score": 93.4,
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "exchange": "NasdaqGS"
+     },
+     {
       "ticker": "AEIS",
       "symbol": "AEIS",
       "name": "Advanced Energy Industries, Inc.",
       "score": 51.0,
       "label": "Hold",
-      "category_score": 93.0,
+      "category_score": 93.1,
       "sector": "Industrials",
       "industry": "Electrical Equipment & Parts",
       "exchange": "NasdaqGS"
@@ -29130,7 +29119,7 @@
       "name": "nVent Electric plc",
       "score": 57.0,
       "label": "Hold",
-      "category_score": 92.8,
+      "category_score": 92.9,
       "sector": "Industrials",
       "industry": "Electrical Equipment & Parts",
       "exchange": "NYSE"
@@ -29144,28 +29133,6 @@
       "category_score": 92.5,
       "sector": "Technology",
       "industry": "Computer Hardware",
-      "exchange": "NasdaqGS"
-     },
-     {
-      "ticker": "GRAB",
-      "symbol": "GRAB",
-      "name": "Grab Holdings Limited",
-      "score": 49.0,
-      "label": "Hold",
-      "category_score": 92.4,
-      "sector": "Technology",
-      "industry": "Software\u2014Application",
-      "exchange": "NasdaqGS"
-     },
-     {
-      "ticker": "ANAB",
-      "symbol": "ANAB",
-      "name": "AnaptysBio, Inc.",
-      "score": 46.0,
-      "label": "Hold",
-      "category_score": 92.2,
-      "sector": "Healthcare",
-      "industry": "Biotechnology",
       "exchange": "NasdaqGS"
      },
      {
@@ -29196,7 +29163,7 @@
       "name": "ACM Research, Inc.",
       "score": 47.0,
       "label": "Hold",
-      "category_score": 91.4,
+      "category_score": 91.5,
       "sector": "Technology",
       "industry": "Semiconductor Equipment & Materials",
       "exchange": "NasdaqGM"
@@ -29207,20 +29174,53 @@
       "name": "Vertiv Holdings Co",
       "score": 48.0,
       "label": "Hold",
-      "category_score": 91.3,
+      "category_score": 91.4,
       "sector": "Industrials",
       "industry": "Electrical Equipment & Parts",
       "exchange": "NYSE"
      },
      {
-      "ticker": "TSM",
-      "symbol": "TSM",
-      "name": "Taiwan Semiconductor Manufacturing Company Limited",
-      "score": 62.0,
+      "ticker": "ASML",
+      "symbol": "ASML",
+      "name": "ASML Holding N.V.",
+      "score": 54.0,
       "label": "Hold",
-      "category_score": 91.1,
+      "category_score": 90.9,
       "sector": "Technology",
-      "industry": "Semiconductors",
+      "industry": "Semiconductor Equipment & Materials",
+      "exchange": "NasdaqGS"
+     },
+     {
+      "ticker": "SNDK",
+      "symbol": "SNDK",
+      "name": "Sandisk Corporation",
+      "score": 54.0,
+      "label": "Hold",
+      "category_score": 90.7,
+      "sector": "Technology",
+      "industry": "Computer Hardware",
+      "exchange": "NasdaqGS"
+     },
+     {
+      "ticker": "LRCX",
+      "symbol": "LRCX",
+      "name": "Lam Research Corporation",
+      "score": 49.0,
+      "label": "Hold",
+      "category_score": 89.8,
+      "sector": "Technology",
+      "industry": "Semiconductor Equipment & Materials",
+      "exchange": "NasdaqGS"
+     },
+     {
+      "ticker": "CIEN",
+      "symbol": "CIEN",
+      "name": "Ciena Corporation",
+      "score": 51.0,
+      "label": "Hold",
+      "category_score": 89.4,
+      "sector": "Technology",
+      "industry": "Communication Equipment",
       "exchange": "NYSE"
      }
     ]
@@ -30628,19 +30628,8 @@
       "ticker": "JST-USD",
       "symbol": "JST",
       "name": "JUST",
-      "score": 77.0,
-      "label": "Buy",
-      "category_score": null,
-      "sector": null,
-      "industry": null,
-      "exchange": null
-     },
-     {
-      "ticker": "TRX-USD",
-      "symbol": "TRX",
-      "name": "TRON",
-      "score": 69.0,
-      "label": "Buy",
+      "score": 80.0,
+      "label": "Strong Buy",
       "category_score": null,
       "sector": null,
       "industry": null,
@@ -30658,33 +30647,11 @@
       "exchange": null
      },
      {
-      "ticker": "DGAI-USD",
-      "symbol": "DGAI",
-      "name": "DGrid AI",
-      "score": 65.0,
+      "ticker": "TRX-USD",
+      "symbol": "TRX",
+      "name": "TRON",
+      "score": 67.0,
       "label": "Buy",
-      "category_score": null,
-      "sector": null,
-      "industry": null,
-      "exchange": null
-     },
-     {
-      "ticker": "BTC-USD",
-      "symbol": "BTC",
-      "name": "Bitcoin",
-      "score": 64.0,
-      "label": "Hold",
-      "category_score": null,
-      "sector": null,
-      "industry": null,
-      "exchange": null
-     },
-     {
-      "ticker": "GOMINING-USD",
-      "symbol": "GOMINING",
-      "name": "Go\u041cining",
-      "score": 64.0,
-      "label": "Hold",
       "category_score": null,
       "sector": null,
       "industry": null,
@@ -30694,7 +30661,18 @@
       "ticker": "VVV35509-USD",
       "symbol": "VVV",
       "name": "Venice Token",
-      "score": 64.0,
+      "score": 65.0,
+      "label": "Buy",
+      "category_score": null,
+      "sector": null,
+      "industry": null,
+      "exchange": null
+     },
+     {
+      "ticker": "GOMINING-USD",
+      "symbol": "GOMINING",
+      "name": "Go\u041cining",
+      "score": 63.0,
       "label": "Hold",
       "category_score": null,
       "sector": null,
@@ -30705,7 +30683,7 @@
       "ticker": "LEO-USD",
       "symbol": "LEO",
       "name": "UNUS SED LEO",
-      "score": 62.0,
+      "score": 63.0,
       "label": "Hold",
       "category_score": null,
       "sector": null,
@@ -30713,10 +30691,10 @@
       "exchange": null
      },
      {
-      "ticker": "XMR-USD",
-      "symbol": "XMR",
-      "name": "Monero",
-      "score": 59.0,
+      "ticker": "CAP40531-USD",
+      "symbol": "CAP",
+      "name": "Cap",
+      "score": 61.0,
       "label": "Hold",
       "category_score": null,
       "sector": null,
@@ -30724,10 +30702,10 @@
       "exchange": null
      },
      {
-      "ticker": "APEPE27048-USD",
-      "symbol": "APEPE",
-      "name": "Ape and Pepe",
-      "score": 58.0,
+      "ticker": "DGAI-USD",
+      "symbol": "DGAI",
+      "name": "DGrid AI",
+      "score": 61.0,
       "label": "Hold",
       "category_score": null,
       "sector": null,
@@ -30738,6 +30716,39 @@
       "ticker": "DRV35014-USD",
       "symbol": "DRV",
       "name": "Derive",
+      "score": 59.0,
+      "label": "Hold",
+      "category_score": null,
+      "sector": null,
+      "industry": null,
+      "exchange": null
+     },
+     {
+      "ticker": "HYPE32196-USD",
+      "symbol": "HYPE",
+      "name": "Hyperliquid",
+      "score": 59.0,
+      "label": "Hold",
+      "category_score": null,
+      "sector": null,
+      "industry": null,
+      "exchange": null
+     },
+     {
+      "ticker": "BTC-USD",
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "score": 58.0,
+      "label": "Hold",
+      "category_score": null,
+      "sector": null,
+      "industry": null,
+      "exchange": null
+     },
+     {
+      "ticker": "ETH-USD",
+      "symbol": "ETH",
+      "name": "Ethereum",
       "score": 57.0,
       "label": "Hold",
       "category_score": null,
@@ -30757,9 +30768,9 @@
       "exchange": null
      },
      {
-      "ticker": "ETH-USD",
-      "symbol": "ETH",
-      "name": "Ethereum",
+      "ticker": "XMR-USD",
+      "symbol": "XMR",
+      "name": "Monero",
       "score": 56.0,
       "label": "Hold",
       "category_score": null,
@@ -30768,20 +30779,9 @@
       "exchange": null
      },
      {
-      "ticker": "CAP40531-USD",
-      "symbol": "CAP",
-      "name": "Cap",
-      "score": 55.0,
-      "label": "Hold",
-      "category_score": null,
-      "sector": null,
-      "industry": null,
-      "exchange": null
-     },
-     {
-      "ticker": "HYPE32196-USD",
-      "symbol": "HYPE",
-      "name": "Hyperliquid",
+      "ticker": "APEPE27048-USD",
+      "symbol": "APEPE",
+      "name": "Ape and Pepe",
       "score": 55.0,
       "label": "Hold",
       "category_score": null,
@@ -30801,6 +30801,17 @@
       "exchange": null
      },
      {
+      "ticker": "BRWL-USD",
+      "symbol": "BRWL",
+      "name": "Blockchain Brawlers",
+      "score": 54.0,
+      "label": "Hold",
+      "category_score": null,
+      "sector": null,
+      "industry": null,
+      "exchange": null
+     },
+     {
       "ticker": "ARIA38102-USD",
       "symbol": "ARIA",
       "name": "AriaAI",
@@ -30812,21 +30823,10 @@
       "exchange": null
      },
      {
-      "ticker": "D11374-USD",
-      "symbol": "D11374",
-      "name": "DAR Open Network",
-      "score": 53.0,
-      "label": "Hold",
-      "category_score": null,
-      "sector": null,
-      "industry": null,
-      "exchange": null
-     },
-     {
       "ticker": "BNB-USD",
       "symbol": "BNB",
       "name": "BNB",
-      "score": 52.0,
+      "score": 53.0,
       "label": "Hold",
       "category_score": null,
       "sector": null,
@@ -33385,6 +33385,17 @@
       "exchange": "Toronto"
      },
      {
+      "ticker": "CYB.TO",
+      "symbol": "CYB.TO",
+      "name": "Cymbria Corporation",
+      "score": 84.0,
+      "label": "Strong Buy",
+      "category_score": null,
+      "sector": "Financial Services",
+      "industry": "Asset Management",
+      "exchange": "Toronto"
+     },
+     {
       "ticker": "NWC.TO",
       "symbol": "NWC.TO",
       "name": "The North West Company Inc.",
@@ -33396,21 +33407,10 @@
       "exchange": "Toronto"
      },
      {
-      "ticker": "CYB.TO",
-      "symbol": "CYB.TO",
-      "name": "Cymbria Corporation",
-      "score": 83.0,
-      "label": "Strong Buy",
-      "category_score": null,
-      "sector": "Financial Services",
-      "industry": "Asset Management",
-      "exchange": "Toronto"
-     },
-     {
       "ticker": "CVG.TO",
       "symbol": "CVG.TO",
       "name": "Clairvest Group Inc.",
-      "score": 80.0,
+      "score": 81.0,
       "label": "Strong Buy",
       "category_score": null,
       "sector": "Financial Services",
@@ -33421,8 +33421,8 @@
       "ticker": "ELF.TO",
       "symbol": "ELF.TO",
       "name": "E-L Financial Corporation Limited",
-      "score": 79.0,
-      "label": "Buy",
+      "score": 80.0,
+      "label": "Strong Buy",
       "category_score": null,
       "sector": "Financial Services",
       "industry": "Insurance\u2014Life",
@@ -33448,6 +33448,17 @@
       "category_score": null,
       "sector": "Consumer Cyclical",
       "industry": "Packaging & Containers",
+      "exchange": "Toronto"
+     },
+     {
+      "ticker": "IGM.TO",
+      "symbol": "IGM.TO",
+      "name": "IGM Financial Inc.",
+      "score": 76.0,
+      "label": "Buy",
+      "category_score": null,
+      "sector": "Financial Services",
+      "industry": "Asset Management",
       "exchange": "Toronto"
      },
      {
@@ -33481,17 +33492,6 @@
       "category_score": null,
       "sector": "Financial Services",
       "industry": "Insurance\u2014Life",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "IGM.TO",
-      "symbol": "IGM.TO",
-      "name": "IGM Financial Inc.",
-      "score": 75.0,
-      "label": "Buy",
-      "category_score": null,
-      "sector": "Financial Services",
-      "industry": "Asset Management",
       "exchange": "Toronto"
      },
      {
@@ -33629,9 +33629,9 @@
       "ticker": "CNQ.TO",
       "symbol": "CNQ.TO",
       "name": "Canadian Natural Resources Limited",
-      "score": 67.0,
+      "score": 68.0,
       "label": "Buy",
-      "category_score": 93.9,
+      "category_score": 93.8,
       "sector": "Energy",
       "industry": "Oil & Gas E&P",
       "exchange": "Toronto"
@@ -33642,20 +33642,9 @@
       "name": "Capital Power Corporation",
       "score": 48.0,
       "label": "Hold",
-      "category_score": 91.8,
+      "category_score": 91.7,
       "sector": "Utilities",
       "industry": "Utilities\u2014Independent Power Producers",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "WGX.TO",
-      "symbol": "WGX.TO",
-      "name": "Westgold Resources Limited",
-      "score": 49.0,
-      "label": "Hold",
-      "category_score": 89.5,
-      "sector": "Basic Materials",
-      "industry": "Gold",
       "exchange": "Toronto"
      },
      {
@@ -33667,6 +33656,17 @@
       "category_score": 88.7,
       "sector": "Basic Materials",
       "industry": "Lumber & Wood Production",
+      "exchange": "Toronto"
+     },
+     {
+      "ticker": "WGX.TO",
+      "symbol": "WGX.TO",
+      "name": "Westgold Resources Limited",
+      "score": 49.0,
+      "label": "Hold",
+      "category_score": 88.7,
+      "sector": "Basic Materials",
+      "industry": "Gold",
       "exchange": "Toronto"
      },
      {
@@ -33686,7 +33686,7 @@
       "name": "Badger Infrastructure Solutions Ltd.",
       "score": 59.0,
       "label": "Hold",
-      "category_score": 87.7,
+      "category_score": 87.6,
       "sector": "Industrials",
       "industry": "Engineering & Construction",
       "exchange": "Toronto"
@@ -33730,7 +33730,7 @@
       "name": "Canadian National Railway Company",
       "score": 68.0,
       "label": "Buy",
-      "category_score": 84.8,
+      "category_score": 84.7,
       "sector": "Industrials",
       "industry": "Railroads",
       "exchange": "Toronto"
@@ -33741,7 +33741,7 @@
       "name": "ADENTRA Inc.",
       "score": 55.0,
       "label": "Hold",
-      "category_score": 84.3,
+      "category_score": 84.4,
       "sector": "Industrials",
       "industry": "Industrial Distribution",
       "exchange": "Toronto"
@@ -33763,7 +33763,7 @@
       "name": "Endeavour Mining plc",
       "score": 50.0,
       "label": "Hold",
-      "category_score": 81.9,
+      "category_score": 81.8,
       "sector": "Basic Materials",
       "industry": "Gold",
       "exchange": "Toronto"
@@ -33794,7 +33794,7 @@
       "ticker": "MFI.TO",
       "symbol": "MFI.TO",
       "name": "Maple Leaf Foods Inc.",
-      "score": 58.0,
+      "score": 59.0,
       "label": "Hold",
       "category_score": 80.8,
       "sector": "Consumer Defensive",
@@ -33861,7 +33861,7 @@
       "name": "Parex Resources Inc.",
       "score": 60.0,
       "label": "Hold",
-      "category_score": 97.8,
+      "category_score": 97.7,
       "sector": "Energy",
       "industry": "Oil & Gas E&P",
       "exchange": "Toronto"
@@ -33883,20 +33883,9 @@
       "name": "ADENTRA Inc.",
       "score": 55.0,
       "label": "Hold",
-      "category_score": 96.6,
+      "category_score": 96.8,
       "sector": "Industrials",
       "industry": "Industrial Distribution",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "BTO.TO",
-      "symbol": "BTO.TO",
-      "name": "B2Gold Corp.",
-      "score": 50.0,
-      "label": "Hold",
-      "category_score": 95.2,
-      "sector": "Basic Materials",
-      "industry": "Gold",
       "exchange": "Toronto"
      },
      {
@@ -33905,9 +33894,20 @@
       "name": "Cascades Inc.",
       "score": 58.0,
       "label": "Hold",
-      "category_score": 95.1,
+      "category_score": 95.0,
       "sector": "Consumer Cyclical",
       "industry": "Packaging & Containers",
+      "exchange": "Toronto"
+     },
+     {
+      "ticker": "BTO.TO",
+      "symbol": "BTO.TO",
+      "name": "B2Gold Corp.",
+      "score": 50.0,
+      "label": "Hold",
+      "category_score": 95.0,
+      "sector": "Basic Materials",
+      "industry": "Gold",
       "exchange": "Toronto"
      },
      {
@@ -33916,7 +33916,7 @@
       "name": "Orezone Gold Corporation",
       "score": 52.0,
       "label": "Hold",
-      "category_score": 93.4,
+      "category_score": 93.2,
       "sector": "Basic Materials",
       "industry": "Gold",
       "exchange": "Toronto"
@@ -33927,7 +33927,7 @@
       "name": "Ero Copper Corp.",
       "score": 49.0,
       "label": "Hold",
-      "category_score": 92.6,
+      "category_score": 92.5,
       "sector": "Basic Materials",
       "industry": "Copper",
       "exchange": "Toronto"
@@ -33936,7 +33936,7 @@
       "ticker": "MRC.TO",
       "symbol": "MRC.TO",
       "name": "Morguard Corporation",
-      "score": 62.0,
+      "score": 61.0,
       "label": "Hold",
       "category_score": 91.8,
       "sector": "Real Estate",
@@ -33960,7 +33960,7 @@
       "name": "Fortuna Mining Corp.",
       "score": 46.0,
       "label": "Hold",
-      "category_score": 90.2,
+      "category_score": 89.8,
       "sector": "Basic Materials",
       "industry": "Gold",
       "exchange": "Toronto"
@@ -33971,7 +33971,7 @@
       "name": "Linamar Corporation",
       "score": 66.0,
       "label": "Buy",
-      "category_score": 89.2,
+      "category_score": 89.5,
       "sector": "Consumer Cyclical",
       "industry": "Auto Parts",
       "exchange": "Toronto"
@@ -33982,7 +33982,7 @@
       "name": "Trican Well Service Ltd.",
       "score": 74.0,
       "label": "Buy",
-      "category_score": 89.0,
+      "category_score": 88.8,
       "sector": "Energy",
       "industry": "Oil & Gas Equipment & Services",
       "exchange": "Toronto"
@@ -33993,7 +33993,7 @@
       "name": "Torex Resources Inc.",
       "score": 57.0,
       "label": "Hold",
-      "category_score": 88.1,
+      "category_score": 87.1,
       "sector": "Basic Materials",
       "industry": "Gold",
       "exchange": "Toronto"
@@ -34004,7 +34004,7 @@
       "name": "Total Energy Services Inc.",
       "score": 66.0,
       "label": "Buy",
-      "category_score": 87.9,
+      "category_score": 86.8,
       "sector": "Energy",
       "industry": "Oil & Gas Equipment & Services",
       "exchange": "Toronto"
@@ -34015,9 +34015,20 @@
       "name": "OceanaGold Corporation",
       "score": 58.0,
       "label": "Hold",
-      "category_score": 87.4,
+      "category_score": 86.3,
       "sector": "Basic Materials",
       "industry": "Gold",
+      "exchange": "Toronto"
+     },
+     {
+      "ticker": "SCZ.TO",
+      "symbol": "SCZ.TO",
+      "name": "Santacruz Silver Mining Ltd.",
+      "score": 46.0,
+      "label": "Hold",
+      "category_score": 85.2,
+      "sector": "Basic Materials",
+      "industry": "Other Industrial Metals & Mining",
       "exchange": "Toronto"
      },
      {
@@ -34026,31 +34037,20 @@
       "name": "IAMGOLD Corporation",
       "score": 51.0,
       "label": "Hold",
-      "category_score": 84.1,
+      "category_score": 83.1,
       "sector": "Basic Materials",
       "industry": "Gold",
       "exchange": "Toronto"
      },
      {
-      "ticker": "ARIS.TO",
-      "symbol": "ARIS.TO",
-      "name": "Aris Mining Corporation",
-      "score": 46.0,
+      "ticker": "LUN.TO",
+      "symbol": "LUN.TO",
+      "name": "Lundin Mining Corporation",
+      "score": 47.0,
       "label": "Hold",
-      "category_score": 82.8,
+      "category_score": 82.0,
       "sector": "Basic Materials",
-      "industry": "Gold",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "LNF.TO",
-      "symbol": "LNF.TO",
-      "name": "Leon's Furniture Limited",
-      "score": 75.0,
-      "label": "Buy",
-      "category_score": 82.2,
-      "sector": "Consumer Cyclical",
-      "industry": "Specialty Retail",
+      "industry": "Copper",
       "exchange": "Toronto"
      }
     ]
@@ -34078,7 +34078,7 @@
       "ticker": "CVG.TO",
       "symbol": "CVG.TO",
       "name": "Clairvest Group Inc.",
-      "score": 80.0,
+      "score": 81.0,
       "label": "Strong Buy",
       "category_score": 99.2,
       "sector": "Financial Services",
@@ -34089,7 +34089,7 @@
       "ticker": "CYB.TO",
       "symbol": "CYB.TO",
       "name": "Cymbria Corporation",
-      "score": 83.0,
+      "score": 84.0,
       "label": "Strong Buy",
       "category_score": 97.9,
       "sector": "Financial Services",
@@ -34100,7 +34100,7 @@
       "ticker": "MRC.TO",
       "symbol": "MRC.TO",
       "name": "Morguard Corporation",
-      "score": 62.0,
+      "score": 61.0,
       "label": "Hold",
       "category_score": 97.1,
       "sector": "Real Estate",
@@ -34124,7 +34124,7 @@
       "name": "CCL Industries Inc.",
       "score": 78.0,
       "label": "Buy",
-      "category_score": 96.4,
+      "category_score": 96.5,
       "sector": "Consumer Cyclical",
       "industry": "Packaging & Containers",
       "exchange": "Toronto"
@@ -34141,6 +34141,17 @@
       "exchange": "Toronto"
      },
      {
+      "ticker": "H.TO",
+      "symbol": "H.TO",
+      "name": "Hydro One Limited",
+      "score": 66.0,
+      "label": "Buy",
+      "category_score": 95.4,
+      "sector": "Utilities",
+      "industry": "Utilities\u2014Regulated Electric",
+      "exchange": "Toronto"
+     },
+     {
       "ticker": "CU.TO",
       "symbol": "CU.TO",
       "name": "Canadian Utilities Limited",
@@ -34149,17 +34160,6 @@
       "category_score": 95.4,
       "sector": "Utilities",
       "industry": "Utilities\u2014Diversified",
-      "exchange": "Toronto"
-     },
-     {
-      "ticker": "H.TO",
-      "symbol": "H.TO",
-      "name": "Hydro One Limited",
-      "score": 66.0,
-      "label": "Buy",
-      "category_score": 95.3,
-      "sector": "Utilities",
-      "industry": "Utilities\u2014Regulated Electric",
       "exchange": "Toronto"
      },
      {
@@ -34254,8 +34254,8 @@
       "ticker": "ELF.TO",
       "symbol": "ELF.TO",
       "name": "E-L Financial Corporation Limited",
-      "score": 79.0,
-      "label": "Buy",
+      "score": 80.0,
+      "label": "Strong Buy",
       "category_score": 92.3,
       "sector": "Financial Services",
       "industry": "Insurance\u2014Life",
